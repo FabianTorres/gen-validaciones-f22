@@ -220,7 +220,9 @@ def normalizar_y_validar(texto_crudo):
     try:
         arbol = parser.parse(texto_limpio)
         texto_formateado = GeneradorTextoNormalizado().transform(arbol)
-        return True, texto_formateado
+        
+        # Retornamos la tupla con 3 elementos
+        return True, texto_formateado, arbol
 
     except exceptions.UnexpectedEOF as e:
         # Intentamos extraer qué esperaba la máquina para dar una pista extra

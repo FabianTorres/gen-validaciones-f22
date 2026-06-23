@@ -1,8 +1,9 @@
 import os
 from src.normalizador.formatter import normalizar_y_validar
+from src.generador.solver import GeneradorCasos
 
 def procesar_lote_formulas(ruta_input, ruta_output):
-    print("--- INICIANDO PRUEBAS FASE 1 (NORMALIZADOR) ---")
+    print("--- INICIANDO PRUEBAS FASE 1 (NORMALIZADOR) Y FASE 2 (GENERADOR Z3) ---")
     
     if not os.path.exists(ruta_input):
         print(f"❌ Error: No se encontro el archivo {ruta_input}")
@@ -12,7 +13,7 @@ def procesar_lote_formulas(ruta_input, ruta_output):
     with open(ruta_input, 'r', encoding='utf-8') as file:
         lineas_crudas = file.readlines()
 
-    # --- NUEVA LOGICA: Agrupador Multilinea ---
+    # --- LOGICA: Agrupador Multilinea ---
     validaciones = []
     buffer_val = ""
     
@@ -37,6 +38,9 @@ def procesar_lote_formulas(ruta_input, ruta_output):
     resultados_exitosos = []
     print(f"Se lograron agrupar {len(validaciones)} validaciones completas.\n")
 
+    # --- NUEVO: Instanciamos el Motor Matemático (Fase 2) ---
+    generador_z3 = GeneradorCasos()
+
     for index, linea in enumerate(validaciones, 1):
         try:
             id_val, formula_cruda = linea.split("|", 1)
@@ -44,19 +48,49 @@ def procesar_lote_formulas(ruta_input, ruta_output):
             formula_cruda = formula_cruda.strip()
             
             print(f"Procesando Validacion: {id_val}")
-            exito, resultado = normalizar_y_validar(formula_cruda)
+            
+            # --- FASE 1: Normalización y Parseo ---
+            resultado_parseo = normalizar_y_validar(formula_cruda)
+            
+            # Desempaquetado seguro (soporta si formatter.py devuelve 2 o 3 valores)
+            if len(resultado_parseo) == 3:
+                exito, texto_resultado, arbol_ast = resultado_parseo
+            else:
+                exito, texto_resultado = resultado_parseo
+                arbol_ast = None
             
             if exito:
-                print("✅ OK")
-                # Guardamos como un bloque de texto ordenado
-                bloque_resultado = f"Validacion: {id_val}\n{'-'*40}\n{resultado}\n{'='*40}\n"
+                print("✅ Parseo exitoso (Fase 1).")
+                
+                # Guardamos como un bloque de texto ordenado para el frontend
+                bloque_resultado = f"Validacion: {id_val}\n{'-'*40}\n{texto_resultado}\n{'='*40}\n"
                 resultados_exitosos.append(bloque_resultado)
+                
+                # --- FASE 2: Generación Matemática con Z3 ---
+                if arbol_ast is not None:
+                    print("⚙️  Inyectando Árbol de Sintaxis a Z3 (Fase 2)...")
+                    resultado_fase2 = generador_z3.generar_caso_positivo(arbol_ast)
+                    
+                    print("--- RESULTADO CASO POSITIVO BASE ---")
+                    print(f"Estado: {resultado_fase2['Estado']}")
+                    if resultado_fase2['Estado'] == 'EXITO':
+                        for var, val in resultado_fase2['Datos'].items():
+                            print(f"  {var}: {val}")
+                    else:
+                        print(f"  Detalle: {resultado_fase2['Detalle']}")
+                    print("------------------------------------\n")
+                else:
+                    print("⚠️ Fase 2 omitida: normalizar_y_validar no está retornando el arbol_ast.\n")
+                    
             else:
-                print(f"\n{resultado}\n")
+                print(f"\n{texto_resultado}\n")
                 print(f"⚠️ ADVERTENCIA: La validacion {id_val} fue descartada.\n")
                 
-        except ValueError:
-            print(f"⚠️ ADVERTENCIA: Error de formato en la entrada '{linea[:20]}...'")
+        except Exception as e:
+            print(f"⚠️ ERROR CRÍTICO procesando '{linea[:20]}...'")
+            print(f"Detalle del error: {e}")
+            import traceback
+            traceback.print_exc()  # Esto nos escupirá el clásico texto rojo con la línea exacta
 
     # Generar el archivo de salida
     with open(ruta_output, 'w', encoding='utf-8') as file_out:
@@ -64,7 +98,7 @@ def procesar_lote_formulas(ruta_input, ruta_output):
         for res in resultados_exitosos:
             file_out.write(res)
 
-    print("\n--- RESUMEN DEL PROCESAMIENTO ---")
+    print("--- RESUMEN DEL PROCESAMIENTO ---")
     print(f"Total procesadas: {len(validaciones)}")
     print(f"Exitosas (guardadas en output): {len(resultados_exitosos)}")
 

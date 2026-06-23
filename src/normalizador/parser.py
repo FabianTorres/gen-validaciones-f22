@@ -28,7 +28,7 @@ validacion_libre: condicional_leading
                 | comparacion
 
 // Le damos prioridad (.2) para que atrape siempre las asignaciones de variables como "Suma ="
-declaracion_variable: (TEXTO | CODIGO) RELACIONAL valor_asignado
+declaracion_variable: (TEXTO | CODIGO) "=" expresion
 
 ?valor_asignado: casos_trailing
                | condicional_leading
@@ -53,7 +53,7 @@ condicional_leading: "si"i condicion_logica (";"|",")? "entonces"i? valor_asigna
 ?comparacion: funcion_rut RELACIONAL rango_valores
             | "atributo"i "=" rango_valores -> comparacion_atributo
             | "$" expresion -> comparacion_existencia
-            | expresion RELACIONAL condicional_leading -> comparacion_condicional // NUEVA REGLA
+            | expresion (RELACIONAL expresion)* RELACIONAL condicional_leading -> comparacion_condicional
             | expresion (RELACIONAL expresion)+ -> comparacion_simple
 
 rango_valores: serie_numeros | SIMBOLO_APERTURA serie_numeros SIMBOLO_CIERRE
