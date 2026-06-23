@@ -41,6 +41,7 @@ gen-validaciones-f22/
 |
 |-- main.py                     # Orquestador y ejecutor de pruebas por lotes
 |-- requirements.txt            # Dependencias del entorno virtual
+```
 
 ## Stack Tecnologico
 * **Lenguaje:** Python 3.x
