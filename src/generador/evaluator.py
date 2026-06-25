@@ -46,15 +46,48 @@ class EvaluadorAST:
 
     # --- 2. EVALUACION DE REGLAS SINTACTICAS (Nivel Estructural) ---
 
-    def _asignacion(self, nodo):
-        """
-        Traduce una asignación estricta (ej. SUMA = [123] + 10) a restricción Z3.
-        """
+    def _autocalculado(self, nodo):
+        """Asignación de variable estricta de las reglas A y B"""
         izq = self.evaluar(nodo.children[0])
         der = self.evaluar(nodo.children[-1])
-        
-        # En Z3, definimos que el espacio de la variable e izquierdo sea igual al cálculo derecho
         return izq == der
+
+    def _cota(self, nodo):
+        """
+        Resuelve reglas tipo C y N. (ej: A > B o A >= Si...)
+        """
+        izq = self.evaluar(nodo.children[0])
+        operador = self.evaluar(nodo.children[1])
+        der = self.evaluar(nodo.children[2])
+
+        if operador == '>':  return izq > der
+        if operador == '<':  return izq < der
+        if operador == '>=': return izq >= der
+        if operador == '<=': return izq <= der
+        if operador == '=':  return izq == der
+        if operador == '!=': return izq != der
+        raise ValueError(f"Operador de cota desconocido: {operador}")
+
+    def _asignacion_en_condicional(self, nodo):
+        """Cuando se asigna una variable dentro de un ENTONCES en validación Tipo M"""
+        izq = self.evaluar(nodo.children[0])
+        der = self.evaluar(nodo.children[-1])
+        return izq == der
+        
+    def _comparacion_simple(self, nodo):
+        """Resuelve operaciones relacionales simples de la capa lógica (ej. A > B)"""
+        izq = self.evaluar(nodo.children[0])
+        operador = self.evaluar(nodo.children[1])
+        der = self.evaluar(nodo.children[2])
+        
+        if operador == '>':  return izq > der
+        if operador == '<':  return izq < der
+        if operador == '>=': return izq >= der
+        if operador == '<=': return izq <= der
+        if operador == '=':  return izq == der
+        if operador == '!=': return izq != der
+        raise ValueError(f"Operador relacional numérico desconocido: {operador}")
+    
     
     def _comparacion_simple(self, nodo):
         """
@@ -151,28 +184,7 @@ class EvaluadorAST:
         # debe cumplirse simultáneamente, por lo que las unimos con un AND global.
         return z3.And(*restricciones)
 
-    def _comparacion_condicional(self, nodo):
-        """
-        Resuelve comparaciones encadenadas que terminan en un bloque condicional.
-        (Ej: [1193] > 0 => Si atributo = 14D1 entonces...)
-        Utiliza exactamente la misma lógica de iteración.
-        """
-        resultado = self.evaluar(nodo.children[0])
-        
-        for i in range(1, len(nodo.children), 2):
-            operador = self.evaluar(nodo.children[i])
-            siguiente = self.evaluar(nodo.children[i+1])
-            
-            if operador == '>':  resultado = resultado > siguiente
-            elif operador == '<':  resultado = resultado < siguiente
-            elif operador == '>=': resultado = resultado >= siguiente
-            elif operador == '<=': resultado = resultado <= siguiente
-            elif operador == '=':  resultado = resultado == siguiente
-            elif operador == '!=': resultado = resultado != siguiente
-            elif operador == '=>': resultado = z3.Implies(resultado, siguiente)
-            else: raise ValueError(f"Operador condicional desconocido: {operador}")
-            
-        return resultado
+    
 
     def _condicional_leading(self, nodo):
         """

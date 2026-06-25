@@ -1,4 +1,4 @@
-from lark import exceptions, Transformer
+from lark import exceptions, Transformer, Tree, Token
 import re
 try:
     from .parser import obtener_parser
@@ -6,6 +6,10 @@ except ImportError:
     from parser import obtener_parser
 
 class GeneradorTextoNormalizado(Transformer):
+    def __init__(self, id_val=""):
+        super().__init__()
+        self.id_val = id_val  # Guardamos el contexto (ej. "n.2")
+
     def _indentar(self, texto):
         return "\n".join("  " + linea for linea in texto.split("\n"))
 
@@ -22,29 +26,27 @@ class GeneradorTextoNormalizado(Transformer):
             res += f"\nDONDE {v}"
         return res
 
-    def asignacion(self, args):
-        val = str(args[2])
-        if "\n" in val or "SI " in val:
-            return f"{args[0]} {args[1]}\n{self._indentar(val)}"
-        return f"{args[0]} {args[1]} {val}"
+    
 
     # Formateador para las Implicaciones de Coherencia Logica
     def implicacion(self, args):
+        # La tupla ahora es [condicion_logica, IMPLICA, consecuencia_implicacion]
         condicion_previa = str(args[0])
-        requisito = str(args[1])
+        requisito = str(args[2])
         return f"SI SE CUMPLE CONDICION:\n{self._indentar(condicion_previa)}\n=> ENTONCES ES REQUISITO OBLIGATORIO:\n{self._indentar(requisito)}"
-
+    
     def validacion_libre(self, args):
         # Simplemente devuelve la estructura de la condicion flotante
         return str(args[0])
 
     def declaracion_variable(self, args):
-        val = str(args[2])
+        # args solo trae 2 elementos: [nombre, expresion].
+        nombre = str(args[0])
+        val = str(args[1])
         if "\n" in val or "SI " in val:
-            texto = f"{args[0]} {args[1]}\n{self._indentar(val)}"
+            texto = f"{nombre} =\n{self._indentar(val)}"
         else:
-            texto = f"{args[0]} {args[1]} {val}"
-        # Devolvemos una tupla para que el metodo "validacion" sepa que esto es una variable
+            texto = f"{nombre} = {val}"
         return ("var", texto)
 
     def valor_asignado(self, args):
@@ -64,6 +66,7 @@ class GeneradorTextoNormalizado(Transformer):
 
     def condicional_leading(self, args):
         res = f"SI {args[0]}\nENTONCES {args[1]}"
+        # Si trae 3 argumentos, es porque el usuario SÍ escribió un SINO opcional
         if len(args) == 3:
             sino_val = str(args[2])
             if sino_val.startswith("SI"):
@@ -73,6 +76,41 @@ class GeneradorTextoNormalizado(Transformer):
         return res
 
     def condicional_implicacion(self, args):
+        res = f"SI {args[0]}\nENTONCES {args[1]}"
+        sino_val = str(args[2])
+        if sino_val.startswith("SI"):
+            res += f"\nSINO\n{self._indentar(sino_val)}"
+        else:
+            res += f"\nSINO {sino_val}"
+        return res
+
+    def condicional_calculo(self, args):
+        res = f"SI {args[0]}\nENTONCES {args[1]}"
+        sino_val = str(args[2])
+        if sino_val.startswith("SI"):
+            res += f"\nSINO\n{self._indentar(sino_val)}"
+        else:
+            res += f"\nSINO {sino_val}"
+        return res
+
+    def condicional_accion(self, args):
+        res = f"SI {args[0]}\nENTONCES {args[1]}"
+        if len(args) == 3:
+            sino_val = str(args[2])
+            if sino_val.startswith("SI"):
+                res += f"\nSINO\n{self._indentar(sino_val)}"
+            else:
+                res += f"\nSINO {sino_val}"
+        return res
+
+    def condicional_cota(self, args):
+        # Si trae menos de 3 argumentos, le falta el SINO
+        if len(args) < 3:
+            tipo = self.id_val.strip().split('.')[0].lower() if self.id_val else ""
+            if tipo == 'c':
+                # PÍLDORA ENVENENADA: Inyectamos una bandera secreta en el texto
+                return "@@ERROR_SINO_FALTANTE_C@@"
+
         res = f"SI {args[0]}\nENTONCES {args[1]}"
         if len(args) == 3:
             sino_val = str(args[2])
@@ -94,17 +132,41 @@ class GeneradorTextoNormalizado(Transformer):
         return " ".join(str(a) for a in args)
         
     def comparacion_atributo(self, args):
-        return f"ATRIBUTO = {args[0]}"
+        # El string "atributo" se devora, nos quedan [RELACIONAL_NUMERICO, rango_valores]
+        operador = str(args[0])
+        valores = str(args[1])
+        return f"ATRIBUTO {operador} {valores}"
         
     def comparacion_simple(self, args):
         return " ".join(str(a) for a in args)
 
-    def comparacion_condicional(self, args):
+    def autocalculado(self, args):
+        # args solo trae 2 elementos: [CODIGO, valor_asignado]. El "=" es devorado por Lark.
+        codigo = str(args[0])
+        val = str(args[1])
+        if "\n" in val or "SI " in val:
+            return f"{codigo} =\n{self._indentar(val)}"
+        return f"{codigo} = {val}"
+
+    def cota(self, args):
         izq = str(args[0])
         rel = str(args[1])
-        cond = str(args[2])
-        # Indentamos el bloque condicional para que la jerarquía visual sea perfecta
-        return f"{izq} {rel}\n{self._indentar(cond)}"
+        der = str(args[2])
+        if "\n" in der or "SI " in der:
+            return f"{izq} {rel}\n{self._indentar(der)}"
+        return f"{izq} {rel} {der}"
+
+    def asignacion_en_condicional(self, args):
+        # args solo trae 2 elementos: [nombre, valor_asignado].
+        return f"{args[0]} = {args[1]}"
+        
+    def RELACIONAL_NUMERICO(self, token):
+        val = str(token)
+        return val
+
+    def IMPLICA(self, token):
+        return "=>"
+    
 
     def rango_valores(self, args):
         if len(args) == 3:
@@ -168,6 +230,10 @@ class GeneradorTextoNormalizado(Transformer):
         # Si contiene letras (ej. "M" o "J"), es variable en memoria y va sin corchetes
         return f"{interior}"
 
+    def MARCA_CHECK(self, token):
+        # Fuerza que cualquier marca de verificación se estandarice visualmente a "X"
+        return '"X"'
+
     def VECTOR(self, token):
         num = str(token).upper().replace('VX01', '').replace('VX', '')
         return f"Vx01{num.zfill(4)}"
@@ -179,25 +245,127 @@ class GeneradorTextoNormalizado(Transformer):
         return str(token).upper()
 
     def LOGICO(self, token):
-        return str(token).upper()
+        val = str(token).upper()
+        # Estandarizamos las conjunciones solitarias al formato matemático
+        if val == 'Y': return '.Y.'
+        if val == 'O': return '.O.'
+        return val
         
     def TEXTO(self, token):
-        return str(token).upper()
+        val = str(token).upper()
+        # Si el texto es una B solitaria, la estandarizamos como el estado BLANCO
+        if val == 'B':
+            return '"BLANCO"'
+        return val
         
     def FORMATO_FECHA(self, token):
         return str(token).upper()
-        
-    def RELACIONAL(self, token):
-        val = str(token)
-        if val == "=>": return ">="
-        if val == "=<": return "<="
-        if val == "£": return "<="
-        if val == "≤": return "<="
-        if val == "≥": return ">="
-        if val == "≠": return "!="
-        return val
 
-def normalizar_y_validar(texto_crudo):
+class DesenrolladorAST(Transformer):
+    """
+    Fase Intermedia: Bajar el Azúcar Sintáctico (Desugaring).
+    Convierte 'TIPO([03]) = 2, 3' estructuralmente en 'TIPO([03]) = 2 .O. TIPO([03]) = 3'.
+    Garantiza que el frontend y Z3 reciban lógica booleana estricta.
+    """
+    def comparacion_funcion(self, args):
+        izq_tree = args[0]
+        rel_token = args[1]
+        rango_tree = args[2]
+        
+        # Extraemos la serie de números
+        serie = rango_tree.children[0] if len(rango_tree.children) == 1 else rango_tree.children[1]
+        
+        condiciones = []
+        operadores = []
+        
+        for child in serie.children:
+            if isinstance(child, Token) and child.type in ('LOGICO', 'SEPARADOR'):
+                op = '.O.' if child.type == 'SEPARADOR' or child.value in (',', ';') else str(child.value).upper()
+                operadores.append(Token('LOGICO', op))
+            else:
+                # Armamos una comparación individual: TIPO([03]) = 2
+                comp_tree = Tree('comparacion_simple', [izq_tree, rel_token, child])
+                condiciones.append(comp_tree)
+        
+        # Si no había comas, devolvemos la condición simple intacta
+        if len(condiciones) == 1:
+            return condiciones[0]
+            
+        # Si había comas, armamos el tren de ORs (.O.)
+        hijos_logica = []
+        for i in range(len(condiciones)):
+            hijos_logica.append(Tree('sub_condicion', [condiciones[i]]))
+            if i < len(operadores):
+                hijos_logica.append(operadores[i])
+                
+        cond_logica = Tree('condicion_logica', hijos_logica)
+        # Envolvemos todo en paréntesis ( A .O. B ) para cuidar la precedencia matemática
+        return Tree('sub_condicion', [Token('SIMBOLO_APERTURA', '('), cond_logica, Token('SIMBOLO_CIERRE', ')')])
+
+    def comparacion_atributo(self, args):
+        rel_token = args[0]
+        rango_tree = args[1]
+        
+        serie = rango_tree.children[0] if len(rango_tree.children) == 1 else rango_tree.children[1]
+        
+        condiciones = []
+        operadores = []
+        
+        for child in serie.children:
+            if isinstance(child, Token) and child.type in ('LOGICO', 'SEPARADOR'):
+                op = '.O.' if child.type == 'SEPARADOR' or child.value in (',', ';') else str(child.value).upper()
+                operadores.append(Token('LOGICO', op))
+            else:
+                rango_singular = Tree('rango_valores', [Tree('serie_numeros', [child])])
+                comp_tree = Tree('comparacion_atributo', [rel_token, rango_singular])
+                condiciones.append(comp_tree)
+        
+        if len(condiciones) == 1:
+            return condiciones[0]
+            
+        hijos_logica = []
+        for i in range(len(condiciones)):
+            hijos_logica.append(Tree('sub_condicion', [condiciones[i]]))
+            if i < len(operadores):
+                hijos_logica.append(operadores[i])
+                
+        cond_logica = Tree('condicion_logica', hijos_logica)
+        return Tree('sub_condicion', [Token('SIMBOLO_APERTURA', '('), cond_logica, Token('SIMBOLO_CIERRE', ')')])
+
+def chequear_balance(texto):
+    """Algoritmo de pila para encontrar la posición exacta de un desbalance."""
+    pila = []
+    pares = {')': '(', '}': '{', ']': '['}
+    nombres = {'(': 'paréntesis', '{': 'llave', '[': 'corchete'}
+    
+    for i, char in enumerate(texto):
+        if char in '({[':
+            pila.append((char, i))
+        elif char in ')}]':
+            if not pila:
+                return False, i, f"Se cerró un(a) {nombres[pares[char]]} de más."
+            tope, _ = pila.pop()
+            if tope != pares[char]:
+                return False, i, f"Se esperaba cerrar un(a) {nombres[tope]}, pero se encontró '{char}'."
+                
+    if pila:
+        char, i = pila[0]
+        return False, i, f"Quedó un(a) {nombres[char]} abierto sin cerrar."
+        
+    return True, -1, ""
+
+def generar_contexto_error(texto, indice):
+    """Genera un string visual apuntando al error, igual que Lark."""
+    inicio = max(0, indice - 20)
+    fin = min(len(texto), indice + 20)
+    fragmento = texto[inicio:fin]
+    apuntador = " " * (indice - inicio) + "^"
+    return f"{fragmento}\n{apuntador}"
+
+def normalizar_y_validar(texto_crudo, id_val=""):
+    """
+    API READY: Ahora retorna un diccionario con estructura estándar para el Frontend.
+    """
     parser = obtener_parser()
     
     texto_limpio = texto_crudo.replace('\xa0', ' ').replace('\u200b', '').replace('\t', ' ')
@@ -209,61 +377,146 @@ def normalizar_y_validar(texto_crudo):
     texto_limpio = re.sub(r'_{2,}', ' ', texto_limpio)
     texto_limpio = texto_limpio.replace('.y,', '.y.').replace('.Y,', '.y.')
     texto_limpio = texto_limpio.replace('.o,', '.o.').replace('.O,', '.o.')
+    texto_limpio = texto_limpio.replace(',y.', '.y.').replace(',Y.', '.y.')
+    texto_limpio = texto_limpio.replace(',o.', '.o.').replace(',O.', '.o.')
+    texto_limpio = texto_limpio.replace('""', '"')
     
-    if texto_limpio.count('(') != texto_limpio.count(')'):
-        return False, "❌ BLOQUEO: Desbalance de paréntesis."
-    if texto_limpio.count('{') != texto_limpio.count('}'):
-        return False, "❌ BLOQUEO: Desbalance de llaves."
-    if texto_limpio.count('[') != texto_limpio.count(']'):
-        return False, "❌ BLOQUEO: Desbalance de corchetes."
+    # 1. Validación de Balance con posición exacta
+    balanceado, indice_error, msg_desbalance = chequear_balance(texto_limpio)
+    if not balanceado:
+        contexto = generar_contexto_error(texto_limpio, indice_error)
+        return {
+            "estado": "ERROR",
+            "tipo_error": "DESBALANCE_SIMBOLOS",
+            "mensaje": f"❌ BLOQUEO: Error de apertura/cierre.\nDetalle: {msg_desbalance}\n\n{contexto}",
+            "arbol": None
+        }
 
+    # 2. Análisis Sintáctico (Lark)
     try:
-        arbol = parser.parse(texto_limpio)
-        texto_formateado = GeneradorTextoNormalizado().transform(arbol)
+        arbol_crudo = parser.parse(texto_limpio)
         
-        # Retornamos la tupla con 3 elementos
-        return True, texto_formateado, arbol
+        # FASE INTERMEDIA: Desenrollamos el AST (Opción A)
+        arbol_desenrollado = DesenrolladorAST().transform(arbol_crudo)
+        # FASE INTERMEDIA 2: Sanitización de Estados Nulos (B -> BLANCO)
+        def sanitizar_ast(arbol):
+            for i, hijo in enumerate(arbol.children):
+                if isinstance(hijo, Tree):
+                    sanitizar_ast(hijo) # Escanear más profundo
+                elif isinstance(hijo, Token) and hijo.type == 'TEXTO' and hijo.value.upper() == 'B':
+                    # Operación quirúrgica: Cambiamos el Token directamente en el hueso del AST
+                    arbol.children[i] = Token('TEXTO', 'BLANCO')
+                    
+        # Ejecutamos el escáner sobre el árbol
+        sanitizar_ast(arbol_desenrollado)
+        
+        # Formateamos el árbol ya desenrollado para que el frontend lo dibuje bonito
+        texto_formateado = GeneradorTextoNormalizado().transform(arbol_desenrollado)
+
+        if "@@ERROR_SINO_FALTANTE_C@@" in texto_formateado:
+            return {
+                "estado": "ERROR",
+                "tipo_error": "SINO_FALTANTE",
+                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla tipo C (Cota Bloqueante) que empiece con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula si no hay otra condición.",
+                "arbol": None
+            }
+        
+        return {
+            "estado": "EXITO",
+            "texto_formateado": texto_formateado,
+            # Entregamos el AST procesado para que Z3 pueda leerlo sin colapsar
+            "arbol": arbol_desenrollado 
+        }
+
+    except ValueError as e:
+        if str(e) == "SINO_FALTANTE_C":
+            return {
+                "estado": "ERROR",
+                "tipo_error": "SINO_FALTANTE",
+                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla tipo C (Cota Bloqueante) que empiece con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula si no hay otra condición.",
+                "arbol": None
+            }
+        raise e
+
+    except exceptions.VisitError as e:
+        # Lark envuelve nuestro ValueError en un VisitError. Aquí lo rescatamos:
+        if isinstance(e.orig_exc, ValueError) and str(e.orig_exc) == "SINO_FALTANTE_C":
+            return {
+                "estado": "ERROR",
+                "tipo_error": "SINO_FALTANTE",
+                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla tipo C (Cota Bloqueante) que empiece con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula si no hay otra condición.",
+                "arbol": None
+            }
+        raise e  # Si es otro error interno, que explote normalmente
 
     except exceptions.UnexpectedEOF as e:
-        # Intentamos extraer qué esperaba la máquina para dar una pista extra
-        esperados = ", ".join(e.expected) if hasattr(e, 'expected') and e.expected else "elementos adicionales"
+        esperados = ", ".join(e.expected) if hasattr(e, 'expected') and e.expected else ""
         
+        # Interceptamos si la máquina se estrelló porque esperaba un SINO
+        if "SINO" in esperados.upper() or "SI" in esperados.upper():
+            return {
+                "estado": "ERROR",
+                "tipo_error": "SINO_FALTANTE",
+                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla que inicie con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula si no hay otra condición.",
+                "arbol": None
+            }
+            
         mensaje_error = (
-            "❌ BLOQUEO: Fin de fórmula inesperado (Incompleta).\n\n"
-            "Detalle: La validación termina de forma abrupta y la regla quedó abierta. "
-            "Esto suele ocurrir por dos motivos:\n"
-            "1. La fórmula está cortada literalmente (ej. termina en un signo matemático o lógico).\n"
-            "2. Falta asignar explícitamente el resultado a un código F22 al final de un condicional.\n\n"
+            "❌ BLOQUEO: Fin de fórmula inesperado (Incompleta).\n"
+            "Detalle: La validación termina de forma abrupta y la regla quedó abierta.\n"
             f"Pista del sistema: Se esperaba encontrar -> {esperados}"
         )
-        return False, mensaje_error
+        return {
+            "estado": "ERROR",
+            "tipo_error": "FORMULA_INCOMPLETA",
+            "mensaje": mensaje_error,
+            "arbol": None
+        }
+        
     except exceptions.UnexpectedCharacters as e:
         contexto = e.get_context(texto_limpio)
-        return False, f"❌ BLOQUEO: Carácter inválido o palabra mal escrita.\n\n{contexto}Detalle: El sistema no reconoce el símbolo o palabra apuntada por la flecha."
+        return {
+            "estado": "ERROR",
+            "tipo_error": "CARACTER_INVALIDO",
+            "mensaje": f"❌ BLOQUEO: Carácter inválido o palabra mal escrita.\nDetalle: El sistema no reconoce el símbolo apuntado por la flecha.\n\n{contexto}",
+            "arbol": None
+        }
         
     except exceptions.UnexpectedToken as e:
         contexto = e.get_context(texto_limpio)
+        esperados_lista = [str(x) for x in e.expected]
+        
+        # Doble validación: Si puso otra palabra en lugar del SINO esperado
+        if any("SINO" in esp.upper() or "SI" in esp.upper() for esp in esperados_lista):
+            return {
+                "estado": "ERROR",
+                "tipo_error": "SINO_FALTANTE",
+                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla que inicie con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Asegúrate de usar 'Sino' o 'Sino 0' para cerrar la regla.",
+                "arbol": None
+            }
+
         traduccion_errores = {
             "SEPARADOR": "Falta un punto y coma ';' o coma ',' separando los argumentos.",
-            "FUNCION": "Problema con la función. Se esperaba MIN, MAX, POS, NEG o ROUND.",
+            "FUNCION": "Problema con la función. Se esperaba MIN, MAX, POS, NEG, ROUND o ABS.",
             "CODIGO": "Se esperaba un Código F22 entre corchetes (ej. [123]).",
-            "RELACIONAL": "Falta un operador de comparación (=, >, <, >=, <=).",
+            "RELACIONAL_NUMERICO": "Falta un operador matemático de comparación (=, >, <, >=, <=).",
+            "IMPLICA": "Se esperaba una flecha de implicación (=>).",
             "MATEMATICO": "Problema matemático. Se esperaba un signo (+, -, *, /).",
             "LOGICO": "Falta un conector lógico (.Y. o .O.).",
             "NUMERO": "Se esperaba un número.",
-            "PALABRA_CLAVE": "Se esperaba una palabra clave (SI, SINO, ENTONCES)."
+            "TEXTO": "Se esperaba una palabra clave válida."
         }
         
-        mensajes_especificos = []
-        for esperado in e.expected:
-            if esperado in traduccion_errores:
-                mensajes_especificos.append(traduccion_errores[esperado])
-                
+        mensajes_especificos = [traduccion_errores[esp] for esp in e.expected if esp in traduccion_errores]
+        
         if mensajes_especificos:
-            motivos = list(set(mensajes_especificos))
-            detalle = "Problema detectado: " + " O bien, ".join(motivos)
+            detalle = "Problema detectado: " + " O bien, ".join(list(set(mensajes_especificos)))
         else:
-            esperados_crudos = ", ".join(e.expected)
-            detalle = f"Error de estructura. El sistema esperaba encontrar: {esperados_crudos}"
+            detalle = f"Error de estructura. El sistema esperaba encontrar: {', '.join(e.expected)}"
 
-        return False, f"❌ BLOQUEO: Error de Sintaxis.\n\n{contexto}Detalle: {detalle}"
+        return {
+            "estado": "ERROR",
+            "tipo_error": "ERROR_SINTAXIS",
+            "mensaje": f"❌ BLOQUEO: Error de Sintaxis.\nDetalle: {detalle}\n\n{contexto}",
+            "arbol": None
+        }

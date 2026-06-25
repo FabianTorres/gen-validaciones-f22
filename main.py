@@ -1,9 +1,8 @@
 import os
 from src.normalizador.formatter import normalizar_y_validar
-from src.generador.solver import GeneradorCasos
 
-def procesar_lote_formulas(ruta_input, ruta_output):
-    print("--- INICIANDO PRUEBAS FASE 1 (NORMALIZADOR) Y FASE 2 (GENERADOR Z3) ---")
+def procesar_lote_formulas(ruta_input, ruta_output, ruta_arbol):
+    print("--- INICIANDO PRUEBAS FASE 1 (NORMALIZADOR) ---")
     
     if not os.path.exists(ruta_input):
         print(f"❌ Error: No se encontro el archivo {ruta_input}")
@@ -23,23 +22,18 @@ def procesar_lote_formulas(ruta_input, ruta_output):
             continue
             
         if "|" in linea_limpia:
-            # Si hay un pipe, guardamos la validacion anterior y empezamos una nueva
             if buffer_val:
                 validaciones.append(buffer_val)
             buffer_val = linea_limpia
         else:
-            # Si no hay pipe, es un salto de linea de la misma formula (ej: "Sino 0")
             buffer_val += " " + linea_limpia
             
-    # Guardar la ultima validacion en memoria
     if buffer_val:
         validaciones.append(buffer_val)
 
     resultados_exitosos = []
+    arboles_exitosos = []  # NUEVO: Lista para guardar los AST
     print(f"Se lograron agrupar {len(validaciones)} validaciones completas.\n")
-
-    # --- NUEVO: Instanciamos el Motor Matemático (Fase 2) ---
-    generador_z3 = GeneradorCasos()
 
     for index, linea in enumerate(validaciones, 1):
         try:
@@ -49,60 +43,50 @@ def procesar_lote_formulas(ruta_input, ruta_output):
             
             print(f"Procesando Validacion: {id_val}")
             
-            # --- FASE 1: Normalización y Parseo ---
-            resultado_parseo = normalizar_y_validar(formula_cruda)
+            # Llamada "API" a nuestro núcleo
+            respuesta = normalizar_y_validar(formula_cruda, id_val)
             
-            # Desempaquetado seguro (soporta si formatter.py devuelve 2 o 3 valores)
-            if len(resultado_parseo) == 3:
-                exito, texto_resultado, arbol_ast = resultado_parseo
-            else:
-                exito, texto_resultado = resultado_parseo
-                arbol_ast = None
-            
-            if exito:
-                print("✅ Parseo exitoso (Fase 1).")
+            if respuesta["estado"] == "EXITO":
+                print("✅ Validacion OK.")
                 
-                # Guardamos como un bloque de texto ordenado para el frontend
-                bloque_resultado = f"Validacion: {id_val}\n{'-'*40}\n{texto_resultado}\n{'='*40}\n"
+                # Cuadro de texto de la web con éxito
+                bloque_resultado = f"Validacion: {id_val} [ESTADO: OK]\n{'-'*40}\n{respuesta['texto_formateado']}\n{'='*40}\n"
                 resultados_exitosos.append(bloque_resultado)
                 
-                # --- FASE 2: Generación Matemática con Z3 ---
-                if arbol_ast is not None:
-                    print("⚙️  Inyectando Árbol de Sintaxis a Z3 (Fase 2)...")
-                    resultado_fase2 = generador_z3.generar_caso_positivo(arbol_ast)
-                    
-                    print("--- RESULTADO CASO POSITIVO BASE ---")
-                    print(f"Estado: {resultado_fase2['Estado']}")
-                    if resultado_fase2['Estado'] == 'EXITO':
-                        for var, val in resultado_fase2['Datos'].items():
-                            print(f"  {var}: {val}")
-                    else:
-                        print(f"  Detalle: {resultado_fase2['Detalle']}")
-                    print("------------------------------------\n")
-                else:
-                    print("⚠️ Fase 2 omitida: normalizar_y_validar no está retornando el arbol_ast.\n")
-                    
+                # --- VISUALIZADOR DEL ÁRBOL (AST) ---
+                # Guardamos el árbol generado para el archivo de depuración
+                bloque_arbol = f"Validacion: {id_val}\n{'-'*40}\n{respuesta['arbol'].pretty()}\n{'='*40}\n"
+                arboles_exitosos.append(bloque_arbol)
+                
             else:
-                print(f"\n{texto_resultado}\n")
-                print(f"⚠️ ADVERTENCIA: La validacion {id_val} fue descartada.\n")
+                print(f"⚠️ Error detectado: {respuesta['tipo_error']}")
+                # Cuadro de texto de la web mostrando el error explícito
+                bloque_error = f"Validacion: {id_val} [ESTADO: RECHAZADA]\n{'-'*40}\n{respuesta['mensaje']}\n{'='*40}\n"
+                resultados_exitosos.append(bloque_error)
                 
         except Exception as e:
             print(f"⚠️ ERROR CRÍTICO procesando '{linea[:20]}...'")
-            print(f"Detalle del error: {e}")
-            import traceback
-            traceback.print_exc()  # Esto nos escupirá el clásico texto rojo con la línea exacta
+            print(f"Detalle: {e}")
 
-    # Generar el archivo de salida
+    # Generar archivo de salida del Frontend
     with open(ruta_output, 'w', encoding='utf-8') as file_out:
         file_out.write("=== RESULTADOS NORMALIZADOS (VISTA FRONTEND) ===\n\n")
         for res in resultados_exitosos:
             file_out.write(res)
 
+    # NUEVO: Generar archivo de salida de los Árboles (AST)
+    with open(ruta_arbol, 'w', encoding='utf-8') as file_arbol:
+        file_arbol.write("=== ÁRBOLES DE SINTAXIS ABSTRACTA (AST) - DEPURACIÓN ===\n\n")
+        for arbol in arboles_exitosos:
+            file_arbol.write(arbol)
+
     print("--- RESUMEN DEL PROCESAMIENTO ---")
     print(f"Total procesadas: {len(validaciones)}")
-    print(f"Exitosas (guardadas en output): {len(resultados_exitosos)}")
+    print(f"Exitosas (guardadas en output): {len(arboles_exitosos)}")
+    print(f"Rechazadas: {len(validaciones) - len(arboles_exitosos)}")
 
 if __name__ == "__main__":
     archivo_entrada = "data/input_excel.txt"
     archivo_salida = "data/output_frontend.txt"
-    procesar_lote_formulas(archivo_entrada, archivo_salida)
+    archivo_arbol = "data/output_arbol.txt"  # Nueva ruta para el AST
+    procesar_lote_formulas(archivo_entrada, archivo_salida, archivo_arbol)

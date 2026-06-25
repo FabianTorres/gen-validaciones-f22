@@ -1,0 +1,242 @@
+=== ÁRBOLES DE SINTAXIS ABSTRACTA (AST) - DEPURACIÓN ===
+
+Validacion: c.272
+----------------------------------------
+validacion
+  cota
+    [1639]
+    <=
+    condicional_cota
+      sub_condicion
+        (
+        condicion_logica
+          comparacion_simple
+            funcion_rut
+              TIPO
+              {
+              [03]
+              }
+            =
+            1
+          .y.
+          comparacion_simple
+            [1608]
+            >
+            0
+        )
+      funcion_matematica
+        ROUND
+        {
+        lista_argumentos
+          agrupacion
+            (
+            expresion
+              [1608]
+              *
+              agrupacion
+                (
+                expresion
+                  [157]
+                  /
+                  [170]
+                )
+            )
+        }
+
+========================================
+Validacion: c.273
+----------------------------------------
+validacion
+  cota
+    [2009]
+    >=
+    condicional_cota
+      comparacion_simple
+        funcion_rut
+          TIPO
+          {
+          [03]
+          }
+        =
+        1
+      expresion
+        [1208]
+        +
+        [1218]
+        +
+        [1209]
+        +
+        [1219]
+        +
+        [1475]
+        +
+        [1480]
+        +
+        [1193]
+        +
+        [1194]
+      0
+
+========================================
+Validacion: e.159
+----------------------------------------
+validacion
+  implicacion
+    comparacion_simple
+      [1194]
+      >
+      0
+    =>
+    condicional_implicacion
+      comparacion_atributo
+        !=
+        rango_valores
+          serie_numeros	14TT
+      comparacion_simple
+        agrupacion
+          (
+          expresion
+            [1210]
+            +
+            [1220]
+            +
+            [1232]
+            +
+            [1749]
+            +
+            [1750]
+            +
+            [1244]
+            +
+            [1256]
+            +
+            [1484]
+            +
+            [1485]
+            +
+            [1486]
+            +
+            [1487]
+            +
+            [1771]
+            +
+            [1772]
+          )
+        =
+        0
+      0
+
+========================================
+Validacion: d.150
+----------------------------------------
+validacion
+  implicacion
+    comparacion_simple
+      agrupacion
+        (
+        expresion
+          [893]
+          +
+          [894]
+        )
+      >
+      0
+    =>
+    condicional_implicacion
+      comparacion_atributo
+        =
+        rango_valores
+          serie_numeros	M14A
+      comparacion_simple
+        [844]
+        >
+        0
+      0
+
+========================================
+Validacion: m.4
+----------------------------------------
+validacion
+  cota
+    Suma
+    =
+    expresion
+      [1746]
+      +
+      [1748]
+  cota
+    Alfa
+    =
+    expresion
+      Vx014110
+      +
+      Vx014111
+  validacion_libre
+    condicional_accion
+      condicion_logica
+        comparacion_atributo
+          =
+          rango_valores
+            serie_numeros	M14A
+        .y.
+        sub_condicion
+          (
+          condicion_logica
+            comparacion_simple
+              Vx011264
+              =
+              0
+            .o.
+            comparacion_atributo
+              !=
+              rango_valores
+                serie_numeros	ME22
+          )
+      asignacion_en_condicional
+        suma
+        alfa
+
+========================================
+Validacion: n.2
+----------------------------------------
+validacion
+  cota
+    expresion
+      [1475]
+      +
+      [1480]
+      +
+      [1193]
+      +
+      [1194]
+    <=
+    condicional_cota
+      condicion_logica
+        comparacion_atributo
+          =
+          rango_valores
+            serie_numeros	14D1
+        .y.
+        sub_condicion
+          (
+          condicion_logica
+            comparacion_simple
+              Vx011264
+              =
+              0
+            .o.
+            comparacion_atributo
+              !=
+              rango_valores
+                serie_numeros	ME22
+          )
+      expresion
+        Vx014105
+        +
+        Vx014106
+        +
+        Vx014107
+        +
+        Vx014108
+
+========================================
