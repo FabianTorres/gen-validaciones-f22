@@ -16,33 +16,28 @@ validacion: componente_validacion+
                 | cota                // Tipos C y N
                 | validacion_libre    // Tipo M (Reglas sin código a la izquierda)
 
-// 1. Tipos A y B: Autocalculados (Asignación estricta a un Código F22)
+// 1. Tipos A y B: Autocalculados
 autocalculado: CODIGO "=" valor_asignado
 
-// 2. Tipos D y E: Implicaciones lógicas (Flecha => separa proposiciones)
+// 2. Tipos D y E: Implicaciones lógicas
 implicacion: "si"i? condicion_logica IMPLICA consecuencia_implicacion
 
 ?consecuencia_implicacion: condicion_logica
-                         | condicional_implicacion
-
-// SINO ESTRICTO (Para cálculos lógicos en D y E)
-condicional_implicacion: "si"i condicion_logica (";"|",")? "entonces"i? (condicion_logica | expresion) ("sino"i | "si"i "no"i) (condicion_logica | expresion)
+                         | condicional
 
 // 3. Tipos C y N: Cotas lógicas numéricas
-// Aquí usamos condicional_calculo que exige SINO estrictamente
-cota: expresion RELACIONAL_NUMERICO (condicional_cota | expresion | casos_trailing)
+cota: expresion RELACIONAL_NUMERICO (condicional | expresion | casos_trailing)
 
-// 4. Tipo M: Lógica libre (Condicionales que ejecutan igualdades al final)
-// Aquí usamos condicional_accion donde el SINO es opcional
-validacion_libre: condicional_accion
+// 4. Tipo M: Lógica libre
+validacion_libre: condicional
                 | casos_trailing
 
-// Declaración de variables internas auxiliares (Siempre con "=")
+// Declaración de variables internas auxiliares
 declaracion_variable: (TEXTO | CODIGO) "=" expresion
 
 // --- CONTENEDORES CONDICIONALES ---
 ?valor_asignado: casos_trailing
-               | condicional_calculo
+               | condicional
                | expresion
 
 casos_trailing: caso_trailing+ caso_default?
@@ -50,17 +45,15 @@ caso_trailing: expresion SEPARADOR? "si"i condicion_logica
 caso_default: SEPARADOR? ("sino"i | "si"i "no"i) valor_asignado
             | valor_asignado SEPARADOR? ("si"i "no"i | "sino"i)
 
-// SINO ESTRICTO (Para calcular valores matemáticos)
-condicional_calculo: "si"i condicion_logica (";"|",")? "entonces"i? expresion ("sino"i | "si"i "no"i) expresion
+// CONDICIONAL UNIVERSAL (El SINO es sintácticamente opcional para el Parser)
+condicional: "si"i condicion_logica (";"|",")? "entonces"i? valor_condicional (("sino"i | "si"i "no"i) (";"|",")? valor_condicional)?
 
-// SINO OPCIONAL (Para ejecutar acciones y asignaciones Tipo M)
-condicional_accion: "si"i condicion_logica (";"|",")? "entonces"i? asignacion_interna (("sino"i | "si"i "no"i) asignacion_interna)?
+?valor_condicional: asignacion_interna 
+                  | condicional
+                  | condicion_logica 
+                  | expresion
 
-// SINO FLEXIBLE (Exclusivo para evaluar cotas con contexto)
-condicional_cota: "si"i condicion_logica (";"|",")? "entonces"i? expresion (("sino"i | "si"i "no"i) expresion)?
-
-?asignacion_interna: valor_asignado
-                   | (TEXTO | CODIGO) "=" valor_asignado -> asignacion_en_condicional
+?asignacion_interna: (TEXTO | CODIGO) "=" valor_asignado -> asignacion_en_condicional
 
 // --- CAPA LOGICA (Booleanos) ---
 ?condicion_logica: sub_condicion (LOGICO sub_condicion)*
@@ -72,7 +65,7 @@ condicional_cota: "si"i condicion_logica (";"|",")? "entonces"i? expresion (("si
 ?comparacion: funcion_rut RELACIONAL_NUMERICO rango_valores -> comparacion_funcion
             | "atributo"i RELACIONAL_NUMERICO rango_valores -> comparacion_atributo
             | "$" expresion -> comparacion_existencia
-            | expresion RELACIONAL_NUMERICO expresion -> comparacion_simple
+            | expresion (RELACIONAL_NUMERICO expresion)+ -> comparacion_simple
 
 rango_valores: serie_numeros | SIMBOLO_APERTURA serie_numeros SIMBOLO_CIERRE
 serie_numeros: (NUMERO | FORMATO_FECHA | TEXTO) ((LOGICO | SEPARADOR) (NUMERO | FORMATO_FECHA | TEXTO))*

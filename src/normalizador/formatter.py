@@ -64,53 +64,7 @@ class GeneradorTextoNormalizado(Transformer):
         valor = next(a for a in args if getattr(a, 'type', '') != 'SEPARADOR')
         return f"SINO {valor}"
 
-    def condicional_leading(self, args):
-        res = f"SI {args[0]}\nENTONCES {args[1]}"
-        # Si trae 3 argumentos, es porque el usuario SÍ escribió un SINO opcional
-        if len(args) == 3:
-            sino_val = str(args[2])
-            if sino_val.startswith("SI"):
-                res += f"\nSINO\n{self._indentar(sino_val)}"
-            else:
-                res += f"\nSINO {sino_val}"
-        return res
-
-    def condicional_implicacion(self, args):
-        res = f"SI {args[0]}\nENTONCES {args[1]}"
-        sino_val = str(args[2])
-        if sino_val.startswith("SI"):
-            res += f"\nSINO\n{self._indentar(sino_val)}"
-        else:
-            res += f"\nSINO {sino_val}"
-        return res
-
-    def condicional_calculo(self, args):
-        res = f"SI {args[0]}\nENTONCES {args[1]}"
-        sino_val = str(args[2])
-        if sino_val.startswith("SI"):
-            res += f"\nSINO\n{self._indentar(sino_val)}"
-        else:
-            res += f"\nSINO {sino_val}"
-        return res
-
-    def condicional_accion(self, args):
-        res = f"SI {args[0]}\nENTONCES {args[1]}"
-        if len(args) == 3:
-            sino_val = str(args[2])
-            if sino_val.startswith("SI"):
-                res += f"\nSINO\n{self._indentar(sino_val)}"
-            else:
-                res += f"\nSINO {sino_val}"
-        return res
-
-    def condicional_cota(self, args):
-        # Si trae menos de 3 argumentos, le falta el SINO
-        if len(args) < 3:
-            tipo = self.id_val.strip().split('.')[0].lower() if self.id_val else ""
-            if tipo == 'c':
-                # PÍLDORA ENVENENADA: Inyectamos una bandera secreta en el texto
-                return "@@ERROR_SINO_FALTANTE_C@@"
-
+    def condicional(self, args):
         res = f"SI {args[0]}\nENTONCES {args[1]}"
         if len(args) == 3:
             sino_val = str(args[2])
@@ -362,6 +316,25 @@ def generar_contexto_error(texto, indice):
     apuntador = " " * (indice - inicio) + "^"
     return f"{fragmento}\n{apuntador}"
 
+class LinterSemantico(Transformer):
+    """
+    Juez de Reglas de Negocio. Recorre el AST y evalúa contextualmente
+    si la sintaxis cumple con la normativa del SII según el ID.
+    """
+    def __init__(self, id_val=""):
+        super().__init__()
+        self.id_val = id_val
+
+    def condicional(self, args):
+        # Si el condicional no tiene SINO (menos de 3 argumentos)
+        if len(args) < 3:
+            tipo = self.id_val.strip().split('.')[0].lower() if self.id_val else ""
+            # Si es un Cálculo (Cota, o Implicación D/E), es bloqueante.
+            if tipo in ['c', 'd', 'e']:
+                raise ValueError("SINO_FALTANTE_ESTRICTO")
+        # Retorna el árbol intacto para no dañar la estructura
+        return Tree('condicional', args)    
+
 def normalizar_y_validar(texto_crudo, id_val=""):
     """
     API READY: Ahora retorna un diccionario con estructura estándar para el Frontend.
@@ -380,6 +353,7 @@ def normalizar_y_validar(texto_crudo, id_val=""):
     texto_limpio = texto_limpio.replace(',y.', '.y.').replace(',Y.', '.y.')
     texto_limpio = texto_limpio.replace(',o.', '.o.').replace(',O.', '.o.')
     texto_limpio = texto_limpio.replace('""', '"')
+    texto_limpio = re.sub(r'\.\s*([yYoO])\s*\.', r' .\1. ', texto_limpio)
     
     # 1. Validación de Balance con posición exacta
     balanceado, indice_error, msg_desbalance = chequear_balance(texto_limpio)
@@ -394,60 +368,47 @@ def normalizar_y_validar(texto_crudo, id_val=""):
 
     # 2. Análisis Sintáctico (Lark)
     try:
+        # FASE 1: El Parser lee el texto crudo (Sin juzgar)
         arbol_crudo = parser.parse(texto_limpio)
         
-        # FASE INTERMEDIA: Desenrollamos el AST (Opción A)
+        # FASE 2: Desenrollado de azúcar sintáctico
         arbol_desenrollado = DesenrolladorAST().transform(arbol_crudo)
-        # FASE INTERMEDIA 2: Sanitización de Estados Nulos (B -> BLANCO)
+        
+        # FASE 3: Sanitización de Estados Nulos
         def sanitizar_ast(arbol):
             for i, hijo in enumerate(arbol.children):
                 if isinstance(hijo, Tree):
-                    sanitizar_ast(hijo) # Escanear más profundo
+                    sanitizar_ast(hijo)
                 elif isinstance(hijo, Token) and hijo.type == 'TEXTO' and hijo.value.upper() == 'B':
-                    # Operación quirúrgica: Cambiamos el Token directamente en el hueso del AST
                     arbol.children[i] = Token('TEXTO', 'BLANCO')
-                    
-        # Ejecutamos el escáner sobre el árbol
         sanitizar_ast(arbol_desenrollado)
         
-        # Formateamos el árbol ya desenrollado para que el frontend lo dibuje bonito
-        texto_formateado = GeneradorTextoNormalizado().transform(arbol_desenrollado)
-
-        if "@@ERROR_SINO_FALTANTE_C@@" in texto_formateado:
-            return {
-                "estado": "ERROR",
-                "tipo_error": "SINO_FALTANTE",
-                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla tipo C (Cota Bloqueante) que empiece con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula si no hay otra condición.",
-                "arbol": None
-            }
+        # FASE 4: Linter Semántico (El Juez levanta error si falta un SINO obligatorio)
+        LinterSemantico(id_val).transform(arbol_desenrollado)
         
+        # FASE 5: Formateador Visual (El Pintor solo dibuja lo que sobrevivió al juez)
+        texto_formateado = GeneradorTextoNormalizado(id_val).transform(arbol_desenrollado)
+
         return {
             "estado": "EXITO",
             "texto_formateado": texto_formateado,
-            # Entregamos el AST procesado para que Z3 pueda leerlo sin colapsar
             "arbol": arbol_desenrollado 
         }
 
-    except ValueError as e:
-        if str(e) == "SINO_FALTANTE_C":
+    # ATRAMPAMOS EL VEREDICTO DEL JUEZ (Sin importar si Lark lo envuelve)
+    except (ValueError, exceptions.VisitError) as e:
+        error_msg = str(e)
+        if isinstance(e, exceptions.VisitError):
+            error_msg = str(e.orig_exc)
+            
+        if error_msg == "SINO_FALTANTE_ESTRICTO":
             return {
                 "estado": "ERROR",
                 "tipo_error": "SINO_FALTANTE",
-                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla tipo C (Cota Bloqueante) que empiece con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula si no hay otra condición.",
+                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Las reglas de validación bloqueantes (Tipos C, D y E) exigen obligatoriamente indicar qué ocurre si la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula.",
                 "arbol": None
             }
         raise e
-
-    except exceptions.VisitError as e:
-        # Lark envuelve nuestro ValueError en un VisitError. Aquí lo rescatamos:
-        if isinstance(e.orig_exc, ValueError) and str(e.orig_exc) == "SINO_FALTANTE_C":
-            return {
-                "estado": "ERROR",
-                "tipo_error": "SINO_FALTANTE",
-                "mensaje": "❌ BLOQUEO: Condicional incompleto.\nDetalle: Toda regla tipo C (Cota Bloqueante) que empiece con un 'SI', debe indicar qué ocurre cuando la condición es falsa.\nSugerencia: Agrega 'Sino 0' al final de tu fórmula si no hay otra condición.",
-                "arbol": None
-            }
-        raise e  # Si es otro error interno, que explote normalmente
 
     except exceptions.UnexpectedEOF as e:
         esperados = ", ".join(e.expected) if hasattr(e, 'expected') and e.expected else ""
