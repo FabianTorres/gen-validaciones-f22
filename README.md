@@ -23,6 +23,12 @@ El proyecto se divide en dos fases independientes y modulares:
 * **Análisis Semántico de Condicionales:** El motor diferencia entre condicionales de "Cálculo" (que exigen un `SINO` para resolver una ecuación) y condicionales de "Acción" (asignaciones directas donde el `SINO` es opcional), validando el sentido de negocio antes de la sintaxis.
 * **Soporte de Estructuras Complejas:** Capacidad recursiva para procesar árboles anidados, validaciones de lógica libre (Tipo M), y protección de precedencia envolviendo series en paréntesis.
 * **Control de Errores Avanzado (API Ready):** Retorna diccionarios estructurados que capturan excepciones (`UnexpectedEOF`, `UnexpectedToken`, `ValueError`), diagnosticando fórmulas truncadas y emitiendo sugerencias humanas para el Frontend (ej. *"Falta agregar Sino 0"*).
+* **Arquitectura Limpia en 5 Fases:** Separación estricta de responsabilidades (*Separation of Concerns*). El Parser (Lark) lee tolerando flexibilidades humanas, un Linter Semántico inyectado en Python juzga el cumplimiento de las reglas de negocio bloqueantes, y un Formateador dibuja el resultado final.
+* **Sanitización Resiliente:** Protecciones activas contra la "Tokenización Codiciosa" (agregando colchones de espacios en operadores mal digitados como `. o .`) y conversión automática de fósiles tipográficos (`Þ`, `¹`, `£`).
+* **Soporte de Expresiones Matemáticas Avanzadas:** Capacidad nativa para interpretar y estructurar *Cotas Encadenadas* (`A <= B <= C`) y *Condicionales Recursivos* anidados (`SINO SI...`).
+* **Mutación de AST (Desugaring):** Fase intermedia silenciosa que convierte listas compactas de Excel (`TIPO = 1, 2, 3`) en compuertas booleanas matemáticas puras expandidas, y convierte estados nulos (`B`) en el string explícito `"BLANCO"`.
+* **Control de Errores Avanzado (API Ready):** Retorna diccionarios estructurados (JSON) que capturan excepciones de la gramática, diagnosticando fórmulas truncadas y emitiendo alertas de negocio precisas para el Frontend (ej. *"Las reglas Tipo C exigen obligatoriamente indicar qué ocurre si la condición es falsa"*).
+
 
 ## Estructura del Proyecto
 
