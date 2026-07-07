@@ -43,7 +43,7 @@ gen-validaciones-f22/
 |   |-- contexto_actual.md      # Estado y alcance de la gramática del proyecto
 |   |-- ROADMAP_FASE2.md        # Plan de acción e Inferencia de Tipos para Z3
 |   |-- tipos_validaciones.md   # Catálogo de reglas de negocio y su comportamiento estructural
-|
+|   |-- reglas_negocio_fase2.md # Reglas de dominio, Selenium y funciones SII
 |-- src/                        
 |   |-- config/                 
 |   |   |-- settings.py         # Mock de variables anuales y configuración (Fase 2)
