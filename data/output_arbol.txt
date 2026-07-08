@@ -1,30 +1,15 @@
 === ÁRBOLES DE SINTAXIS ABSTRACTA (AST) - DEPURACIÓN ===
 
-Validacion: a.4
+Validacion: c.272
 ----------------------------------------
 validacion
-  autocalculado
-    [494]
-    casos_trailing
-      caso_trailing
-        funcion_matematica
-          MIN
-          {
-          lista_argumentos
-            expresion
-              P08
-              *
-              [547]
-            ;
-            P42
-          }
-        ;
+  cota
+    [1639]
+    <=
+    condicional
+      sub_condicion
+        (
         condicion_logica
-          comparacion_simple
-            [465]
-            =
-            0
-          .y.
           comparacion_simple
             funcion_rut
               TIPO
@@ -33,5 +18,30 @@ validacion
               }
             =
             1
+          .y.
+          comparacion_simple
+            [1608]
+            >
+            0
+        )
+      funcion_matematica
+        ROUND
+        {
+        lista_argumentos
+          agrupacion
+            (
+            expresion
+              [1608]
+              *
+              agrupacion
+                (
+                expresion
+                  [157]
+                  /
+                  [170]
+                )
+            )
+        }
+      0
 
 ========================================

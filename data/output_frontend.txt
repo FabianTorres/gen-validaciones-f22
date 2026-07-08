@@ -1,7 +1,9 @@
 === RESULTADOS NORMALIZADOS (VISTA FRONTEND) ===
 
-Validacion: a.4 [ESTADO: OK]
+Validacion: c.272 [ESTADO: OK]
 ----------------------------------------
-[494] =
-  SI [465] = 0 .Y. TIPO( [03] ) = 1 ENTONCES MIN( P08 * [547] ; P42 )
+[1639] <=
+  SI ( TIPO( [03] ) = 1 .Y. [1608] > 0 )
+  ENTONCES ROUND( ( [1608] * ( [157] / [170] ) ) ; 0 )
+  SINO 0
 ========================================
