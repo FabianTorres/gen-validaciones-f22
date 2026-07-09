@@ -34,31 +34,46 @@ El proyecto se divide en dos fases independientes y modulares:
 
 ```text
 gen-validaciones-f22/
-|-- data/                       # Archivos de entrada y salida (Simulación de Frontend)
+|-- data/                       # Archivos de entrada, salida y fuentes de datos mockeadas
 |   |-- input_excel.txt         # Fórmulas crudas extraídas desde el Excel del SII
-|   |-- output_arbol.txt        # Exportación del Árbol de Sintaxis Abstracta (AST) para depuración
-|   |-- output_frontend.txt     # Fórmulas normalizadas, indentadas y estructuradas
+|   |-- output_arbol.txt        # Exportación del AST para depuración
+|   |-- output_frontend.txt     # Fórmulas normalizadas para la vista
+|   |-- mock_parametros.json    # Diccionario de valores anuales constantes (P08, P84, etc.)
+|   |-- mock_ruts_qa.json       # Base de datos de RUTs con sus Atributos y Tipos
 |
-|-- docs/                       # Documentación técnica y bitácoras de estado
-|   |-- contexto_actual.md      # Estado y alcance de la gramática del proyecto
-|   |-- ROADMAP_FASE2.md        # Plan de acción e Inferencia de Tipos para Z3
-|   |-- tipos_validaciones.md   # Catálogo de reglas de negocio y su comportamiento estructural
-|   |-- reglas_negocio_fase2.md # Reglas de dominio, Selenium y funciones SII
+|-- docs/                       # Documentación técnica y reglas de negocio maestras
+|   |-- 01_arquitectura_fase1.md     # Estructura del Normalizador, Parser y Linter
+|   |-- 02_reglas_negocio_f22.md     # Catálogo de validaciones, funciones SII y Universos
+|   |-- 03_estrategia_qa_selenium.md # Comportamiento de Testing (Valores Límite y Matrices)
+|   |-- 04_core_matematico_z3.md     # Arquitectura de la Fase 2, Inferencia y Coerción de tipos
+|
 |-- src/                        
 |   |-- config/                 
-|   |   |-- settings.py         # Mock de variables anuales y configuración (Fase 2)
-|   |-- generador/              # FASE 2: Motor Matemático (Resolución de Restricciones Z3)
-|   |   |-- evaluator.py        # Evaluador de AST e inferencia semántica de tipos
-|   |   |-- solver.py           # Integración y orquestación con el motor lógico
-|   |   |-- test_builder.py     # Constructor de las matrices de casos de prueba
-|   |   |-- z3_core.py          # Envoltorio y configuración base del motor Z3
-|   |-- normalizador/           # FASE 1: Motor de Sanitización, Linter y Parser
-|   |   |-- formatter.py        # Capa de sanitización inteligente, Desugaring y Formateo
-|   |   |-- parser.py           # Gramática formal del F22 basada en la librería Lark
-|-- .gitignore                  # Reglas de exclusión para control de versiones
-|-- main.py                     # Orquestador y ejecutor de pruebas por lotes
-|-- README.md                   # Documentación principal del proyecto
-|-- requirements.txt            # Dependencias del proyecto
+|   |   |-- settings.py         # Mock de variables y switches globales (USAR_DECIMALES)
+|   |
+|   |-- normalizador/           # FASE 1: Motor de Sanitización, Linter y Parser 
+|   |   |-- formatter.py        
+|   |   |-- parser.py           
+|   |
+|   |-- generador/              # FASE 2: Motor Matemático y Constructor de Casos QA
+|   |   |-- evaluator.py        # Traductor: Convierte AST a funciones nativas de Z3.
+|   |   |-- z3_core.py          # Envoltorio Z3: Administra el solver en dominio Real.
+|   |   |-- test_builder.py     # DIRECTOR: Orquesta las estrategias según el tipo de regla.
+|   |   |
+|   |   |-- providers/          # PROVEEDORES: Inyectan el "Universo Constante e Identidad"
+|   |   |   |-- param_provider.py 
+|   |   |   |-- rut_provider.py   
+|   |   |
+|   |   |-- strategies/         # ESTRATEGIAS: Expertos en Análisis de Valores (QA Lógico)
+|   |       |-- base_strategy.py       
+|   |       |-- calculation_builder.py 
+|   |       |-- boundary_builder.py    
+|   |       |-- implication_builder.py 
+|
+|-- main.py                     # Orquestador del lote de Fórmulas (Fase 1)
+|-- test_z3.py                  # Sandbox y orquestador de pruebas unitarias para la Fase 2
+|-- README.md                   
+|-- requirements.txt
 ```
 
 ## Stack Tecnologico

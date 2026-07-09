@@ -1,0 +1,46 @@
+[
+    {
+        "id_validacion": "a.190",
+        "error": "Aún no hay estrategia para: autocalculado"
+    },
+    {
+        "id_validacion": "c.80.1",
+        "tipo_escenario": "FRONTERA_EXACTA",
+        "descripcion_qa": "Se fuerza igualdad: Lado Izquierdo == Lado Derecho",
+        "rut_inyectado": "11.111.111-1",
+        "inputs_selenium": {
+            "[1032]": 1000000,
+            "[1635]": 1000000,
+            "[1031]": 300000
+        },
+        "resultado_esperado": "SIN_VALIDACION"
+    },
+    {
+        "id_validacion": "c.80.2",
+        "tipo_escenario": "FRONTERA_SUPERIOR",
+        "descripcion_qa": "Se excede el tope: Lado Izquierdo == Lado Derecho + 1",
+        "rut_inyectado": "11.111.111-1",
+        "inputs_selenium": {
+            "[1635]": 1000000,
+            "[1032]": 1000000,
+            "[1031]": 300001
+        },
+        "resultado_esperado": "CON_VALIDACION"
+    },
+    {
+        "id_validacion": "c.80.3",
+        "tipo_escenario": "FRONTERA_INFERIOR",
+        "descripcion_qa": "Bajo el tope: Lado Izquierdo == Lado Derecho - 1",
+        "rut_inyectado": "11.111.111-1",
+        "inputs_selenium": {
+            "[1635]": 1000000,
+            "[1032]": 1000000,
+            "[1031]": 299999
+        },
+        "resultado_esperado": "SIN_VALIDACION"
+    },
+    {
+        "id_validacion": "d.150",
+        "error": "Aún no hay estrategia para: implicacion"
+    }
+]
