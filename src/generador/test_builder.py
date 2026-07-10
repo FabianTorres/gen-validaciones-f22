@@ -1,13 +1,16 @@
 from src.generador.z3_core import MotorZ3
 from src.generador.evaluator import EvaluadorAST
 from src.generador.providers.param_provider import ParamProvider
+from src.generador.providers.rut_provider import RutProvider
 from src.generador.strategies.boundary_builder import BoundaryBuilder
+from src.generador.strategies.implication_builder import ImplicationBuilder
+from src.generador.strategies.calculation_builder import CalculationBuilder
 
 class TestMatrixBuilder:
     def __init__(self):
         # El proveedor de parámetros se carga una sola vez (lee el disco una vez)
         self.param_provider = ParamProvider()
-        self.rut_provider = None
+        self.rut_provider = RutProvider()
 
     def generar_matriz_pruebas(self, ast_tree, id_val):
         tipo_regla = self._identificar_familia_logica(ast_tree)
@@ -38,4 +41,9 @@ class TestMatrixBuilder:
     def _seleccionar_estrategia(self, tipo_regla):
         if tipo_regla == 'cota':
             return BoundaryBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
+        elif tipo_regla == 'implicacion':
+            return ImplicationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
+        elif tipo_regla in ['autocalculado', 'validacion_libre']:
+            return CalculationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
+            
         return None

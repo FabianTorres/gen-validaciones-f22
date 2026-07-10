@@ -1,46 +1,88 @@
 [
     {
-        "id_validacion": "a.190",
-        "error": "Aún no hay estrategia para: autocalculado"
+        "id_validacion": "a.190.1",
+        "tipo_escenario": "CALCULO_ESPERADO",
+        "descripcion_qa": "El portal debe calcular automáticamente este monto en base a los inputs ingresados. No se levanta validación.",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[1793]": 1000000,
+            "[1792]": 1000000,
+            "[1791]": 1000000,
+            "[1790]": -2000000,
+            "[1789]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
         "id_validacion": "c.80.1",
-        "tipo_escenario": "FRONTERA_EXACTA",
-        "descripcion_qa": "Se fuerza igualdad: Lado Izquierdo == Lado Derecho",
-        "rut_inyectado": "11.111.111-1",
-        "inputs_selenium": {
-            "[1032]": 1000000,
+        "tipo_escenario": "LIMITE_EXACTO",
+        "descripcion_qa": "El valor ingresado es exactamente igual al límite matemático de la regla.",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[1032]": 1666666,
             "[1635]": 1000000,
-            "[1031]": 300000
+            "[1031]": 1000000
         },
         "resultado_esperado": "SIN_VALIDACION"
     },
     {
         "id_validacion": "c.80.2",
-        "tipo_escenario": "FRONTERA_SUPERIOR",
-        "descripcion_qa": "Se excede el tope: Lado Izquierdo == Lado Derecho + 1",
-        "rut_inyectado": "11.111.111-1",
-        "inputs_selenium": {
+        "tipo_escenario": "EXCEDE_LIMITE",
+        "descripcion_qa": "El valor ingresado supera el tope permitido de la regla por 1 peso.",
+        "rut": "55.555.555-5",
+        "inputs": {
             "[1635]": 1000000,
-            "[1032]": 1000000,
-            "[1031]": 300001
+            "[1032]": 1666665,
+            "[1031]": 1000000
         },
         "resultado_esperado": "CON_VALIDACION"
     },
     {
         "id_validacion": "c.80.3",
-        "tipo_escenario": "FRONTERA_INFERIOR",
-        "descripcion_qa": "Bajo el tope: Lado Izquierdo == Lado Derecho - 1",
-        "rut_inyectado": "11.111.111-1",
-        "inputs_selenium": {
-            "[1635]": 1000000,
+        "tipo_escenario": "BAJO_LIMITE",
+        "descripcion_qa": "El valor ingresado se mantiene justo por debajo del límite de la regla.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1635]": 299999,
             "[1032]": 1000000,
-            "[1031]": 299999
+            "[1031]": 1000000
         },
         "resultado_esperado": "SIN_VALIDACION"
     },
     {
-        "id_validacion": "d.150",
-        "error": "Aún no hay estrategia para: implicacion"
+        "id_validacion": "d.150.1",
+        "tipo_escenario": "CUMPLE_CONDICION",
+        "descripcion_qa": "El contribuyente cumple la condición inicial y también satisface la exigencia final de la regla.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[894]": 1000000,
+            "[844]": 1000000,
+            "[893]": 1000000
+        },
+        "resultado_esperado": "SIN_VALIDACION"
+    },
+    {
+        "id_validacion": "d.150.2",
+        "tipo_escenario": "INCUMPLE_CONDICION",
+        "descripcion_qa": "Se fuerza un error: El contribuyente cumple la condición inicial, pero se omite llenar la exigencia final obligatoria.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[844]": 0,
+            "[894]": 1000000,
+            "[893]": 1000000
+        },
+        "resultado_esperado": "CON_VALIDACION"
+    },
+    {
+        "id_validacion": "d.150.3",
+        "tipo_escenario": "NO_APLICA",
+        "descripcion_qa": "La regla no aplica para este caso (ej. atributos de RUT distintos). El sistema no debería exigir nada adicional.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[844]": 1000000,
+            "[893]": 1000000,
+            "[894]": -1000000
+        },
+        "resultado_esperado": "SIN_VALIDACION"
     }
 ]

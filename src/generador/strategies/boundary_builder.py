@@ -12,51 +12,43 @@ class BoundaryBuilder(BaseStrategy):
         operador = str(self.evaluador.evaluar(nodo_cota.children[1]))
         z3_der = self.evaluador.evaluar(nodo_cota.children[2])
 
-        rut_simulado = self.rut_provider.obtener_rut_por_defecto() if self.rut_provider else "11.111.111-1"
-
         # --- CASO 1: FRONTERA EXACTA ---
-        es_error_exacto = "CON_VALIDACION" if operador in ['<', '>'] else None
-        
+        es_error_exacto = "CON_VALIDACION" if operador in ['<', '>'] else "SIN_VALIDACION"
         casos.append(
             self._ejecutar_escenario_aislado(
                 [z3_izq == z3_der], 
                 lambda: self._resolver_y_formatear(
                     id_val, 
-                    "FRONTERA_EXACTA", 
-                    "Se fuerza igualdad: Lado Izquierdo == Lado Derecho", 
-                    rut_simulado, 
+                    "LIMITE_EXACTO", 
+                    "El valor ingresado es exactamente igual al límite matemático de la regla.", 
                     es_error_exacto
                 )
             )
         )
 
         # --- CASO 2: FRONTERA SUPERIOR (+ 1 PESO) ---
-        es_error_superior = "CON_VALIDACION" if operador in ['<=', '<', '='] else None
-        
+        es_error_superior = "CON_VALIDACION" if operador in ['<=', '<', '='] else "SIN_VALIDACION"
         casos.append(
             self._ejecutar_escenario_aislado(
                 [z3_izq == (z3_der + 1)], 
                 lambda: self._resolver_y_formatear(
                     id_val, 
-                    "FRONTERA_SUPERIOR", 
-                    "Se excede el tope: Lado Izquierdo == Lado Derecho + 1", 
-                    rut_simulado, 
+                    "EXCEDE_LIMITE", 
+                    "El valor ingresado supera el tope permitido de la regla por 1 peso.", 
                     es_error_superior
                 )
             )
         )
 
         # --- CASO 3: FRONTERA INFERIOR (- 1 PESO) ---
-        es_error_inferior = "CON_VALIDACION" if operador in ['>=', '>', '='] else None
-        
+        es_error_inferior = "CON_VALIDACION" if operador in ['>=', '>', '='] else "SIN_VALIDACION"
         casos.append(
             self._ejecutar_escenario_aislado(
                 [z3_izq == (z3_der - 1)], 
                 lambda: self._resolver_y_formatear(
                     id_val, 
-                    "FRONTERA_INFERIOR", 
-                    "Bajo el tope: Lado Izquierdo == Lado Derecho - 1", 
-                    rut_simulado, 
+                    "BAJO_LIMITE", 
+                    "El valor ingresado se mantiene justo por debajo del límite de la regla.", 
                     es_error_inferior
                 )
             )
