@@ -8,16 +8,15 @@ Cada objeto dentro de la lista exportada representará un caso de prueba ejecuta
 
 ```json
 {
-    "id_validacion": "c.80.1",
-    "tipo_escenario": "LIMITE_EXACTO",
-    "descripcion_qa": "El valor ingresado es exactamente igual al límite matemático de la regla.",
-    "rut": "99.999.999-9",
+    "id_validacion": "a.4.1",
+    "tipo_escenario": "CALCULO_VERDADERO_MIN_IZQ",
+    "descripcion_qa": "La condición se cumple y el límite MIN toma el valor del primer argumento.",
+    "rut": "11.111.111-1",
     "inputs": {
-        "[1032]": 1666666,
-        "[1635]": 1000000,
-        "[1031]": 1000000
+        "[465]": 0,
+        "[547]": 1000000
     },
-    "resultado_esperado": "SIN_VALIDACION"
+    "resultado_esperado": "VERIFICAR_AUTOCALCULO"
 }
 ```
 
@@ -49,7 +48,13 @@ Indica la técnica de testing que el motor matemático aplicó para generar los 
 | **Implicaciones (=>)** | `CUMPLE_CONDICION` | El gatillo es verdadero y la consecuencia se cumple. |
 | | `INCUMPLE_CONDICION` | El gatillo es verdadero, pero la consecuencia se omite (Error). |
 | | `NO_APLICA` | El gatillo es falso (ej. RUT no compatible), la regla se ignora. |
-| **Autocalculados** | `CALCULO_ESPERADO` | Resolución exacta de la ecuación matemática (Happy Path). |
+| **Autocalculados** | `CALCULO_LINEAL_EXACTO` | Resolución de ecuación sin condicionales (Happy Path simple). |
+| | `CALCULO_VERDADERO_SIMPLE` | El condicional (IF) se cumple, sin límites MIN/MAX involucrados. |
+| | `CALCULO_VERDADERO_MIN_IZQ` | El condicional se cumple y domina el argumento izquierdo del MIN. |
+| | `CALCULO_VERDADERO_MIN_DER` | El condicional se cumple y domina el argumento derecho del MIN. |
+| | `CALCULO_VERDADERO_MAX_IZQ` | El condicional se cumple y domina el argumento izquierdo del MAX. |
+| | `CALCULO_VERDADERO_MAX_DER` | El condicional se cumple y domina el argumento derecho del MAX. |
+| | `CALCULO_FALSO_SINO` | La condición es falsa, forzando la celda al valor por defecto (Sino). |
 
 ---
 
@@ -65,7 +70,13 @@ Glosas humanas estandarizadas que acompañan a cada `tipo_escenario` para dar co
   * `"Se fuerza un error: El contribuyente cumple la condición inicial, pero se omite llenar la exigencia final obligatoria."`
   * `"La regla no aplica para este caso (ej. atributos de RUT distintos). El sistema no debería exigir nada adicional."`
 * **Para Autocalculados y Lógica Libre:**
-  * `"El portal debe calcular automáticamente este monto en base a los inputs ingresados. No se levanta validación."`
+  * `"Se resuelve la ecuación matemática lineal de forma exacta."`
+  * `"La condición del IF se cumple y se calcula el monto directo."`
+  * `"La condición se cumple y el límite MIN toma el valor del primer argumento (izquierdo)."`
+  * `"La condición se cumple y el límite MIN se topa con el segundo argumento (derecho)."`
+  * `"La condición se cumple y el límite MAX toma el valor del primer argumento (izquierdo)."`
+  * `"La condición se cumple y el límite MAX se topa con el segundo argumento (derecho)."`
+  * `"La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0)."`
 
 ---
 

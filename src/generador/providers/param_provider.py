@@ -13,12 +13,12 @@ class ParamProvider:
         except FileNotFoundError:
             # Fallback seguro con decimales
             return {
-                "P08": 1500000,
-                "P42": 800000,
-                "P84": 1.05,       
-                "P736": 250000,    
-                "P722": 100000,
-                "P11": 0.19        
+                "P08": 0.3,
+                "P42": 12517560,
+                "P84": 0.25,       
+                "P736": 10,    
+                "P722": 258696240,
+                "P11": 0.05        
             }
 
     def inyectar_en_motor(self, motor_z3):

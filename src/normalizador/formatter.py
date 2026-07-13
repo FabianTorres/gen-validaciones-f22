@@ -1,9 +1,60 @@
 from lark import exceptions, Transformer, Tree, Token
+from pathlib import Path
 import re
 try:
     from .parser import obtener_parser
 except ImportError:
     from parser import obtener_parser
+
+# --- NUEVAS FUNCIONES DE CATÁLOGO ---
+def cargar_catalogo_codigos():
+    """
+    Lee dinámicamente el catálogo oficial de códigos desde el archivo de texto.
+    Retorna un set() con los códigos numéricos para búsquedas rápidas.
+    """
+    ruta_raiz = Path(__file__).parent.parent.parent
+    ruta_archivo = ruta_raiz / "data" / "catalogo_codigos.txt"
+    
+    # El [03] (RUT) es estructural y siempre debe estar permitido
+    codigos_validos = {"03"} 
+    
+    if ruta_archivo.exists():
+        with open(ruta_archivo, "r", encoding="utf-8") as f:
+            for linea in f:
+                linea = linea.strip()
+                if not linea or linea.startswith("CODIGO"):
+                    continue
+                
+                partes = linea.split("|")
+                if len(partes) > 0:
+                    codigo_limpio = partes[0].strip()
+                    if codigo_limpio:
+                        codigos_validos.add(codigo_limpio)
+    return codigos_validos
+
+def validar_existencia_codigos(arbol, catalogo):
+    """
+    Escanea el árbol buscando Tokens de tipo 'CODIGO'.
+    Si el código es numérico y no está en el catálogo, levanta un error.
+    """
+    codigos_faltantes = set()
+    
+    def buscar_codigos(nodo):
+        if isinstance(nodo, Token):
+            if nodo.type == 'CODIGO':
+                cod_limpio = str(nodo.value).replace('[', '').replace(']', '').strip()
+                # Solo validamos si es numérico (ignoramos variables como "ALFA")
+                if cod_limpio.isdigit() and cod_limpio not in catalogo:
+                    codigos_faltantes.add(cod_limpio)
+        elif isinstance(nodo, Tree):
+            for hijo in nodo.children:
+                buscar_codigos(hijo)
+                
+    buscar_codigos(arbol)
+    
+    if codigos_faltantes:
+        raise ValueError(f"CODIGOS_DESCONOCIDOS|{', '.join(codigos_faltantes)}")
+# ------------------------------------
 
 class GeneradorTextoNormalizado(Transformer):
     def __init__(self, id_val=""):
@@ -25,8 +76,6 @@ class GeneradorTextoNormalizado(Transformer):
         for v in vars_decl:
             res += f"\nDONDE {v}"
         return res
-
-    
 
     # Formateador para las Implicaciones de Coherencia Logica
     def implicacion(self, args):
@@ -120,7 +169,6 @@ class GeneradorTextoNormalizado(Transformer):
 
     def IMPLICA(self, token):
         return "=>"
-    
 
     def rango_valores(self, args):
         if len(args) == 3:
@@ -383,6 +431,10 @@ def normalizar_y_validar(texto_crudo, id_val=""):
                     arbol.children[i] = Token('TEXTO', 'BLANCO')
         sanitizar_ast(arbol_desenrollado)
         
+        # ---> NUEVA BARRERA: Validar contra el Catálogo <---
+        catalogo_vigente = cargar_catalogo_codigos()
+        validar_existencia_codigos(arbol_desenrollado, catalogo_vigente)
+        
         # FASE 4: Linter Semántico (El Juez levanta error si falta un SINO obligatorio)
         LinterSemantico(id_val).transform(arbol_desenrollado)
         
@@ -395,11 +447,21 @@ def normalizar_y_validar(texto_crudo, id_val=""):
             "arbol": arbol_desenrollado 
         }
 
-    # ATRAMPAMOS EL VEREDICTO DEL JUEZ (Sin importar si Lark lo envuelve)
+    # ATRAMPAMOS EL VEREDICTO DEL JUEZ Y LA BARRERA DE CÓDIGOS
     except (ValueError, exceptions.VisitError) as e:
         error_msg = str(e)
         if isinstance(e, exceptions.VisitError):
             error_msg = str(e.orig_exc)
+            
+        # ---> NUEVA CAPTURA DE ERROR PARA EL FRONTEND <---
+        if error_msg.startswith("CODIGOS_DESCONOCIDOS|"):
+            faltantes = error_msg.split('|')[1]
+            return {
+                "estado": "ERROR",
+                "tipo_error": "CODIGO_NO_CATALOGADO",
+                "mensaje": f"❌ BLOQUEO: Códigos no reconocidos.\nDetalle: La fórmula contiene códigos que no existen en el Catálogo Oficial del F22: [{faltantes}].\nSugerencia: Revisa si hay un error de tipeo en el Excel.",
+                "arbol": None
+            }
             
         if error_msg == "SINO_FALTANTE_ESTRICTO":
             return {

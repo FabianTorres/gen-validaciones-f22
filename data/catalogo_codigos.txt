@@ -1,0 +1,1174 @@
+CODIGO | SIGNO_PERMITIDO | DESCRIPCION_OPCIONAL
+547       | +            | Total Ingresos Brutos
+494       | +            | Gastos presuntos: 30% sobre el código 547, con tope de 15 UTA
+467       |  +/-            | Total Honorarios
+618       |  +/-            | Total Rentas y Retenciones
+619       | +            | Impuesto Retenido del Total Rentas y Retenciones.
+1058       |  +/-            | Mayor o menor percibido o devengado
+1061       | +            | Mayor valor percibido o devengado afecto a impuesto
+1062       | +            | Saldo de Ingreso No Renta a utilizar en los ejercicios siguientes
+1100       | +            | Mayor valor devengado y no percibido en enajenaciones efectuadas en el ejercicio a declarar en los años tributarios siguientes
+1987       |  +/-            | Enajenaciones a partes relacionadas / Mayor o menor valor percibido o devengado
+1988       |  +/-            | Enajenaciones en menos de 1 o 4 años o BBR situados en el exterior / Mayor o menor valor percibido o devengado
+703       | +            | Remanente ahorro neto positivo del ejercicio siguiente
+705       |  +/-            | Base para débito fiscal del ejercicio a registrar en código 201
+1814       |  +/-            | Resultado neto de las operaciones del ejercicio
+1816       |  +/-            | Base imponible o pérdida del ejercicio
+1654       | +            | Remanente para ejercicio siguiente
+1096       | +            | Saldo rentas tributables acumuladas/TOTAL Saldo ingreso diferido a imputar en los ejercicios siguientes
+1097       | +            | Incremento / TOTAL Saldo ingreso diferido a imputar en los ejercicios siguientes
+1106       | +            | Crédito No sujeto a restitución/ TOTAL Saldo ingreso diferido a imputar en los ejercicios siguientes
+1372       | +            | Crédito / Sujeto a restitución/ TOTAL Saldo ingreso diferido a imputar en los ejercicios siguientes
+829       | +            | Remanente crédito IEAM a devolver a través de código 36
+953       | +            | Remanente para ejercicio siguiente/Donaciones para fines culturales según art. 8° Ley N° 18.985
+1174       | +            | Remanente crédito por IDPC para el ejercicio siguiente
+1066       |  +/-            | Diferencia entre depreciaciones aceleradas y normales del ejercicio, anteriores
+1672       |  +/-            | Resultado financiero 
+1677       | +            | Gastos agregados por donaciones
+1150       | +            | Ingreso diferido por cambio de régimen
+1681       | +            | Impuesto específico a la actividad minera
+1974       | +            | Componente ad valorem del royalty minero según art. 2 Ley N° 21.591
+1975       | +            | Componente sobre la rentabilidad del royalty minero según art. 3 o art. 4 Ley N° 21.591
+1728       |  +/-            | Renta líquida imponible antes de rebaja por incentivo al ahorro (art. 14 letra E) LIR) y/o por pago de IDPC voluntario (art. 14 letra A) N°6 LIR y art. 42° transitorio Ley N° 21.210) o pérdida tributaria
+1690       |  +/-            | Se modifica texto código a: Renta líquida imponible afecta a IDPC o pérdida tributaria del ejercicio
+1996       |  +/-            | Renta líquida imponible o pérdida tributaria, arts. 29 al 33 LIR (código 1728 recuadro N° 12)
+1960       | +            | Pérdida de ejercicios anteriores
+1967       |  +/-            | Renta imponible operacional minera ajustada (RIOMA)
+1979       | +            | Base imponible / b) Componente sobre la rentabilidad, según art. 3 o art. 4 Ley N° 21.591
+1694       | +            | Renta líquida imponible afecta a IDPC del ejercicio
+1695       | +            | Pérdida tributaria del ejercicio al 31 de diciembre 
+1696       | +            | Pérdidas de ejercicios anteriores (art. 31 N° 3 LIR)
+1699       | +            | Remesas, retiros o dividendos repartidos en el ejercicio, reajustados
+1182       | +            | Remesas, retiros o dividendos repartidos en el ejercicio, reajustados
+1700       | +            | Ingreso diferido por cambio de régimen
+1701       | +            | Incentivo al ahorro según art. 14 letra E) LIR
+1702       | +            | Base del IDPC voluntario según  art. 14 letra A) N°  6 LIR
+645       | +            | CPT positivo final
+646       | +            | CPT negativo final
+1698       | +            | CPT positivo final (recuadro N° 14)
+1717       | +            | CPT negativo final (recuadro N° 14)
+1692       | +            | Saldo negativo del registro REX al término del ejercicio
+1718       | +            | Subtotal
+1693       | +            | Saldo positivo del registro REX al término del ejercicio, antes de imputaciones
+1199       | +            | Rentas afectas a IGC o IA (RAI) del ejercicio
+1934       | +            | Monto acogido al ISIF, según art. 10 Ley N° 21.681, reajustado / ISFUT / ISIF
+1204       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / RAI / Reversos y/o disminuciones del ejercicio (propios)
+1205       | +            | RAI/Aumentos del ejercicio (propios)
+1210       | +            | RAI/Remanente ejercicio siguiente (saldo positivo)
+1220       | +            | DDAN/Remanente ejercicio siguiente (saldo positivo)
+1232       | +            | REX/RENTAS CON TRIBUTACION CUMPLIDA /Remanente ejercicio siguiente (saldo positivo)
+1233       | +            | REX/RENTAS CON TRIBUTACION CUMPLIDA/Remanente ejercicio anterior reajustado (saldo negativo)
+1749       | +            | REX/Renta con tributación cumplida/ISFUT/ Remanente ejercicio siguiente (saldo positivo)
+1750       | +            | REX/Renta con tributación cumplida/Otras/ Remanente ejercicio siguiente (saldo positivo)
+1844       | +            | REX/Renta con tributación cumplida/Otras/ Remanente ejercicio siguiente (saldo negativo)
+1244       | +            | REX/RENTAS EXENTAS  / Remanente ejercicio siguiente (saldo positivo)
+1245       | +            | REX/RENTAS EXENTAS/ Remanente ejercicio anterior reajustado (saldo negativo)
+1256       | +            | REX/INR/ Remanente ejercicio siguiente (saldo positivo)
+1257       | +            | REX/INR/ Remanente ejercicio anterior reajustado (saldo negativo)
+1269       | +            | STUT/ Remanente ejercicio siguiente (saldo positivo)
+1109       | +            | BASE IMPONIBLE IDPC de empresas acogidas al régimen de imputación parcial de créditos, según art. 14 letra A) LIR
+1111       | +            | REBAJA AL IMPUESTO IDPC de empresas acogidas al régimen de imputación parcial de créditos, según art. 14 letra A) LIR
+1113       | +            | IDPC de empresas acogidas al régimen de imputación parcial de créditos, según art. 14 letra A) LIR
+1305       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución / IDPC e IPE RLI generada en el ejercicio
+1292       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución /  IDPC e IPE RLI generada en el ejercicio
+1278       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Sin D° Devolución/Remanente ejercicio siguiente (saldo positivo)
+1723       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Sin D° Devolución/Remanente ejercicio siguiente (saldo negativo)
+1287       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Con D° Devolución/Remanente ejercicio siguiente (saldo positivo)
+1724       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Con D° Devolución/ Remanente ejercicio siguiente (saldo negativo)Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Sin D° Devolución/ Remanente ejercicio anterior (saldo positivo
+1312       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Sin D° Devolución/Remanente ejercicio siguiente (saldo positivo)
+1299       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Sin D° Devolución/Remanente ejercicio siguiente (saldo negativo)
+1300       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Con D° Devolución/Remanente ejercicio siguiente (saldo positivo)
+1373       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Con D° Devolución/Remanente ejercicio siguiente (saldo negativo)
+1323       | +            | Acumulados a contar desde el 01.01.2017/IPE/ Remanente ejercicio siguiente (saldo positivo)Acumulados hasta el 31.12.2016/Sin D° Devolución/ Remanente ejercicio anterior (saldo positivo)
+1334       | +            | Acumulados hasta el 31.12.2016/Sin D° Devolución/ Remanente ejercicio siguiente (saldo positivo)Acumulados hasta el 31.12.2016/Con D° Devolución/ Remanente ejercicio anterior (saldo positivo)
+1345       | +            | Acumulados hasta el 31.12.2016/Con D° Devolución/ Remanente ejercicio siguiente (saldo positivo)Acumulados hasta el 31.12.2016/IPE/ Remanente ejercicio anterior (saldo positivo)
+1355       | +            | Acumulados hasta el 31.12.2016/IPE/ Remanente ejercicio siguiente (saldo positivo)Ingresos percibidos
+1404       | +            | Ingreso diferido imputado en el ejercicio, debidamente incrementado y reajustado, cuando corresponda
+1410       | +            | Total de ingresos anuales
+1430       | +            | Total de egresos anuales
+1431       | +            | Partidas del inc. 1° no afectas al IU de tasa 40% y del inc. 2° del art. 21 LIR (históricos), incluidos en el total de egresos
+1729       |  +/-            | Base imponible antes de rebaja por incentivo al ahorro (art. 14 letra E) LIR) y/o por pago de IDPC voluntario (art. 14 letra A) N°6 LIR y art. 42° transitorio Ley N° 21.210) o pérdida tributaria
+1440       |  +/-            | Base Imponible afecta a IDPC o pérdida tributaria del ejercicio
+1705       | +            | Base imponible afecta a IDPC del ejercicio
+1706       | +            | Pérdida tributaria del ejercicio al 31 de diciembre 
+1707       | +            | Pérdidas tributarias de ejercicios anteriores
+1704       | +            | Remesas, retiros o dividendos repartidos en el ejercicio, históricos
+1479       | +            | Remesas, retiros o dividendos repartidos en el ejercicio
+1708       | +            | Partidas del inc. 1° no afectas al IU de tasa 40% y del inc. 2° del art. 21 LIR
+1709       | +            | Ingreso diferido imputado en el ejercicio, debidamente incrementado y reajustado, cuando corresponda
+1710       | +            | Incentivo al ahorro según art. 14 letra E) LIR
+1711       | +            | Base del IDPC voluntario según art. 14 letra A) N° 6 LIR
+1545       | +            | CPTS positivo final
+1546       | +            | CPTS negativo final
+1703       | +            | CPTS positivo
+1719       | +            | CPTS negativo 
+1492       | +            | Saldo negativo del registro REX al término del ejercicio
+1720       | +            | Subtotal
+1493       | +            | Saldo positivo del registro REX al término del ejercicio, antes de imputaciones
+1500       | +            | Rentas afectas a IGC o IA (RAI) del ejercicio 
+1943       | +            | Monto acogido al ISIF, según arts. 10 y 11 Ley N° 21.681 / ISFUT / ISIF
+1459       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / RAI / Reversos y/o disminuciones del ejercicio (propios)
+1463       | +            | RAI/Aumentos del ejercicio (propios)RAI/Otros aumentos del ejercicio
+1484       | +            | RAI/Remanente ejercicio siguiente (saldo positivo)RAI/Remanente ejercicio siguiente (saldo negativo)
+1485       | +            | REX/Rentas con tributación cumplida Remanente ejercicio siguiente (saldo positivo)REX/Rentas con tributación cumplida Remanente ejercicio siguiente (saldo negativo)
+1489       | +            | REX/Rentas con tributación cumplida Remanente ejercicio siguiente (saldo negativo)REX/Rentas exentas/Remanente ejercicio anterior (saldo positivo)
+1771       | +            | REX/Renta con tributación cumplida/ISFUT/ Remanente ejercicio siguiente (saldo positivo)
+1772       | +            | REX/Renta con tributación cumplida/Otras/ Remanente ejercicio siguiente (saldo positivo)
+1846       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / Remanente ejercicio siguiente (saldo negativo)
+1486       | +            | REX/Rentas exentas /Remanente ejercicio siguiente (saldo positivo)REX/Rentas exentas /Remanente ejercicio siguiente (saldo negativo)
+1490       | +            | REX/Rentas exentas /Remanente ejercicio siguiente (saldo negativo)REX/INR/Remanente ejercicio anterior (saldo positivo)
+1487       | +            | REX/INR/Remanente ejercicio siguiente (saldo positivo)REX/INR/Remanente ejercicio siguiente (saldo negativo)
+1491       | +            | REX/INR/Remanente ejercicio siguiente (saldo negativo)STUT/Remanente ejercicio anterior (saldo positivo)
+1391       | +            | STUT/Remanente ejercicio siguiente (saldo positivo)Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/
+18       | +            | Base imponible IDPC de empresas acogidas al régimen Pro Pyme, según art. 14 letra D) N° 3 LIR
+19       | +            | REBAJA AL IMPUESTO IDPC de empresas acogidas al régimen Pro Pyme, según art. 14 letra D) N° 3 LIR
+20       | +            | IDPC de empresas acogidas al régimen Pro Pyme, según art. 14 letra D) N° 3 LIR
+1512       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / IDPC e IPE base imponible generada en el ejercicio
+1513       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / IDPC e IPE base imponible generada en el ejercicio
+1563       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Sin D° Devolución /Remanente ejercicio siguiente (saldo positivo)
+1368       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Sin D° Devolución /Remanente ejercicio siguiente (saldo negativo) 
+1564       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Con D° Devolución /Remanente ejercicio siguiente (saldo positivo)
+1371       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Con D° Devolución /Remanente ejercicio siguiente (saldo negativo) 
+1565       | +            | Acumulados a contar desde el 01.01.2017/Sujeto a Restitución/Sin D° Devolución /Remanente ejercicio siguiente (saldo positivo)
+1571       | +            | Acumulados a contar desde el 01.01.2017/ Sujeto a Restitución/Sin D° Devolución /Remanente ejercicio siguiente (saldo negativo) 
+1566       | +            | Acumulados a contar desde el 01.01.2017/Sujeto a Restitución/Con D° Devolución /Remanente ejercicio siguiente (saldo positivo)
+1572       | +            | Acumulados a contar desde el 01.01.2017/ Sujeto a Restitución/Con D° Devolución /Remanente ejercicio siguiente (saldo negativo) 
+1567       | +            | Acumulados a contar desde el 01.01.2017/IPE/Remanente ejercicio siguiente (saldo positivo)Acumulados hasta 31.12.2016/Sin D° Devolución/Remanente ejercicio anterior (saldo positivo)
+1568       | +            | Acumulados hasta 31.12.2016/Sin D° Devolución/Remanente ejercicio siguiente (saldo positivo)Acumulados hasta 31.12.2016/Con D° Devolución/Remanente ejercicio anterior (saldo positivo)
+1569       | +            | Acumulados hasta 31.12.2016/Con D° Devolución/Remanente ejercicio siguiente (saldo positivo)Acumulados hasta 31.12.2016/IPE/ Remanente ejercicio anterior (saldo positivo)
+1570       | +            | Acumulados hasta 31.12.2016/IPE/Remanente ejercicio siguiente (saldo positivo)Ingresos percibidos
+1608       | +            | Ingreso diferido imputado en el ejercicio, debidamente incrementado y reajustado, cuando correspondaCrédito por activos fijos adquiridos en el ejercicio (art. 33 bis LIR, según instrucciones)
+1610       | +            | Total de ingresos anuales
+1629       | +            | Total de egresos anuales
+1630       |  +/-            | Base imponible a asignar a propietarios que son contribuyentes de impuestos finales, o pérdida tributaria del ejercicio
+1712       | +            | Base imponible del ejercicio, asignable a los propietarios
+1713       | +            | Pérdida tributaria del ejercicio al 31 de diciembre
+1714       | +            | Pérdidas tributarias de ejercicios anteriores
+1715       | +            | Ingreso diferido imputado en el ejercicio, debidamente incrementado y reajustado, cuando corresponda
+1716       | +            | Crédito por activos fijos adquiridos en el ejercicio (art. 33 bis LIR)
+1581       | +            | CPTS positivo final
+1583       | +            | CPTS negativo 
+1592       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
+1024       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución
+1593       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
+1025       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución
+104       | +            | Retiros o remesas afectos al IGC o IA, según art. 14 letras A) y/o D) N° 3 LIR
+603       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución / Rentas presuntas propias o por participaciones
+108       | +            | Rentas presuntas propias o por participaciones, según art. 14 letra B) N° 2 y art. 34 LIR
+1920       | +            | CIDPC / Sin Oblig.Rest. / Con Derecho Dev /a) Propios
+1921       | +            | Rentas presuntas propias o por participaciones / a) Propios
+1721       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución / Rentas propias o por participaciones, según art. 14 letra B) N° 1 LIR (renta efectiva sin contabilidad completa)
+1722       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución / Rentas propias o por participaciones, según art. 14 letra B) N° 1 LIR (renta efectiva sin contabilidad completa)
+1596       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución / Rentas propias o por participaciones, según art. 14 letra B) N° 1 LIR (renta efectiva sin contabilidad completa)
+954       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución / Rentas propias o por participaciones, según art. 14 letra B) N° 1 LIR (renta efectiva sin contabilidad completa)
+955       | +            | Rentas propias o por participaciones, según art. 14 letra B) N° 1 LIR (renta efectiva sin contabilidad completa)
+1597       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución / Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR
+1598       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución / Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR
+1599       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución / Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR
+1631       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ con derecho a devolución / Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR
+1632       | +            | Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR
+2014       | +            | Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR / a) propias
+110       | +            | Rentas percibidas de los arts. 42 Nº 2 (honorarios) y 48 (rem. directores S.A.) LIR, según Recuadro N° 1
+605       | C            | CIDPC / con Oblig.Rest. / con derecho Dev / Rentas de capitales mobiliarios, mayor valor en la enajenación o rescate de cuotas fondos mutuos y fondos de inversión y enajenación de acciones y derechos sociales y retiros de ELD
+155       | +            | Rentas de capitales mobiliarios (art. 20 N° 2 LIR), mayor valor en la enajenación o rescate de cuotas fondos mutuos y fondos de inversión y enajenación de acciones y derechos sociales (art. 17 N° 8 LIR) y retiros de ELD (arts. 42 ter y quáter LIR)
+1633       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
+1105       | +            | Rentas exentas del IGC, según art. 54 N° 3 LIR, cred con restitución
+1634       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
+606       | C            | Rentas exentas del IGC, según art. 54 N° 3 LIR, cred sin restitución
+152       | +            | Rentas exentas del IGC, según art. 54 N° 3 LIR
+161       | +            | Rta Art 42 Nro 1
+749       | +            | Rebajas Por Incremento Impto de Primera Categoría.y/o Impuesto  Exterior
+158       | +            | SUB TOTAL (Si declara IA trasladar a código 133 o  32)
+751       | +            | Intereses Pagados Por Cred.C Garantía y/o Rebaja Por Pago Dividendo Vivienda 2/59
+170       | +            | BASE IMPONIBLE ANUAL DE IUSC o IGC
+1784       | +            | 5% de las rentas que forman parte de la declaración anual de impuestos a la renta según art. 65 LIR (calculado sobre el código 170)
+1801       | +            | Cuota anual (30% del monto del préstamo tasa 0%), según art. 11 inc. 1° Ley N° 21.323 
+1802       | +            | Monto a pagar de la cuota
+1788       | +            | Monto a pagar de la(s) cuota(s) después de anticipos / Préstamo AC 2020 (Leyes N° 21.242 y N° 21.252)
+1793       | +            | Total retenciones adicionales y PPMA
+1794       | +            | Monto a pagar de la cuota después de retenciones adicionales y PPMA
+1795       | +            | Saldo a devolver por retenciones adicionales y PPMA en exceso
+157       | +            | IGC o IUSC, según tabla (arts. 47, 52 o 52 bis LIR)
+201       | +            | Débito fiscal por ahorro neto negativo (Recuadro N° 3), según art. 3° transitorio numeral VI) Ley N° 20.780 (ex. art. 57 bis LIR)
+608       | +            | Crédito al IGC por IDPC sin derecho a devolución, según arts. 20 N° 1 letra a), 41 A N° 4 letra A) letra a) y 56 N° 3 LIR
+610       | +            | Crédito al IGC o IUSC por IPDC con derecho a devolución, según art. 56 N° 3 LIR
+304       |  +/-            | IGC O IUSC, DÉBITO FISCAL Y/O TASA ADICIONAL DETERMINADO
+31       | +            | IMPUESTO GLOBAL COMPLEMENTARIO O IUSC, TASA ADICIONAL Y/O DEBITO FISCAL DETERMINADO
+1640       |  +/-            | BASE IMPONIBLE/ IDPC contribuyentes  o entidades sin vínculo directo o indirecto con propietarios afectos a IGC o IA, según art. 14 letra G) LIR
+1641       | +            | REBAJAS AL IMPUESTO/IDPC contribuyentes  o entidades sin vínculo directo o indirecto con propietarios afectos a IGC o IA, según art. 14 letra G) LIR
+1642       | +            | IDPC contribuyentes  o entidades sin vínculo directo o indirecto con propietarios afectos a IGC o IA, según art. 14 letra G) LIR
+1926       | +            | Impuesto / a) Rentas de la explotación de bienes raíces agrícolas
+1928       | +            | Impuesto / b) Rentas del transporte de pasajeros
+1930       | +            | Impuesto / c) Rentas del transporte de carga
+1932       | +            | Impuesto / d) Rentas de la actividad minera
+189       | +            | IDPC sobre rentas presuntas, según art. 34 LIR
+188       | +            | Rebaja IDPC sobre rentas presuntas, según art. 34 LIR
+187       | +            | Base imponible IDPC sobre rentas presuntas, según art. 34 LIR
+1894       | +            | Impuesto / a) Rentas del arrendamiento, subarrendamiento, usufructo o cesión de cualquier otra forma de uso o goce temporal de bienes raíces agrícolas y no agrícolas
+1897       | +            | Impuesto / b) Mayor valor obtenido en la enajenación de bienes raíces situados en Chile
+1900       | +            | Impuesto / c) Rentas obtenidas por contribuyentes con contabilidad simplificada
+1903       | +            | Impuesto / d) Otras rentas efectivas afectas a lDPC e impuestos finales
+1913       | +            | Impuesto / e) Otras rentas de fuente extranjera afectas
+1037       | +            | IDPC sobre rentas efectivas determinadas sin contabilidad completa, base
+1038       | +            | IDPC sobre rentas efectivas determinadas sin contabilidad completa, rebaja
+1039       | +            | IDPC sobre rentas efectivas determinadas sin contabilidad completa
+79       | +            | Impuesto de 40% empresas del Estado, según art. 2º D.L. N° 2.398 de 1978
+1041       | +            | Pago voluntario a título de IDPC, según art. 14 letra A) N° 5 y letra B) N° 3 LIR
+1977       | +            | Base imponible / a) Componente ad valorem, según art. 2 Ley N° 21.591 
+1976       | +            | Royalty minero Ley N° 21.591
+1043       | +            | Base imponible / Impuesto único de 10% por enajenación de bienes raíces, según art. 17 N° 8 letra b) LIR y/o art. 4 Ley N° 21.078
+1044       | +            | Impuesto único de 10% por enajenación de bienes raíces, según art. 17 N° 8 letra b) LIR y/o art. 4 Ley N° 21.078
+1829       | +            | Base Imponible / Impuesto único de 10% por enajenación o rescate de acciones de S.A. con presencia bursátil, de cuotas de fondos de inversión y fondos mutuos, según art. 107 LIR
+1830       | +            | Impuesto único de 10% por enajenación o rescate de acciones de S.A. con presencia bursátil, de cuotas de fondos de inversión y fondos mutuos, según art. 107 LIR vigente a partir del 02.09.2022
+909       | +            | IA en carácter de único (activos subyacentes), según art. 58 N° 3 LIR
+952       | +            | Impuesto único de 10%, según art. 82 del art. 1° Ley N° 20.712
+755       | +            | Impuesto único por exceso de endeudamiento, según art. 41 F LIR
+34       | +            | IA según arts. 58 N° 1 y 2 y 60 inc. 1° LIR
+1644       | +            | Impuesto único tasa 25% por distribuciones desproporcionadas, según art. 39° transitorio Ley N° 21.210
+1916       | +            | d) Remanente del IEAM anotado en el código 829 del recuadro N° 8 
+36       | +            | PPM y remanente del IEAM
+198       | +            | Retenciones por rentas declaradas en código 110 (Recuadro N°1)
+119       | +            | Remanente de crédito por reliquidación del IUSC y/o por ahorro neto positivo, proveniente de códigos 162 y/o 174
+116       | +            | Remanente de crédito por IDPC proveniente de códigos 1638 y/o 610
+757       | +            | Remanente código 119 y código 116
+900       | +            | Cargo por cotizaciones previsionales, según arts. 89 y sgtes. D.L. N° 3.500 de 1980
+1796       | +            | Monto a pagar cuota préstamo tasa 0% (préstamo solidario del Estado)
+305       |  +/-            | RESULTADO LIQUIDACIÓN ANUAL IMPUESTO A LA RENTA
+85       | +            | Saldo a Favor
+87       | +            | Monto devolución solicitada
+90       | +            | Impuesto Adeudado
+39       | +            | Reajuste art.72 LIR, código 305      %
+91       | +            | TOTAL A PAGAR (códigos 90 y 39)
+1       | +            | Primer Apellido/ Razón Social
+2       | +            | Segundo Apellido 
+3       | +            | Rol Único Tributario
+5       | +            | Nombres
+6       | +            | Calle (Domicilio Renta)
+7       | +            | Folio de la Declaración
+8       | +            | Comuna Domicilio Renta
+9       | +            | Teléfono
+13       | +            | Actividad, Profesión o Giro Negocio
+14       | +            | Código Actividad Económica
+15       | MA            | Fecha Vencimiento Declaración
+21       | +            | Impuesto único talleres artesanales
+32       | +            | Base IA según arts. 58 N° 1 y 2 y 60 inc. 1° LIR
+43       | +            | Impuesto único pescadores artesanales
+51       | +            | Base imponible / Reliquidación IGC por término de giro de empresa acogida al régimen del art. 14 letras A) y D) N° 3 y 8, según art. 38 bis N° 3 LIR
+53       | +            | Región
+54       | +            | Mayor retención por sueldos, pensiones y otras rentas similares declaradas en código 1098, según art. 88 inc. final LIR
+55       | +            | Correo Electrónico
+58       | +            | Créditos puestos a disposición de los socios por la sociedad respectiva, según instrucciones
+63       | +            | Rebajas al Impuesto / Reliquidación IGC por término de giro de empresa acogida al régimen del art. 14 letras A) y D) N° 3 y 8, según art. 38 bis N° 3 LIR
+68       | X            | D.L. N° 600 (E.I.E)
+69       | X            | Instituciones art. 40 N°s 2 y 4 LIR
+71       | +            | IGC a declarar /  Reliquidación IGC por término de giro de empresa acogida al régimen del art. 14 letras A) y D) N° 3 y 8, según art. 38 bis N° 3 LIR
+72       | X            | D.L. N° 701 (F.F)
+73       | X            | D.S. N° 341 (Zona Franca)
+74       | +            | Rebaja Impuesto de 40% empresas del Estado, según art. 2º D.L. N° 2.398 de 1978
+76       | +            | Rebaja IA según arts. 58 N° 1 y 2 y 60 inc. 1° LIR
+77       | +            | Base Impuesto de 40% empresas del Estado, según art. 2º D.L. N° 2.398 de 1978
+82       | +            | Crédito por gastos de capacitación, según Ley N° 19.518
+83       | +            | Crédito empresas constructoras
+86       | +            | Menos: saldo puesto a disposición de los socios
+92       | +            | Reajustes Declaración Fuera de Plazo
+93       | +            | Intereses y Multas Declaración Fuera de Plazo
+94       | +            | TOTAL A PAGAR (códigos 91+92+ 93)
+95       | X            | Leyes N°s. 18.392 o 19.149 (Navarino y Primavera)
+98       | +            | Total Pagado (Pago Diferido)
+101       | +            | Saldo de caja (sólo dinero en efectivo y documentos al día, según arqueo)
+102       | +            | Capital Efectivo
+105       | +            | Dividendos afectos al IGC o IA, según art.14 letras A) y/o D) N° 3 LIR
+106       | +            | Gastos rechazados y otras partidas referidos en el art. 21 inc. 3° LIR
+111       | +            | Cotizaciones previsionales correspondientes al empresario o socio, según art. 55 letra b) LIR
+113       | +            | Base Imponible/ Impuesto único de 40% sobre gastos rechazados y otras partidas, según art. 21 inc. 1°, art. 14 letra A) N° 9 LIR
+114       | +            | Impuesto único de 40% sobre gastos rechazados y otras partidas, según art. 21 inc. 1°, art. 14 letra A) N° 9 LIR
+122       | +            | Total del Activo
+123       | +            | Total del Pasivo
+129       | +            | Existencia Final
+133       | +            | Base Imponible IA según ex-D.L. N° 600 de 1974
+134       | +            | Impuesto Adicional según ex-D.L. N° 600 de 1974
+135       | +            | Crédito al IGC por fomento forestal, según D.L. N° 701 de 1974
+136       | +            | Crédito proporcional al IGC por rentas exentas declaradas en código 152, según art. 56 N° 2 LIR
+138       | +            | Rebaja IA según ex-D.L. N° 600 de 1974
+159       | +            | Incremento por IDPC, según arts. 54 N° 1 y 62 LIR
+162       | +            | Crédito al IGC o IUSC por IUSC, según art. 56 N° 2 LIR
+166       | +            | Impuesto Territorial pagado en el año 2025, según art. 55 letra a) LIR
+169       | +            | Pérdida en operaciones de capitales mobiliarios y ganancias de capital según códigos 105, 155, 152,1032, 1891, 1104, 1058 y 1987 (arts. 54 N° 1 y 62 LIR)
+173       | +            | Crédito por reintegro de peajes, según art. 1° Ley N° 19.764
+174       | +            | Crédito al IGC o IUSC por ahorro neto positivo (Recuadro N° 3), según art. 3° transitorio numeral VI) Ley N° 20.780 (ex. art. 57 bis LIR)
+176       | +            | Crédito al IGC por Impuesto Tasa Adicional, según ex. art. 21 LIR
+181       | +            | Pago provisional exportadores, según ex-art. 13 Ley N° 18.768
+238       | +            | Saldo crédito Impuesto Tasa Adicional ex-art. 21 LIR
+301       | +            | Nombre Institución Bancaria
+306       | +            | Numero de Cuenta
+315       | DMA            | Fecha Presentación
+365       | +            | Crédito por impuesto territorial (contribuciones de bienes raíces)
+366       | +            | Crédito por bienes físicos del activo inmovilizado del ejercicio
+373       | +            | Crédito/Donaciones para fines culturales, según art. 8° Ley N° 18.985 (afectas al LGA)
+382       | +            | Crédito/Donaciones para fines educacionales, según art. 3° Ley N° 19.247 (afectas al LGA)
+384       | +            | Crédito/Donaciones a universidades e institutos profesionales, según art. 69 Ley N° 18.681 (afectas al LGA)
+390       | +            | Crédito por inversiones Ley Arica
+392       | +            | Crédito por rentas de zonas francas
+461       | +            | Honorarios Anuales Con Retención
+465       | +            | Gastos efectivos (solo rebajables del código 547)
+479       | +            | Total Remuneraciones Directores S.A.
+491       | +            | Impuesto retenido de Total Remuneraciones Directores S.A.
+492       | +            | Impuesto Retenido de Honorarios Anuales Con Retención.
+545       | +            | Honorarios Anuales Sin Retención
+607       | +            | Crédito al IGC o IUSC por donaciones para fines culturales, según art. 8 Ley N° 18.985
+609       | +            | Crédito al IGC por donaciones a universidades e institutos profesionales, según art. 69 Ley N° 18.681
+616       | X            | Asociación o cuentas en participación
+617       | +            | Participación en sociedades de profesionales de 2ª Categoría
+647       | +            | Activo Inmovilizado
+648       | +            | Bienes Adquiridos Contrato Leasing
+650       | +            | R.U.T. Contador
+701       | +            | Total ahorro neto positivo del ejercicio
+702       | +            | Ahorro neto positivo utilizado en el ejercicio
+704       | +            | Total ahorro neto negativo del ejercicio
+740       | +            | Dividendos hipotecarios pagados por viviendas nuevas acogidas al D.F.L. Nº 2 de 1959, según Ley N°19.622
+741       | +            | Monto inversión  Ley Austral
+742       | +            | Crédito Por Inversión Ley Austral
+746       | +            | Crédito al IGC por impuestos soportados en el exterior, según arts. 41 A N° 4 letra A) letra b) LIR
+748       | +            | Incremento por impuestos soportados en el exterior, según art. 41 A LIR
+750       | +            | Intereses pagados por créditos con garantía hipotecaria, según art. 55 bis LIR
+752       | +            | Crédito al IGC por donaciones para fines deportivos, según art. 62 y sgtes. Ley N° 19.712
+753       | +            | Base Imponible / Impuesto único por exceso de endeudamiento, según art. 41 F LIR
+754       | +            | Crédito / Impuesto único por exceso de endeudamiento, según art. 41 F LIR
+761       | +            | Crédito/Donaciones para fines deportivos, según art. 62 y sgtes. Ley N° 19.712 (afecta al LGA)
+765       | +            | Ahorro previsional, según art. 42 bis inc. 1° LIR
+767       | +            | Impuesto único por retiros de ahorro previsional, según art. 42 bis inc. 1° N° 3 LIR
+770       | +            | Monto ahorro previsional, según art. 42 bis inc. 1° LIR
+772       | +            | Total Gasto/Otras donaciones, según art. 10 Ley N° 19.885 (afecta al LGA)
+773       | +            | Crédito/Donaciones para fines sociales, según art. 1° y sgtes. Ley N° 19.885 (afecta al LGA)
+780       | +            | Tipo de Cuenta
+783       | +            | Préstamos efectuados a propietarios, socios o accionistas en el ejercicio
+784       | +            | Saldo cuenta corriente bancaria según, conciliación
+786       | +            | Ley N° 19.709 (Tocopilla)
+792       | +            | Total, Gasto/Donaciones para fines sociales, según art. 1° y sgtes. Ley N° 19.885 (afecta al LGA)
+794       | +            | Gasto Rechazado/ Donaciones para fines sociales, según art. 1° y sgtes. Ley N° 19.885 (afecta al LGA)
+805       | X            | Opción al régimen
+811       | +            | Gastos rechazados por otras donaciones según Art. N° 10, Ley N° 19.885.
+813       | X            | Retiro del régimen
+815       | +            | Monto Inversión Ley Arica
+822       | +            | 20% cuotas fondos de inversión adquiridas antes del 04.06.93, según art. 6 Transitorio Ley N° 19.247
+824       | +            | Base imponible / Impuesto específico a la actividad minera, según ex. art. 64 bis LIR
+825       | +            | Impuesto específico a la actividad minera, según ex. art. 64 bis LIR
+828       | +            | Crédito IEAM del ejercicio
+830       | +            | Crédito IEAM utilizado en el ejercicio
+832       | +            | Retenciones efectuadas por instituciones autorizadas con tasa 15%, sobre los retiros de ahorro previsional, según art. 42 bis N° 3 incs. 2° y 3° LIR
+833       | +            | Retenciones por rentas declaradas en códigos 104, 106, 108, 955, 1632, 155, 1032, 1891, 908, 951, 32 y 1829
+839       | +            | Remanente de crédito por bienes físicos del activo inmovilizado proveniente de inversiones A.T. 1999 - 2002
+841       | +            | Crédito por impuestos soportados en el extranjero, según art. 41 A LIR
+843       |  +/-            | Patrimonio Financiero
+844       |  +/-            | Capital aportado debidamente reajustado (incluye aumentos y disminuciones efectivas)
+848       | +            | Crédito fiscal AFP, según art. 23 D.L. N° 3.500 de 1980
+850       | +            | Rebaja por presunción de asignación de zona  D.L. N° 889 de 1975
+855       | +            | Crédito por inversión privada en actividades de investigación y desarrollo Ley N° 20.241
+856       | +            | Incremento por impuestos soportados en el extranjero
+862       | +            | Restitución crédito por gastos de capacitación excesivo, según  art. 6° Ley N° 20.326
+866       | +            | Crédito al IGC por donaciones al Fondo Nacional de Reconstrucción, según arts. 5 y 9 Ley N° 20.444
+867       | +            | Crédito al IGC o IUSC por donaciones para fines sociales, según art. 1° bis Ley N° 19.885
+872       | +            | Gastos por donaciones para fines sociales, según art. 1° bis Ley N° 19.885, y gasto por donaciones de bienes inmuebles en apoyo al plan de emergencia habitacional, art. 26 Ley N° 21.450
+873       | +            | Total Gasto/ Donaciones, según art. 7° Ley N° 16.282 (no afectas al LGA)
+876       | +            | Gasto Rechazado/ Donaciones al FNR, según arts. 4° y 9° Ley N° 20.444 (no afectas al LGA)
+881       | +            | Retenciones sobre intereses, según art. 74 N° 7 y 8 LIR
+884       | +            | Agregados a la RLI (o pérdida tributaria) de primera categoría, según ex. art. 64 ter LIR
+885       | +            | Deducciones a la RLI (o pérdida tributaria) de primera categoría, según ex. art. 64 ter LIR
+886       | +            | Ventas expresadas en TMCF, según ex. art. 64 bis LIR
+887       | +            | Margen operacional minero, según ex. art. 64 bis LIR
+893       | +            | Aumentos (efectivos) de capital del ejercicio actualizados
+894       | +            | Disminuciones (efectivas) de capital del ejercicio actualizadas
+895       | +            | Crédito al IGC o IUSC por gastos en educación, según art. 55 ter LIR
+898       | +            | Crédito/Donaciones al FNR, según arts. 4° y 9° Ley N° 20.444 (no afectas al LGA)
+907       | +            | Donaciones, según art. 7° Ley N° 16.282 y D.L. N° 45 de 1973 
+908       | +            | Base IA en carácter de único (activos subyacentes), según art. 58 N° 3 LIR
+910       | +            | Tasa adicional de 10% de IGC, sobre cantidades declaradas en código 106, según art. 21 inc. 3° LIR
+911       | +            | Diferencia de IA por crédito indebido por IDPC o por crédito indebido del art. 41 A en caso de empresas acogidas al régimen del art. 14 letras A) y D) N° 3, según art. 74 N° 4 LIR
+913       | +            | Tasa adicional de 10% de IA, sobre cantidades declaradas en código 106, según art. 21 inc 3° LIR
+923       |              | Retención de impuesto sobre gastos rechazados y otras partidas (tasa 45%), según art. 74 N° 4 inc. 11° LIR
+924       | +            | Retención de IA en carácter de único (activos subyacentes) (tasa 20% y/o 35%), según art. 74 N° 4 LIR
+930       | +            | Cuota Exenta 10 UTA
+938       | +            | Depreciación acelerada en 1/3  vida util, del ejercicio (art. 31 N° 5 LIR)
+940       | +            | Cantidad de Bienes del Activo Inmovilizado
+949       | +            | Depreciación acelerada en 1/10 vida últil, del ejercicio (art. 31 N° 5 bis LIR)
+950       | +            | Total depreciación normal de los bienes con depreciación acelerada informada en los códigos 938, 949
+951       | +            | Base Imponible / Impuesto único de 10%, según art. 82 del art. 1° Ley N° 20.712
+974       | +            | Renta imponible extranjera (art. 41 A  N° 3 LIR)
+975       | +            | Gastos adeudados o pagados por cuotas de bienes en leasing
+976       | +            | Total de cantidades adeudadas, pagadas o abonadas a relacionados en el exterior (arts. 31 inc. 3° y 59 LIR)
+978       | +            | Cantidades adeudadas, pagadas, abonadas en cuenta o puestas a disposición de relacionados en el exterior, cuyo IA no ha sido enterado (arts. 31 inc.  3° y 59 LIR)
+982       | +            | Saldo FUR  (cuando no haya sido considerado dentro del valor del capital aportado a la empresa)
+984       | +            | Otras rebajas especiales
+985       | +            | Ventas de relacionados expresadas en TMCF, según ex art. 64 bis LIR
+986       | +            | Total Gasto/Donaciones para fines culturales, según art. 8° Ley N° 18.985 (afectas al LGA)
+987       | +            | Total Gasto/Donaciones para fines educacionales, según art. 3° Ley N° 19.247 (afectas al LGA)
+988       | +            | Total, Gasto/Donaciones para fines deportivos, según art. 62 y sgtes. Ley N° 19.712 (afecta al LGA)
+989       | +            | Total gasto/ Donaciones a universidades e institutos profesionales, según art. 69 Ley N° 18.681 (afectas al LGA)
+990       | +            | Gasto Rechazado/ Donaciones para fines culturales, según art. 8° Ley N° 18.985 (afectas al LGA)
+991       | +            | Gasto Rechazado/ Donaciones para fines educacionales, según art. 3° Ley N° 19.247 (afectas al LGA)
+993       | +            | Gasto Rechazado/Donaciones a universidades e institutos profesionales, según art. 69 Ley N° 18.681 (afectas al LGA)
+994       | +            | Total Gasto/Donaciones al FNR, según arts. 4° y 9° Ley N° 20.444 (no afectas al LGA)
+998       | +            | Imputado en el Ejercicio / Donaciones para fines culturales según art. 8° Ley N° 18.985
+999       | +            | Remanente año anterior/ Donaciones para fines culturales según art. 8° Ley N° 18.985
+1001       | +            | Gasto Rechazado/ Donaciones para fines deportivos, según art. 62 y sgtes. Ley N° 19.712 (afecta al LGA)
+1002       | +            | Gasto Rechazado/ Donaciones, según art. 7° Ley N° 16.282 (no afectas al LGA)
+1003       | +            | Activo Gasto Diferido Goodwill Tributario
+1004       | +            | Activo intangible goodwill tributario (Ley N° 20.780)
+1005       | +            | Utilidades financieras capitalizadas 
+1007       | +            | Credito / Impuesto único de 40% sobre gastos rechazados y otras partidas, según art. 21 inc. 1°, art. 14 letra A) N° 9 LIR
+1017       | +            | IGC sobre intereses y otros rendimientos, según art. 54 bis LIR
+1018       | +            | Crédito al IUSC o IGC por impuestos soportados en el exterior, según arts. 41 A N°4 letra B) o N° 5 LIR
+1019       |  +/-            | Beneficio antes de Gastos Financieros (EBITDA)
+1020       | +            | Total Pasivos Contraídos en Chile
+1021       | +            | Monto del capital  directa o indirectamente financiado por partes relacionadas
+1026       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución
+1027       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Con derecho a devolución
+1030       | +            | Sueldos y otras rentas similares de fuente extranjera
+1031       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA / SIN OBLIGACIÓN DE RESTITUCIÓN / Con derecho a devolución / Otras rentas de fuente chilena afectas al IGC o IA (según instrucciones), cred
+1032       | +            | Otras rentas de fuente chilena afectas al IGC o IA (según instrucciones), rtas y rebajas
+1033       | +            | Reliquidación IGC por ganancias de capital, según art. 17 N° 8 letras a) literal v) y b) LIR
+1035       | +            | Débito fiscal por restitución crédito por IDPC, según art. 56 N° 3 inc. final LIR
+1036       | +            | Crédito al IGC, según art. 52 bis LIR
+1040       | +            | Pago voluntario a título de IDPC, según art. 14 letra A) N° 6 LIR
+1042       | +            | Diferencia de créditos por IDPC otorgados en forma indebida o en exceso, según art. 14 letra A) N° 7 LIR 
+1051       | +            | Retención del IA sobre rentas asignadas empresas acogidas al régimen de los arts. 14 letra B) N° 1, 2 y/o 14 letra D) N° 8, según art. 74 N° 4 LIR
+1052       | +            | Débito fiscal por restitución crédito por IDPC, según art. 63 inc. 3° LIR
+1055       | +            | Precios de enajenaciones del conjunto de los bienes raíces / según art. 17 N°8 letra b) de la LIR.
+1056       | +            | Menos: valor de adquisición de los bienes raíces reajustados
+1057       | +            | Menos: Mejoras que hayan aumentado el valor de los bienes raíces reajustadas
+1060       | +            | Ingreso no renta equivalente a 8.000 UF o saldo del ejercicio anterior
+1063       | +            | Mayor valor percibido según códigos 1099 y 1114 afecto a IGC o IA
+1064       | +            | Mayor valor devengado según código 1847 afecto a IGC 
+1065       | +            | Mayor valor percibido según códigos 1099 y 1114 afecto al impuesto único y sustitutivo con tasa 10%
+1070       |  +/-            | Enajenación de acciones / Mayor o menor valor determinado / IGC o IA sobre rentas percibidas, según código 155
+1074       |  +/-            | Enajenación de acciones /  Mayor o menor valor determinado / Opción por IGC a reliquidar sobre renta devengada según código 1033
+1079       |  +/-            | Enajenacion Derechos sociales /  Mayor o menor valor determinado / IGC o IA sobre rentas percibidas, según código 155
+1083       |  +/-            | Enajenacion Derechos sociales / Mayor o menor valor determinado /Opción por IGC a reliquidar sobre renta devengada según código 1033
+1087       |  +/-            | Enajenación o rescate de cuotas de fondos mutuos y/o fondos de inversión /  Mayor o menor valor determinado / IGC o IA sobre rentas percibidas, según código 155
+1098       | +            | Sueldos, pensiones y otras rentas similares de fuente nacional
+1099       | +            | Mayor valor percibido en enajenaciones efectuadas en el ejercicio
+1101       | +            | Crédito por asignaciones por causa de muerte Ley N° 16.271, según art. 17 N° 8 letra b) literal vi) LIR
+1102       | +            | Credito / Impuesto único de 10% por enajenación de bienes raíces, según art. 17 N° 8 letra b) LIR y/o art. 4 Ley N° 21.078
+1104       | +            | Otras rentas de fuente extranjera afectas al IGC o IA (según instrucciones), rtas y rebajas
+1114       | +            | Renta percibida en el ejercicio por enajenaciones efectuadas en ejercicio anterior
+1120       | +            | Otras donaciones / Total gasto / Donaciones, según art. 37 D.L. N° 1.939 de 1977 (no afectas al LGA) y según art. 68 Ley N° 19.300 (no afectas al LGA)
+1121       | +            | Otras donaciones / Gasto no aceptado / Donaciones, según art. 37 D.L. N° 1.939 de 1977 (no afectas al LGA) y según art. 68 Ley N° 19.300 (no afectas al LGA)
+1122       | +            | Total Gasto/ Donaciones, según Ley N° 21.015 (no afectas al LGA)
+1123       | +            | Crédito por desembolsos directos por trazabilidad (art. 60 quinquies Código Tributario)
+1124       | +            | Gasto Rechazado/ Donaciones, según Ley N° 21.015 (no afectas al LGA)
+1131       |  +/-            | Enajenación o rescate de cuotas de fondos mutuos y/o fondos de inversión /  Mayor o menor valor determinado / Opción por IGC a reliquidar sobre renta devengada según código 1033
+1140       | +            | Arriendos
+1141       | +            | Gastos por exigencias medio ambientales
+1142       | +            | Gasto por indemnización o compensación a clientes o usuarios
+1144       | +            | Partidas del inc. 1° no afectas al IU de tasa 40% y del inc. 2° del art. 21 LIR, reajustados
+1145       | +            | CPT positivo inicial
+1146       | +            | CPT negativo inicial
+1147       | +            | Costos y gastos asociados a  ingresos no renta (art. 17 LIR), generados
+1148       | +            | Proporcionalidad gastos imputados a ingresos no renta y/o rentas exentas
+1149       | +            | Intereses devengados por inversiones en bonos del art. 104 LIR 
+1151       | +            | Ingresos devengados por cambio de régimen
+1152       | +            | Gastos adeudados por cambio de régimen 
+1154       | +            | Incentivo al ahorro según art. 14 letra E) LIR 
+1157       | +            | Base del IDPC voluntario según  art. 14 letra A) N°  6 LIR y art. 42° transitorio Ley N° 21.210
+1160       | +            | Remanente FUR ejercicio anterior debidamente reajustado
+1163       | +            | Rebaja FUR por devolución de capital, enajenación de acciones o derechos sociales y reorganización empresarial, debidamente reajustados
+1164       | +            | Rebaja FUR acogido a IS por devolución de capital, enajenación de acciones o derechos sociales y reorganización empresarial, debidamente reajustados
+1166       | +            | Aumento FUR por reorganización empresarial debidamente reajustado
+1171       | +            | Remanente crédito IDPC ejercicio anterior debidamente reajustado
+1172       | +            | Crédito por IDPC utilizado en el ejercicio
+1173       | +            | Crédito por IDPC recibido en el ejercicio
+1175       | +            | Estimación y/o castigos de deudas incobrables, según criterios financieros
+1176       | +            | Castigo de deudas incobrables, según art. 31 inc. 4° N° 4 LIR 
+1177       | +            | Corrección monetaria capital propio tributario inicial
+1178       | +            | Rentas exentas del IDPC e ingresos no renta (positivo), generados por la empresa en el ejercicio
+1179       | +            | Pérdida por rentas exentas del IDPC e ingresos no renta del ejercicio
+1180       | +            | Retiros o dividendos percibidos en el ejercicio por participaciones en otras empresas
+1183       | +            | Dividendos y/o utilidades sociales percibidas o devengadas (art. 33 N° 2 LIR), ingresos no renta
+1184       | +            | Saldo Rentas tributables acumulada/ Ingreso  diferido a  imputar  en  el ejercicio 
+1186       | +            | Aumentos del ejercicio (por reorganizaciones)
+1187       | +            | Disminuciones del ejercicio (por reorganizaciones)
+1188       | +            | Crédito total disponible imputable contra impuestos finales (IPE), del ejercicio
+1189       | +            | Otras partidas a agregar
+1190       | +            | Otras partidas a deducir
+1191       | +            | TEX
+1192       | +            | TEF
+1193       | +            | Retiros, remesas o distribuciones afectos a IGC o IA, no Imputados a los RTRE
+1194       | +            | Retiros, remesas o distribuciones afectos a IGC o IA, imputados a las utilidades de balance en exceso de las tributables (UBET)
+1195       | +            | Saldo total de rentas exentas de IGC (art. 11 Ley N° 18.401, rentas del capitalismo popular)
+1196       | +            | Saldo de crédito por IDPC no sujetos a restitución generados hasta el 31.12.2019
+1197       |  +/-            | Saldo de crédito por IDPC no sujetos a restitución generados a contar del 01.01.2020
+1198       | +            | Sobreprecio obtenido en la colocación de acciones de propia emisión, debidamente reajustado
+1200       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / RAI / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1202       | +            | RAI/Aumentos del ejercicio (por reorganizaciones)
+1203       | +            | RAI/Disminuciones del ejercicio (por reorganizaciones)
+1206       | +            | RAI/Otros aumentos del ejercicio
+1207       | +            | RAI/Otras disminuciones del ejercicio
+1208       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / RAI / Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1209       | +            | RRE / RAI / Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1211       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / DDAN / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1212       | +            | DDAN/Aumentos del ejercicio (por reorganizaciones)
+1213       | +            | DDAN/Disminuciones del ejercicio (por reorganizaciones)
+1214       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / DDAN / Reversos y/o disminuciones del ejercicio (propios)
+1215       | +            | DDAN/Aumentos del ejercicio (propios)
+1216       | +            | DDAN/Otros aumentos del ejercicio
+1217       | +            | DDAN/Otras disminuciones del ejercicio
+1218       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / RAI / Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1219       | +            | RRE / DDAN / Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1221       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP Y DIFERENCIA INICIAL EX ART. 14 TER A) LIR / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1222       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP Y DIFERENCIA INICIAL EX ART. 14 TER A) LIR / Remanente ejercicio anterior o saldo inicial reajustado (saldo negativo)
+1224       | +            | REX/RENTAS CON TRIBUTACION CUMPLIDA /Aumentos del ejercicio (por reorganizaciones)
+1225       | +            | REX/RENTAS CON TRIBUTACION CUMPLIDA /Disminución del ejercicio (por reorganizaciones)
+1226       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP / Reversos y/o disminuciones del ejercicio (propios)
+1228       | +            | REX/RENTAS CON TRIBUTACION CUMPLIDA /Otros aumentos del ejercicio
+1229       | +            | REX/RENTAS CON TRIBUTACION CUMPLIDA /Otras disminuciones del ejercicio
+1230       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP/ Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1231       | +            | RRE / REX / Rentas con Tributación Cumplida / RAP /Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1234       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS EXENTAS / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1235       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS EXENTAS / Remanente ejercicio anterior o saldo inicial reajustado (saldo negativo)
+1236       | +            | REX/RENTAS EXENTAS / Aumentos del ejercicio (por reorganizaciones)
+1237       | +            | REX/RENTAS EXENTAS / Disminución del ejercicio (por reorganizaciones)
+1238       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS EXENTAS / Reversos y/o disminuciones del ejercicio (propios)
+1239       | +            | REX/RENTAS EXENTAS  / Aumentos del ejercicio propios
+1240       | +            | REX/RENTAS EXENTAS/ Otros aumentos del ejercicio
+1241       | +            | REX/RENTAS EXENTAS /Otras disminuciones del ejercicio
+1242       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS EXENTAS / Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1243       | +            | RRE / REX / Rentas exentas / Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1246       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / INR / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1247       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / INR / Remanente ejercicio anterior o saldo inicial reajustado (saldo negativo)
+1248       | +            | REX/INR / Aumentos del ejercicio (por reorganizaciones)
+1249       | +            | REX/INR/ Disminución del ejercicio (por reorganizaciones)
+1250       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / INR / Reversos y/o disminuciones del ejercicio (propios)
+1251       | +            | REX/INR / Aumentos del ejercicio propios
+1252       | +            | REX/INR/ Otros aumentos del ejercicio
+1253       | +            | REX/INR/ Otras disminuciones del ejercicio
+1254       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / INR / Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1255       | +            | RRE / REX / INR / Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1260       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / STUT  / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1262       | +            | STUT/ Aumentos del ejercicio (por reorganizaciones)
+1263       | +            | STUT/Disminución del ejercicio (por reorganizaciones)
+1264       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / STUT / Reversos y/o disminuciones del ejercicio (propios)
+1265       | +            | STUT/Otros aumentos del ejercicio
+1266       | +            | STUT/ Otras disminuciones del ejercicio
+1267       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / STUT / Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1268       | +            | RRE / STUT / Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1270       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / Sin D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1271       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / Sin D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1272       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / Sin D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1273       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / Sin D° Devolución /  IDPC e IPE retiros o dividendos percibidos
+1274       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Sin D° Devolución/Otros aumentos del ejercicio
+1275       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Sin D° Devolución/Otras disminuciones del ejercicio
+1276       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / Sin D° Devolución /  Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1277       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / Sin D° Devolución /  Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1279       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1280       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / con D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1281       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / con D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1282       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / con D° Devolución /  IDPC e IPE retiros o dividendos percibidos
+1283       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Con D° Devolución/Otros aumentos del ejercicio
+1284       | +            | Acumulados a contar desde el 01.01.2017 /No Sujeto a Restitución/Con D° Devolución/Otras disminuciones del ejercicio
+1285       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / con D° Devolución /  Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1286       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / con D° Devolución /  Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1288       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1289       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución /  Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1290       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1291       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1293       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución /  IDPC e IPE retiros o dividendos percibidos
+1294       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Sin D° Devolución/Otros aumentos del ejercicio
+1295       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Sin D° Devolución/Otras disminuciones del ejercicio
+1296       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución /  Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1297       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución /  Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1298       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Sin D° Devolución / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1301       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1302       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1303       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1304       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1306       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución / IDPC e IPE retiros o dividendos percibidos
+1307       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Con D° Devolución/Otros aumentos del ejercicio
+1308       | +            | Acumulados a contar desde el 01.01.2017 /Sujeto a Restitución/Con D° Devolución/Otras disminuciones del ejercicio
+1309       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución /  Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1310       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución /  Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1311       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  Sujeto a Restitución  / Con D° Devolución /  IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1313       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1314       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / Aumentos del ejercicio (por reorganizaciones)
+1315       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / Disminuciones del ejercicio (por reorganizaciones)
+1316       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / IDPC e IPE RLI generada en el ejercicio
+1317       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / IDPC e IPE retiros o dividendos percibidos
+1318       | +            | Acumulados a contar desde el 01.01.2017/IPE/ Otros aumentos del ejercicioAcumulados a contar desde el 01.01.2017/IPE/Otras disminuciones del ejercicio
+1319       | +            | Acumulados a contar desde el 01.01.2017/IPE/Otras disminuciones del ejercicioAcumulados a contar desde el 01.01.2017/IPE/Asignado a remesas, retiros, o dividendos imputados en el ejercicio, reajustados
+1320       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1321       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1322       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 /  IPE / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1324       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Sin D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1326       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Sin D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1327       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Sin D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1328       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Sin D° Devolución / IDPC e IPE retiros o dividendos percibidos
+1329       | +            | Acumulados hasta el 31.12.2016/Sin D° Devolución/ Otras aumentos del ejercicio
+1330       | +            | Acumulados hasta el 31.12.2016/Sin D° Devolución/ Otras disminuciones del ejercicioAcumulados hasta el 31.12.2016/Sin D° Devolución/ Asignado a remesas, retiros, o dividendos imputados en el ejercicio, reajustados
+1331       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Sin D° Devolución / Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1332       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Sin D° Devolución / Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1333       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Sin D° Devolución / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1335       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1337       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Con D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1338       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Con D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1339       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Con D° Devolución / IDPC e IPE retiros o dividendos percibidos
+1340       | +            | Acumulados hasta el 31.12.2016/Con D° Devolución/ Otras aumentos del ejercicioAcumulados hasta el 31.12.2016/Con D° Devolución/ Otras disminuciones del ejercicio
+1341       | +            | Acumulados hasta el 31.12.2016/Con D° Devolución/ Otras disminuciones del ejercicioAcumulados hasta el 31.12.2016/Con D° Devolución/ 
+1342       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Con D° Devolución / Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1343       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Con D° Devolución / Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1344       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  Con D° Devolución / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1346       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  IPE / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1347       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  IPE / Aumentos del ejercicio (por reorganizaciones)
+1348       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  IPE / Disminuciones del ejercicio (por reorganizaciones)
+1349       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  IPE / IDPC e IPE retiros o dividendos percibidos
+1350       | +            | Acumulados hasta el 31.12.2016/IPE/ Otros aumentos del ejercicioAcumulados hasta el 31.12.2016/IPE/ Otras disminuciones del ejercicio
+1351       | +            | Acumulados hasta el 31.12.2016/IPE/ Otras disminuciones del ejercicioAcumulados hasta el 31.12.2016/IPE/ Asignado a remesas, retiros, o dividendos imputados en el ejercicio, reajustados
+1352       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  IPE / Asignado a remesas, retiros o dividendos efectuados en el ejercicio, reajustados
+1353       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  IPE / Asignado a retiros en exceso y devoluciones de capital efectuados en el ejercicio, reajustados
+1354       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados hasta el 31.12.2016 /  IPE / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1358       | +            | Ingreso diferido / Saldo de rentas tributables acumuladas / Saldo de ingreso diferido pendiente de tributación de acuerdo al art. 14 letra D) N°8, letra (d) de la LIR, art. 40° transitorio  de la Ley N° 21.210 y Circular N° 62 de 2020
+1359       | +            | Ingreso diferido / Incremento / Saldo de ingreso diferido pendiente de tributación de acuerdo al art. 14 letra D) N°8, letra (d) de la LIR, art. 40° transitorio  de la Ley N° 21.210 y Circular N° 62 de 2020
+1360       | +            | Ingreso diferido / Crédito / No Sujeto a Restitución / Saldo de ingreso diferido pendiente de tributación de acuerdo al art. 14 letra D) N°8, letra (d) de la LIR, art. 40° transitorio  de la Ley N° 21.210 y Circular N° 62 de 2020
+1361       | +            | Ingreso diferido / Crédito / Sujeto a Restitución / Saldo de ingreso diferido pendiente de tributación de acuerdo al art. 14 letra D) N°8, letra (d) de la LIR, art. 40° transitorio  de la Ley N° 21.210 y Circular N° 62 de 2020
+1362       | +            | Incremento/ Ingreso  diferido a  imputar  en  el ejercicio 
+1363       | +            | Crédito / No sujeto a restitución/ Ingreso  diferido a  imputar  en  el ejercicio
+1364       | +            | Crédito / Sujeto a restitución / Ingreso  diferido a  imputar  en  el ejercicio
+1374       | +            | Capital aportado empresas que inician actividades en el año comercial que corresponda a esta declaración
+1375       | +            | Aumentos (efectivos) de capital del ejercicio
+1376       | +            | Disminuciones (efectivas) de capital del ejercicio
+1377       | +            | Rentas exentas e ingresos no renta (positivo), generados por la empresa en el ejercicio
+1378       | +            | Pérdida por rentas exentas e ingresos no renta del ejercicio
+1379       | +            | Crédito total disponible imputable contra impuestos finales (IPE), del ejercicio
+1380       | +            | Otras partidas a agregar
+1381       | +            | Otras partidas a deducir
+1382       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / STUT/ Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1384       | +            | STUT/Aumentos del ejercicio (por reorganizaciones)STUT/Disminuciones del ejercicio (por reorganizaciones)
+1385       | +            | STUT/Disminuciones del ejercicio (por reorganizaciones)STUT/Reversos y/o disminuciones del ejercicio (propias)
+1386       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / STUT/ Reversos y/o disminuciones del ejercicio (propios)
+1387       | +            | STUT/Otros aumentos del ejercicioSTUT/Otras disminuciones del ejercicio
+1388       | +            | STUT/Otras disminuciones del ejercicioSTUT/Retiros, dividendos o remesas imputados a los RRE
+1389       | +            | STUT/Retiros, dividendos o remesas imputados a los RTRE
+1390       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / STUT/ Retiros en exceso y devoluciones de capital imputados en el ejercicio
+1392       | +            | RAI/Aumentos del ejercicio (por reorganizaciones)RAI/Disminuciones del ejercicio (por reorganizaciones)
+1393       | +            | REX/Rentas con tributación cumplida Aumentos del ejercicio (por reorganizaciones)REX/Rentas con tributación cumplida Disminuciones del ejercicio (por reorganizaciones)
+1394       | +            | REX/Rentas exentas/Aumentos del ejercicio(por reorganizaciones)REX/Rentas exentas /Disminuciones del ejercicio (por reorganizaciones)
+1395       | +            | REX/INR/Aumentos del ejercicio(por reorganizaciones)REX/INR/Disminuciones del ejercicio (por reorganizaciones)
+1396       | +            | RAI/Disminuciones del ejercicio (por reorganizaciones)RAI/Reversos y/o disminuciones del ejercicio (propias)
+1397       | +            | REX/Rentas con tributación cumplida Disminuciones del ejercicio (por reorganizaciones)REX/Rentas con tributación cumplida Reversos y/o disminuciones del ejercicio (propias)
+1398       | +            | REX/Rentas exentas /Disminuciones del ejercicio (por reorganizaciones)REX/Rentas exentas /Reversos y/o disminuciones del ejercicio (propias)
+1399       | +            | REX/INR/Disminuciones del ejercicio (por reorganizaciones)REX/INR/Reversos y/o disminuciones del ejercicio (propias)
+1400       | +            | Ingresos del giro percibidos 
+1401       | +            | Rentas de fuente extranjera percibidas
+1402       | +            | Intereses y reajustes percibidos por préstamos y otros
+1403       | +            | Mayor valor percibido por rescate o enajenación de inversiones o bienes no depreciables
+1405       | +            | Crédito sobre activos fijos adquiridos en el ejercicio (art. 33 bis LIR)
+1406       | +            | Gasto por saldo inicial de existencias o insumos del negocio en cambio de régimen, pagados
+1407       | +            | Gasto por saldo inicial de activos fijos depreciables en cambio de régimen, pagados
+1408       | +            | Gasto por pérdida tributaria en cambio de régimen
+1409       | +            | Existencias, insumos y servicios del negocio, pagados
+1411       | +            | Remuneraciones pagadas
+1412       | +            | Honorarios pagados
+1413       | +            | Adquisición de bienes del activo fijo, pagados
+1415       | +            | Arriendos pagados
+1416       | +            | Gastos por exigencias medio ambientales, pagados
+1417       | +            | Gastos por inversión privada en investigación y desarrollo no certificados por CORFO
+1418       | +            | Gastos por inversión privada en investigación y desarrollo certificados por CORFO
+1419       | +            | Intereses y reajustes pagados por préstamos y otros
+1421       | +            | Partidas del art. 21 inc. 1° y 3° LIR pagados
+1422       | +            | Partidas del art. 21 inc. 1° no afectados con IU 40% y del inc. 2° LIR pagados
+1423       | +            | Pérdida en rescate o enajenación de inversiones o bienes no depreciables
+1424       | +            | Otros gastos deducibles de los ingresos
+1425       | +            | Gastos o egresos pagados o adeudados por operaciones con empresas relacionadas del art. 14 letra A) LIR
+1426       | +            | Pérdidas tributarias de ejercicios anteriores
+1427       | +            | Créditos incobrables castigados en el ejercicio (reconocidos sobre ingresos devengados)
+1428       | +            | Gastos aceptados por donaciones
+1429       | +            | Gastos de rentas de fuente extranjera, pagados
+1432       | +            | Incentivo al ahorro según art. 14 letra E) LIR
+1433       | +            | Base del IDPC voluntario según  art. 14 letra A) N°  6 LIR y art. 42° transitorio Ley N° 21.210
+1436       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1437       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1438       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1439       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / Aumentos del ejercicio (por reorganizaciones)
+1441       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Sin D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1442       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1443       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / Aumentos del ejercicio (por reorganizaciones)
+1444       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1445       | +            | CPT o CPTS positivo inicial
+1446       | +            | CPT o CPTS negativo inicial
+1447       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1448       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1449       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1451       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / RAI / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1452       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP Y DIFERENCIA INICIAL EX ART. 14 TER A) LIR / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1453       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS EXENTAS / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1454       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / INR / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1455       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS EXENTAS / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1456       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / INR / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1460       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP Y DIFERENCIA INICIAL EX ART. 14 TER A) LIR / Reversos y/o disminuciones del ejercicio (propios)
+1461       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS EXENTAS / Reversos y/o disminuciones del ejercicio (propios)
+1462       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / INR / Reversos y/o disminuciones del ejercicio (propios)
+1465       | +            | REX/Rentas exentas /Aumentos del ejercicio (propios)REX/Rentas exentas /Otros aumentos del ejercicio
+1466       | +            | REX/INR/Aumentos del ejercicio (propios)REX/INR//Otros aumentos del ejercicio
+1467       | +            | RAI/Otros aumentos del ejercicioRAI/Otras disminuciones del ejercicio
+1468       | +            | REX/Rentas con tributación cumplida Otros aumentos del ejercicioREX/Rentas con tributación cumplida Otras disminuciones del ejercicio
+1469       | +            | REX/Rentas exentas /Otros aumentos del ejercicioREX/Rentas exentas /Otras disminuciones del ejercicio
+1470       | +            | REX/INR//Otros aumentos del ejercicioREX/INR/Otras disminuciones del ejercicio
+1471       | +            | RAI/Otras disminuciones del ejercicioRAI/Retiros, dividendos o remesas imputados a los RRE
+1472       | +            | REX/Rentas con tributación cumplida Otras disminuciones del ejercicioREX/Rentas con tributación cumplida Retiros, dividendos o remesas imputados a los RRE
+1473       | +            | REX/Rentas exentas /Otras disminuciones del ejercicioREX/Rentas exentas /Retiros, dividendos o remesas imputados a los RRE
+1474       | +            | REX/INR/Otras disminuciones del ejercicioREX/INR/Retiros, dividendos o remesas imputados a los RRE
+1475       | +            | RAI/Retiros, dividendos o remesas imputados a los RTRE
+1476       | +            | REX/Rentas con tributación cumplida / RAP y diferencia inicial EX ART. 14 TER A) LIR/ Retiros, dividendos o remesas imputados a los RTRE
+1477       | +            | REX/Rentas exentas / Retiros, dividendos o remesas imputados a los RTRE
+1478       | +            | REX / INR / Retiros, dividendos o remesas imputados a los RTRE
+1480       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / RAI / Retiros en exceso y devoluciones de capital imputados en el ejercicio
+1481       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP Y DIFERENCIA INICIAL EX ART. 14 TER A) LIR / Retiros en exceso y devoluciones de capital imputados en el ejercicio
+1482       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS EXENTAS / Retiros en exceso y devoluciones de capital imputados en el ejercicio
+1483       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / INR / Retiros en exceso y devoluciones de capital imputados en el ejercicio
+1494       | +            | Capital aportado, histórico (incluye aumentos y disminuciones efectivas)
+1495       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1496       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1497       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1498       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1499       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1501       |  +/-            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Sin D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1502       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1503       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1504       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1505       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1508       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / Disminuciones del ejercicio (por reorganizaciones)
+1509       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Sin D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1510       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
+1511       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / Disminuciones del ejercicio (por reorganizaciones)
+1514       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / IDPC e IPE base imponible generada en el ejercicio
+"1515       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / IDPC e IPE retiros o dividendos percibidos
+"
+"1516       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / IDPC e IPE retiros o dividendos percibidos
+"
+1517       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución /  IDPC e IPE retiros o dividendos percibidos
+1518       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución /  IDPC e IPE retiros o dividendos percibidos
+1519       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE IDPC e IPE retiros o dividendos percibidos
+1520       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Sin D° Devolución / IDPC e IPE retiros o dividendos percibidos
+1521       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / IDPC e IPE retiros o dividendos percibidos
+1522       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / IDPC e IPE retiros o dividendos percibidos
+1523       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Sin D° Devolución /Otros aumentos del ejercicio
+1524       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Con D° Devolución /Otros aumentos del ejercicio
+1525       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Con D° Devolución /Otros aumentos del ejercicio
+1526       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Con D° Devolución /Otros aumentos del ejercicio
+1527       | +            | Acumulados a contar desde el 01.01.2017/IPE/Otros aumentos del ejercicioAcumulados a contar desde el 01.01.2017/IPE/Otras disminuciones del ejercicio
+1528       | +            | Acumulados hasta 31.12.2016/Sin D° Devolución/Otros aumentos del ejercicioAcumulados hasta 31.12.2016/Sin D° Devolución/Otras disminuciones del ejercicio
+1529       | +            | Acumulados hasta 31.12.2016/Con D° Devolución/Otros aumentos del ejercicioAcumulados hasta 31.12.2016/Con D° Devolución/Otras disminuciones del ejercicio
+1530       | +            | Acumulados hasta 31.12.2016/IPE/ Otros aumentos del ejercicioAcumulados hasta 31.12.2016/IPE/ Otras disminuciones del ejercicio
+1531       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Sin D° Devolución /Otras disminuciones del ejercicio
+1532       | +            | Acumulados a contar desde el 01.01.2017/No Sujeto a Restitución/Con D° Devolución /Otras disminuciones del ejercicio
+1533       | +            | Acumulados a contar desde el 01.01.2017/ Sujeto a Restitución/Sin D° Devolución /Otras disminuciones del ejercicio
+1534       | +            | Acumulados a contar desde el 01.01.2017/ Sujeto a Restitución/Con D° Devolución /Otras disminuciones del ejercicio
+1535       | +            | Acumulados a contar desde el 01.01.2017/IPE/Otras disminuciones del ejercicioAcumulados a contar desde el 01.01.2017/IPE/Asignado a remesas, retiros o dividendos imputados en el ejercicio.
+1536       | +            | Acumulados hasta 31.12.2016/Sin D° Devolución/Otras disminuciones del ejercicioAcumulados hasta 31.12.2016/Sin D° Devolución/Asignado a remesas, retiros o dividendos imputados en el ejercicio.
+1537       | +            | Acumulados hasta 31.12.2016/Con D° Devolución/Otras disminuciones del ejercicioAcumulados hasta 31.12.2016/Con D° Devolución/Asignado a remesas, retiros o dividendos imputados en el ejercicio.
+1538       | +            | Acumulados hasta 31.12.2016/IPE/ Otras disminuciones del ejercicioAcumulados hasta 31.12.2016/IPE/ Asignado a remesas, retiros o dividendos imputados en el ejercicio.
+1539       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1540       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1541       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución /  Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1542       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución /  Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1543       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1544       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Sin D° Devolución / Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1547       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1548       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / Asignado a remesas, retiros o dividendos efectuados en el ejercicio
+1549       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1550       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1551       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1552       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1553       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1554       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Sin D° Devolución / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1555       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1556       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / Asignado a retiros en exceso y devoluciones de capital  efectuados en el ejercicio
+1557       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1558       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1559       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1560       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Sin D° Devolución / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1561       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1562       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / IDPC e IPE asignado a gastos rechazados del art. 21 inc. 1° no afectos a IU 40% y del inc. 2° LIR
+1573       | +            | Capital aportado empresas que inician actividades en el año comercial que corresponda a esta declaración
+1574       | +            | Aumentos (efectivos) de capital del ejercicio
+1575       | +            | Disminuciones (efectivas) de capital del ejercicio
+1576       | +            | Remesas, retiros o dividendos repartidos en el ejercicio
+1577       | +            | Partidas de gastos no aceptados
+1578       | +            | Crédito por IDPC, por participaciones en otras empresas que incrementaron la BI del ejercicio
+1580       | +            | CPT o CPTS positivo inicial
+1582       | +            | CPT o CPTS negativo inicial
+1584       | +            | Otras partidas a agregar
+1585       | +            | Otras partidas a deducir
+1586       | +            | Saldo de excedente base imponible IDPC voluntario a imputar ejercicio siguientes
+1587       | +            | Ingresos percibidos o devengados por operaciones con empresas relacionadas del art. 14 letra A) LIR
+1588       | +            | Otros ingresos percibidos o devengados
+1589       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / RAP Y DIFERENCIA INICIAL EX ART. 14 TER A) LIR / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1590       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / Aumentos del ejercicio (por reorganizaciones)
+1594       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
+1595       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
+1600       | +            | Ingresos del giro percibidos
+1601       | +            | Rentas de fuente extranjera percibidas
+1602       | +            | Intereses y reajustes percibidos por préstamos y otros
+1603       | +            | Mayor valor percibido por rescate o enajenación de inversiones o bienes no depreciables
+1604       | +            | Dividendos o retiros percibidos en el ejercicio, por participaciones en otras empresasIncremento por impuesto de primera categoría y crédito total disponible por impuestos pagados en el extranjero
+1605       | +            | Incremento por IDPC
+1606       | +            | Ingresos percibidos o devengados por operaciones con empresas relacionadas del art. 14 letra A) LIROtros ingresos percibidos o devengados
+1607       | +            | Otros ingresos percibidos o devengadosIngreso diferido imputado en el ejercicio, debidamente incrementado y reajustado, cuando corresponda
+1609       | +            | Crédito por activos fijos adquiridos en el ejercicio (art. 33 bis LIR)
+1611       | +            | Gasto por saldo inicial de existencias o insumos del negocio en cambio de régimen, pagados
+1612       | +            | Gasto por saldo inicial de activos fijos depreciables en cambio de régimen, pagados
+1613       | +            | Gasto por pérdida tributaria en cambio de régimenExistencias o insumos del negocio, pagados
+1614       | +            | Existencias, insumos y servicios del negocio, pagados
+1615       | +            | Gastos de rentas de fuente extranjera, pagados
+1616       | +            | Remuneraciones pagadasHonorarios pagados
+1617       | +            | Honorarios pagadosAdquisición de bienes del activo fijo, pagados
+1618       | +            | Adquisición de bienes del activo fijo, pagadosServicios pagados
+1620       | +            | Arriendos pagadosGastos aceptados por responsabilidad social
+1621       | +            | Gastos por exigencias medio ambientales, pagados
+1622       | +            | Intereses y reajustes pagados por préstamos y otrosAmortización de intangibles, art. 22° transitorio bis, inc. 4°, 5° y 6° Ley N° 21.210
+1624       | +            | Pérdida en rescate o enajenación de inversiones o bienes no depreciablesOtros gastos deducibles de los ingresos
+1625       | +            | Otros gastos deducibles de los ingresosGastos o egresos pagados o adeudados por operaciones con empresas relac. del art. 14 letra A) LIR
+1626       | +            | Gastos o egresos pagados o adeudados por operaciones con empresas relacionadas del art. 14 letra A) LIR
+1627       | +            | Pérdidas tributarias de ejercicios anteriores
+1628       | +            | Créditos incobrables castigados en el ejercicio (reconocidos sobre ingresos devengados)Total de Egresos Anuales
+1635       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución / Otras rentas de fuente chilena afectas al IGC o IA (según instrucciones), rtas y rebajas
+1636       | +            | Crédito al IGC del 5% sobre total de retiros o dividendos que excedan de 310 UTA que tengan derecho a crédito por IDPC con obligación de restitución, según art. 56 N° 4 LIR
+1637       | +            | Crédito al IGC por Impuesto Territorial pagado por explotación de bienes raíces no agrícolas, según art. 56 N° 5 LIR
+1638       | +            | Crédito al IGC por art. 33 bis LIR, según art. 14 letra D) N°8 letra a) numeral (v) LIR
+1639       | +            | Crédito al IGC por ingreso diferido, según art. 14 letra D) N°8 letra d) numeral (ii) LIR
+1643       | +            | Base Imponible / Impuesto único tasa 25% por distribuciones desproporcionadas, según art. 39° transitorio Ley N° 21.210
+1645       | +            | PPM puestos a disposición de los propietarios de empresas del régimen de transparencia tributaria del art. 14 letra D) N° 8 LIR
+1646       | +            | Impuestos declarados y pagados en conformidad al art. 69 N° 3 y N° 4 LIR
+1647       | +            | Excedente crédito por IDPC del código 76
+1650       | +            | Honorarios líquidos percibidos de fuente extranjera
+1651       | +            | Remanente ejercicio anterior
+1652       | +            | Crédito recibido en el ejercicio
+1653       | +            | Crédito imputado en el ejercicio
+1655       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1656       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1657       | +            | Ingresos del giro percibidos o devengados
+1658       | +            | Rentas de fuente extranjera
+1659       | +            | Intereses percibidos o devengados
+1660       | +            | Otros ingresos percibidos o devengados
+1661       | +            | Costo directo de los bienes y servicios
+1662       | +            | Remuneraciones
+1663       | +            | Depreciación financiera del ejercicio
+1664       | +            | Intereses pagados o adeudados
+1665       | +            | Gastos por donaciones
+1666       | +            | Otros gastos financieros
+1667       | +            | Gastos por inversión privada en investigación y desarrollo certificados por CORFO
+1668       | +            | Gastos por inversión privada en Investigación y desarrollo no certificados por CORFO
+1669       | +            | Costos y gastos necesarios para producir las rentas de fuente extranjera
+1670       | +            | Gastos por impuesto renta e impuesto diferido
+1671       | +            | Otros gastos deducidos de los ingresos brutos
+1673       | +            | Corrección monetaria saldo deudor (art. 32 N° 1 LIR)
+1674       | +            | Corrección monetaria saldo acreedor (art. 32 N° 2 LIR)
+1675       | +            | Depreciación financiera del ejercicio
+1676       | +            | Rentas tributables no reconocidas financieramente
+1678       | +            | Gastos que se deben agregar a la RLI según el art. 33 N° 1 LIR
+1679       | +            | Depreciación tributaria del ejercicio
+1680       | +            | Gasto goodwill tributario del ejercicio
+1682       | +            | Gastos rechazados afectos a la tributación del art. 21 inc. 1°  LIR 
+1683       | +            | Gastos rechazados afectos a la tributación del art. 21 inc. 3° LIR 
+1684       | +            | Otras partidas
+1685       | +            | Rentas exentas IDPC (art. 33 N°2 LIR )
+1686       | +            | Dividendos y/o utilidades sociales percibidos o devengados (art. 33 N° 2 LIR)
+1687       | +            | Gastos aceptados por donaciones
+1688       | +            | Ingresos no renta, generados (art. 17 LIR)
+1689       | +            | Pérdidas de ejercicios anteriores (art. 31 N° 3 LIR)
+1691       | +            | Saldo exceso de retiros de 2014, determinados al 31 de diciembre para ejercicios siguientes
+1697       | +            | Partidas del inc. 1° no afectas al IU de tasa 40% y del inc. 2° del art. 21 LIR, reajustados
+1725       | +            | Saldo FUR  (cuando no haya sido considerado dentro del valor del capital aportado a la empresa)
+1726       | +            | Retiros o dividendos percibidos en el ejercicio por participaciones en otras empresas
+1727       | +            | Sobreprecio obtenido en la colocación de acciones de propia emisión, histórico
+1730       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA /  ISFUT / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1731       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA /  OTRAS / Remanente ejercicio anterior o saldo inicial reajustado (saldo positivo)
+1733       | +            | REX/Renta con tributación cumplida/ISFUT/ Aumentos del ejercicio (por reorganizaciones)
+1734       | +            | REX/Renta con tributación cumplida/Otras/ Aumentos del ejercicio (por reorganizaciones)
+1735       | +            | REX/Renta con tributación cumplida/ISFUT/ Disminuciones del ejercicio (por reorganizaciones)
+1736       | +            | REX/Renta con tributación cumplida/Otras/ Disminuciones del ejercicio (por reorganizaciones)
+1737       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / ISFUT / Reversos y/o disminuciones del ejercicio (propios)
+1738       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / Reversos y/o disminuciones del ejercicio (propios)
+1740       | +            | REX/Renta con tributación cumplida/Otras/ Aumentos del ejercicio (propios)
+1741       | +            | REX/Renta con tributación cumplida/ISFUT/ Otros aumentos del ejercicio
+1742       | +            | REX/Renta con tributación cumplida/Otras/ Otros aumentos del ejercicio
+1743       | +            | REX/Renta con tributación cumplida/ISFUT/ Otras disminuciones del ejercicio
+1744       | +            | REX/Renta con tributación cumplida/Otras/ Otras disminuciones del ejercicio
+1745       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / ISFUT/ Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1746       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / Remesas, retiros o dividendos imputados a los RTRE, reajustados
+1747       | +            | RRE / REX / Rentas con Tributación Cumplida / ISFUT /Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1748       | +            | RRE / REX / Rentas con Tributacion Cumplida / OTRAS /Retiros en exceso y devoluciones de capital imputados en el ejercicio, reajustados
+1752       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / ISFUT / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1753       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / Remanente ejercicio anterior o saldo inicial (saldo positivo)
+1755       | +            | REX/Renta con tributación cumplida/ISFUT/ Aumentos del ejercicio (por reorganizaciones)
+1756       | +            | REX/Renta con tributación cumplida/Otras/ Aumentos del ejercicio (por reorganizaciones)
+1757       | +            | REX/Renta con tributación cumplida/ISFUT/ Disminuciones del ejercicio (por reorganizaciones)
+1758       | +            | REX/Renta con tributación cumplida/Otras/ Disminuciones del ejercicio (por reorganizaciones)
+1759       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / ISFUT / Reversos y/o disminuciones del ejercicio (propios)
+1760       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / Reversos y/o disminuciones del ejercicio (propios)
+1762       | +            | RRE Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / aumentos del ejercicio (propios)
+1763       | +            | REX/Renta con tributación cumplida/ISFUT/ Otros aumentos del ejercicio
+1764       | +            | RRE Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / otros aumentos del ejercicio
+1765       | +            | REX/Renta con tributación cumplida/ISFUT/ Otras disminuciones del ejercicio
+1766       | +            | REX/Renta con tributación cumplida/Otras/ Otras disminuciones del ejercicio
+1767       | +            | REX/Rentas con tributación cumplida / ISFUT / Retiros, dividendos o remesas imputados a los RTRE
+1768       | +            | REX/Rentas con tributación cumplida / Otras / Retiros, dividendos o remesas imputados a los RTRE
+1769       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / ISFUT / Retiros en exceso y devoluciones de capital imputados en el ejercicio
+1770       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / Retiros en exceso y devoluciones de capital imputados en el ejercicio
+1775       | +            | Donaciones, según art. 18° Ley N° 21.258 (no afecta al LGA)
+1782       | +            | Depreciación acelerada vehículos eléctricos o híbridos con recarga eléctrica exterior u otros calificados como cero emisiones por resolución fundada del Ministerio de Energía (art. 8 Ley N° 21.305)
+1783       | +            | Depreciación normal vehículos eléctricos o híbridos con recarga eléctrica exterior u otros calificados como cero emisiones por resolución fundada del Ministerio de Energía (art. 8 Ley N° 21.305)
+1787       | +            | Pago anticipado por reintegro del préstamo tasa 0% (F-50, F-10 o código 1842 del F-22 AT 2025), según art. 11 inc. 3° Ley N° 21.323
+1789       | +            | Retención adicional sobre rentas del art. 42 N° 1 LIR con tasa del 3% (retención a trabajadores dependientes), por reintegro del préstamo tasa 0%,  según art. 11 letra a) Ley N° 21.323
+1790       | +            | Retención adicional sobre rentas del art. 42 N° 2 LIR con tasa del 3% (retención a trabajadores independientes), por reintegro del préstamo tasa 0%, según  art. 11 letra b) Ley N° 21.323
+1791       | +            | PPMA primera categoría art. 84 letra a) y 14 letra D) N° 3 letra (k) y N° 8 letra (a) numeral (viii) LIR, con tasa 3%, por reintegro de préstamo tasa 0%, según art. 11 letra c) Ley N° 21.323
+1792       | +            | PPMA segunda categoría art. 84 letra b) LIR, con tasa 3%, por reintegro de préstamo  tasa 0%, (trabajadores independientes) según art. 11 letra b) Ley N° 21.323
+1799       | +            | Saldo pendiente cuota año anterior / Préstamo AC 2021 (Ley N° 21.323)
+1809       |  +/-            | Enajenación o rescate de instrumentos afectos al impuesto único del art. 107 LIR vigente a partir del 02.09.2022 /Acciones / Mayor  o menor  valor determinado
+1813       |  +/-            | Enajenación o rescate de instrumentos afectos al impuesto único del art. 107 LIR vigente a partir del 02.09.2022 / Cuotas de fondos mutuos y/o fondos de inversión / Mayor  o menor  valor determinado
+1815       | -            | Pérdida de arrastre del ejercicio anterior actualizada
+1817       | +            | Ingresos del giro devengados en ejercicios anteriores y percibidos en el ejercicio actual
+1818       | +            | Existencias, insumos y servicios del negocio adeudados en ejercicios anteriores y pagados en el ejercicio actual
+1819       | +            | Ingresos del giro devengados en ejercicios anteriores y percibidos en el ejercicio actual
+1820       | +            | Existencias, insumos y servicios del negocio adeudados en ejercicios anteriores y pagados en el ejercicio actual
+1821       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / Sin D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1822       | +            | REGISTRO SAC (ART. 14 LETRA A) LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución  / con D° Devolución / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1823       | +            | Saldo o aporte inicial del ejercicio de la asociación o cuentas en participación o del encargo fiduciario a informar por el gestor 
+1824       | +            | Saldo final del ejercicio de la asociación o cuentas en participación o del encargo fiduciario a informar por el gestor 
+1825       | +            | Credito por IDPC asignado en el ejercicio a los partícipes o beneficiarios de la asociación o cuentas en participación o del encargo fiduciario 
+1826       | +            | Crédito IPE asignado en el ejercicio a los partícipes o beneficiarios de la asociación o cuentas en participación o del encargo fiduciario 
+1827       | +            | Monto a pagar cuota anticipo solidario para pago de cotizaciones, según art. 21 inc. 1° y 3° Ley N° 21.354  
+1833       | +            | Rebaja por donaciones a entidades sin fines de lucro según Título VIII bis D.L. N° 3.063 de 1979 (incorporado por Ley N° 21.440), efectuadas por contribuyentes del IUSC, IGC o IA
+1835       | +            | Base imponible / Contribución para el desarrollo regional según art. 32 Ley N° 21.210
+1836       | +            | Suspension / Contribución para el desarrollo regional según artículo 32 Ley N° 21.210
+1837       | +            | Impuesto / Contribución para el desarrollo regional según artículo 32 Ley N° 21.210
+1838       | +            | Otras donaciones / Total gasto / Donaciones, según Título VIII bis D.L. N° 3.063 de 1979 (no afectas al LGA)
+1839       | +            | Otras donaciones / Gasto no aceptado / Donaciones, según Título VIII bis D.L. N° 3.063 de 1979 (no afectas al LGA)
+1843       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA A) LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA /  OTRAS / Remanente ejercicio anterior o saldo inicial reajustado (saldo negativo)
+1845       | +            | REGISTRO DE RENTAS EMPRESARIALES Y MOVIMIENTO STUT (ART. 14 LETRA D) N° 3 LIR) / REX / RENTAS CON TRIBUTACIÓN CUMPLIDA / OTRAS / Remanente ejercicio anterior o saldo inicial (saldo negativo)
+1847       | +            | Mayor valor devengado en enajenaciones efectuadas en el ejercicio a declarar en el año tributario actual
+1848       | +            | CIDPC / Sin Oblig.Rest / Con Der Dev /a) Rentas propias por arrendamiento, subarrendamiento, usufructo o cesión de cualquier otra forma del uso o goce temporal de bienes raíces agrícolas y no agrícolas, determinadas mediante el respectivo contrato
+1849       | +            | a) Rentas propias por concepto de arrendamiento, subarrendamiento, usufructo o cesión de cualquier otra forma del uso o goce temporal de bienes raíces agrícolas y no agrícolas, determinadas mediante el respectivo contrato
+1850       | +            | CIDPC / Sin Oblig.Rest. /b) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa
+1851       | +            | CIDPC / con Oblig.Rest. /b) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa
+1852       | +            | b) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa
+1853       | +            | CIDPC / con Oblig.Rest. / sin derecho Dev / c) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1854       | +            | CIDPC / con Oblig.Rest. / con derecho Dev / c) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1855       | +            | CIDPC / sin Oblig.Rest. / sin derecho Dev / c) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1856       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / c) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1857       | +            | c) Por participaciones en empresas que determinan su renta efectiva sin contabilidad completa (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1858       | +            | CIDPC / con Oblig.Rest. / sin derecho Dev / d) Por participaciones en empresas acogidas al régimen de renta presunta (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1859       | +            | CIDPC / con Oblig.Rest. / con derecho Dev / d) Por participaciones en empresas acogidas al régimen de renta presunta (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1860       | +            | CIDPC / sin Oblig.Rest. / sin derecho Dev / d) Por participaciones en empresas acogidas al régimen de renta presunta (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1861       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / d) Por participaciones en empresas acogidas al régimen de renta presunta (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1862       | +            | d) Por participaciones en empresas acogidas al régimen de renta presunta (siempre que a su vez correspondan a rentas efectivas provenientes de terceros)
+1863       | +            | CIDPC / sin Oblig.Rest. / sin derecho Dev / f) Otras rentas
+1864       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / f) Otras rentas
+1865       | +            | f) Otras rentas propias y/o de terceros
+1866       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / a) Rentas de capitales mobiliarios (art. 20 N° 2 LIR)
+1867       | +            | a) Rentas de capitales mobiliarios (art. 20 N° 2 LIR)
+1869       | +            | b) Mayor valor obtenido en la enajenación o rescate de cuotas fondos mutuos y fondos de inversión y en la enajenación de acciones y derechos sociales (art. 17 N° 8 LIR) 
+1871       | +            | c) Retiros de ELD (arts. 42 ter y quáter LIR)
+1872       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / e) Rentas esporádicas propias
+1873       | +            | e) Rentas esporádicas propias
+1874       | +            | CIDPC / con Oblig.Rest. / sin derecho Dev / a)  Rentas comprendidas en el art. 57 LIR, que no excedan los límites de 20 o 30 UTM, según corresponda
+1875       | +            | CIDPC / con Oblig.Rest. / con derecho Dev / a)  Rentas comprendidas en el art. 57 LIR, que no excedan los límites de 20 o 30 UTM, según corresponda
+1876       | +            | CIDPC / sin Oblig.Rest. / sin derecho Dev / a)  Rentas comprendidas en el art. 57 LIR, que no excedan los límites de 20 o 30 UTM, según corresponda
+1877       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / a)  Rentas comprendidas en el art. 57 LIR, que no excedan los límites de 20 o 30 UTM, según corresponda
+1878       | +            | a)  Rentas comprendidas en el art. 57 LIR, que no excedan los límites de 20 o 30 UTM, según corresponda
+1879       | +            | CIDPC / con Oblig.Rest. / sin derecho Dev / b) Retiros y/o dividendos informados por las empresas y sociedades administradoras de FI y FM
+1880       | +            | CIDPC / con Oblig.Rest. / con derecho Dev / b) Retiros y/o dividendos informados por las empresas y sociedades administradoras de FI y FM
+1881       | +            | CIDPC / sin Oblig.Rest. / sin derecho Dev / b) Retiros y/o dividendos informados por las empresas y sociedades administradoras de FI y FM
+1882       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / b) Retiros y/o dividendos informados por las empresas y sociedades administradoras de FI y FM
+1883       | +            | b) Retiros y/o dividendos informados por las empresas y sociedades administradoras de FI y FM
+1884       | +            | c) Retiros de ELD del art. 42 ter LIR efectuados durante el año 2025, que no excedan los límites exentos de impuesto de 200 u 800 UTM 
+1885       | +            | CIDPC / con Oblig.Rest. / sin derecho Dev / d) Otras Rentas exentas del IGC, según art. 54 N° 3 LIR
+1886       | +            | CIDPC / con Oblig.Rest. / con derecho Dev / d) Otras Rentas exentas del IGC, según art. 54 N° 3 LIR
+1887       | +            | CIDPC / sin Oblig.Rest. / sin derecho Dev / d) Otras Rentas exentas del IGC, según art. 54 N° 3 LIR
+1888       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / d) Otras Rentas exentas del IGC, según art. 54 N° 3 LIR
+1889       | +            | d) Otras Rentas exentas del IGC, según art. 54 N° 3 LIR
+1890       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / Mayor valor en la enajenación de bienes raíces situados en Chile
+1891       | +            | Mayor valor en la enajenación de bienes raíces situados en Chile
+1892       | +            | Base imponible / a) Rentas del arrendamiento, subarrendamiento, usufructo o cesión de cualquier otra forma de uso o goce temporal de bienes raíces agrícolas y no agrícolas
+1893       | +            | Rebaja al impuesto / a) Rentas del arrendamiento, subarrendamiento, usufructo o cesión de cualquier otra forma de uso o goce temporal de bienes raíces agrícolas y no agrícolas
+1895       | +            | Base imponible / b) Mayor valor obtenido en la enajenación de bienes raíces situados en Chile
+1898       | +            | Base imponible / c) Rentas obtenidas por contribuyentes con contabilidad simplificada
+1899       | +            | Rebaja al impuesto / c) Rentas obtenidas por contribuyentes con contabilidad simplificada
+1901       | +            | Base imponible / d) Otras rentas efectivas afectas a lDPC e impuestos finales
+1902       | +            | Rebaja al impuesto / d) Otras rentas efectivas afectas a lDPC e impuestos finales
+1904       | +            | a) PPM arts. 84 letras a), c) , e), y h) y 14 D N° 3 letra (k) LIR  y PPM royalty minero según art. 7 Ley N° 21.591
+1905       | +            | b) PPM de segunda categoría art. 84 letra b) LIR
+1906       | +            | c) PPM Voluntario, según art. 88 incs. 1° y 2° LIR
+1907       | +            | Retenciones por retiros de seguros de vida con ahorro y seguros dotales, y retenciones efectuadas sobre las rentas de capitales mobiliarios
+1908       | +            | Retenciones por actividades mineras según el N° 6 del art. 74 LIR
+1909       | +            | Gastos aceptados por donaciones
+1910       | +            | Deducción de impuesto por tasas rebajadas en virtud de convenios para evitar la doble tributación
+1911       | +            | Donaciones de bienes inmuebles en apoyo al plan de emergencia habitacional, art. 26 Ley N° 21.450
+1912       | +            | Base imponible / e) Otras rentas de fuente extranjera afectas
+1914       | +            | CIDPC / sin Oblig.Rest. / con derecho Dev / Otras rentas de fuente extranjera afectas al IGC o IA (según instrucciones)
+1915       | +            | Crédito por la compra de viviendas nuevas adquiridas con créditos con garantía hipotecaria, según Ley N° 21.631
+1917       | +            | CIDPC / Sin Oblig.Rest / Sin der.devolución / a) Rtas propias por arrendamiento, subarrendamiento, usufructo o cesión de cualquier otra forma del uso o goce temporal de bienes raíces agrícolas y no agrícolas, determinadas mediante el respectivo contrato
+1918       | +            | Rebaja al impuesto / e) Otras rentas de fuente extranjera afectas
+1922       | +            | CIDPC / Sin Oblig.Rest. / b) Por partipaciones
+1923       | +            | Rentas presuntas propias o por participaciones / b) Por partipaciones
+1924       | +            | Base imponible / a) Rentas de la explotación de bienes raíces agrícolas
+1925       | +            | Rebaja al impuesto / a) Rentas de la explotación de bienes raíces agrícolas
+1927       | +            | Base imponible / b) Rentas del transporte de pasajeros
+1929       | +            | Base imponible / c) Rentas del transporte de carga
+1931       | +            | Base imponible / d) Rentas de la actividad minera
+1933       | +            | Monto acogido al ISIF, según art. 10 Ley N° 21.681, reajustado / RAI
+1935       | +            | Monto acogido al ISIF, según art. 10 Ley N° 21.681, reajustado / STUT
+1936       | +            | Monto imputado al ISIF art. 10  Ley N° 21.681, reajustado / Sin D° Devolución / No Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1937       | +            | Monto imputado al ISIF art. 10  Ley N° 21.681, reajustado / Con D° Devolución / No Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1938       | +            | Monto imputado al ISIF art. 10  Ley N° 21.681, reajustado / Sin D° Devolución / Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1939       | +            | Monto imputado al ISIF art. 10  Ley N° 21.681, reajustado / Con D° Devolución / Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1940       | +            | Monto imputado al ISIF art. 10  Ley N° 21.681, reajustado / Sin D° Devolución  / Acumulados hasta el 31.12.2016
+1941       | +            | Monto imputado al ISIF art. 10  Ley N° 21.681, reajustado / Con D° Devolución  / Acumulados hasta el 31.12.2016
+1942       | +            | Monto acogido al ISIF, según arts. 10 y 11 Ley N° 21.681 / RAI
+1944       | +            | Monto acogido al ISIF, según arts. 10 y 11 Ley N° 21.681 / STUT
+1945       | +            | Monto imputado al ISIF arts. 10 y 11 Ley N° 21.681 / Sin D° Devolución / No Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1946       | +            | Monto imputado al ISIF arts. 10 y 11 Ley N° 21.681 / con D° Devolución / No Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1947       | +            | Monto imputado al ISIF arts. 10 y 11 Ley N° 21.681 / Sin D° Devolución / Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1948       | +            | Monto imputado al ISIF arts. 10 y 11 Ley N° 21.681 / con D° Devolución / Sujeto a Restitución / Acumulados a contar desde el 01.01.2017
+1949       | +            | Monto imputado al ISIF arts. 10 y 11 Ley N° 21.681 / sin D° Devolución / Acumulados hasta el 31.12.2016
+1950       | +            | Monto imputado al ISIF arts. 10 y 11 Ley N° 21.681 / con D° Devolución / Acumulados hasta el 31.12.2016
+1955       | +            | Costos asociados a ingresos no operacionales mineros 
+1956       | +            | Gastos asociados a ingresos no operacionales mineros 
+1957       | +            | Proporción gastos de imputación común que no sean asignables exclusivamente a un determinado tipo de ingresos
+1958       | +            | Gastos de intereses
+1959       | +            | Depreciación acelerada
+1961       | +            | Gastos de organización y puesta en marcha 
+1962       | +            | Contratos de avío y otras contraprestaciones
+1963       | +            | Cierre de faenas (art 58 de la Ley N° 20.551)
+1964       | +            | Ingresos no operacionales mineros
+1965       | +            | Cuota depreciación normal
+1966       | +            | Cuota gastos de organización y puesta en marcha
+1968       | +            | Promedio TMCF (incluídos los ingresos de explotadores mineros relacionados) art. 5 Ley N° 21.591
+1969       | +            | Total ingresos de productos mineros del ejercicio (indistintamente del mineral de que se trata)
+1970       | +            | Total ingresos de productos mineros del ejercicio (solo cobre)
+1971       | +            | Margen operacional minero según N° 6 del art 1 Ley N° 21.591
+1972       | +            | Tasa componente sobre la rentabilidad, según art. 3 o art. 4 Ley N° 21.591
+1978       | +            | Royalty Minero Ley 21.591 / a) Componente ad valorem, según art. 2 Ley N° 21.591 
+1980       | +            | Royalty Minero Ley 21.591 / b) Componente del margen, según art. 3 o art. 4 Ley N° 21.591
+1981       | +            | Enajenaciones a partes relacionadas / Precios de enajenaciones del conjunto de los bienes raíces
+1982       | +            | Enajenaciones en menos de 1 o 4 años o BBR situados en el exterior / Precios de enajenaciones del conjunto de los bienes raíces
+1983       | +            | Enajenaciones a partes relacionadas / Menos: valor de adquisición de los bienes raíces reajustados
+1984       | +            | Enajenaciones en menos de 1 o 4 años o BBR situados en el exterior / Menos: valor de adquisición de los bienes raíces reajustados
+1985       | +            | Enajenaciones a partes relacionadas / Menos: mejoras que hayan aumentado el valor de los bienes raíces reajustadas
+1986       | +            | Enajenaciones en menos de 1 o 4 años o BBR situados en el exterior / Menos: mejoras que hayan aumentado el valor de los bienes raíces reajustadas
+1989       | +            | Mayor valor devengado según código 1987 afecto al IGC o IA
+1990       | +            | Mayor valor devengado según código 1988 afecto a IDPC e IGC o IA
+1991       | +            | Ajustes por precios de transferencia, según art. 41 E LIR
+1992       | +            | Donaciones, según art.157 ter letra b) del Código del Trabajo
+1993       | +            | Para propuesta complementable código1030
+2000       | +            | b) Por partipaciones / crédito por Impuesto de primera categoría/ con obligación de restitución/ Sin derecho a devolución
+2001       | +            | b) Por partipaciones / crédito por Impuesto de primera categoría/ con obligación de restitución/ Con derecho a devolución
+2002       | +            | b) Por partipaciones / crédito por Impuesto de primera categoría/ sin obligación de restitución/ Sin derecho a devolución
+2003       | +            | b) Por partipaciones / crédito por Impuesto de primera categoría/ sin obligación de restitución/ con derecho a devolución
+2004       | +            | Retiros o remesas afectos al IGC o IA, según art. 14 letras A) y/o D) N° 3 LIR / b) Por partipaciones
+2005       | +            | a) Propios / crédito por Impuesto de primera categoría / con obligación de restitución / Sin derecho a devolución
+2006       | +            | a) Propios / crédito por Impuesto de primera categoría / con obligación de restitución / Con derecho a devolución
+2007       | +            | a) Propios / crédito por Impuesto de primera categoría / sin obligación de restitución / Sin derecho a devolución
+2008       | +            | a) Propios / crédito por Impuesto de primera categoría / sin obligación de restitución / con derecho a devolución
+2010       | +            | a) Propias /crédito por Impuesto de primera categoría/ con obligación de restitución/ Sin derecho a devolución
+2011       | +            | a) Propias /crédito por Impuesto de primera categoría/ con obligación de restitución/ Con derecho a devolución
+2012       | +            | a) Propias /crédito por Impuesto de primera categoría/ sin obligación de restitución/ Sin derecho a devolución
+2013       | +            | a) Propias /crédito por Impuesto de primera categoría/ sin obligación de restitución/ con derecho a devolución
+2015       | +            | b) Por participaciones/crédito por Impuesto de primera categoría/ con obligación de restitución/ Sin derecho a devolución
+2016       | +            | b) Por participaciones/crédito por Impuesto de primera categoría/ con obligación de restitución/ Con derecho a devolución
+2017       | +            | b) Por participaciones/crédito por Impuesto de primera categoría/ sin obligación de restitución/ Sin derecho a devolución
+2018       | +            | b) Por participaciones/crédito por Impuesto de primera categoría/ sin obligación de restitución/ con derecho a devolución
+2019       | +            | Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR / a) Por participaciones
+2020       | +            | a.1) PPM utilizados en Formulario 2121 (término de giro), actualizados
+3055       | +            | Obligados F22
+3056       | +            | Obligados F22
+3057       | +            | Obligados F22
+3058       | +            | Obligados F22
+3059       | +            | Obligados F22
+3060       | +            | Obligados F22
+3061       | +            | Obligados F22
+3062       | +            | Obligados F22
+9934       | +            | layout customizado asignado
+9935       | +            | Versión del set de validaciones aplicado
+9936       | +            | Codigo de verificación del certificado solemne
+9937       | +            | Flag de validaciones que no bloquean
+9938       | +            | Listado validaciones alerta confirmadas por el contribuyente
+9940       | +            | F22 Término de giro
+1168       | +            | Remanente para el ejercicio siguiente de rentas afectadas con IS
+1169       | +            | Remanente FUR para el ejercicio siguiente afectos a impuestos finales
+1170       | +            | Remanente FUR para el ejercicio siguiente exentos e INR
+1954       | +            | Componente sobre la rentabilidad, según art. 3 o art. 4 Ley N° 21.591
+1994       | +            | Disponible
+1995       | +            | Disponible
+1997       | +            | Disponible
+1998       | +            | Disponible
+1999       | +            | Disponible
+2009       | +            | Retiros o remesas afectos al IGC o IA, según art. 14 letras A) y/o D) N° 3 LIR / a) Propios
+3039       | +            | REFORMA, CALCULADORA
+3050       | +            | 3050 - OBLIGADOS F22
+3051       | +            | 3051 - OBLIGADOS F22
+3052       | +            | 3052 - OBLIGADOS F22
+3053       | +            | 3053 - OBLIGADOS F22
+3054       | +            | 3054 - OBLIGADOS F22
+4039       | +            | Monto cálculo previsional con rebaja
+8772       | +            | Tipo declaracion (DP=0,FP=1) 
+8800       | +            | SECUENCIA RECTIFICATORIA INET
+8806       | +            | CALLE (DOMICILIO OTRAS FUENTES)
+8807       | +            | COMUNA DOMICILIO OTRAS FUENTES
+8808       | +            | COMUNA DOMICILIO RENTA (DIGITADA)
+8809       | +            | RUT REPRESENTATE TERCERIZACION
+8811       | +            | Moneda Declaracion
+8812       | +            | % Condonación interés base
+8813       | +            | % Condonación interés spread 
+8822       | +            | Moneda Pago
+8824       | +            | Moneda de Devolucion
+8833       | +            | Valor Cambio
+8844       | +            | Monto Pago
+8850       | +            | INDICADOR DE PAGO DE MULTAS FP
+8851       | +            | ORDEN DE TRABAJO (UCD)
+8852       | +            | FECHA Y CINTA DE ENVIO
+8853       | +            | FOLIO FORMULARIO F01 (UCD)
+8854       | +            | FECHA DE MOVIMIENTO REAL(F01)
+8855       | +            | COD. CASA SW CERTIFICADA
+8856       | +            | NUMERO DE PROCESO BANCO (INTERNET)
+8857       | +            | ERROR EN SW LIGHT O TOTAL CODIGOS (INET)
+8858       | +            | NUM TRANSACCION INTERNET - BANCO
+8859       | +            | COMUNA - COMUNA POSTAL (BATCH)
+8862       | +            | INDICADOR DE ANOTACION 
+8865       | +            | Código de Emisión
+8866       | +            | Conversion SII
+8876       | +            | INDICADOR ZONA AFEC. TERREMOTO (tgr=5)
+8877       | +            | Codigo Moneda de Pago
+8878       | +            | Codigo  Swift
+8887       | +            | Tipo ingreso F22 Cupon de Pago
+8888       | +            | Codigo Administrativo 14 Cuater
+8891       | +            | TIPO CONTRIBUYENTE
+8892       | +            | SUBTIPO CONTRIBUYENTE
+8898       | +            | TIPO DE SEGMENTACION
+8911       | +            | Monto condonación interés base 
+8912       | +            | Monto condonación spread 
+9021       | +            | ID DEL CALCULO PREVISIONAL
+9022       | +            | Cálculo Previsional seleccionado
+9306       | +            | CODIGO BANCO PARA DEPOSITO
+9311       | +            | Monto interés base 
+9312       | +            | Monto interés base spread  
+9901       | +            | ENGANCHE EN LA NEGATIVA
+9902       | +            | ENGANCHE EN LA POSITIVA/RETROALIMENTADA
+9903       | +            | RUT PRIMITIVA ENGANCHE RECT INTERNET
+9904       | +            | REMANENTE A DEVOLVER POR RESOLUCION
+9905       | +            | NUMERO RESOLUCION
+9906       | +            | Respaldo 306
+9907       | +            | FECHA RESOLUCION
+9908       | +            | CODIGO DE COMUNA DEL F01 ASOCIADO
+9909       | +            | FECHA PRESENTACION FORMULARIO 2117
+9916       | +            | PAGO EN EXCESO,A DEVOLVER POR RESOLUCION
+9919       | +            | CODIGOS MODIFICADOS (BORRADOR INET)
+9920       | +            | IP F22 
+9921       | +            | CONFIRMACION EMAIL
+9925       | +            | CODIGO TRX DEL PAGO INTERNET
+9928       | +            | Autorizacion de Correo
+9929       | +            | Codigo de Alertas
+9930       | +            | Respaldo 301
+9931       | +            | Respaldo 780
+9932       | +            | Respaldo 93060
+9933       | +            | Identificador de Calculo Previsional
+9991       | +            | Auxiliar Codigo 91 de Primitiva FP
+9999       | +            | Liberacion

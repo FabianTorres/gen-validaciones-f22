@@ -1,8 +1,10 @@
 import os
+import json
 from src.normalizador.formatter import normalizar_y_validar
+from src.generador.test_builder import TestMatrixBuilder
 
-def procesar_lote_formulas(ruta_input, ruta_output, ruta_arbol):
-    print("--- INICIANDO PRUEBAS FASE 1 (NORMALIZADOR) ---")
+def procesar_lote_formulas(ruta_input, ruta_output, ruta_arbol, ruta_json_qa):
+    print("--- INICIANDO PIPELINE COMPLETO (FASE 1 + FASE 2) ---")
     
     if not os.path.exists(ruta_input):
         print(f"❌ Error: No se encontro el archivo {ruta_input}")
@@ -32,8 +34,12 @@ def procesar_lote_formulas(ruta_input, ruta_output, ruta_arbol):
         validaciones.append(buffer_val)
 
     resultados_exitosos = []
-    arboles_exitosos = []  # NUEVO: Lista para guardar los AST
+    arboles_exitosos = []
+    matrices_qa_globales = []  
+    
     print(f"Se lograron agrupar {len(validaciones)} validaciones completas.\n")
+
+    builder_z3 = TestMatrixBuilder()
 
     for index, linea in enumerate(validaciones, 1):
         try:
@@ -41,52 +47,69 @@ def procesar_lote_formulas(ruta_input, ruta_output, ruta_arbol):
             id_val = id_val.strip()
             formula_cruda = formula_cruda.strip()
             
-            print(f"Procesando Validacion: {id_val}")
+            # Salto de línea inicial para cada ID
+            print(f"Procesando: {id_val}")
             
-            # Llamada "API" a nuestro núcleo
+            # --- FASE 1: NORMALIZADOR ---
             respuesta = normalizar_y_validar(formula_cruda, id_val)
             
             if respuesta["estado"] == "EXITO":
-                print("✅ Validacion OK.")
+                print("Fase 1: OK")
                 
-                # Cuadro de texto de la web con éxito
                 bloque_resultado = f"Validacion: {id_val} [ESTADO: OK]\n{'-'*40}\n{respuesta['texto_formateado']}\n{'='*40}\n"
                 resultados_exitosos.append(bloque_resultado)
                 
-                # --- VISUALIZADOR DEL ÁRBOL (AST) ---
-                # Guardamos el árbol generado para el archivo de depuración
                 bloque_arbol = f"Validacion: {id_val}\n{'-'*40}\n{respuesta['arbol'].pretty()}\n{'='*40}\n"
                 arboles_exitosos.append(bloque_arbol)
                 
+                # --- FASE 2: GENERADOR Z3 ---
+                try:
+                    matriz_resultados = builder_z3.generar_matriz_pruebas(respuesta['arbol'], id_val)
+                    matrices_qa_globales.extend(matriz_resultados)
+                    print("Fase 2: OK\n")
+                except Exception as e:
+                    print(f"Fase 2: NK ... Error en ({e})\n")
+                    matrices_qa_globales.append({
+                        "id_validacion": id_val,
+                        "error": "Error interno en motor matemático Z3",
+                        "detalle": str(e)
+                    })
+                
             else:
-                print(f"⚠️ Error detectado: {respuesta['tipo_error']}")
-                # Cuadro de texto de la web mostrando el error explícito
+                print(f"Fase 1: NK ... Error en ({respuesta['tipo_error']})\n")
                 bloque_error = f"Validacion: {id_val} [ESTADO: RECHAZADA]\n{'-'*40}\n{respuesta['mensaje']}\n{'='*40}\n"
                 resultados_exitosos.append(bloque_error)
                 
         except Exception as e:
-            print(f"⚠️ ERROR CRÍTICO procesando '{linea[:20]}...'")
-            print(f"Detalle: {e}")
+            print(f"\n⚠️ ERROR CRÍTICO procesando '{linea[:20]}...'")
+            print(f"Detalle: {e}\n")
 
-    # Generar archivo de salida del Frontend
+    # 1. Generar archivo de salida del Frontend
     with open(ruta_output, 'w', encoding='utf-8') as file_out:
         file_out.write("=== RESULTADOS NORMALIZADOS (VISTA FRONTEND) ===\n\n")
         for res in resultados_exitosos:
             file_out.write(res)
 
-    # NUEVO: Generar archivo de salida de los Árboles (AST)
+    # 2. Generar archivo de salida de los Árboles (AST)
     with open(ruta_arbol, 'w', encoding='utf-8') as file_arbol:
         file_arbol.write("=== ÁRBOLES DE SINTAXIS ABSTRACTA (AST) - DEPURACIÓN ===\n\n")
         for arbol in arboles_exitosos:
             file_arbol.write(arbol)
 
+    # 3. Generar archivo JSON con las matrices para QA
+    os.makedirs(os.path.dirname(ruta_json_qa), exist_ok=True)
+    with open(ruta_json_qa, 'w', encoding='utf-8') as f:
+        json.dump(matrices_qa_globales, f, indent=4, ensure_ascii=False)
+
     print("--- RESUMEN DEL PROCESAMIENTO ---")
     print(f"Total procesadas: {len(validaciones)}")
-    print(f"Exitosas (guardadas en output): {len(arboles_exitosos)}")
-    print(f"Rechazadas: {len(validaciones) - len(arboles_exitosos)}")
+    print(f"Exitosas (Fase 1 completada): {len(arboles_exitosos)}")
+    print(f"Rechazadas por Reglas de Negocio: {len(validaciones) - len(arboles_exitosos)}\n")
 
 if __name__ == "__main__":
     archivo_entrada = "data/input_excel.txt"
     archivo_salida = "data/output_frontend.txt"
-    archivo_arbol = "data/output_arbol.txt"  # Nueva ruta para el AST
-    procesar_lote_formulas(archivo_entrada, archivo_salida, archivo_arbol)
+    archivo_arbol = "data/output_arbol.txt"  
+    archivo_json_qa = "data/output_matrices_qa.json"
+    
+    procesar_lote_formulas(archivo_entrada, archivo_salida, archivo_arbol, archivo_json_qa)

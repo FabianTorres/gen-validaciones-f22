@@ -1,88 +1,112 @@
 [
     {
-        "id_validacion": "a.190.1",
-        "tipo_escenario": "CALCULO_ESPERADO",
-        "descripcion_qa": "El portal debe calcular automáticamente este monto en base a los inputs ingresados. No se levanta validación.",
-        "rut": "99.999.999-9",
+        "id_validacion": "a.3.1",
+        "tipo_escenario": "CALCULO_LINEAL_EXACTO",
+        "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
+        "rut": "55.555.555-5",
         "inputs": {
-            "[1793]": 1000000,
-            "[1792]": 1000000,
-            "[1791]": 1000000,
-            "[1790]": -2000000,
-            "[1789]": 1000000
+            "[461]": 1000000,
+            "[547]": 4000000,
+            "[856]": 1000000,
+            "[1650]": 1000000,
+            "[545]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
-        "id_validacion": "c.80.1",
-        "tipo_escenario": "LIMITE_EXACTO",
-        "descripcion_qa": "El valor ingresado es exactamente igual al límite matemático de la regla.",
+        "id_validacion": "a.4.1",
+        "tipo_escenario": "CALCULO_VERDADERO_MIN_IZQ",
+        "descripcion_qa": "La condición se cumple (si aplica) y el límite MIN toma el valor izquierdo.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[547]": 3333333,
+            "[465]": 0,
+            "[494]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.4.2",
+        "tipo_escenario": "CALCULO_VERDADERO_MIN_DER",
+        "descripcion_qa": "La condición se cumple (si aplica) y el límite MIN se topa con el valor derecho.",
         "rut": "99.999.999-9",
         "inputs": {
-            "[1032]": 1666666,
-            "[1635]": 1000000,
-            "[1031]": 1000000
+            "[547]": 41725201,
+            "[465]": 0,
+            "[494]": 12517560
         },
-        "resultado_esperado": "SIN_VALIDACION"
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
-        "id_validacion": "c.80.2",
-        "tipo_escenario": "EXCEDE_LIMITE",
-        "descripcion_qa": "El valor ingresado supera el tope permitido de la regla por 1 peso.",
+        "id_validacion": "a.4.3",
+        "tipo_escenario": "CALCULO_FALSO_SINO_1",
+        "descripcion_qa": "La sub-condición 1 del IF principal falla, mientras las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[547]": 1000000,
+            "[465]": 1000000,
+            "[494]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.4.4",
+        "tipo_escenario": "CALCULO_FALSO_SINO_2",
+        "descripcion_qa": "La sub-condición 2 del IF principal falla, mientras las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[547]": 1000000,
+            "[465]": 0,
+            "[494]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.6.1",
+        "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es positivo, por lo que el monto se mantiene intacto.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[618]": 2000000,
+            "[479]": 1000000,
+            "[467]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.6.2",
+        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es negativo o cero, forzando la función a topar en 0.",
         "rut": "55.555.555-5",
         "inputs": {
-            "[1635]": 1000000,
-            "[1032]": 1666665,
-            "[1031]": 1000000
+            "[479]": 1000000,
+            "[467]": -1000000,
+            "[618]": 0
         },
-        "resultado_esperado": "CON_VALIDACION"
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
-        "id_validacion": "c.80.3",
-        "tipo_escenario": "BAJO_LIMITE",
-        "descripcion_qa": "El valor ingresado se mantiene justo por debajo del límite de la regla.",
+        "id_validacion": "a.40.1",
+        "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es positivo, por lo que el monto se mantiene intacto.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1635]": 299999,
-            "[1032]": 1000000,
-            "[1031]": 1000000
+            "[1058]": 1000000,
+            "[1060]": 2000000,
+            "[1062]": 1000000
         },
-        "resultado_esperado": "SIN_VALIDACION"
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
-        "id_validacion": "d.150.1",
-        "tipo_escenario": "CUMPLE_CONDICION",
-        "descripcion_qa": "El contribuyente cumple la condición inicial y también satisface la exigencia final de la regla.",
-        "rut": "22.222.222-2",
+        "id_validacion": "a.40.2",
+        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es negativo o cero, forzando la función a topar en 0.",
+        "rut": "99.999.999-9",
         "inputs": {
-            "[894]": 1000000,
-            "[844]": 1000000,
-            "[893]": 1000000
+            "[1058]": 1000000,
+            "[1060]": 1000000,
+            "[1062]": 0
         },
-        "resultado_esperado": "SIN_VALIDACION"
-    },
-    {
-        "id_validacion": "d.150.2",
-        "tipo_escenario": "INCUMPLE_CONDICION",
-        "descripcion_qa": "Se fuerza un error: El contribuyente cumple la condición inicial, pero se omite llenar la exigencia final obligatoria.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[844]": 0,
-            "[894]": 1000000,
-            "[893]": 1000000
-        },
-        "resultado_esperado": "CON_VALIDACION"
-    },
-    {
-        "id_validacion": "d.150.3",
-        "tipo_escenario": "NO_APLICA",
-        "descripcion_qa": "La regla no aplica para este caso (ej. atributos de RUT distintos). El sistema no debería exigir nada adicional.",
-        "rut": "22.222.222-2",
-        "inputs": {
-            "[844]": 1000000,
-            "[893]": 1000000,
-            "[894]": -1000000
-        },
-        "resultado_esperado": "SIN_VALIDACION"
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     }
 ]

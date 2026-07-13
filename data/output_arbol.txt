@@ -1,15 +1,45 @@
 === ÁRBOLES DE SINTAXIS ABSTRACTA (AST) - DEPURACIÓN ===
 
-Validacion: c.272
+Validacion: a.3
 ----------------------------------------
 validacion
-  cota
-    [1639]
-    <=
-    condicional
-      sub_condicion
-        (
+  autocalculado
+    [547]
+    expresion
+      [545]
+      +
+      [461]
+      +
+      [856]
+      +
+      [1650]
+
+========================================
+Validacion: a.4
+----------------------------------------
+validacion
+  autocalculado
+    [494]
+    casos_trailing
+      caso_trailing
+        funcion_matematica
+          MIN
+          {
+          lista_argumentos
+            expresion
+              P08
+              *
+              [547]
+            ;
+            P42
+          }
+        ;
         condicion_logica
+          comparacion_simple
+            [465]
+            =
+            0
+          .y.
           comparacion_simple
             funcion_rut
               TIPO
@@ -18,30 +48,43 @@ validacion
               }
             =
             1
-          .y.
-          comparacion_simple
-            [1608]
-            >
-            0
-        )
+
+========================================
+Validacion: a.6
+----------------------------------------
+validacion
+  autocalculado
+    [618]
+    funcion_matematica
+      POS
+      {
+      lista_argumentos
+        expresion
+          [467]
+          +
+          [479]
+      }
+
+========================================
+Validacion: a.40
+----------------------------------------
+validacion
+  autocalculado
+    [1062]
+    condicional
+      comparacion_simple
+        [1058]
+        <=
+        0
+      [1060]
       funcion_matematica
-        ROUND
+        POS
         {
         lista_argumentos
-          agrupacion
-            (
-            expresion
-              [1608]
-              *
-              agrupacion
-                (
-                expresion
-                  [157]
-                  /
-                  [170]
-                )
-            )
+          expresion
+            [1060]
+            -
+            [1058]
         }
-      0
 
 ========================================

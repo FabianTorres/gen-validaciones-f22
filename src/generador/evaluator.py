@@ -111,6 +111,27 @@ class EvaluadorAST:
     def _sub_condicion(self, nodo):
         return self.evaluar(nodo.children[0])
 
+    def _casos_trailing(self, nodo):
+        """
+        Maneja estructuras condicionales en cascada.
+        Asume un 'Sino 0' implícito al final si ninguna condición se cumple.
+        """
+        resultado = 0  # El Sino 0 por defecto
+        # Recorremos en reversa para armar los If anidados desde adentro hacia afuera
+        for hijo in reversed(nodo.children):
+            condicion, valor = self.evaluar(hijo)
+            resultado = z3.If(condicion, valor, resultado)
+        return resultado
+
+    def _caso_trailing(self, nodo):
+        """
+        Retorna la tupla (condicion, valor).
+        El AST muestra que el valor está primero y la condición al final.
+        """
+        valor = self.evaluar(nodo.children[0])
+        condicion = self.evaluar(nodo.children[-1])
+        return condicion, valor
+
     # --- 4. COMPARACIONES Y MATEMÁTICAS ---
     
     def _comparacion_simple(self, nodo):
@@ -202,8 +223,16 @@ class EvaluadorAST:
 
     def _funcion_rut(self, nodo):
         func = self.evaluar(nodo.children[0])
-        param = self.evaluar(nodo.children[2]) # Índice corregido
-        return self.motor.obtener_o_crear_variable(f"{func}_{param}")
+        # Extraemos el texto literal sin evaluarlo matemáticamente
+        param = str(nodo.children[2]).upper()
+        
+        var_tipo = self.motor.obtener_o_crear_variable(f"{func}_{param}")
+        
+        # Restricción de Dominio: Obligamos a Z3 a usar solo Tipos 1 o 2
+        # Así el RutProvider siempre encontrará compatibilidad.
+        self.motor.solver.add(var_tipo >= 1, var_tipo <= 2)
+        
+        return var_tipo
 
     def _funcion_matematica(self, nodo):
         func = self.evaluar(nodo.children[0])
@@ -222,9 +251,20 @@ class EvaluadorAST:
         elif func == 'ROUND':
             return argumentos[0]
         elif func == 'POS':
-            return z3.If(argumentos[0] > 0, argumentos[0], 0)
+            
+            arg = argumentos[0] 
+            # La instrucción matemática para Z3 de que si es negativo de un 0
+            return z3.If(arg > 0, arg, 0)
             
         return argumentos[0]
         
     def _lista_argumentos(self, nodo):
-        return [self.evaluar(hijo) for hijo in nodo.children]
+        """Evalúa los argumentos de una función omitiendo los separadores (;)"""
+        argumentos_limpios = []
+        for hijo in nodo.children:
+            val = self.evaluar(hijo)
+            # Ignoramos el separador para que Z3 solo reciba las variables/números
+            if isinstance(val, str) and val == ';':
+                continue
+            argumentos_limpios.append(val)
+        return argumentos_limpios
