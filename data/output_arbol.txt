@@ -88,3 +88,168 @@ validacion
         }
 
 ========================================
+Validacion: a.42
+----------------------------------------
+validacion
+  autocalculado
+    [1100]
+    funcion_matematica
+      POS
+      {
+      lista_argumentos
+        expresion
+          [1061]
+          -
+          [1099]
+          -
+          [1847]
+      }
+
+========================================
+Validacion: a.51
+----------------------------------------
+validacion
+  autocalculado
+    [1672]
+    expresion
+      [1657]
+      +
+      [1658]
+      +
+      [1659]
+      +
+      [1660]
+      -
+      [1661]
+      -
+      [1662]
+      -
+      [1140]
+      -
+      [1663]
+      -
+      [1664]
+      -
+      [1665]
+      -
+      [1666]
+      -
+      [1667]
+      -
+      [1668]
+      -
+      [1141]
+      -
+      [1142]
+      -
+      [1669]
+      -
+      [1670]
+      -
+      [1671]
+
+========================================
+Validacion: a.55
+----------------------------------------
+validacion
+  autocalculado
+    [1718]
+    condicional
+      sub_condicion
+        (
+        comparacion_simple
+          [1698]
+          >
+          0
+        )
+      agrupacion
+        (
+        expresion
+          [1698]
+          +
+          [1692]
+          +
+          [1699]
+        )
+      funcion_matematica
+        POS
+        {
+        lista_argumentos
+          expresion
+            [1692]
+            +
+            [1699]
+            -
+            [1717]
+        }
+
+========================================
+Validacion: a.58
+----------------------------------------
+validacion
+  autocalculado
+    [1150]
+    condicional
+      comparacion_atributo
+        =
+        rango_valores
+          serie_numeros	M14A
+      agrupacion
+        (
+        expresion
+          [1184]
+          +
+          [1362]
+        )
+      0
+
+========================================
+Validacion: a.59
+----------------------------------------
+validacion
+  autocalculado
+    [1698]
+    condicional
+      sub_condicion
+        (
+        comparacion_atributo
+          =
+          rango_valores
+            serie_numeros	M14A
+        )
+      [645]
+      0
+
+========================================
+Validacion: a.81
+----------------------------------------
+validacion
+  autocalculado
+    [1257]
+    funcion_matematica
+      NEG
+      {
+      lista_argumentos
+        expresion
+          [1246]
+          -
+          [1247]
+          +
+          [1248]
+          -
+          [1249]
+          -
+          [1250]
+          +
+          [1251]
+          +
+          [1252]
+          -
+          [1253]
+          -
+          [1254]
+          -
+          [1255]
+      }
+
+========================================

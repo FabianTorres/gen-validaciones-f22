@@ -15,48 +15,36 @@
     },
     {
         "id_validacion": "a.4.1",
-        "tipo_escenario": "CALCULO_VERDADERO_MIN_IZQ",
-        "descripcion_qa": "La condición se cumple (si aplica) y el límite MIN toma el valor izquierdo.",
-        "rut": "11.111.111-1",
+        "tipo_escenario": "CALCULO_MIN_IZQ",
+        "descripcion_qa": "El límite MIN toma el valor izquierdo garantizando su ruta de ejecución.",
+        "rut": "99.999.999-9",
         "inputs": {
-            "[547]": 3333333,
+            "[547]": 1000000,
             "[465]": 0,
-            "[494]": 1000000
+            "[494]": 300000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
         "id_validacion": "a.4.2",
-        "tipo_escenario": "CALCULO_VERDADERO_MIN_DER",
-        "descripcion_qa": "La condición se cumple (si aplica) y el límite MIN se topa con el valor derecho.",
-        "rut": "99.999.999-9",
+        "tipo_escenario": "CALCULO_MIN_DER",
+        "descripcion_qa": "El límite MIN se topa con el valor derecho garantizando su ruta de ejecución.",
+        "rut": "55.555.555-5",
         "inputs": {
-            "[547]": 41725201,
+            "[547]": 41725203,
             "[465]": 0,
-            "[494]": 12517560
-        },
-        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
-    },
-    {
-        "id_validacion": "a.4.3",
-        "tipo_escenario": "CALCULO_FALSO_SINO_1",
-        "descripcion_qa": "La sub-condición 1 del IF principal falla, mientras las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[547]": 1000000,
-            "[465]": 1000000,
             "[494]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
-        "id_validacion": "a.4.4",
-        "tipo_escenario": "CALCULO_FALSO_SINO_2",
-        "descripcion_qa": "La sub-condición 2 del IF principal falla, mientras las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
-        "rut": "22.222.222-2",
+        "id_validacion": "a.4.3",
+        "tipo_escenario": "CALCULO_FALSO_SINO",
+        "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0).",
+        "rut": "11.111.111-1",
         "inputs": {
+            "[465]": 1000000,
             "[547]": 1000000,
-            "[465]": 0,
             "[494]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -64,23 +52,23 @@
     {
         "id_validacion": "a.6.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
-        "descripcion_qa": "El valor interno de la función POS es positivo, por lo que el monto se mantiene intacto.",
-        "rut": "22.222.222-2",
+        "descripcion_qa": "El valor interno de la función POS es positivo, ruta bloqueada correctamente.",
+        "rut": "11.111.111-1",
         "inputs": {
-            "[618]": 2000000,
             "[479]": 1000000,
-            "[467]": 1000000
+            "[467]": 1000000,
+            "[618]": 2000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
         "id_validacion": "a.6.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
-        "descripcion_qa": "El valor interno de la función POS es negativo o cero, forzando la función a topar en 0.",
-        "rut": "55.555.555-5",
+        "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
+        "rut": "99.999.999-9",
         "inputs": {
+            "[467]": -1000001,
             "[479]": 1000000,
-            "[467]": -1000000,
             "[618]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -88,8 +76,8 @@
     {
         "id_validacion": "a.40.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
-        "descripcion_qa": "El valor interno de la función POS es positivo, por lo que el monto se mantiene intacto.",
-        "rut": "11.111.111-1",
+        "descripcion_qa": "El valor interno de la función POS es positivo, ruta bloqueada correctamente.",
+        "rut": "99.999.999-9",
         "inputs": {
             "[1058]": 1000000,
             "[1060]": 2000000,
@@ -100,12 +88,198 @@
     {
         "id_validacion": "a.40.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
-        "descripcion_qa": "El valor interno de la función POS es negativo o cero, forzando la función a topar en 0.",
+        "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[1058]": 1000001,
+            "[1060]": 1000000,
+            "[1062]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.40.3",
+        "tipo_escenario": "CALCULO_VERDADERO_SIMPLE",
+        "descripcion_qa": "La condición principal se cumple (Rama ENTONCES).",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[1058]": 0,
+            "[1060]": 1000000,
+            "[1062]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.40.4",
+        "tipo_escenario": "CALCULO_FALSO_SINO",
+        "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0).",
         "rut": "99.999.999-9",
         "inputs": {
             "[1058]": 1000000,
             "[1060]": 1000000,
             "[1062]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.42.1",
+        "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es positivo, ruta bloqueada correctamente.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[1061]": 3000000,
+            "[1847]": 1000000,
+            "[1099]": 1000000,
+            "[1100]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.42.2",
+        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[1061]": 1000000,
+            "[1847]": 1000000,
+            "[1099]": 1000000,
+            "[1100]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.51.1",
+        "tipo_escenario": "CALCULO_LINEAL_EXACTO",
+        "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[1668]": 1000000,
+            "[1662]": 1000000,
+            "[1664]": 1000000,
+            "[1672]": 1000000,
+            "[1663]": 1000000,
+            "[1659]": 1000000,
+            "[1665]": 1000000,
+            "[1666]": 1000000,
+            "[1667]": 1000000,
+            "[1670]": 1000000,
+            "[1658]": 1000000,
+            "[1661]": 1000000,
+            "[1142]": 1000000,
+            "[1660]": 1000000,
+            "[1671]": 1000000,
+            "[1669]": 1000000,
+            "[1141]": 1000000,
+            "[1140]": 1000000,
+            "[1657]": 12000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.55.1",
+        "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es positivo, ruta bloqueada correctamente.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1717]": 1000000,
+            "[1699]": 1000000,
+            "[1692]": 1000000,
+            "[1718]": 1000000,
+            "[1698]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.55.2",
+        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
+        "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1717]": 2000001,
+            "[1699]": 1000000,
+            "[1692]": 1000000,
+            "[1718]": 0,
+            "[1698]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.55.3",
+        "tipo_escenario": "CALCULO_VERDADERO_SIMPLE",
+        "descripcion_qa": "La condición principal se cumple (Rama ENTONCES).",
+        "rut": "55.555.555-5",
+        "inputs": {
+            "[1692]": 1000000,
+            "[1699]": 1000000,
+            "[1718]": 3000000,
+            "[1717]": 1000000,
+            "[1698]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.58.1",
+        "tipo_escenario": "CALCULO_VERDADERO_SIMPLE",
+        "descripcion_qa": "La condición principal se cumple (Rama ENTONCES).",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1150]": 2000000,
+            "[1362]": 1000000,
+            "[1184]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.58.2",
+        "tipo_escenario": "CALCULO_FALSO_SINO",
+        "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0).",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[1362]": 1000000,
+            "[1184]": 1000000,
+            "[1150]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.59.1",
+        "tipo_escenario": "CALCULO_VERDADERO_SIMPLE",
+        "descripcion_qa": "La condición principal se cumple (Rama ENTONCES).",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[645]": 1000000,
+            "[1698]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.59.2",
+        "tipo_escenario": "CALCULO_FALSO_SINO",
+        "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0).",
+        "rut": "55.555.555-5",
+        "inputs": {
+            "[645]": 1000000,
+            "[1698]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.81.1",
+        "tipo_escenario": "CALCULO_LINEAL_EXACTO",
+        "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
+        "rut": "55.555.555-5",
+        "inputs": {
+            "[1248]": 4000000,
+            "[1257]": 1000000,
+            "[1255]": 1000000,
+            "[1253]": 1000000,
+            "[1254]": 1000000,
+            "[1247]": 1000000,
+            "[1251]": 1000000,
+            "[1250]": 1000000,
+            "[1252]": 1000000,
+            "[1249]": 1000000,
+            "[1246]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     }

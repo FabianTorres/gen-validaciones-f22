@@ -250,13 +250,32 @@ class EvaluadorAST:
             return max_val
         elif func == 'ROUND':
             return argumentos[0]
-        elif func == 'POS':
-            
+        elif func == 'POS':   
             arg = argumentos[0] 
             # La instrucción matemática para Z3 de que si es negativo de un 0
             return z3.If(arg > 0, arg, 0)
+        
             
         return argumentos[0]
+
+    def _sub_condicion(self, nodo):
+        """
+        Filtra dinámicamente los paréntesis de apertura y cierre.
+        Toma el nodo lógico real sin importar su posición en el AST.
+        """
+        hijos_reales = [h for h in nodo.children if str(h) not in ['(', ')']]
+        if hijos_reales:
+            return self.evaluar(hijos_reales[0])
+        return None
+
+    def _agrupacion(self, nodo):
+        """
+        Filtra dinámicamente los paréntesis de una agrupación matemática.
+        """
+        hijos_reales = [h for h in nodo.children if str(h) not in ['(', ')']]
+        if hijos_reales:
+            return self.evaluar(hijos_reales[0])
+        return None
         
     def _lista_argumentos(self, nodo):
         """Evalúa los argumentos de una función omitiendo los separadores (;)"""
