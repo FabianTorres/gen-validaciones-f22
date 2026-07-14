@@ -20,14 +20,23 @@ Z3 es estrictamente tipado. Si se multiplica un Código F22 instanciado como Ent
 El token `B` o texto vacío es sanitizado por la Fase 1 al string `"BLANCO"`. 
 * **Manejo en Z3:** El `evaluator.py` actúa como *Gatekeeper*. Si lee el string `"BLANCO"`, no intenta instanciarlo como variable de texto (lo cual corrompería la matemática), sino que lo traduce inmediatamente al entero `0`, igualando el comportamiento interno del sistema del SII para campos vacíos.
 
+## 5. Mapeo de Dominios Binarios y Restricción (Checkboxes)
+El sistema se enfrenta a variables de entrada que operan como marcas discretas en la UI (ej. un checkbox "X") en lugar de campos matemáticos continuos. Si Z3 evalúa esto como texto libre, el motor C++ colapsa (`b'parser error'`). Si se instancia como una variable Real sin control, el sistema sufre de "Domain Overflow" (Z3 podría asignar un valor absurdo como `500` a un checkbox para equilibrar la ecuación y alcanzar la semilla).
+* **Solución (Escudo Interceptor en `evaluator.py`):** El evaluador intercepta los tokens antes de que toquen el motor matemático. Si detecta el token puro `"X"`, lo transmuta inmediatamente al entero `1`. El token `"BLANCO"` o texto vacío[cite: 3] se transforma en `0`[cite: 3].
+* **Bloqueo de Dominio (`z3_core.py`):** Simultáneamente, al instanciar la variable en memoria (ej. `[95]`), el motor consulta el catálogo base en caché. Si el código es de tipo marca, inyecta una restricción de dominio binario inquebrantable (`z3.Or(var == 0, var == 1)`). Esto obliga a Z3 a resolver condiciones complejas como `[95] != "X"` usando estrictamente lógica binaria matemática (`[95] != 1`), garantizando que Selenium reciba valores inyectables.
+
 ### Soporte Extendido de Funciones Matemáticas
 El motor `Evaluator` soporta la evaluación nativa de funciones complejas de negocio inyectando lógicas condicionales directamente en el solver Z3:
 * **NEG:** Implementa la lógica de valor absoluto condicionado. Si el argumento evaluado es menor a 0, Z3 retorna su valor absoluto (`-arg`). Si es positivo o cero, Z3 lo fuerza a `0`.
 * **POS, MIN, MAX, ROUND:** (Mantienen su comportamiento base).
 
-### Prevención de Anomalías de Ruta (Path Execution Locking)
-Para evitar que el motor resuelva fronteras matemáticas evadiendo el flujo lógico principal (Falso Positivo de Ruta), el `CalculationBuilder` implementa un rastreador de Árbol de Sintaxis Abstracta (AST). 
-Antes de evaluar los límites de una función (`MIN`, `MAX`, `POS`, `NEG`), el método `_obtener_restriccion_rama` verifica si la función reside dentro de una rama `ENTONCES` o `SINO`. Posteriormente, inyecta la restricción lógica correspondiente (`z3_cond` o `Not(z3_cond)`) en las premisas base, obligando al solver a caminar estrictamente por el bloque de código requerido.
+### Contexto Base y Prevención de Anomalías (Path Locking & MCDC Recursivo)
+Para evitar que el motor resuelva fronteras matemáticas evadiendo el flujo lógico principal (Falso Positivo de Ruta)[cite: 3], o invente "números fantasma" al desconocer las reglas que rigen a las variables auxiliares, el `CalculationBuilder` implementa un motor de rastreo avanzado sobre el Árbol de Sintaxis Abstracta (AST):
+* **Empaquetado de Contexto Base:** Z3 opera bajo resolución simultánea. Antes de generar escenarios, el Builder extrae la regla principal (`autocalculado`) junto a TODAS las variables y ecuaciones auxiliares (nodos `cota` y `declaracion_variable`) de la raíz de la validación. Todo se empaqueta como "Premisas Universales", obligando a Z3 a respetar la matemática del sistema completo y no solo de la regla aislada.
+* **Bloqueo Semántico de Rutas (Reachability):** Antes de evaluar los límites de una función (`MIN`, `MAX`, `POS`, `NEG`, `ABS`)[cite: 3] o bifurcaciones internas, el método `_obtener_camino_a_nodo` rastrea el árbol en dos dimensiones:
+  1. *Sintáctica:* Verifica el anidamiento físico (si la función reside dentro de una rama `ENTONCES` o `SINO` específica)[cite: 3].
+  2. *Semántica:* Verifica el uso de variables calculadas (identificando en qué rama superior se invoca la variable evaluada).
+* Posteriormente, inyecta la suma de estas restricciones lógicas previas en las premisas base[cite: 3], obligando al solver a caminar estrictamente por el bloque de código requerido[cite: 3] y garantizando cobertura algorítmica sobre ramas anidadas sin perder el flujo principal.
 
 ### Inyección de Brecha de Frontera (Safety Gap)
 Las pruebas de límites matemáticos (ej. forzar que un `POS` evalúe a negativo) utilizan una brecha dinámica (`gap`). 

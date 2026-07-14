@@ -20,6 +20,11 @@ Cada objeto dentro de la lista exportada representará un caso de prueba ejecuta
 }
 ```
 
+### Reglas de Mapeo en el Objeto `inputs` (Filtros y Checkboxes)
+Para garantizar que Selenium Web-Driver interactúe fluidamente con el portal sin romperse, el motor aplica dos reglas automáticas sobre la clave `inputs`:
+1. **Filtro de Celdas Tangibles:** Variables auxiliares declaradas en la regla (ej. `ALFA`, `BETA`) o atributos puros (ej. `M14A`) son filtradas silenciosamente. El JSON solo emitirá celdas estrictas en formato `[XXX]` o vectores `Vx`.
+2. **Mapeo Binario de Marcas (Checkboxes):** Las celdas que gráficamente son un checkbox y cuya regla de negocio valida un texto como `"X"` o `"BLANCO"`, jamás se exportarán como texto. El motor exportará el entero **`1`** (si la celda debe ir marcada) o un **`0`** (si debe ir desmarcada). Los scripts de automatización deben interpretar esto de forma binaria.
+
 ---
 
 ## Catálogo de Valores Permitidos
@@ -48,13 +53,16 @@ Indica la técnica de testing que el motor matemático aplicó para generar los 
 | **Implicaciones (=>)** | `CUMPLE_CONDICION` | El gatillo es verdadero y la consecuencia se cumple. |
 | | `INCUMPLE_CONDICION` | El gatillo es verdadero, pero la consecuencia se omite (Error). |
 | | `NO_APLICA` | El gatillo es falso (ej. RUT no compatible), la regla se ignora. |
-| **Autocalculados** | `CALCULO_LINEAL_EXACTO` | Resolución de ecuación sin condicionales (Happy Path simple). |
-| | `CALCULO_VERDADERO_SIMPLE` | El condicional (IF) se cumple, sin límites MIN/MAX involucrados. |
-| | `CALCULO_VERDADERO_MIN_IZQ` | El condicional se cumple y domina el argumento izquierdo del MIN. |
-| | `CALCULO_VERDADERO_MIN_DER` | El condicional se cumple y domina el argumento derecho del MIN. |
-| | `CALCULO_VERDADERO_MAX_IZQ` | El condicional se cumple y domina el argumento izquierdo del MAX. |
-| | `CALCULO_VERDADERO_MAX_DER` | El condicional se cumple y domina el argumento derecho del MAX. |
-| | `CALCULO_FALSO_SINO` | La condición es falsa, forzando la celda al valor por defecto (Sino). |
+| **Autocalculados** | `CALCULO_LINEAL_EXACTO` | Resolución de ecuación sin condicionales (Happy Path simple).|
+| | `CALCULO_VERDADERO_SIMPLE` | El condicional (IF) principal se cumple.[cite: 4]|
+| | `CALCULO_FALSO_SINO_*` | Sub-condición del IF principal es falsa, forzando la celda al valor por defecto. |
+| | `CALCULO_VERDADERO_ANIDADO_*` | Un IF interno (recursivo) se cumple garantizando el flujo de la ruta superior. |
+| | `CALCULO_FALSO_ANIDADO_*_SINO_*` | Un IF interno falla, forzando su rama SINO sin perder el flujo principal. |
+| | `CALCULO_MIN_IZQ` / `DER` | Límite MIN toma el argumento izquierdo/derecho garantizando la ruta lógica. |
+| | `CALCULO_MAX_IZQ` / `DER` | Límite MAX toma el argumento izquierdo/derecho garantizando la ruta lógica. |
+| | `CALCULO_POS_MAYOR_CERO` / `MENOR_CERO` | Límite interno de POS evaluado en positivo, o negativo (forzando salida a 0). |
+| | `CALCULO_NEG_MAYOR_CERO` / `MENOR_CERO` | Límite interno de NEG evaluado en positivo (forzando 0), o negativo (valor absoluto). |
+| | `ABS_ENTRADA_POSITIVA` / `NEGATIVA` | Prueba el valor interno de ABS validando su correcta conversión de signo. |
 
 ---
 
@@ -70,13 +78,12 @@ Glosas humanas estandarizadas que acompañan a cada `tipo_escenario` para dar co
   * `"Se fuerza un error: El contribuyente cumple la condición inicial, pero se omite llenar la exigencia final obligatoria."`
   * `"La regla no aplica para este caso (ej. atributos de RUT distintos). El sistema no debería exigir nada adicional."`
 * **Para Autocalculados y Lógica Libre:**
-  * `"Se resuelve la ecuación matemática lineal de forma exacta."`
-  * `"La condición del IF se cumple y se calcula el monto directo."`
-  * `"La condición se cumple y el límite MIN toma el valor del primer argumento (izquierdo)."`
-  * `"La condición se cumple y el límite MIN se topa con el segundo argumento (derecho)."`
-  * `"La condición se cumple y el límite MAX toma el valor del primer argumento (izquierdo)."`
-  * `"La condición se cumple y el límite MAX se topa con el segundo argumento (derecho)."`
-  * `"La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0)."`
+  * `"Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones."`
+  * `"La condición principal se cumple (Rama ENTONCES)."`[cite: 4]
+  * `"La sub-condición X del IF principal falla, mientras las demás se cumplen. Se fuerza la celda al valor por defecto (Sino)."`
+  * `"La condición ANIDADA_X se cumple (Rama ENTONCES alcanzada)."`
+  * Lógicas de límites `MIN` / `MAX`: *"El límite toma el valor izquierdo/derecho garantizando su ruta de ejecución."*
+  * Lógicas de control de signo `POS` / `NEG` / `ABS`: *"El valor interno es positivo/negativo, forzando su ruta correcta, conversión o valor absoluto."*
 
 ---
 

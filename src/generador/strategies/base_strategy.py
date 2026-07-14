@@ -40,8 +40,11 @@ class BaseStrategy(ABC):
                     continue
 
                 # --- MAGIA 2: FILTRO DE INPUTS PARA SELENIUM ---
+                # Este condicional bloquea variables auxiliares abstractas como ALFA o BETA
+                # asegurando que solo celdas [XXX] o vectores Vx lleguen al JSON final.
                 es_codigo = nombre.startswith('[') and nombre.endswith(']')
                 es_vector = nombre.startswith('Vx')
+                
                 if not (es_codigo or es_vector):
                     continue 
                 

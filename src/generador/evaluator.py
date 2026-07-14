@@ -25,31 +25,42 @@ class EvaluadorAST:
         tipo = token.type
         valor = str(token)
 
+        # 1. Limpieza absoluta inicial para facilitar la evaluación
+        valor_limpio = valor.replace('"', '').strip().upper()
+
+        # 2. ESCUDO INTERCEPTOR DE CONSTANTES BINARIAS
+        # Atrapamos la "X" o "BLANCO" de inmediato, sin importar si Lark 
+        # lo catalogó como TEXTO, MARCA_CHECK o cualquier otra cosa.
+        if valor_limpio == 'X':
+            return 1
+        if valor_limpio == 'BLANCO':
+            return 0
+
+        # 3. EVALUACIÓN ESTÁNDAR
         if tipo in ('CODIGO', 'VECTOR', 'PARAMETRO'):
-            nombre_limpio = valor.replace('[', '').replace(']', '').upper()
-            return self.motor.obtener_o_crear_variable(f"[{nombre_limpio}]" if tipo == 'CODIGO' else nombre_limpio)
+            nombre_var = f"[{valor_limpio}]" if tipo == 'CODIGO' and not valor_limpio.startswith('[') else valor_limpio
+            return self.motor.obtener_o_crear_variable(nombre_var)
             
         elif tipo == 'NUMERO':
             return float(valor) if '.' in valor else int(valor)
             
         elif tipo == 'TEXTO':
-            # Limpiamos comillas para facilitar la evaluación exacta
-            valor_limpio = valor.upper().replace('"', '')
+            # Textos libres que no son X ni BLANCO se vuelven variables (ej: "ALFA")
+            return self.motor.obtener_o_crear_variable(valor_limpio)
             
-            if valor_limpio == 'BLANCO':
-                return 0
-            if valor_limpio == 'X':
-                return 1
-                
-            # Si es otro texto (ej. "M14A"), creamos una variable simbólica
-            return self.motor.obtener_o_crear_variable(valor.upper())
-            
+        # 4. OPERADORES (Los únicos que tienen permitido retornar strings puros)
         elif tipo in (
             'MATEMATICO', 'RELACIONAL_NUMERICO', 'LOGICO', 'IMPLICA', 
             'SEPARADOR', 'SIMBOLO_APERTURA', 'SIMBOLO_CIERRE', 
             'FUNCION', 'FUNCION_RUT', 'MARCA_CHECK', 'FORMATO_FECHA'
         ):
-            return valor.upper()
+            return valor_limpio
+            
+        # 5. FALLBACK DE SEGURIDAD
+        # Si aparece un token no catalogado pero es alfanumérico (como ALFA, BETA), 
+        # lo convertimos en variable simbólica en vez de crashear.
+        if valor_limpio.isalnum():
+             return self.motor.obtener_o_crear_variable(valor_limpio)
             
         raise ValueError(f"Token no reconocido por el Evaluador Z3: {tipo} -> {valor}")
 
