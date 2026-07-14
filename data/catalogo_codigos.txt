@@ -169,12 +169,12 @@ CODIGO | SIGNO_PERMITIDO | DESCRIPCION_OPCIONAL
 1632       | +            | Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR
 2014       | +            | Rentas propias o por participaciones, según art. 14 letra D) N° 8 LIR / a) propias
 110       | +            | Rentas percibidas de los arts. 42 Nº 2 (honorarios) y 48 (rem. directores S.A.) LIR, según Recuadro N° 1
-605       | C            | CIDPC / con Oblig.Rest. / con derecho Dev / Rentas de capitales mobiliarios, mayor valor en la enajenación o rescate de cuotas fondos mutuos y fondos de inversión y enajenación de acciones y derechos sociales y retiros de ELD
+605       | +            | CIDPC / con Oblig.Rest. / con derecho Dev / Rentas de capitales mobiliarios, mayor valor en la enajenación o rescate de cuotas fondos mutuos y fondos de inversión y enajenación de acciones y derechos sociales y retiros de ELD
 155       | +            | Rentas de capitales mobiliarios (art. 20 N° 2 LIR), mayor valor en la enajenación o rescate de cuotas fondos mutuos y fondos de inversión y enajenación de acciones y derechos sociales (art. 17 N° 8 LIR) y retiros de ELD (arts. 42 ter y quáter LIR)
 1633       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ CON OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
 1105       | +            | Rentas exentas del IGC, según art. 54 N° 3 LIR, cred con restitución
 1634       | +            | CRÉDITO POR IMPUESTO DE PRIMERA CATEGORÍA/ SIN OBLIGACIÓN DE RESTITUCIÓN/ Sin derecho a devolución
-606       | C            | Rentas exentas del IGC, según art. 54 N° 3 LIR, cred sin restitución
+606       | +            | Rentas exentas del IGC, según art. 54 N° 3 LIR, cred sin restitución
 152       | +            | Rentas exentas del IGC, según art. 54 N° 3 LIR
 161       | +            | Rta Art 42 Nro 1
 749       | +            | Rebajas Por Incremento Impto de Primera Categoría.y/o Impuesto  Exterior
@@ -739,10 +739,8 @@ CODIGO | SIGNO_PERMITIDO | DESCRIPCION_OPCIONAL
 1510       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / Con D° Devolución / Disminuciones del ejercicio (por reorganizaciones)
 1511       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados hasta el 31.12.2016 / IPE / Disminuciones del ejercicio (por reorganizaciones)
 1514       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE / IDPC e IPE base imponible generada en el ejercicio
-"1515       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / IDPC e IPE retiros o dividendos percibidos
-"
-"1516       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / IDPC e IPE retiros o dividendos percibidos
-"
+1515       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Sin D° Devolución / IDPC e IPE retiros o dividendos percibidos
+1516       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / No Sujeto a Restitución /  Con D° Devolución / IDPC e IPE retiros o dividendos percibidos
 1517       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Sin  D° Devolución /  IDPC e IPE retiros o dividendos percibidos
 1518       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / Sujeto a Restitución /  Con  D° Devolución /  IDPC e IPE retiros o dividendos percibidos
 1519       | +            | REGISTRO SAC (ART. 14 LETRA D) N° 3 LIR) / Acumulados a contar desde el 01.01.2017 / IPE IDPC e IPE retiros o dividendos percibidos

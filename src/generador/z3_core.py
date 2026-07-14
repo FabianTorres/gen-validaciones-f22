@@ -45,7 +45,6 @@ class MotorZ3:
 
     def obtener_o_crear_variable(self, nombre_var):
         """
-        ¡LA CLAVE DEL ÉXITO! 
         Todo se instancia como z3.Real() para evitar 'parser error'
         al multiplicar códigos con parámetros decimales (ej. P84 = 1.05).
         """
@@ -53,10 +52,7 @@ class MotorZ3:
             var_z3 = z3.Real(nombre_var)
             self.variables_memoria[nombre_var] = var_z3
             
-            # 1. Le pedimos al motor que se acerque a la semilla
-            self.solver.add_soft(var_z3 == self.semilla_objetivo)
-            
-            # 2. Extraer el código y aplicar restricción de signo
+            # 1. Extraer el código y aplicar restricción de signo/dominio
             codigo_limpio = nombre_var.replace("[", "").replace("]", "")
             
             if codigo_limpio.isdigit():
@@ -67,7 +63,18 @@ class MotorZ3:
                     self.solver.add(var_z3 >= 0)
                 elif regla_signo == "-":
                     self.solver.add(var_z3 <= 0)
+                elif regla_signo == "X":
+                    # Restricción binaria estricta para marcas/checkboxes
+                    self.solver.add(z3.Or(var_z3 == 0, var_z3 == 1))
                 # Si la regla es "+/-", no agregamos restricción matemática
+
+                # 2. Le pedimos al motor que se acerque a la semilla
+                # Evitamos aplicar semilla a las marcas para no estresar a SMT forzando 0/1 hacia 1000000
+                if regla_signo != "X":
+                    self.solver.add_soft(var_z3 == self.semilla_objetivo)
+            else:
+                # Si no es numérico (ej. parámetros o atributos), aplicamos semilla por defecto
+                self.solver.add_soft(var_z3 == self.semilla_objetivo)
                 
         return self.variables_memoria[nombre_var]
 

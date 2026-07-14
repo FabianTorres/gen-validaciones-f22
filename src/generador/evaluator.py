@@ -20,7 +20,7 @@ class EvaluadorAST:
     def _evaluar_default(self, nodo):
         raise NotImplementedError(f"Falta implementar la evaluación en Z3 para la regla AST: '{nodo.data}'")
 
-    # --- 1. EVALUACION DE TOKENS (Gatekeeper Estricto) ---
+    # --- 1. EVALUACION DE TOKENS
     def _evaluar_token(self, token):
         tipo = token.type
         valor = str(token)
@@ -33,8 +33,15 @@ class EvaluadorAST:
             return float(valor) if '.' in valor else int(valor)
             
         elif tipo == 'TEXTO':
-            if valor.upper() in ('"BLANCO"', 'BLANCO'):
+            # Limpiamos comillas para facilitar la evaluación exacta
+            valor_limpio = valor.upper().replace('"', '')
+            
+            if valor_limpio == 'BLANCO':
                 return 0
+            if valor_limpio == 'X':
+                return 1
+                
+            # Si es otro texto (ej. "M14A"), creamos una variable simbólica
             return self.motor.obtener_o_crear_variable(valor.upper())
             
         elif tipo in (
@@ -244,6 +251,11 @@ class EvaluadorAST:
             arg = self.evaluar(args_limpios[0])
             # Si es negativo (< 0), retornamos su valor absoluto (-arg). Si no, 0.
             return z3.If(arg < 0, -arg, 0)
+
+        elif nombre_func == 'ABS':
+            arg = self.evaluar(args_limpios[0])
+            # Si es negativo, retorna -arg (para hacerlo positivo). Si no, retorna el mismo valor.
+            return z3.If(arg < 0, -arg, arg)
             
         elif nombre_func == 'MIN':
             arg1 = self.evaluar(args_limpios[0])

@@ -27,6 +27,7 @@ class CalculationBuilder(BaseStrategy):
         nodo_max = next((n for n in nodos_func if str(n.children[0]).upper() == 'MAX'), None)
         nodo_pos = next((n for n in nodos_func if str(n.children[0]).upper() == 'POS'), None)
         nodo_neg = next((n for n in nodos_func if str(n.children[0]).upper() == 'NEG'), None)
+        nodo_abs = next((n for n in nodos_func if str(n.children[0]).upper() == 'ABS'), None)
 
         gap = 1 if not settings.USAR_DECIMALES else 0
 
@@ -118,6 +119,27 @@ class CalculationBuilder(BaseStrategy):
                     "El valor interno de la función NEG es positivo o cero, forzando a 0 en ruta correcta.", "VERIFICAR_AUTOCALCULO")
             ))
 
+        if nodo_abs:
+            args_node = nodo_abs.children[2]
+            args_limpios = [h for h in args_node.children if str(h) != ';']
+            z3_arg_abs = self.evaluador.evaluar(args_limpios[0])
+            
+            restriccion_ruta = self._obtener_restriccion_rama(nodo_abs, ast_tree, z3_cond)
+            base_cond = [z3_ecuacion] + restriccion_ruta
+
+            casos.append(self._ejecutar_escenario_aislado(
+                base_cond + [z3_arg_abs <= -gap], 
+                lambda: self._resolver_y_formatear(
+                    id_val, "ABS_ENTRADA_NEGATIVA", 
+                    "El valor interno de la función ABS es negativo, forzando su conversión a positivo.", "VERIFICAR_AUTOCALCULO")
+            ))
+            casos.append(self._ejecutar_escenario_aislado(
+                base_cond + [z3_arg_abs >= gap], 
+                lambda: self._resolver_y_formatear(
+                    id_val, "ABS_ENTRADA_POSITIVA", 
+                    "El valor interno de la función ABS es positivo o cero, manteniendo su valor original.", "VERIFICAR_AUTOCALCULO")
+            ))
+
         # 2. EVALUAR RAMAS CONDICIONALES (MCDC)
         if z3_cond is not None:
             casos.append(self._ejecutar_escenario_aislado(
@@ -138,7 +160,7 @@ class CalculationBuilder(BaseStrategy):
                 ))
 
         # 3. FALLBACK LINEAL
-        if z3_cond is None and not nodo_min and not nodo_max and not nodo_pos and not nodo_neg:
+        if z3_cond is None and not nodo_min and not nodo_max and not nodo_pos and not nodo_neg and not nodo_abs:
             casos.append(self._ejecutar_escenario_aislado(
                 [z3_ecuacion], 
                 lambda: self._resolver_y_formatear(
