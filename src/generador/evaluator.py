@@ -108,8 +108,6 @@ class EvaluadorAST:
             elif operador == '.Y.': resultado = z3.And(resultado, siguiente)
         return resultado
         
-    def _sub_condicion(self, nodo):
-        return self.evaluar(nodo.children[0])
 
     def _casos_trailing(self, nodo):
         """
@@ -198,8 +196,6 @@ class EvaluadorAST:
             elif operador == '/': resultado /= siguiente
         return resultado
 
-    def _agrupacion(self, nodo):
-        return self.evaluar(nodo.children[1]) # Índice corregido
         
     def _rango_valores(self, nodo):
         return self.evaluar(nodo.children[0])
@@ -235,28 +231,36 @@ class EvaluadorAST:
         return var_tipo
 
     def _funcion_matematica(self, nodo):
-        func = self.evaluar(nodo.children[0])
-        argumentos = self.evaluar(nodo.children[2]) # Índice corregido
+        nombre_func = str(nodo.children[0]).upper()
         
-        if func == 'MIN':
-            min_val = argumentos[0]
-            for arg in argumentos[1:]:
-                min_val = z3.If(arg < min_val, arg, min_val)
-            return min_val
-        elif func == 'MAX':
-            max_val = argumentos[0]
-            for arg in argumentos[1:]:
-                max_val = z3.If(arg > max_val, arg, max_val)
-            return max_val
-        elif func == 'ROUND':
-            return argumentos[0]
-        elif func == 'POS':   
-            arg = argumentos[0] 
-            # La instrucción matemática para Z3 de que si es negativo de un 0
+        args_node = nodo.children[2]
+        args_limpios = [h for h in args_node.children if str(h) != ';']
+        
+        if nombre_func == 'POS':
+            arg = self.evaluar(args_limpios[0])
             return z3.If(arg > 0, arg, 0)
-        
             
-        return argumentos[0]
+        elif nombre_func == 'NEG':
+            arg = self.evaluar(args_limpios[0])
+            # Si es negativo (< 0), retornamos su valor absoluto (-arg). Si no, 0.
+            return z3.If(arg < 0, -arg, 0)
+            
+        elif nombre_func == 'MIN':
+            arg1 = self.evaluar(args_limpios[0])
+            arg2 = self.evaluar(args_limpios[1])
+            return z3.If(arg1 < arg2, arg1, arg2)
+            
+        elif nombre_func == 'MAX':
+            arg1 = self.evaluar(args_limpios[0])
+            arg2 = self.evaluar(args_limpios[1])
+            return z3.If(arg1 > arg2, arg1, arg2)
+        
+        elif nombre_func == 'ROUND':
+            # Mantenemos tu lógica original adaptada a la nueva estructura
+            return self.evaluar(args_limpios[0])
+            
+        # Si llega una función que Z3 aún no conoce, avisamos claramente:
+        raise ValueError(f"Función matemática no soportada o no implementada en Z3: {nombre_func}")
 
     def _sub_condicion(self, nodo):
         """

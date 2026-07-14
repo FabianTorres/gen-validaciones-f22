@@ -19,3 +19,17 @@ Z3 es estrictamente tipado. Si se multiplica un Código F22 instanciado como Ent
 ## 4. Manejo de Estados Nulos y Blancos
 El token `B` o texto vacío es sanitizado por la Fase 1 al string `"BLANCO"`. 
 * **Manejo en Z3:** El `evaluator.py` actúa como *Gatekeeper*. Si lee el string `"BLANCO"`, no intenta instanciarlo como variable de texto (lo cual corrompería la matemática), sino que lo traduce inmediatamente al entero `0`, igualando el comportamiento interno del sistema del SII para campos vacíos.
+
+### Soporte Extendido de Funciones Matemáticas
+El motor `Evaluator` soporta la evaluación nativa de funciones complejas de negocio inyectando lógicas condicionales directamente en el solver Z3:
+* **NEG:** Implementa la lógica de valor absoluto condicionado. Si el argumento evaluado es menor a 0, Z3 retorna su valor absoluto (`-arg`). Si es positivo o cero, Z3 lo fuerza a `0`.
+* **POS, MIN, MAX, ROUND:** (Mantienen su comportamiento base).
+
+### Prevención de Anomalías de Ruta (Path Execution Locking)
+Para evitar que el motor resuelva fronteras matemáticas evadiendo el flujo lógico principal (Falso Positivo de Ruta), el `CalculationBuilder` implementa un rastreador de Árbol de Sintaxis Abstracta (AST). 
+Antes de evaluar los límites de una función (`MIN`, `MAX`, `POS`, `NEG`), el método `_obtener_restriccion_rama` verifica si la función reside dentro de una rama `ENTONCES` o `SINO`. Posteriormente, inyecta la restricción lógica correspondiente (`z3_cond` o `Not(z3_cond)`) en las premisas base, obligando al solver a caminar estrictamente por el bloque de código requerido.
+
+### Inyección de Brecha de Frontera (Safety Gap)
+Las pruebas de límites matemáticos (ej. forzar que un `POS` evalúe a negativo) utilizan una brecha dinámica (`gap`). 
+* Si `settings.USAR_DECIMALES` es falso, `gap = 1`. 
+* Esto asegura que Z3 genere valores que superen holgadamente el límite por un número entero (ej. forzando un `-1` real en lugar de un `0`), protegiendo la aserción de QA contra redondeos ocultos o colisiones en la interfaz web del SII.

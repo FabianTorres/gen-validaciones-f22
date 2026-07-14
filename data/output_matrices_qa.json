@@ -3,7 +3,7 @@
         "id_validacion": "a.3.1",
         "tipo_escenario": "CALCULO_LINEAL_EXACTO",
         "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
-        "rut": "55.555.555-5",
+        "rut": "11.111.111-1",
         "inputs": {
             "[461]": 1000000,
             "[547]": 4000000,
@@ -29,7 +29,7 @@
         "id_validacion": "a.4.2",
         "tipo_escenario": "CALCULO_MIN_DER",
         "descripcion_qa": "El límite MIN se topa con el valor derecho garantizando su ruta de ejecución.",
-        "rut": "55.555.555-5",
+        "rut": "22.222.222-2",
         "inputs": {
             "[547]": 41725203,
             "[465]": 0,
@@ -41,7 +41,7 @@
         "id_validacion": "a.4.3",
         "tipo_escenario": "CALCULO_FALSO_SINO",
         "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0).",
-        "rut": "11.111.111-1",
+        "rut": "99.999.999-9",
         "inputs": {
             "[465]": 1000000,
             "[547]": 1000000,
@@ -65,7 +65,7 @@
         "id_validacion": "a.6.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
         "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
-        "rut": "99.999.999-9",
+        "rut": "11.111.111-1",
         "inputs": {
             "[467]": -1000001,
             "[479]": 1000000,
@@ -77,10 +77,10 @@
         "id_validacion": "a.40.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
         "descripcion_qa": "El valor interno de la función POS es positivo, ruta bloqueada correctamente.",
-        "rut": "99.999.999-9",
+        "rut": "22.222.222-2",
         "inputs": {
-            "[1058]": 1000000,
             "[1060]": 2000000,
+            "[1058]": 1000000,
             "[1062]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -89,7 +89,7 @@
         "id_validacion": "a.40.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
         "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
-        "rut": "22.222.222-2",
+        "rut": "99.999.999-9",
         "inputs": {
             "[1058]": 1000001,
             "[1060]": 1000000,
@@ -125,11 +125,11 @@
         "id_validacion": "a.42.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
         "descripcion_qa": "El valor interno de la función POS es positivo, ruta bloqueada correctamente.",
-        "rut": "22.222.222-2",
+        "rut": "55.555.555-5",
         "inputs": {
-            "[1061]": 3000000,
-            "[1847]": 1000000,
             "[1099]": 1000000,
+            "[1847]": 1000000,
+            "[1061]": 3000000,
             "[1100]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -138,11 +138,11 @@
         "id_validacion": "a.42.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
         "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
-        "rut": "99.999.999-9",
+        "rut": "55.555.555-5",
         "inputs": {
-            "[1061]": 1000000,
             "[1847]": 1000000,
             "[1099]": 1000000,
+            "[1061]": 1000000,
             "[1100]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -151,7 +151,7 @@
         "id_validacion": "a.51.1",
         "tipo_escenario": "CALCULO_LINEAL_EXACTO",
         "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
-        "rut": "99.999.999-9",
+        "rut": "11.111.111-1",
         "inputs": {
             "[1668]": 1000000,
             "[1662]": 1000000,
@@ -159,7 +159,7 @@
             "[1672]": 1000000,
             "[1663]": 1000000,
             "[1659]": 1000000,
-            "[1665]": 1000000,
+            "[1140]": 1000000,
             "[1666]": 1000000,
             "[1667]": 1000000,
             "[1670]": 1000000,
@@ -170,7 +170,7 @@
             "[1671]": 1000000,
             "[1669]": 1000000,
             "[1141]": 1000000,
-            "[1140]": 1000000,
+            "[1665]": 1000000,
             "[1657]": 12000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -179,7 +179,7 @@
         "id_validacion": "a.55.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
         "descripcion_qa": "El valor interno de la función POS es positivo, ruta bloqueada correctamente.",
-        "rut": "11.111.111-1",
+        "rut": "55.555.555-5",
         "inputs": {
             "[1717]": 1000000,
             "[1699]": 1000000,
@@ -193,7 +193,7 @@
         "id_validacion": "a.55.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
         "descripcion_qa": "El valor interno de la función POS es negativo, forzando a 0 en ruta correcta.",
-        "rut": "11.111.111-1",
+        "rut": "99.999.999-9",
         "inputs": {
             "[1717]": 2000001,
             "[1699]": 1000000,
@@ -207,7 +207,7 @@
         "id_validacion": "a.55.3",
         "tipo_escenario": "CALCULO_VERDADERO_SIMPLE",
         "descripcion_qa": "La condición principal se cumple (Rama ENTONCES).",
-        "rut": "55.555.555-5",
+        "rut": "99.999.999-9",
         "inputs": {
             "[1692]": 1000000,
             "[1699]": 1000000,
@@ -233,7 +233,7 @@
         "id_validacion": "a.58.2",
         "tipo_escenario": "CALCULO_FALSO_SINO",
         "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto (ej. Sino 0).",
-        "rut": "99.999.999-9",
+        "rut": "22.222.222-2",
         "inputs": {
             "[1362]": 1000000,
             "[1184]": 1000000,
@@ -265,21 +265,41 @@
     },
     {
         "id_validacion": "a.81.1",
-        "tipo_escenario": "CALCULO_LINEAL_EXACTO",
-        "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
-        "rut": "55.555.555-5",
+        "tipo_escenario": "CALCULO_NEG_MENOR_CERO",
+        "descripcion_qa": "El valor interno de la función NEG es negativo, retornando su valor absoluto (ruta bloqueada).",
+        "rut": "22.222.222-2",
         "inputs": {
-            "[1248]": 4000000,
-            "[1257]": 1000000,
+            "[1248]": 1000000,
             "[1255]": 1000000,
+            "[1252]": 1000000,
             "[1253]": 1000000,
-            "[1254]": 1000000,
+            "[1250]": 1000000,
+            "[1251]": 1000000,
+            "[1246]": 1000000,
+            "[1254]": 0,
+            "[1249]": 1000000,
             "[1247]": 1000000,
+            "[1257]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "a.81.2",
+        "tipo_escenario": "CALCULO_NEG_MAYOR_CERO",
+        "descripcion_qa": "El valor interno de la función NEG es positivo o cero, forzando a 0 en ruta correcta.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[1248]": 3000001,
+            "[1249]": 1000000,
+            "[1247]": 1000000,
+            "[1252]": 1000000,
             "[1251]": 1000000,
             "[1250]": 1000000,
-            "[1252]": 1000000,
-            "[1249]": 1000000,
-            "[1246]": 1000000
+            "[1253]": 1000000,
+            "[1255]": 1000000,
+            "[1246]": 1000000,
+            "[1254]": 1000000,
+            "[1257]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     }

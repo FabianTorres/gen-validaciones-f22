@@ -30,3 +30,8 @@ El sistema no busca solo "resolver" una ecuación matemática, sino estresar el 
 
 ### D. Asignaciones de Lógica Libre (Tipo M)
 * **Comportamiento:** Z3 aplica rígidamente las funciones matemáticas del negocio (ej. usar `POS` para convertir saldos negativos en cero de forma silenciosa) y asegura que las variables dependientes (`Alfa`, `Beta`) cuadren matemáticamente con la propuesta que el SII mostrará al final del formulario.
+
+### Deduplicación Algorítmica en Caliente (Hot Deduplication)
+Debido al fenómeno de "Atracción de Semilla" (donde Z3, al buscar el camino de menor resistencia para alcanzar la semilla de generación, puede superponer un caso de flujo general MCDC con un caso de frontera matemática específica), el orquestador implementa una capa de purificación final.
+
+Antes de exportar el JSON para Selenium, el sistema captura la huella inmutable de los diccionarios de entrada de cada caso (`tuple(sorted(c["inputs"].items()))`). Si la huella de un nuevo escenario es 100% idéntica a una ya procesada en la misma regla de negocio, el caso redundante se bloquea y se elimina silenciosamente. Esto garantiza matrices de QA compactas, eficientes y libres de desgaste en la automatización web.
