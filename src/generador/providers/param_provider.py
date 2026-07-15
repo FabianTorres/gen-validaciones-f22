@@ -18,7 +18,8 @@ class ParamProvider:
                 "P84": 0.25,       
                 "P736": 10,    
                 "P722": 258696240,
-                "P11": 0.05        
+                "P11": 0.05,
+                "P704": 0.125     
             }
 
     def inyectar_en_motor(self, motor_z3):

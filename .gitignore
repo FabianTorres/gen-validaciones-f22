@@ -11,3 +11,8 @@ __pycache__/
 # Archivos de SO
 .DS_Store
 Thumbs.db
+
+#Otros
+data/output_frontend.txt
+data/output_arbol.txt
+data/output_matrices_qa.json

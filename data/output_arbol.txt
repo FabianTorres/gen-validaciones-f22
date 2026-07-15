@@ -559,3 +559,170 @@ validacion
         }
 
 ========================================
+Validacion: a.220
+----------------------------------------
+validacion
+  autocalculado
+    [1305]
+    condicional
+      condicion_logica
+        comparacion_atributo
+          =
+          rango_valores
+            serie_numeros	M14A
+        .y.
+        comparacion_simple
+          [73]
+          =
+          "x"
+      expresion
+        [1111]
+        -
+        [1292]
+        -
+        [392]
+        +
+        [1113]
+      condicional
+        condicion_logica
+          comparacion_atributo
+            =
+            rango_valores
+              serie_numeros	M14A
+          .y.
+          comparacion_simple
+            [95]
+            =
+            "x"
+        0
+        condicional
+          comparacion_atributo
+            =
+            rango_valores
+              serie_numeros	M14A
+          expresion
+            [1111]
+            -
+            [1292]
+            +
+            [1113]
+          0
+
+========================================
+Validacion: a.222
+----------------------------------------
+validacion
+  autocalculado
+    [1513]
+    condicional
+      condicion_logica
+        comparacion_atributo
+          =
+          rango_valores
+            serie_numeros	14D1
+        .y.
+        comparacion_simple
+          [73]
+          =
+          "x"
+      expresion
+        [19]
+        -
+        [1512]
+        -
+        [392]
+        +
+        [20]
+      condicional
+        condicion_logica
+          comparacion_atributo
+            =
+            rango_valores
+              serie_numeros	14D1
+          .y.
+          comparacion_simple
+            [95]
+            =
+            "x"
+        0
+        condicional
+          condicion_logica
+            comparacion_atributo
+              =
+              rango_valores
+                serie_numeros	14D1
+            .y.
+            comparacion_simple
+              [95]
+              !=
+              "x"
+          expresion
+            [19]
+            -
+            [1512]
+            +
+            [20]
+          0
+
+========================================
+Validacion: b.2
+----------------------------------------
+validacion
+  autocalculado
+    [110]
+    condicional
+      comparacion_simple
+        funcion_rut
+          TIPO
+          {
+          [03]
+          }
+        =
+        1
+      expresion
+        funcion_matematica
+          POS
+          {
+          lista_argumentos
+            expresion
+              funcion_matematica
+                POS
+                {
+                lista_argumentos
+                  expresion
+                    [547]
+                    -
+                    [770]
+                }
+              -
+              [872]
+              -
+              [465]
+              -
+              [494]
+              -
+              [850]
+          }
+        +
+        funcion_matematica
+          POS
+          {
+          lista_argumentos
+            expresion
+              [617]
+              -
+              funcion_matematica
+                POS
+                {
+                lista_argumentos
+                  expresion
+                    [770]
+                    -
+                    [547]
+                }
+          }
+        +
+        [479]
+      0
+
+========================================
