@@ -23,6 +23,7 @@ class BaseStrategy(ABC):
             atributos_req = []
             atributos_prohibidos = []
             tipo_req = None
+            subtipo_req = None
             
             for variable_z3 in modelo:
                 nombre = variable_z3.name()
@@ -36,7 +37,23 @@ class BaseStrategy(ABC):
                     continue
                     
                 if nombre == "TIPO_[03]":
-                    tipo_req = valor_crudo.as_long()
+                    # EXTRACCIÓN SEGURA: A prueba de fracciones Z3
+                    if z3.is_rational_value(valor_crudo):
+                        tipo_req = int(valor_crudo.as_fraction())
+                    elif z3.is_int(valor_crudo):
+                        tipo_req = valor_crudo.as_long()
+                    else:
+                        tipo_req = 1 # Fallback seguro
+                    continue
+
+                # --- NUEVA LECTURA PARA SUBTIPO ---
+                if nombre == "SUBTIPO_[03]":
+                    if z3.is_rational_value(valor_crudo):
+                        subtipo_req = int(valor_crudo.as_fraction())
+                    elif z3.is_int(valor_crudo):
+                        subtipo_req = valor_crudo.as_long()
+                    else:
+                        subtipo_req = 112 # Fallback seguro
                     continue
 
                 # --- MAGIA 2: FILTRO DE INPUTS PARA SELENIUM ---
@@ -48,21 +65,26 @@ class BaseStrategy(ABC):
                 if not (es_codigo or es_vector):
                     continue 
                 
-                # Conversión numérica limpia
-                if z3.is_real(valor_crudo) or z3.is_algebraic_value(valor_crudo):
-                    valor_limpio = float(valor_crudo.as_decimal(4).rstrip('?'))
-                else:
+                # --- EXTRACCIÓN SEGURA: Prevención de Z3Exception ---
+                if z3.is_rational_value(valor_crudo):
+                    # Transforma la fracción C++ en un objeto Fraction nativo de Python
+                    fraccion_py = valor_crudo.as_fraction()
+                    valor_limpio = int(fraccion_py) if not getattr(settings, 'USAR_DECIMALES', False) else float(fraccion_py)
+                elif z3.is_real(valor_crudo) or z3.is_algebraic_value(valor_crudo):
+                    val_flotante = float(valor_crudo.as_decimal(4).rstrip('?'))
+                    valor_limpio = int(val_flotante) if not getattr(settings, 'USAR_DECIMALES', False) else val_flotante
+                elif z3.is_int(valor_crudo):
                     valor_limpio = valor_crudo.as_long()
-                    
-                if not getattr(settings, 'USAR_DECIMALES', False):
-                    valor_limpio = int(valor_limpio)
+                else:
+                    valor_limpio = 0
                     
                 datos_selenium[nombre] = valor_limpio
 
             # Hacemos la consulta inteligente al Proveedor de RUTs
             rut_final = "DEFAULT_RUT"
             if self.rut_provider:
-                rut_final = self.rut_provider.obtener_rut(atributos_req, atributos_prohibidos, tipo_req)
+                # NUEVO: Inyectamos el subtipo_req en la búsqueda
+                rut_final = self.rut_provider.obtener_rut(atributos_req, atributos_prohibidos, tipo_req, subtipo_req)
 
             return {
                 "id_validacion": id_val,

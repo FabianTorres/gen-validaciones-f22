@@ -13,10 +13,11 @@ class RutProvider:
         except FileNotFoundError:
             return []
 
-    def obtener_rut(self, atributos_req, atributos_prohibidos, tipo_req=None):
+    # NUEVO: Agregamos subtipo_req a la firma
+    def obtener_rut(self, atributos_req, atributos_prohibidos, tipo_req=None, subtipo_req=None):
         """
         Filtra la base de datos de RUTs asegurando que cumpla 
-        las exigencias lógicas de Z3.
+        las exigencias lógicas de Z3, incluyendo el subtipo.
         """
         candidatos = []
         for contribuyente in self.ruts:
@@ -26,11 +27,15 @@ class RutProvider:
             if tipo_req is not None and contribuyente.get("tipo") != tipo_req:
                 continue
                 
-            # 2. Filtro Atributos Requeridos (Debe tenerlos TODOS)
+            # 2. NUEVO: Filtro Subtipo (ej. SUBTIPO([03]) = 112)
+            if subtipo_req is not None and contribuyente.get("subtipo") != subtipo_req:
+                continue
+                
+            # 3. Filtro Atributos Requeridos (Debe tenerlos TODOS)
             if not all(atr in atributos_contrib for atr in atributos_req):
                 continue
                 
-            # 3. Filtro Atributos Prohibidos (No debe tener NINGUNO)
+            # 4. Filtro Atributos Prohibidos (No debe tener NINGUNO)
             if any(atr in atributos_contrib for atr in atributos_prohibidos):
                 continue
                 

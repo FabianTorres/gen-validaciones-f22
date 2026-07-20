@@ -1,37 +1,43 @@
-import json
+import os
 import z3
 
 class ParamProvider:
-    def __init__(self, ruta_json="data/mock_parametros.json"):
-        self.ruta_json = ruta_json
+    def __init__(self, ruta_txt="data/catalogo_parametros.txt"):
+        self.ruta_txt = ruta_txt
         self.parametros = self._cargar_datos()
 
     def _cargar_datos(self):
-        try:
-            with open(self.ruta_json, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            # Fallback seguro con decimales
-            return {
-                "P08": 0.3,
-                "P42": 12517560,
-                "P84": 0.25,       
-                "P736": 10,    
-                "P722": 258696240,
-                "P11": 0.05,
-                "P704": 0.125     
-            }
+        parametros = {}
+        
+        if not os.path.exists(self.ruta_txt):
+            print(f"⚠️ Advertencia: No se encontró el catálogo de parámetros en {self.ruta_txt}")
+            return parametros
+
+        with open(self.ruta_txt, 'r', encoding='utf-8') as f:
+            for linea in f:
+                linea = linea.strip()
+                
+                # Ignorar encabezados o líneas vacías
+                if not linea or linea.startswith("PARAMETRO"):
+                    continue
+                
+                partes = linea.split('|')
+                if len(partes) >= 2:
+                    nombre = partes[0].strip().upper()
+                    # Reemplazamos la coma por punto para que float() de Python no colapse
+                    valor_str = partes[1].strip().replace(',', '.')
+                    
+                    try:
+                        parametros[nombre] = float(valor_str)
+                    except ValueError:
+                        print(f"⚠️ Advertencia: Valor inválido para el parámetro {nombre}: '{valor_str}'")
+                        parametros[nombre] = 0.0
+                        
+        return parametros
 
     def inyectar_en_motor(self, motor_z3):
         """
         Inyecta todos los parámetros blindados contra errores tipográficos.
         """
         for nombre, valor in self.parametros.items():
-            # Forzamos a Float nativo de Python para limpiar basura del JSON
-            # antes de entregárselo al estricto parser de C++ de Z3
-            try:
-                valor_limpio = float(valor)
-            except (ValueError, TypeError):
-                valor_limpio = 0.0
-                
-            motor_z3.variables_memoria[nombre] = z3.RealVal(valor_limpio)
+            motor_z3.variables_memoria[nombre] = z3.RealVal(valor)

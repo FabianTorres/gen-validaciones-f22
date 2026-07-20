@@ -6,6 +6,37 @@ class EvaluadorAST:
     def __init__(self, motor_z3: MotorZ3):
         self.motor = motor_z3
 
+    # def evaluar(self, nodo):
+    #     # Inicializamos el nivel de sangría para que se vea como un árbol en consola
+    #     self.nivel_debug = getattr(self, 'nivel_debug', 0)
+    #     sangria = "  " * self.nivel_debug
+        
+    #     if isinstance(nodo, Token):
+    #         # 1. Ejecutamos la conversión normal
+    #         resultado = self._evaluar_token(nodo)
+            
+    #         # 2. EL ESPÍA: Imprimimos qué entregó Lark y qué devolvió la Fase 2
+    #         print(f"{sangria}LARK [Token: {nodo.type}] '{nodo.value}' ---> FASE 2: {type(resultado)} ({resultado})")
+    #         return resultado
+            
+    #     if isinstance(nodo, Tree):
+    #         print(f"{sangria}ENTRANDO NODO: {nodo.data}")
+    #         self.nivel_debug += 1
+            
+    #         metodo = getattr(self, f"_{nodo.data}", self._evaluar_default)
+    #         try:
+    #             resultado = metodo(nodo)
+    #         except Exception as e:
+    #             # Si explota, sabremos exactamente en qué nodo ocurrió
+    #             print(f"{sangria}💥 EXPLOSIÓN MATEMÁTICA EN EL NODO: {nodo.data} 💥")
+    #             self.nivel_debug -= 1
+    #             raise e
+                
+    #         self.nivel_debug -= 1
+    #         return resultado
+            
+    #     return nodo
+
     def evaluar(self, nodo):
         """Punto de entrada principal. Recorre recursivamente el AST de Lark."""
         if isinstance(nodo, Token):
@@ -25,12 +56,10 @@ class EvaluadorAST:
         tipo = token.type
         valor = str(token)
 
-        # 1. Limpieza absoluta inicial para facilitar la evaluación
+        # 1. Limpieza absoluta inicial
         valor_limpio = valor.replace('"', '').strip().upper()
 
-        # 2. ESCUDO INTERCEPTOR DE CONSTANTES BINARIAS
-        # Atrapamos la "X" o "BLANCO" de inmediato, sin importar si Lark 
-        # lo catalogó como TEXTO, MARCA_CHECK o cualquier otra cosa.
+        # 2. ESCUDO INTERCEPTOR DE CONSTANTES Y PARAMETROS
         if valor_limpio == 'X':
             return 1
         if valor_limpio == 'BLANCO':
@@ -57,8 +86,6 @@ class EvaluadorAST:
             return valor_limpio
             
         # 5. FALLBACK DE SEGURIDAD
-        # Si aparece un token no catalogado pero es alfanumérico (como ALFA, BETA), 
-        # lo convertimos en variable simbólica en vez de crashear.
         if valor_limpio.isalnum():
              return self.motor.obtener_o_crear_variable(valor_limpio)
             
@@ -236,17 +263,18 @@ class EvaluadorAST:
         return val
 
     def _funcion_rut(self, nodo):
-        func = self.evaluar(nodo.children[0])
-        # Extraemos el texto literal sin evaluarlo matemáticamente
+        func = self.evaluar(nodo.children[0]) # Será 'TIPO' o 'SUBTIPO'
         param = str(nodo.children[2]).upper()
         
-        var_tipo = self.motor.obtener_o_crear_variable(f"{func}_{param}")
+        var_func = self.motor.obtener_o_crear_variable(f"{func}_{param}")
         
-        # Restricción de Dominio: Obligamos a Z3 a usar solo Tipos 1 o 2
-        # Así el RutProvider siempre encontrará compatibilidad.
-        self.motor.solver.add(var_tipo >= 1, var_tipo <= 2)
-        
-        return var_tipo
+        # Restricciones de Dominio Dinámicas
+        if func == 'TIPO':
+            self.motor.solver.add(var_func >= 1, var_func <= 8) # Ampliado para cubrir del 1 al 8
+        elif func == 'SUBTIPO':
+            self.motor.solver.add(var_func >= 1) # Los subtipos pueden ser 112, 113, 411, etc.
+            
+        return var_func
 
     def _funcion_matematica(self, nodo):
         nombre_func = str(nodo.children[0]).upper()
@@ -287,19 +315,24 @@ class EvaluadorAST:
 
     def _sub_condicion(self, nodo):
         """
-        Filtra dinámicamente los paréntesis de apertura y cierre.
+        Filtra dinámicamente los símbolos de apertura y cierre.
         Toma el nodo lógico real sin importar su posición en el AST.
         """
-        hijos_reales = [h for h in nodo.children if str(h) not in ['(', ')']]
+        # ESCUDO AMPLIADO: Ignora paréntesis, llaves y corchetes estructurales
+        basura_estructural = ['(', ')', '{', '}', '[', ']']
+        hijos_reales = [h for h in nodo.children if str(h) not in basura_estructural]
+        
         if hijos_reales:
             return self.evaluar(hijos_reales[0])
         return None
 
     def _agrupacion(self, nodo):
         """
-        Filtra dinámicamente los paréntesis de una agrupación matemática.
+        Filtra dinámicamente los símbolos de una agrupación matemática.
         """
-        hijos_reales = [h for h in nodo.children if str(h) not in ['(', ')']]
+        basura_estructural = ['(', ')', '{', '}', '[', ']']
+        hijos_reales = [h for h in nodo.children if str(h) not in basura_estructural]
+        
         if hijos_reales:
             return self.evaluar(hijos_reales[0])
         return None

@@ -54,7 +54,48 @@ def validar_existencia_codigos(arbol, catalogo):
     
     if codigos_faltantes:
         raise ValueError(f"CODIGOS_DESCONOCIDOS|{', '.join(codigos_faltantes)}")
-# ------------------------------------
+
+def cargar_catalogo_parametros():
+    """Lee dinámicamente el catálogo oficial de parámetros permitidos."""
+    ruta_raiz = Path(__file__).parent.parent.parent
+    ruta_archivo = ruta_raiz / "data" / "catalogo_parametros.txt"
+    
+    parametros_validos = set()
+    if ruta_archivo.exists():
+        with open(ruta_archivo, "r", encoding="utf-8") as f:
+            for linea in f:
+                linea = linea.strip()
+                if not linea or linea.startswith("PARAMETRO"):
+                    continue
+                
+                partes = linea.split("|")
+                if len(partes) > 0:
+                    param_limpio = partes[0].strip().upper()
+                    if param_limpio:
+                        parametros_validos.add(param_limpio)
+    return parametros_validos
+
+def validar_existencia_parametros(arbol, catalogo):
+    """
+    Escanea el árbol buscando Tokens de tipo 'PARAMETRO'.
+    Si el parámetro no está en el catálogo, levanta un error para el Frontend.
+    """
+    parametros_faltantes = set()
+    
+    def buscar_parametros(nodo):
+        if isinstance(nodo, Token):
+            if nodo.type == 'PARAMETRO':
+                param_limpio = str(nodo.value).upper().strip()
+                if param_limpio not in catalogo:
+                    parametros_faltantes.add(param_limpio)
+        elif isinstance(nodo, Tree):
+            for hijo in nodo.children:
+                buscar_parametros(hijo)
+                
+    buscar_parametros(arbol)
+    
+    if parametros_faltantes:
+        raise ValueError(f"PARAMETROS_DESCONOCIDOS|{', '.join(parametros_faltantes)}")
 
 class GeneradorTextoNormalizado(Transformer):
     def __init__(self, id_val=""):
@@ -434,6 +475,9 @@ def normalizar_y_validar(texto_crudo, id_val=""):
         # ---> NUEVA BARRERA: Validar contra el Catálogo <---
         catalogo_vigente = cargar_catalogo_codigos()
         validar_existencia_codigos(arbol_desenrollado, catalogo_vigente)
+
+        catalogo_params = cargar_catalogo_parametros()
+        validar_existencia_parametros(arbol_desenrollado, catalogo_params)
         
         # FASE 4: Linter Semántico (El Juez levanta error si falta un SINO obligatorio)
         LinterSemantico(id_val).transform(arbol_desenrollado)
@@ -460,6 +504,15 @@ def normalizar_y_validar(texto_crudo, id_val=""):
                 "estado": "ERROR",
                 "tipo_error": "CODIGO_NO_CATALOGADO",
                 "mensaje": f"❌ BLOQUEO: Códigos no reconocidos.\nDetalle: La fórmula contiene códigos que no existen en el Catálogo Oficial del F22: [{faltantes}].\nSugerencia: Revisa si hay un error de tipeo en el Excel.",
+                "arbol": None
+            }
+
+        if error_msg.startswith("PARAMETROS_DESCONOCIDOS|"):
+            faltantes = error_msg.split('|')[1]
+            return {
+                "estado": "ERROR",
+                "tipo_error": "PARAMETRO_NO_CATALOGADO",
+                "mensaje": f"❌ BLOQUEO: Parámetros no reconocidos.\nDetalle: La fórmula contiene parámetros que no existen en el Catálogo Oficial del F22: [{faltantes}].\nSugerencia: Revisa si hay un error de tipeo en el Excel.",
                 "arbol": None
             }
             

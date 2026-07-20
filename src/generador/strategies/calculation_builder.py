@@ -109,26 +109,35 @@ class CalculationBuilder(BaseStrategy):
 
         # 3. EVALUAR RAMAS CONDICIONALES (MCDC RECURSIVO)
         nodos_condicional = self._encontrar_nodos_tipo(ast_tree, 'condicional')
+        nodos_trailing = self._encontrar_nodos_tipo(ast_tree, 'caso_trailing')
         
-        for idx, cond_node in enumerate(nodos_condicional, 1):
-            z3_cond_actual = self.evaluador.evaluar(cond_node.children[0])
+        condiciones_a_evaluar = []
+        for c in nodos_condicional:
+            condiciones_a_evaluar.append((c, c.children[0]))
+        for t in nodos_trailing:
+            condiciones_a_evaluar.append((t, t.children[-1]))
+            
+        for idx, (cond_node, cond_ast) in enumerate(condiciones_a_evaluar, 1):
+            z3_cond_actual = self.evaluador.evaluar(cond_ast)
             if not z3.is_bool(z3_cond_actual):
                 continue
                 
-            # Extraemos el camino necesario para que Z3 active obligatoriamente este IF
             camino_base = self._obtener_camino_a_nodo(cond_node, ast_tree)
             base_cond = ecuacion_completa + camino_base
             nivel = "PRINCIPAL" if idx == 1 else f"ANIDADO_{idx}"
             
-            # Caso Verdadero
-            casos.append(self._ejecutar_escenario_aislado(
-                base_cond + [z3_cond_actual], 
-                lambda n=nivel: self._resolver_y_formatear(
-                    id_val, f"CALCULO_VERDADERO_{n}", 
-                    f"La condición {n} se cumple (Rama ENTONCES alcanzada).", "VERIFICAR_AUTOCALCULO")
-            ))
+            # --- NUEVO: Casos Verdaderos (MCDC para OR) ---
+            variaciones_verdaderas = self._desglosar_condicion_verdadera(z3_cond_actual)
+            for i, var_verdadera in enumerate(variaciones_verdaderas, 1):
+                sufijo = f"_{i}" if len(variaciones_verdaderas) > 1 else ""
+                casos.append(self._ejecutar_escenario_aislado(
+                    base_cond + [var_verdadera["restriccion"]], 
+                    lambda v=var_verdadera, s=sufijo, n=nivel: self._resolver_y_formatear(
+                        id_val, f"CALCULO_VERDADERO_{n}{s}", 
+                        v["desc"], "VERIFICAR_AUTOCALCULO")
+                ))
             
-            # Casos Falsos (MCDC desglosado para este IF en particular)
+            # --- Casos Falsos (MCDC para AND) ---
             variaciones_falsas = self._desglosar_condicion_falsa(z3_cond_actual)
             for i, var_falsa in enumerate(variaciones_falsas, 1):
                 sufijo = f"_{i}" if len(variaciones_falsas) > 1 else ""
@@ -140,7 +149,7 @@ class CalculationBuilder(BaseStrategy):
                 ))
 
         # 4. FALLBACK LINEAL
-        if not nodos_condicional and not nodos_func:
+        if not casos:
             casos.append(self._ejecutar_escenario_aislado(
                 ecuacion_completa, 
                 lambda: self._resolver_y_formatear(
@@ -160,14 +169,16 @@ class CalculationBuilder(BaseStrategy):
                 elif c.get("estado_interno") == "INSATISFACTIBLE":
                     print(f"Fase 2: Escenario '{c.get('tipo_escenario', 'Desconocido')}' descartado por ser matemáticamente imposible (Contradicción).")
                 elif "inputs" in c:
-                    firma_inputs = tuple(sorted(c["inputs"].items()))
-                    if firma_inputs not in inputs_vistos:
-                        inputs_vistos.add(firma_inputs)
+                    # NUEVO: La firma ahora incluye el RUT inyectado además de los inputs
+                    firma_unica = (c.get("rut"), tuple(sorted(c["inputs"].items())))
+                    
+                    if firma_unica not in inputs_vistos:
+                        inputs_vistos.add(firma_unica)
                         c["id_validacion"] = f"{id_val}.{idx_real}"
                         idx_real += 1
                         casos_validos.append(c)
                     else:
-                        print(f"Fase 2: Deduplicación en {id_val}: Caso '{c['tipo_escenario']}' ignorado por redundancia de inputs.")
+                        print(f"Fase 2: Deduplicación en {id_val}: Caso '{c['tipo_escenario']}' ignorado por redundancia total (RUT + Inputs).")
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Inconsistencia matemática en todas las ramas."}]
 
@@ -175,11 +186,10 @@ class CalculationBuilder(BaseStrategy):
         """
         Analiza el AST para descubrir qué condiciones superiores deben cumplirse 
         para que el flujo de ejecución alcance el nodo_objetivo.
-        Implementa rastreo Sintáctico (anidamiento) y Semántico (uso de variables).
         """
         camino = []
         
-        # 1. ¿El nodo objetivo pertenece a una variable declarada en una Cota?
+        # 1. Variables asociadas en Cotas
         var_asociada = None
         nodos_cota = self._encontrar_nodos_tipo(ast_tree, 'cota')
         for cota in nodos_cota:
@@ -187,29 +197,44 @@ class CalculationBuilder(BaseStrategy):
                 var_asociada = str(cota.children[0]).strip().upper()
                 break
 
+        # 2. Bloqueo en Condicionales Estándar
         nodos_condicional = self._encontrar_nodos_tipo(ast_tree, 'condicional')
         for cond_node in nodos_condicional:
             if cond_node is nodo_objetivo:
                 continue
-            
             z3_cond_actual = self.evaluador.evaluar(cond_node.children[0])
             if not z3.is_bool(z3_cond_actual):
                 continue
             
-            # A. Bloqueo Sintáctico (El nodo está físicamente dentro del IF)
             en_entonces = len(cond_node.children) >= 2 and self._contiene_nodo(cond_node.children[1], nodo_objetivo)
             en_sino = len(cond_node.children) >= 3 and self._contiene_nodo(cond_node.children[2], nodo_objetivo)
             
-            # B. Bloqueo Semántico (El nodo define una variable que se usa dentro del IF)
             if not en_entonces and not en_sino and var_asociada:
                 en_entonces = len(cond_node.children) >= 2 and self._contiene_texto(cond_node.children[1], var_asociada)
                 en_sino = len(cond_node.children) >= 3 and self._contiene_texto(cond_node.children[2], var_asociada)
             
-            # Forzamos a Z3 a tomar la ruta correcta para que la evaluación no quede flotando
             if en_entonces:
                 camino.append(z3_cond_actual)
             elif en_sino:
                 camino.append(z3.Not(z3_cond_actual))
+
+        # 3. NUEVO: Bloqueo en Casos Trailing (Condiciones Pospuestas)
+        nodos_trailing = self._encontrar_nodos_tipo(ast_tree, 'caso_trailing')
+        for trail_node in nodos_trailing:
+            if trail_node is nodo_objetivo:
+                continue
+            
+            z3_cond_actual = self.evaluador.evaluar(trail_node.children[-1])
+            if not z3.is_bool(z3_cond_actual):
+                continue
+            
+            en_entonces = self._contiene_nodo(trail_node, nodo_objetivo)
+            
+            if not en_entonces and var_asociada:
+                en_entonces = self._contiene_texto(trail_node, var_asociada)
+                
+            if en_entonces:
+                camino.append(z3_cond_actual)
                 
         return camino
 
@@ -232,6 +257,29 @@ class CalculationBuilder(BaseStrategy):
         else:
             return str(raiz).strip().upper() == texto
         return False
+
+    def _desglosar_condicion_verdadera(self, z3_cond):
+        variaciones = []
+        if z3.is_app(z3_cond) and z3_cond.decl().kind() == z3.Z3_OP_OR:
+            hijos = z3_cond.children()
+            for i in range(len(hijos)):
+                # Para MCDC estricto: Una rama del OR es verdadera, las demás DEBEN ser falsas.
+                restricciones = []
+                for j, hijo in enumerate(hijos):
+                    if i == j:
+                        restricciones.append(hijo)
+                    else:
+                        restricciones.append(z3.Not(hijo))
+                variaciones.append({
+                    "restriccion": z3.And(*restricciones),
+                    "desc": f"La sub-condición {i+1} del bloque OR se cumple de forma exclusiva."
+                })
+        else:
+            variaciones.append({
+                "restriccion": z3_cond,
+                "desc": "La condición se cumple (Rama alcanzada)."
+            })
+        return variaciones
 
     def _desglosar_condicion_falsa(self, z3_cond):
         variaciones = []

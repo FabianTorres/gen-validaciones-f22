@@ -1,0 +1,8 @@
+PARAMETRO|VALOR|DESCRIPCION_OPCIONAL
+P720|834504|Tope de ingresos para beneficio X
+P08|0,300|Porcentaje de retención
+P42|12517560|Límite legal anual
+P647|0,27|
+P62|0,3
+P24|0,1
+P84|0,25
