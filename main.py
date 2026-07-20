@@ -101,6 +101,10 @@ def procesar_lote_formulas(ruta_input, ruta_output, ruta_arbol, ruta_json_qa):
     with open(ruta_json_qa, 'w', encoding='utf-8') as f:
         json.dump(matrices_qa_globales, f, indent=4, ensure_ascii=False)
 
+    from src.generador.exportador_csv import ExportadorCSV
+    exportador = ExportadorCSV()
+    exportador.generar_csv()
+
     print("--- RESUMEN DEL PROCESAMIENTO ---")
     print(f"Total procesadas: {len(validaciones)}")
     print(f"Exitosas (Fase 1 completada): {len(arboles_exitosos)}")
