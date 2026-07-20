@@ -260,10 +260,19 @@ class CalculationBuilder(BaseStrategy):
 
     def _desglosar_condicion_verdadera(self, z3_cond):
         variaciones = []
+        
+        # Función recursiva para extraer ORs anidados por el Parser
+        def aplanar_or(expr):
+            if z3.is_app(expr) and expr.decl().kind() == z3.Z3_OP_OR:
+                res = []
+                for c in expr.children():
+                    res.extend(aplanar_or(c))
+                return res
+            return [expr]
+
         if z3.is_app(z3_cond) and z3_cond.decl().kind() == z3.Z3_OP_OR:
-            hijos = z3_cond.children()
+            hijos = aplanar_or(z3_cond)
             for i in range(len(hijos)):
-                # Para MCDC estricto: Una rama del OR es verdadera, las demás DEBEN ser falsas.
                 restricciones = []
                 for j, hijo in enumerate(hijos):
                     if i == j:
@@ -283,19 +292,28 @@ class CalculationBuilder(BaseStrategy):
 
     def _desglosar_condicion_falsa(self, z3_cond):
         variaciones = []
+        
+        # Función recursiva para extraer ANDs anidados por el Parser
+        def aplanar_and(expr):
+            if z3.is_app(expr) and expr.decl().kind() == z3.Z3_OP_AND:
+                res = []
+                for c in expr.children():
+                    res.extend(aplanar_and(c))
+                return res
+            return [expr]
+
         if z3.is_app(z3_cond) and z3_cond.decl().kind() == z3.Z3_OP_AND:
-            hijos = z3_cond.children()
+            hijos = aplanar_and(z3_cond)
             for i in range(len(hijos)):
                 restricciones = []
                 for j, hijo in enumerate(hijos):
                     if i == j:
-                        restricciones.append(z3.Not(hijo)) 
+                        restricciones.append(z3.Not(hijo))
                     else:
-                        restricciones.append(hijo)          
-                
+                        restricciones.append(hijo)
                 variaciones.append({
                     "restriccion": z3.And(*restricciones),
-                    "desc": f"La sub-condición {i+1} del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino)."
+                    "desc": f"La sub-condición {i+1} del bloque AND falla de forma exclusiva."
                 })
         else:
             variaciones.append({

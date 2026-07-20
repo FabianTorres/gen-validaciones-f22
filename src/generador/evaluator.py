@@ -272,7 +272,7 @@ class EvaluadorAST:
         if func == 'TIPO':
             self.motor.solver.add(var_func >= 1, var_func <= 8) # Ampliado para cubrir del 1 al 8
         elif func == 'SUBTIPO':
-            self.motor.solver.add(var_func >= 1) # Los subtipos pueden ser 112, 113, 411, etc.
+            self.motor.solver.add(var_func >= 111, var_func <= 999) # Los subtipos pueden ser 112, 113, 411, etc.
             
         return var_func
 

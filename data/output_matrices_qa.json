@@ -3,7 +3,7 @@
         "id_validacion": "a.4.1",
         "tipo_escenario": "CALCULO_MIN_IZQ",
         "descripcion_qa": "El límite MIN toma el valor izquierdo garantizando su ruta.",
-        "rut": "11.574.826-6",
+        "rut": "16.328.932-6",
         "inputs": {
             "[547]": 1000000,
             "[465]": 0,
@@ -15,7 +15,7 @@
         "id_validacion": "a.4.2",
         "tipo_escenario": "CALCULO_MIN_DER",
         "descripcion_qa": "El límite MIN toma el valor derecho garantizando su ruta.",
-        "rut": "12.483.917-4",
+        "rut": "66.666.666-6",
         "inputs": {
             "[547]": 41725203,
             "[465]": 0,
@@ -27,7 +27,7 @@
         "id_validacion": "a.4.3",
         "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL",
         "descripcion_qa": "La condición se cumple (Rama alcanzada).",
-        "rut": "16.328.932-6",
+        "rut": "66.666.666-6",
         "inputs": {
             "[547]": 1000000,
             "[465]": 0,
@@ -38,8 +38,8 @@
     {
         "id_validacion": "a.4.4",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
-        "descripcion_qa": "La sub-condición 1 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
-        "rut": "66.666.666-6",
+        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "rut": "12.483.917-4",
         "inputs": {
             "[547]": 1000000,
             "[465]": 1000000,
@@ -50,7 +50,7 @@
     {
         "id_validacion": "a.4.5",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_2",
-        "descripcion_qa": "La sub-condición 2 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
+        "descripcion_qa": "La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "22.222.222-2",
         "inputs": {
             "[547]": 1000000,
@@ -63,7 +63,7 @@
         "id_validacion": "a.6.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
         "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
-        "rut": "99.999.999-9",
+        "rut": "22.222.222-2",
         "inputs": {
             "[479]": 0,
             "[467]": 1000000,
@@ -75,7 +75,7 @@
         "id_validacion": "a.6.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
         "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
-        "rut": "18.927.314-8",
+        "rut": "14.983.215-7",
         "inputs": {
             "[467]": -1000001,
             "[479]": 1000000,
@@ -147,7 +147,7 @@
         "id_validacion": "b.83.4",
         "tipo_escenario": "CALCULO_POS_2_MENOR_CERO",
         "descripcion_qa": "El valor interno de POS (Instancia 2) es negativo, forzando a 0.",
-        "rut": "12.483.917-4",
+        "rut": "66.666.666-6",
         "inputs": {
             "[1109]": 0,
             "[1912]": 1000000,
@@ -238,11 +238,11 @@
     {
         "id_validacion": "b.84.2",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
-        "descripcion_qa": "La sub-condición 1 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
+        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.574.826-6",
         "inputs": {
-            "[1109]": 1000000,
-            "[1690]": 1000000,
+            "[1690]": 0,
+            "[1109]": 0,
             "[1640]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -250,8 +250,20 @@
     {
         "id_validacion": "b.84.3",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_2",
-        "descripcion_qa": "La sub-condición 2 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
-        "rut": "23.194.608-5",
+        "descripcion_qa": "La sub-condición 2 del bloque AND falla de forma exclusiva.",
+        "rut": "11.574.826-6",
+        "inputs": {
+            "[1690]": 1000000,
+            "[1109]": 1000000,
+            "[1640]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.84.4",
+        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_3",
+        "descripcion_qa": "La sub-condición 3 del bloque AND falla de forma exclusiva.",
+        "rut": "55.555.555-5",
         "inputs": {
             "[1690]": 1000000,
             "[1109]": 0,
@@ -263,24 +275,24 @@
         "id_validacion": "b.88.1",
         "tipo_escenario": "CALCULO_MIN_IZQ",
         "descripcion_qa": "El límite MIN toma el valor izquierdo garantizando su ruta.",
-        "rut": "24.108.753-5",
+        "rut": "11.111.111-1",
         "inputs": {
-            "[841]": 1000000,
-            "[984]": 1000000,
+            "[390]": 1000000,
             "[1109]": 3703703,
             "[898]": 1000000,
             "[365]": 1000000,
             "[839]": 1000000,
-            "[855]": 1000000,
-            "[761]": 1000000,
-            "[390]": 1000000,
             "[384]": 1000000,
             "[366]": 1000000,
             "[392]": 1000000,
-            "[382]": 1000000,
-            "[1111]": 1000000,
             "[742]": 1000000,
+            "[984]": 1000000,
+            "[841]": 1000000,
             "[773]": 1000000,
+            "[382]": 1000000,
+            "[761]": 1000000,
+            "[1111]": 1000000,
+            "[855]": 1000000,
             "[373]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -289,25 +301,25 @@
         "id_validacion": "b.88.2",
         "tipo_escenario": "CALCULO_MIN_DER",
         "descripcion_qa": "El límite MIN toma el valor derecho garantizando su ruta.",
-        "rut": "12.483.917-4",
+        "rut": "20.915.367-3",
         "inputs": {
             "[390]": 1000000,
-            "[855]": 1000000,
-            "[373]": 1000000,
+            "[984]": 1000000,
             "[898]": 1000000,
             "[365]": 1000000,
             "[839]": 1000000,
-            "[984]": 1000000,
-            "[382]": 1000000,
-            "[384]": 1000000,
-            "[1109]": 55555559,
+            "[773]": 1000000,
+            "[855]": 1000000,
             "[1111]": 15000000,
-            "[841]": 1000000,
+            "[382]": 1000000,
             "[366]": 1000000,
+            "[384]": 1000000,
+            "[373]": 1000000,
             "[392]": 1000000,
-            "[761]": 1000000,
+            "[1109]": 55555559,
             "[742]": 1000000,
-            "[773]": 1000000
+            "[761]": 1000000,
+            "[841]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
@@ -315,50 +327,50 @@
         "id_validacion": "b.88.3",
         "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL",
         "descripcion_qa": "La condición se cumple (Rama alcanzada).",
-        "rut": "66.666.666-6",
+        "rut": "17.462.918-1",
         "inputs": {
+            "[1111]": 270000,
             "[390]": 1000000,
+            "[761]": 1000000,
+            "[382]": 1000000,
             "[898]": 1000000,
             "[365]": 1000000,
             "[839]": 1000000,
+            "[384]": 1000000,
+            "[366]": 1000000,
+            "[1109]": 1000000,
+            "[984]": 1000000,
             "[773]": 1000000,
             "[855]": 1000000,
-            "[841]": 1000000,
-            "[382]": 1000000,
-            "[366]": 1000000,
-            "[384]": 1000000,
-            "[392]": 1000000,
             "[742]": 1000000,
-            "[1111]": 1000000,
-            "[1109]": 3703703,
-            "[761]": 1000000,
-            "[984]": 1000000,
-            "[373]": 1000000
+            "[841]": 1000000,
+            "[373]": 1000000,
+            "[392]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
     {
         "id_validacion": "b.88.4",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
-        "descripcion_qa": "La sub-condición 1 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
+        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "18.742.531-9",
         "inputs": {
-            "[855]": 1000000,
             "[390]": 1000000,
+            "[984]": 1000000,
             "[898]": 1000000,
             "[365]": 1000000,
-            "[373]": 1000000,
             "[839]": 1000000,
-            "[841]": 1000000,
             "[384]": 1000000,
-            "[1109]": 1000000,
             "[366]": 1000000,
+            "[373]": 1000000,
             "[392]": 1000000,
-            "[382]": 1000000,
+            "[773]": 1000000,
+            "[841]": 1000000,
             "[742]": 1000000,
             "[761]": 1000000,
-            "[984]": 1000000,
-            "[773]": 1000000,
+            "[1109]": 1000000,
+            "[382]": 1000000,
+            "[855]": 1000000,
             "[1111]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -366,25 +378,25 @@
     {
         "id_validacion": "b.88.5",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_2",
-        "descripcion_qa": "La sub-condición 2 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
+        "descripcion_qa": "La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "20.915.367-3",
         "inputs": {
-            "[984]": 0,
             "[390]": 0,
+            "[984]": 0,
+            "[761]": 0,
             "[898]": 0,
             "[365]": 0,
-            "[839]": 0,
             "[855]": 0,
-            "[382]": 0,
-            "[761]": 0,
-            "[366]": 0,
+            "[773]": 0,
+            "[839]": 0,
             "[384]": 0,
+            "[366]": 0,
+            "[841]": 0,
+            "[1109]": 1000000,
             "[373]": 0,
             "[392]": 0,
-            "[1109]": 1000000,
-            "[841]": 0,
             "[742]": 0,
-            "[773]": 0,
+            "[382]": 0,
             "[1111]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -393,10 +405,10 @@
         "id_validacion": "b.94.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
         "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
-        "rut": "18.927.314-8",
+        "rut": "11.111.111-1",
         "inputs": {
-            "[76]": 1000000,
             "[32]": 6666666,
+            "[76]": 1000000,
             "[34]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -405,7 +417,7 @@
         "id_validacion": "b.94.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
         "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
-        "rut": "66.666.666-6",
+        "rut": "21.836.405-7",
         "inputs": {
             "[32]": 1000000,
             "[76]": 1000000,
@@ -417,7 +429,7 @@
         "id_validacion": "b.97.1",
         "tipo_escenario": "CALCULO_LINEAL_EXACTO",
         "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
-        "rut": "19.356.842-2",
+        "rut": "17.462.918-1",
         "inputs": {
             "[1830]": 100000,
             "[1829]": 1000000
@@ -428,20 +440,20 @@
         "id_validacion": "b.114.1",
         "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
         "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
-        "rut": "18.927.314-8",
+        "rut": "22.222.222-2",
         "inputs": {
-            "[1901]": 1000000,
-            "[1893]": 1000000,
-            "[1109]": 1000000,
-            "[1912]": 1000000,
-            "[1931]": 1000000,
             "[18]": 1000000,
+            "[1901]": 1000000,
+            "[1892]": 8000000,
+            "[1898]": 1000000,
+            "[1912]": 1000000,
+            "[1893]": 1000000,
+            "[1931]": 1000000,
+            "[1109]": 1000000,
+            "[1924]": 1000000,
             "[1927]": 1000000,
             "[1895]": 1000000,
             "[1929]": 1000000,
-            "[1898]": 1000000,
-            "[1924]": 1000000,
-            "[1892]": 8000000,
             "[1894]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -450,18 +462,18 @@
         "id_validacion": "b.114.2",
         "tipo_escenario": "CALCULO_POS_MENOR_CERO",
         "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
-        "rut": "16.208.945-4",
+        "rut": "55.555.555-5",
         "inputs": {
-            "[1109]": 1000000,
-            "[1893]": 1000000,
             "[1912]": 1000000,
-            "[1924]": 1000000,
             "[18]": 1000000,
+            "[1109]": 1000000,
             "[1927]": 1000000,
             "[1895]": 1000000,
             "[1929]": 1000000,
             "[1898]": 1000000,
+            "[1893]": 1000000,
             "[1892]": 1000000,
+            "[1924]": 1000000,
             "[1931]": 1000000,
             "[1901]": 1000000,
             "[1894]": 0
@@ -475,17 +487,17 @@
         "rut": "99.999.999-9",
         "inputs": {
             "[1893]": 1000000,
-            "[18]": 0,
             "[1898]": 0,
+            "[18]": 0,
             "[1892]": 0,
-            "[1901]": 0,
-            "[1895]": 0,
-            "[1929]": 0,
-            "[1931]": 0,
-            "[1109]": 0,
-            "[1912]": 0,
             "[1927]": 0,
+            "[1912]": 0,
+            "[1929]": 0,
+            "[1901]": 0,
+            "[1109]": 0,
+            "[1931]": 0,
             "[1924]": 0,
+            "[1895]": 0,
             "[1894]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -493,21 +505,21 @@
     {
         "id_validacion": "b.114.4",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
-        "descripcion_qa": "La sub-condición 1 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
-        "rut": "55.555.555-5",
+        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "rut": "22.222.222-2",
         "inputs": {
-            "[1893]": 1000000,
-            "[1931]": 0,
-            "[1924]": 0,
             "[1912]": 0,
-            "[1109]": 0,
-            "[18]": 0,
-            "[1927]": 0,
-            "[1895]": 0,
-            "[1929]": 0,
-            "[1898]": 0,
-            "[1892]": 834504,
+            "[1924]": 0,
             "[1901]": 0,
+            "[1893]": 1000000,
+            "[1927]": 0,
+            "[1109]": 0,
+            "[1892]": 834504,
+            "[1931]": 0,
+            "[18]": 0,
+            "[1895]": 0,
+            "[1898]": 0,
+            "[1929]": 0,
             "[1894]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
@@ -515,22 +527,22 @@
     {
         "id_validacion": "b.114.5",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_2",
-        "descripcion_qa": "La sub-condición 2 del IF falla, las demás se cumplen. Se fuerza la celda al valor por defecto (Sino).",
-        "rut": "66.666.666-6",
+        "descripcion_qa": "La sub-condición 2 del bloque AND falla de forma exclusiva.",
+        "rut": "12.483.917-4",
         "inputs": {
-            "[1924]": 1000000,
             "[18]": 1000000,
             "[1912]": 1000000,
-            "[1898]": 1000000,
-            "[1892]": 8000000,
+            "[1924]": 1000000,
+            "[1901]": 1000000,
             "[1109]": 1000000,
-            "[1931]": 1000000,
             "[1893]": 1000000,
             "[1927]": 1000000,
-            "[1895]": 1000000,
-            "[1901]": 1000000,
+            "[1931]": 1000000,
             "[1929]": 1000000,
-            "[1894]": 1000000
+            "[1895]": 1000000,
+            "[1898]": 1000000,
+            "[1892]": 1000000,
+            "[1894]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     },
@@ -538,7 +550,7 @@
         "id_validacion": "b.119.1",
         "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL_1",
         "descripcion_qa": "La sub-condición 1 del bloque OR se cumple de forma exclusiva.",
-        "rut": "22.222.222-2",
+        "rut": "11.111.111-1",
         "inputs": {
             "[829]": 1000000,
             "[1916]": 1000000
@@ -549,7 +561,7 @@
         "id_validacion": "b.119.2",
         "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL_2",
         "descripcion_qa": "La sub-condición 2 del bloque OR se cumple de forma exclusiva.",
-        "rut": "99.999.999-9",
+        "rut": "22.222.222-2",
         "inputs": {
             "[829]": 1000000,
             "[1916]": 1000000
@@ -558,12 +570,177 @@
     },
     {
         "id_validacion": "b.119.3",
+        "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL_3",
+        "descripcion_qa": "La sub-condición 3 del bloque OR se cumple de forma exclusiva.",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[829]": 1000000,
+            "[1916]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.119.4",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO",
         "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto.",
-        "rut": "ERROR_SIN_RUT_COMPATIBLE",
+        "rut": "18.742.531-9",
         "inputs": {
             "[829]": 1000000,
             "[1916]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.126.1",
+        "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
+        "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[1925]": 1000000,
+            "[1912]": 1000000,
+            "[1924]": 8000000,
+            "[1109]": 1000000,
+            "[18]": 1000000,
+            "[1927]": 1000000,
+            "[1901]": 1000000,
+            "[1892]": 1000000,
+            "[1931]": 1000000,
+            "[1895]": 1000000,
+            "[1898]": 1000000,
+            "[1929]": 1000000,
+            "[1926]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.126.2",
+        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
+        "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
+        "rut": "18.927.314-8",
+        "inputs": {
+            "[1892]": 1000000,
+            "[1925]": 1000000,
+            "[1931]": 1000000,
+            "[1912]": 1000000,
+            "[1924]": 1000000,
+            "[1901]": 1000000,
+            "[1898]": 1000000,
+            "[1109]": 1000000,
+            "[1927]": 1000000,
+            "[1895]": 1000000,
+            "[1929]": 1000000,
+            "[18]": 1000000,
+            "[1926]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.126.3",
+        "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL",
+        "descripcion_qa": "La condición se cumple (Rama alcanzada).",
+        "rut": "11.574.826-6",
+        "inputs": {
+            "[1931]": 0,
+            "[1925]": 1000000,
+            "[1898]": 0,
+            "[1895]": 0,
+            "[1912]": 0,
+            "[1901]": 0,
+            "[1927]": 0,
+            "[1109]": 0,
+            "[1892]": 0,
+            "[1929]": 0,
+            "[1924]": 0,
+            "[18]": 0,
+            "[1926]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.126.4",
+        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
+        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[1929]": 0,
+            "[1892]": 0,
+            "[1925]": 1000000,
+            "[1912]": 0,
+            "[1901]": 0,
+            "[1924]": 0,
+            "[1109]": 0,
+            "[1898]": 0,
+            "[18]": 0,
+            "[1931]": 0,
+            "[1927]": 0,
+            "[1895]": 0,
+            "[1926]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.126.5",
+        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_2",
+        "descripcion_qa": "La sub-condición 2 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1924]": 8000000,
+            "[1931]": 1000000,
+            "[1925]": 1000000,
+            "[1912]": 1000000,
+            "[1109]": 1000000,
+            "[18]": 1000000,
+            "[1927]": 1000000,
+            "[1892]": 1000000,
+            "[1895]": 1000000,
+            "[1929]": 1000000,
+            "[1901]": 1000000,
+            "[1898]": 1000000,
+            "[1926]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.147.1",
+        "tipo_escenario": "CALCULO_POS_MAYOR_CERO",
+        "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
+        "rut": "12.483.917-4",
+        "inputs": {
+            "[1630]": 1000000,
+            "[2014]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.147.2",
+        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
+        "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1630]": -1,
+            "[2014]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.147.3",
+        "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL",
+        "descripcion_qa": "La condición se cumple (Rama alcanzada).",
+        "rut": "99.999.999-9",
+        "inputs": {
+            "[1630]": 1000000,
+            "[2014]": 1000000
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO"
+    },
+    {
+        "id_validacion": "b.147.4",
+        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO",
+        "descripcion_qa": "La condición no se cumple, forzando la celda a su valor por defecto.",
+        "rut": "18.927.314-8",
+        "inputs": {
+            "[1630]": 1000000,
+            "[2014]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO"
     }

@@ -488,3 +488,91 @@ validacion
       0
 
 ========================================
+Validacion: b.126
+----------------------------------------
+validacion
+  autocalculado
+    [1926]
+    condicional
+      sub_condicion
+        (
+        condicion_logica
+          comparacion_simple
+            funcion_rut
+              TIPO
+              {
+              [03]
+              }
+            =
+            1
+          .y.
+          comparacion_simple
+            agrupacion
+              (
+              expresion
+                [1892]
+                +
+                [1895]
+                +
+                [1898]
+                +
+                [1901]
+                +
+                [1912]
+                +
+                [18]
+                +
+                [1109]
+                +
+                [1924]
+                +
+                [1927]
+                +
+                [1929]
+                +
+                [1931]
+              )
+            <=
+            P720
+        )
+      0
+      funcion_matematica
+        POS
+        {
+        lista_argumentos
+          funcion_matematica
+            ROUND
+            {
+            lista_argumentos
+              expresion
+                P84
+                *
+                [1924]
+                -
+                [1925]
+            }
+        }
+
+========================================
+Validacion: b.147
+----------------------------------------
+validacion
+  autocalculado
+    [2014]
+    condicional
+      comparacion_simple
+        funcion_rut
+          TIPO
+          {
+          [03]
+          }
+        =
+        1
+      funcion_matematica
+        POS
+        {
+        lista_argumentos	[1630]
+        }
+      0
+
+========================================
