@@ -30,6 +30,17 @@ class BoundaryBuilder(BaseStrategy):
         }
         res_exacto, res_sup, res_inf = mapa_resultados.get(operador, ('BUENO', 'BUENO', 'BUENO'))
 
+        # MAPA MATEMÁTICO PURO PARA LAS RESTRICCIONES BASE (Sin depender de los casos generados)
+        mapa_restricciones = {
+            '<=': (z3_izq == z3_der, z3_izq == z3_der + 1),
+            '<':  (z3_izq == z3_der - 1, z3_izq == z3_der),
+            '>=': (z3_izq == z3_der, z3_izq == z3_der - 1),
+            '>':  (z3_izq == z3_der + 1, z3_izq == z3_der),
+            '=':  (z3_izq == z3_der, z3_izq == z3_der + 1),
+            '!=': (z3_izq == z3_der + 1, z3_izq == z3_der)
+        }
+        restriccion_base_buena, restriccion_base_mala = mapa_restricciones.get(operador, (z3_izq == z3_der, z3_izq == z3_der + 1))
+
         # FUNCIÓN BVA DINÁMICA: Aplica los 3 límites sobre cualquier ruta impuesta
         def aplicar_bva(restricciones_ruta, sufijo_nombre, desc_ruta):
             # CASO 1: EXACTO
@@ -72,47 +83,29 @@ class BoundaryBuilder(BaseStrategy):
                     
                 nivel = "PRINCIPAL" if idx == 1 else f"ANIDADO_{idx}"
                 
-                # Desglose de rutas Verdaderas
                 vars_verdaderas = self._desglosar_condicion_verdadera(z3_cond_actual)
                 for i, var_v in enumerate(vars_verdaderas, 1):
                     sufijo = f"VERDADERO_{nivel}_{i}" if len(vars_verdaderas) > 1 else f"VERDADERO_{nivel}"
                     aplicar_bva([var_v["restriccion"]], sufijo, var_v["desc"])
                 
-                # Desglose de rutas Falsas
                 vars_falsas = self._desglosar_condicion_falsa(z3_cond_actual)
                 for i, var_f in enumerate(vars_falsas, 1):
                     sufijo = f"FALSO_{nivel}_{i}" if len(vars_falsas) > 1 else f"FALSO_{nivel}"
                     aplicar_bva([var_f["restriccion"]], sufijo, var_f["desc"])
         else:
-            # Fallback si la regla no tiene condiciones (Cotas lineales)
             aplicar_bva([], "LINEAL", "Evaluación sin condicionales ramificados.")
 
 
-        # 2. PRUEBAS CRUZADAS: LÍMITES DE FUNCIONES INTERNAS (MIN, MAX, POS, NEG, ABS)
+        # 2. PRUEBAS CRUZADAS CON RUTAS ESTRICTAS: (MIN, MAX, POS, NEG, ABS)
         nodos_func = self._encontrar_nodos_tipo(ast_tree, 'funcion_matematica')
-        if nodos_func and casos:
-            restriccion_base_buena = None
-            restriccion_base_mala = None
-            
-            for c in casos:
-                if c and "resultado_esperado" in c:
-                    res = c["resultado_esperado"]
-                    tipo = c["tipo_escenario"]
-                    if "LIMITE_EXACTO" in tipo: cond = (z3_izq == z3_der)
-                    elif "EXCEDE_LIMITE" in tipo: cond = (z3_izq == (z3_der + 1))
-                    elif "BAJO_LIMITE" in tipo: cond = (z3_izq == (z3_der - 1))
-                    else: continue
-
-                    if res == "BUENO" and restriccion_base_buena is None: restriccion_base_buena = cond
-                    elif res == "MENSAJE" and restriccion_base_mala is None: restriccion_base_mala = cond
-            
-            if restriccion_base_buena is None: restriccion_base_buena = (z3_izq == z3_der)
-            if restriccion_base_mala is None: restriccion_base_mala = z3.Not(restriccion_base_buena)
-
+        if nodos_func:
             for f_node in nodos_func:
                 nombre_func = str(f_node.children[0]).upper()
                 args_node = f_node.children[2]
                 args_limpios = [h for h in args_node.children if str(h) != ';']
+                
+                # NUEVO: Análisis estático para amarrar la función a su ruta condicional
+                guardias_activas = self._obtener_guardias_nodo(ast_tree, f_node) or []
                 
                 if nombre_func in ('MIN', 'MAX'):
                     for idx_arg, arg_ast in enumerate(args_limpios):
@@ -123,18 +116,18 @@ class BoundaryBuilder(BaseStrategy):
                         else: restricciones_limite = [var_z3 >= otra for otra in otras_vars]
                             
                         casos.append(self._ejecutar_escenario_aislado(
-                            [restriccion_base_buena] + restricciones_limite + premisas_universales, 
+                            [restriccion_base_buena] + restricciones_limite + premisas_universales + guardias_activas, 
                             lambda n=nombre_func, i=idx_arg+1: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_ARG_{i}_BUENO", 
-                                f"Función {n} evaluada por su argumento {i} respetando el límite legal.", "BUENO"
+                                f"Función {n} evaluada por su argumento {i} en su ruta activa respetando el límite legal.", "BUENO"
                             )
                         ))
 
                         casos.append(self._ejecutar_escenario_aislado(
-                            [restriccion_base_mala] + restricciones_limite + premisas_universales, 
+                            [restriccion_base_mala] + restricciones_limite + premisas_universales + guardias_activas, 
                             lambda n=nombre_func, i=idx_arg+1: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_ARG_{i}_MENSAJE", 
-                                f"Función {n} evaluada por su argumento {i} violando el límite legal.", "MENSAJE"
+                                f"Función {n} evaluada por su argumento {i} en su ruta activa violando el límite legal.", "MENSAJE"
                             )
                         ))
 
@@ -147,18 +140,18 @@ class BoundaryBuilder(BaseStrategy):
                     
                     for borde, estado, desc in fronteras_simples:
                         casos.append(self._ejecutar_escenario_aislado(
-                            [restriccion_base_buena, borde] + premisas_universales,
+                            [restriccion_base_buena, borde] + premisas_universales + guardias_activas,
                             lambda n=nombre_func, e=estado, d=desc: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_{e}_BUENO", 
-                                f"Función {n} {d} respetando el límite legal.", "BUENO"
+                                f"Función {n} {d} en su ruta activa respetando el límite.", "BUENO"
                             )
                         ))
                         
                         casos.append(self._ejecutar_escenario_aislado(
-                            [restriccion_base_mala, borde] + premisas_universales,
+                            [restriccion_base_mala, borde] + premisas_universales + guardias_activas,
                             lambda n=nombre_func, e=estado, d=desc: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_{e}_MENSAJE", 
-                                f"Función {n} {d} violando el límite legal.", "MENSAJE"
+                                f"Función {n} {d} en su ruta activa violando el límite.", "MENSAJE"
                             )
                         ))
 
@@ -177,6 +170,42 @@ class BoundaryBuilder(BaseStrategy):
                     casos_validos.append(caso)
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Contradicción matemática en el cálculo de límites."}]
+
+
+    # --- NUEVO: RASTREADOR ESTÁTICO DE RUTAS (Bloquea funciones a sus condicionales) ---
+    def _obtener_guardias_nodo(self, nodo_actual, nodo_objetivo, guardias_actuales=None):
+        if guardias_actuales is None:
+            guardias_actuales = []
+            
+        if nodo_actual is nodo_objetivo:
+            return guardias_actuales
+            
+        if not hasattr(nodo_actual, 'children'):
+            return None
+            
+        if getattr(nodo_actual, 'data', '') == 'condicional':
+            cond_ast = nodo_actual.children[0]
+            cond_z3 = self.evaluador.evaluar(cond_ast)
+            
+            # Revisar si la función está en la ruta ENTONCES
+            rama_v = nodo_actual.children[1]
+            res_v = self._obtener_guardias_nodo(rama_v, nodo_objetivo, guardias_actuales + [cond_z3])
+            if res_v is not None: return res_v
+            
+            # Revisar si la función está en la ruta SINO
+            if len(nodo_actual.children) > 2:
+                rama_f = nodo_actual.children[2]
+                res_f = self._obtener_guardias_nodo(rama_f, nodo_objetivo, guardias_actuales + [z3.Not(cond_z3)])
+                if res_f is not None: return res_f
+            return None
+            
+        # Recorrido estándar para el resto del árbol
+        for hijo in nodo_actual.children:
+            res = self._obtener_guardias_nodo(hijo, nodo_objetivo, guardias_actuales)
+            if res is not None: return res
+            
+        return None
+
 
     # --- MÉTODOS MCDC INCORPORADOS DESDE LA ESTRATEGIA EXPERTA ---
     def _desglosar_condicion_verdadera(self, z3_cond):
