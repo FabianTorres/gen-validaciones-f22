@@ -13,13 +13,12 @@ class BaseStrategy(ABC):
     def generar_casos(self, ast_tree, id_val):
         pass
 
-    # NOTA: Le quitamos 'rut_inyectado' de los parámetros porque ahora es automático
-    def _resolver_y_formatear(self, id_val, tipo_escenario, descripcion, error_esperado=None):
+    def _resolver_y_formatear(self, id_val, tipo_escenario, descripcion, error_esperado=None, codigo_objetivo=None):
         if self.motor.solver.check() == z3.sat:
             modelo = self.motor.solver.model()
             datos_selenium = {}
-            
-            # Recolectores de exigencias para el RUT
+            valor_objetivo = 0 
+
             atributos_req = []
             atributos_prohibidos = []
             tipo_req = None
@@ -37,37 +36,33 @@ class BaseStrategy(ABC):
                     continue
                     
                 if nombre == "TIPO_[03]":
-                    # EXTRACCIÓN SEGURA: A prueba de fracciones Z3
                     if z3.is_rational_value(valor_crudo):
                         tipo_req = int(valor_crudo.as_fraction())
                     elif z3.is_int(valor_crudo):
                         tipo_req = valor_crudo.as_long()
                     else:
-                        tipo_req = 1 # Fallback seguro
+                        tipo_req = 1 
                     continue
 
-                # --- NUEVA LECTURA PARA SUBTIPO ---
                 if nombre == "SUBTIPO_[03]":
                     if z3.is_rational_value(valor_crudo):
                         subtipo_req = int(valor_crudo.as_fraction())
                     elif z3.is_int(valor_crudo):
                         subtipo_req = valor_crudo.as_long()
                     else:
-                        subtipo_req = 112 # Fallback seguro
+                        subtipo_req = 111 
                     continue
 
                 # --- MAGIA 2: FILTRO DE INPUTS PARA SELENIUM ---
-                # Este condicional bloquea variables auxiliares abstractas como ALFA o BETA
-                # asegurando que solo celdas [XXX] o vectores Vx lleguen al JSON final.
-                es_codigo = nombre.startswith('[') and nombre.endswith(']')
+                # EL CANDADO: Empieza con [, termina con ], Y TIENE AL MENOS UN NÚMERO.
+                es_codigo = nombre.startswith('[') and nombre.endswith(']') and any(c.isdigit() for c in nombre)
                 es_vector = nombre.startswith('Vx')
                 
                 if not (es_codigo or es_vector):
                     continue 
                 
-                # --- EXTRACCIÓN SEGURA: Prevención de Z3Exception ---
+                # --- EXTRACCIÓN SEGURA ---
                 if z3.is_rational_value(valor_crudo):
-                    # Transforma la fracción C++ en un objeto Fraction nativo de Python
                     fraccion_py = valor_crudo.as_fraction()
                     valor_limpio = int(fraccion_py) if not getattr(settings, 'USAR_DECIMALES', False) else float(fraccion_py)
                 elif z3.is_real(valor_crudo) or z3.is_algebraic_value(valor_crudo):
@@ -78,15 +73,16 @@ class BaseStrategy(ABC):
                 else:
                     valor_limpio = 0
                     
-                datos_selenium[nombre] = valor_limpio
+                if codigo_objetivo and nombre == codigo_objetivo:
+                    valor_objetivo = valor_limpio
+                else:
+                    datos_selenium[nombre] = valor_limpio
 
-            # Hacemos la consulta inteligente al Proveedor de RUTs
             rut_final = "DEFAULT_RUT"
             if self.rut_provider:
-                # NUEVO: Inyectamos el subtipo_req en la búsqueda
                 rut_final = self.rut_provider.obtener_rut(atributos_req, atributos_prohibidos, tipo_req, subtipo_req)
 
-            return {
+            resultado_json = {
                 "id_validacion": id_val,
                 "tipo_escenario": tipo_escenario,
                 "descripcion_qa": descripcion,
@@ -94,6 +90,14 @@ class BaseStrategy(ABC):
                 "inputs": datos_selenium,
                 "resultado_esperado": error_esperado
             }
+
+            if codigo_objetivo:
+                resultado_json["objetivo"] = {
+                    "codigo": codigo_objetivo,
+                    "valor": valor_objetivo
+                }
+
+            return resultado_json
         else:
             return {
                 "id_validacion": id_val,

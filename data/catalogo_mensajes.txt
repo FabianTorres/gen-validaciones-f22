@@ -1,3 +1,118 @@
 ID_VALIDACION|MENSAJE
+c.1|Las cotizaciones previsionales que registra en el código 111 debe ser menor o igual al monto máximo imponible anual, o al monto de los retiros tributables debidamente declarados en la línea 1.
+c.4|El crédito proporcional al Impuesto Global Complementario registrado en el código 136 supera el máximo permitido. 
+c.5|Las pérdidas en operaciones de capitales mobiliarios y ganancias de capital superan el máximo permitido.
 c.7|El 20% de cuotas de fondos de inversión adquiridas antes del 04.06.93 registradas en el código 822 debe ser menor o igual a 50 Unidades Tributarias Anuales.
-c.15|El monto ingresado excede el límite del crédito por donaciones establecido en la ley.
+c.9|El crédito al Impuesto Global Complementario (IGC) o Impuesto Unico de Segunda Categoría (IUSC) por donaciones para fines culturales registrado en el código 607 debe ser menor a 320 UTM o el 20% de la base imponible del Impuesto Global Complementario o del Impuesto Unico de Segunda Categoría.
+c.10|El crédito al Impuesto Global Complementario por donaciones a universidades, institutos profesionales y centros de formación técnica valor registrado en el código 609 debe ser menor o igual a 320 unidades tributables mensuales o el 20% de la base imponible del Impuesto Global Complementario o 14.000 unidades tributables mensuales.
+c.11|Las donaciones para fines culturales registradas en el código 373 deben ser igual o menor que 20.000 unidades tributables mensuales o a 50% de de las donaciones registradas en el código 986.
+c.22|El Impuesto único sobre gastos rechazados y otras partidas registrado en el código 114 supera el monto máximo. 
+c.23|El Impuesto Adicional según ex D.L. N° 600 de 1974 registrado en el código 134 supera el monto máximo.
+c.25|El saldo puesto a disposición de los socios en el código 86 debe ser igual o menor al monto registrado en el código 85.
+c.26|El Ahorro neto positivo utitlizado en el ejercicio registrado en el código 702 supera el monto registrado en el código 701.
+c.27|El Impuesto único sobre gastos rechazados y otras partidas registrado en el código 114 es inferior al mínimo establecido.
+c.28|El Impuesto Adicional según ex D.L. N° 600 de 1974 registrado en el código 134  es inferior al mínimo establecido.
+c.30 |El valor en código 133  y/o en código 32 es (son) inferior(es) al mínimo permitido.
+c.31|El monto del Impuesto único talleres artesanales es inferior al mínimo entre el valor de 2 UTM y los PPM obligatorios. En caso que ya no cumpla los requisitos de taller artesanal deberá regularizar su situación en la unidad o direccion regional que le corresponda a su domicilio.
+c.32|La rebaja por Intereses pagados por créditos con garantía hipotecaria registrado en el código 750 debe ser menor o igual a 8 unidades tributables anuales.
+c.33|El crédito al Impuesto al Global Complementario por donaciones para fines deportivos registrado en el código 752 debe ser menor o igual a 320 unidades tributables mensuales o el 20% de la base imponible del Impuesto Global Complementario.
+c.34|El monto registrado en el código 823 debe ser menor o igual al monto solicitado por usted en la Unidad del SII.
+c.35|El monto registrado en código 823 debe ser menor o igual al monto registrado en el código 91.
+c.43|El monto de las retenciones registradas en el código 198 es excesivo. 
+c.45|El crédito por gastos de capacitación registrado en el código 82 es excesivo. 
+c.46|Los dividendos hipotecarios pagados por viviendas nuevas que registra en el código 740 es excesivo. Revise el monto informado en la declaración jurada N° 1896 por la institucion que otorgó el crédito, e instrucciones del código publcado en el sitio web sii.cl
+c.49|El valor registrado en el código 896 debe ser mayor o igual a código 617.
+c.70|El código 998 debe ser menor o igual al código 999.
+c.76|El valor registrado en los códigos 1024 más 1025, 1592 y 1593 es superior al máximo establecido.
+c.80|Los créditos por impuesto de primera categoría (IDPC) sin obligación de restitución, con y sin derecho a devolución que debe o intenta declarar en los códigos 1031 y 1635 tiene que ser inferior al resultado del código 1032 multiplicado por la tasa del IDPC.
+c.83|El valor declarado en el código 491 es incorrecto.
+c.92|El código 1177 debe ser menor o igual a código 1145 multiplicado por el  IPC anual.
+c.94|El Incentivo al ahorro registrado en el código 1154 debe ser menor o igual al 50% del código 1728 o al valor en pesos de U.F 5.000.
+c.95|El código 1157 debe ser menor o igual código 1728 menos el código 1154.
+c.99|El valor del código 1433 debe ser menor o igual  ala operatoria del código 1729 menos 1432
+c.104|El valor del código 910 más 913 debe ser mayor  o igual a código 106 por tasa adicional 10%
+c.107|El monto registrado en el  código  1636  debe ser menor o igual al 5% aplicado sobre la parte de la renta que exceda las 310 UTA y que corresponda a retiros o dividendos debidamente incrementados
+c.111|El monto registrado en código 1184 debe ser al menos un decimo de la  cantidad anotada en el código 1358. Recuadro N°7
+c.112|El monto registrado en código 1362 debe ser al menos un decimo de la  cantidad anotada en el código 1359. Recuadro N°7
+c.113|El Incentivo al ahorro registrado en el código 1432 debe ser menor o igual al 50% del código 1729 o al valor en pesos de U.F 5.000.
+c.114|El valor del código 1679 debe ser al menos lo registrado en los códigos 938 y 949
+c.117|El valor registrado en el código 1178 debe ser mayor o igual al resultado positivo del código 1685 más  1688 menos 1147 y 1148
+c.118|El valor registrado en el código 1179 debe ser mayor o igual al resultado negativo del código 1685 más  1688 menos 1147 y 1148
+c.120|La suma de los códigos 1475, 1476, 1767, 1768, 1477 y 1478 del recuadro N° 20 debe ser igual o menor al código 1479 del recuadro N° 19
+c.121|La suma de los códigos 1208, 1218, 1230, 1745, 1746, 1242, y 1254 del recuadro N° 15 debe ser igual o menor al código 1182 del recuadro N° 14
+c.122|El valor registrado en los códigos 1685, 1686, 1183 y/o 1688 debe ser menor o igual a lo registrado en los códigos 1657, 1658, 1659 y/o 1660
+c.123|El códigos 1578 del recuadro N° 23 debe ser igual o menor al código 1605 del recuadro N° 22
+c.126|El valor registrado en el código 1637 supera el máximo permitido.
+c.127|El valor del código 76 debe ser al menos igual a la sumatoria de los códigos 1592 + 1593 + 1594 + 1595 + 1721 + 1596 + 1597 + 1599 + 1633 + 1634 + 1635 + 1024 + 1025 + 1026 + 1027 + 603 + 1722 + 954 + 1598 +  1631 + 605 + 1105 + 606 + 1031
+c.130|El valor del código 113 debe ser al menos igual a lo declarado en el código 1682 del recuadro N° 12
+c.131|El valor del código 1638 debe ser mayor o igual código 1609
+c.132|El débito fiscal por restitución crédito por Impuesto de Primera Categoría registrado en el código 1035 es inferior al monto a restituir. 
+c.134|La rebaja por donaciones a entidades sin fines de lucro registrada en el código 1833 debe ser menor o igual al limite entre 10.000 unidades tributaria mensuales y el 5% de la base imponible del Impuesto Global Complementario o Impuesto Unico Segunda Categoría.
+c.135|El crédito al Impuesto Global Complementario o Impuesto Unico de Segunda Categoría por donaciones para fines sociales valor registrado en el código 867 debe ser menor o igual a 320 unidades tributarias mensuales o al 205 de la base imponible del Impuesto Global Complementario.
+c.160|El crédito por bienes físicos del activo inmovilizado del ejercicio registrado en el código 366 debe ser menor o igual 500 UTM.
+c.161|El valor registrado en el código 1060 supera el máximo de 8.000 UF
+c.164|El valor del código 1215 del recuadro N° 15 debe ser mayor o igual código 1066 del recuadro N° 10
+c.165|El valor del código 1740 del recuadro N° 15 debe ser al menos el valor del código 1814 del recuadro N° 4
+c.167|El monto de las otras partidas a agregar que debe o intenta declarar en el código 1189 del recuadro N° 14 tiene que ser mayor o igual al resultado neto de las operaciones del ejercicio por enajenaciones de acciones o cuotas de fondos mutuos y/o de inversión declaradas en el código 1814 del recuadro N°4 de éste formulario 22.
+c.168|El monto de las otras partidas a deducir que debe o intenta declarar en el código 1190 del recuadro N° 14 tiene que ser mayor o igual al resultado neto (pérdidas) de las operaciones del ejercicio por enajenaciones de acciones o cuotas de fondos mutuos y/o de inversión declaradas en el código 1814 del recuadro N°4 de éste formulario 22.
+c.169|El valor registrado en el código 1380 debe ser mayor o igual al valor positivo del código 1814 del recuadro N°4.
+c.170|El valor registrado en el código 1381 debe ser mayor o igual al valor negativo del código 1814 del recuadro N°4.
+c.171|El valor registrado en el código 1584 debe ser mayor o igual al valor negativo del código 1814 del recuadro N°4.
+c.172|El valor registrado en el código 1585 debe ser mayor o igual al valor negativo del código 1814 del recuadro N°4.
+c.183|El crédito por impuesto de primera categoría (IDPC) sin obligación de restitución, con y con derecho a devolución registrado en el código 1866 debe ser a lo menos el monto registrado en el código 1867 multiplicada por tasa vigente.
+c.184|La suma de los códigos 1879, 1880, 1881, 1882 supera el maximo permitivo
+c.185|Los créditos por impuesto de primera categoría (IDPC) registrados en los códigos 1853, 1854, 1855, y 1856 son superiores a la renta efectiva declarada en el código 1857 multiplicada por la tasa vigente.
+c.186|Los créditos por impuesto de primera categoría (IDPC) registrados en los códigos 1858, 1859, 1860, y 1861 son superiores a la renta efectiva declarada en el código 1862 multiplicada por la tasa vigente.
+c.187|El valor  de las rentas del arrendamiento, subarrendamiento, usufructo o cesión de cualquier otra forma del uso o goce temporal de bienes raíces agrícolas y no agrícolas registrado en el código 1849 debe ser al menos el monto registrado en el código 1892.
+c.192|El crédito por la compra de viviendas nuevas adquiridas con créditos con garantía hipotecaria registrado en el código 1915 supera el máximo de 16 UTM a diciembre AT-1.
+c.194|El crédito por impuesto de primera categoría (IDPC) sin obligación de restitución, con y con derecho a devolución registrado en el código 1848 debe ser a lo menos el monto registrado en el código 1894.
+c.195|El crédito por impuesto de primera categoría (IDPC) sin obligación de restitución, con y con derecho a devolución registrado en el código 1890 debe ser a lo menos el monto registrado en el código 1897.
+c.196|El mayor valor en la enajenación de bienes raíces situados en Chile registrado en el código 1891 debe ser mayor o igual al monto registrado en los códigos 1063, 1989 y 1990.
+c.197|El valor registrado en los códigos1864, 1866, y/o 1031 debe ser a lo menos el monto registrado en el código 1903.
+c.198|El valor registrado en los códigos 1865, 1867 y/o 1032 debe ser mayor o igual al monto registrado en el código 1901.
+c.199|El crédito por activos fijos adquiridos en el ejercicio (art. 33 bis LIR) declarado en el código 1609 no puede exceder del IDPC (12,5%) que habría gravado la base imponible en el caso de que aquella hubiese estado afecta a dicho impuesto. 
+c.201|El valor registrado en el código 1918 debe ser menor o igual al monto registrado en el código 1912 por la tasa vigente.
+c.203|El valor registrado en los códigos 1363 más 1364 es superior al máximo establecido.
+c.205|Las rentas por participaciones o cuotas de comunidad obtenidas por la empresa que determina su renta efectiva sin contabilidad completa que debe o intenta declarar en el código 1852 debe ser a lo menos el monto registrado en el código 1898 de éste mismo formulario.
+c.206|El valor registrado en los códigos 1917 y 1848 es superior al máximo establecido.
+c.207|El valor registrado en los códigos 1850 y 1851 es superior al máximo establecido.
+c.208|El valor registrado en el código 1914 es superior al máximo establecido.
+c.209|Los créditos por impuesto de primera categoría (IDPC) sin obligación de restitución, con y sin derecho a devolución que debe o intenta declarar en los códigos 1863 y/o 1864 tiene que ser inferior al resultado del código 1865 multiplicado por la tasa del IDPC.
+c.210|Los créditos por impuesto de primera categoría (IDPC) con y sin obligación de restitución, con y sin derecho a devolución que debe o intenta declarar en los códigos 1874, 1875, 1876, y/o 1877 debe ser igual o menor que el resultado del código 1878 multiplicado por la tasa del IDPC.
+c.211|Los créditos por impuesto de primera categoría (IDPC) con y sin obligación de restitución, con y sin derecho a devolución que debe o intenta declarar en los códigos 1885, 1886, 1887, y/o 1888 debe ser igual o menor que el resultado del código 1889 multiplicado por la tasa del IDPC.
+c.212|El excedente del Impuesto Unico (IU) de 35% que debe o intenta declarar en el código 71 debe ser menor o igual al IU de 35% anotado en el código 63.
+c.214|La depreciacion acelerada declarada en el código 1959 del recuadro N° 11 debe ser al menos el valor declarado en los códigos 938 y 949.
+c.215|El mayor valor en la enajenación de bienes raíces registrado en los códigos 1989 y 1990 debe ser mayor o igual al monto registrado en los códigos 1987 y 1988.
+c.216|El crédito por impuesto de primera categoría (IDPC) sin obligación de restitución, y con derecho a devolución que debe o intenta declarar en el código 1922 tiene que ser inferior al resultado de la multiplicación del código 1923 por la tasa del IDPC.
+c.217|El monto extinguido por ISIF que debe declarar en el código 1936 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1270 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1271.
+c.218|El monto extinguido por ISIF que debe declarar en el código 1937 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1279 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1280.
+c.219|El monto extinguido por ISIF que debe declarar en el código 1938 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1288 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1290.
+c.220|El monto extinguido por ISIF que debe declarar en el código 1939 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1301 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1303.
+c.221|El monto extinguido por ISIF que debe declarar en el código 1940 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1324 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1326.
+c.222|El monto extinguido por ISIF que debe declarar en el código 1941 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1335 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1337.
+c.223|El monto imputado por ISIF que debe declarar en el código 1945 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1495 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1590.
+c.224|El monto imputado por ISIF que debe declarar en el código 1946 del recuadro N°21, debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1496 y/o al aumento del ejercicio por reorganizaciones registrado en el código 1436.
+c.225|El monto imputado por ISIF que debe declarar en el código 1947 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1497  y/o al aumento del ejercicio por reorganizaciones registrado en el código 1437.
+c.226|El monto imputado por ISIF que debe declarar en el código 1948 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1498  y/o al aumento del ejercicio por reorganizaciones registrado en el código 1438.
+c.227|El monto imputado por ISIF que debe declarar en el código 1949 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1501  y/o al aumento del ejercicio por reorganizaciones registrado en el código 1441.
+c.228|El monto imputado por ISIF que debe declarar en el código 1950 debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1502  y/o al aumento del ejercicio por reorganizaciones registrado en el código 1442.
+c.229|El monto acogido al ISIF que debe declarar en el código 1942 del recuadro N°20, debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1451   y/o al aumento del ejercicio por reorganizaciones registrado en el código 1392.
+c.230|El monto acogido al ISIF que debe declarar en el código 1933 del recuadro N°15, debe ser menor o igual al remanente ejercicio anterior o saldo inicial positivo registrado en el código 1200  y/o al aumento del ejercicio por reorganizaciones registrado en el código 1202.
+c.231|Los montos registrados en los códigos 1735, 1737, 1743, 1745, y 1747, deben ser menor o igual que los valores registrados en los códigos 1730, 1934, 1733, y 1741.
+c.232|Los montos registrados en los códigos 1935, 1263, 1264, 1266, 1267, y 1268, deben ser menor o igual que los valores registrados en los códigos 1260 + 1262 y 1265.
+c.233|Los montos registrados en los códigos 1315, 1319, 1320], 1321, y 1322, deben ser menor o igual que los valores registrados en los códigos 1313, 1314, 1316, 1317, y 1318.
+c.234|Los montos registrados en los códigos 1940, ,1327, 1330, 1331, 1332], y 1333, deben ser menor o igual que los valores registrados en los códigos 1324, 1326, 1328, y 1329.
+c.235|Los montos registrados en los códigos 1941, 1338, 1341, 1342, 1343,  y 1344, deben ser menor o igual que los valores registrados en los códigos 1335, 1337, 1339, 1340.
+c.236|Los montos registrados en los códigos 1348, 1351, 1352, 1353, y 1354, deben ser menor o igual que los valores registrados en los códigos 1346, 1347, 1349, y 1350.
+c.237|Los montos registrados en los códigos 1757, 1759, 1765, 1767, y 1769, deben ser menor o igual que los valores registrados en los códigos 1752, 1943, 1755, y 1763.
+c.238|Los montos registrados en los códigos 1944, 1385, 1386, 1388, 1389, y 1390, deben ser menor o igual que los valores registrados en los códigos 1382, 1384, y 1387.
+c.239|Los montos registrados en los códigos 1508, 1535, 1543, 1553, y 1559, deben ser menor o igual que los valores registrados en los códigos 1499, 1439, 1514, 1519, y 1527.
+c.240|Los montos registrados en los códigos 1949, 1509, 1536, 1544, 1554, y 1560, deben ser menor o igual que los valores registrados en los códigos 1501, 1441, 1520, y 1528.
+c.241|Los montos registrados en los códigos 1950, 1510, 1537, 1547, 1555, y 1561, deben ser menor o igual que los valores registrados en los códigos 1502, 1442, 1521, y 1529.
+c.242|Los montos registrados en los códigos 1511, 1538, 1548, 1556, y 1562, deben ser menor o igual que los valores registrados en los códigos 1503, 1443, 1522, y 1530.
+c.271|El valor registrado en los códigos 2000, 2001, 2002 y 2003 es superior al máximo establecido.
+c.272|Se debe registrar el crédito asociado al ingreso diferido que se impute en el año comercial 2025, el que no debe exceder de la cantidad que se determine al aplicar la tasa efectiva de IF del propietario sobre el ingreso diferido incrementado que le corresponde reconocer en dicho año comercial
+c.273|El código 2009 debe ser al menos lo registrado en los códigos 1208, 1218, 1209, 1219 del recuadro N° 15 o en los códigos 1475, 1480 del recuadro N° 20 y/o en los códigos 1193 y 1194 del recuadro N°6
+c.274|Los montos registrados en los códigos 1208, y 1209, deben ser menor igual a los valores de los códigos 1205, 1206, y 1207.
+c.275|Los montos registrados en los códigos 1475, y 1480, deben ser menor igual a los valores de los códigos 1463, 1467, y 1471.
+c.276|En el código 461 debe declarar el monto bruto de los ingresos por honorarios

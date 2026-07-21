@@ -19,6 +19,11 @@ class CalculationBuilder(BaseStrategy):
         if not nodo_principal:
             return [{"id_validacion": id_val, "error": "No se encontró nodo de cálculo."}]
             
+        # NUEVO: Extracción del código objetivo si es un autocalculado
+        codigo_objetivo = None
+        if nodo_principal[0].data == 'autocalculado':
+            codigo_objetivo = str(nodo_principal[0].children[0]).strip()
+            
         z3_ecuacion = self.evaluador.evaluar(nodo_principal[0])
         
         # 1. RECOLECCIÓN DE CONTEXTO BASE
@@ -35,7 +40,6 @@ class CalculationBuilder(BaseStrategy):
         # 2. EVALUAR LÍMITES MATEMÁTICOS CON BLOQUEO DE RUTA
         nodos_func = self._encontrar_nodos_tipo(ast_tree, 'funcion_matematica')
         
-        # NUEVO: Conteo previo para indexación dinámica de múltiples funciones iguales
         func_names = [str(n.children[0]).upper() for n in nodos_func]
         func_totals = {name: func_names.count(name) for name in set(func_names)}
         func_current = {name: 0 for name in func_totals}
@@ -44,7 +48,6 @@ class CalculationBuilder(BaseStrategy):
             func_name = str(nodo_func.children[0]).upper()
             func_current[func_name] += 1
             
-            # Si hay más de una función de este tipo, creamos los sufijos
             sufijo = f"_{func_current[func_name]}" if func_totals[func_name] > 1 else ""
             desc_sufijo = f" (Instancia {func_current[func_name]})" if func_totals[func_name] > 1 else ""
             
@@ -52,59 +55,60 @@ class CalculationBuilder(BaseStrategy):
             camino_base = self._obtener_camino_a_nodo(nodo_func, ast_tree)
             base_cond = ecuacion_completa + camino_base
 
+            # NUEVO: Inyección de codigo_objetivo en todas las lambdas
             if func_name == 'MIN':
                 z3_arg1, z3_arg2 = self.evaluador.evaluar(args_limpios[0]), self.evaluador.evaluar(args_limpios[1])
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg1 <= (z3_arg2 - gap)], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MIN{s}_IZQ", f"El límite MIN{d} toma el valor izquierdo garantizando su ruta.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MIN{s}_IZQ", f"El límite MIN{d} toma el valor izquierdo garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg1 >= (z3_arg2 + gap)], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MIN{s}_DER", f"El límite MIN{d} toma el valor derecho garantizando su ruta.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MIN{s}_DER", f"El límite MIN{d} toma el valor derecho garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
             elif func_name == 'MAX':
                 z3_arg1, z3_arg2 = self.evaluador.evaluar(args_limpios[0]), self.evaluador.evaluar(args_limpios[1])
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg1 >= (z3_arg2 + gap)], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MAX{s}_IZQ", f"El límite MAX{d} toma el valor izquierdo garantizando su ruta.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MAX{s}_IZQ", f"El límite MAX{d} toma el valor izquierdo garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg1 <= (z3_arg2 - gap)], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MAX{s}_DER", f"El límite MAX{d} toma el valor derecho garantizando su ruta.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MAX{s}_DER", f"El límite MAX{d} toma el valor derecho garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
             elif func_name == 'POS':
                 z3_arg = self.evaluador.evaluar(args_limpios[0])
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg >= gap], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_POS{s}_MAYOR_CERO", f"El valor interno de POS{d} es positivo en su ruta correcta.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_POS{s}_MAYOR_CERO", f"El valor interno de POS{d} es positivo en su ruta correcta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg <= -gap], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_POS{s}_MENOR_CERO", f"El valor interno de POS{d} es negativo, forzando a 0.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_POS{s}_MENOR_CERO", f"El valor interno de POS{d} es negativo, forzando a 0.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
             elif func_name == 'NEG':
                 z3_arg = self.evaluador.evaluar(args_limpios[0])
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg <= -gap], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_NEG{s}_MENOR_CERO", f"El valor interno de NEG{d} es negativo, retornando valor absoluto.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_NEG{s}_MENOR_CERO", f"El valor interno de NEG{d} es negativo, retornando valor absoluto.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg >= gap], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_NEG{s}_MAYOR_CERO", f"El valor interno de NEG{d} es positivo, forzando a 0.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_NEG{s}_MAYOR_CERO", f"El valor interno de NEG{d} es positivo, forzando a 0.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
             elif func_name == 'ABS':
                 z3_arg = self.evaluador.evaluar(args_limpios[0])
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg <= -gap], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"ABS{s}_ENTRADA_NEGATIVA", f"El valor interno de ABS{d} es negativo, forzando conversión a positivo.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"ABS{s}_ENTRADA_NEGATIVA", f"El valor interno de ABS{d} es negativo, forzando conversión a positivo.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [z3_arg >= gap], 
-                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"ABS{s}_ENTRADA_POSITIVA", f"El valor interno de ABS{d} es positivo, manteniendo su valor.", "VERIFICAR_AUTOCALCULO")
+                    lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"ABS{s}_ENTRADA_POSITIVA", f"El valor interno de ABS{d} es positivo, manteniendo su valor.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
         # 3. EVALUAR RAMAS CONDICIONALES (MCDC RECURSIVO)
@@ -126,7 +130,6 @@ class CalculationBuilder(BaseStrategy):
             base_cond = ecuacion_completa + camino_base
             nivel = "PRINCIPAL" if idx == 1 else f"ANIDADO_{idx}"
             
-            # --- NUEVO: Casos Verdaderos (MCDC para OR) ---
             variaciones_verdaderas = self._desglosar_condicion_verdadera(z3_cond_actual)
             for i, var_verdadera in enumerate(variaciones_verdaderas, 1):
                 sufijo = f"_{i}" if len(variaciones_verdaderas) > 1 else ""
@@ -134,10 +137,9 @@ class CalculationBuilder(BaseStrategy):
                     base_cond + [var_verdadera["restriccion"]], 
                     lambda v=var_verdadera, s=sufijo, n=nivel: self._resolver_y_formatear(
                         id_val, f"CALCULO_VERDADERO_{n}{s}", 
-                        v["desc"], "VERIFICAR_AUTOCALCULO")
+                        v["desc"], "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
             
-            # --- Casos Falsos (MCDC para AND) ---
             variaciones_falsas = self._desglosar_condicion_falsa(z3_cond_actual)
             for i, var_falsa in enumerate(variaciones_falsas, 1):
                 sufijo = f"_{i}" if len(variaciones_falsas) > 1 else ""
@@ -145,7 +147,7 @@ class CalculationBuilder(BaseStrategy):
                     base_cond + [var_falsa["restriccion"]], 
                     lambda v=var_falsa, s=sufijo, n=nivel: self._resolver_y_formatear(
                         id_val, f"CALCULO_FALSO_{n}_SINO{s}", 
-                        v["desc"], "VERIFICAR_AUTOCALCULO")
+                        v["desc"], "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
         # 4. FALLBACK LINEAL
@@ -154,7 +156,7 @@ class CalculationBuilder(BaseStrategy):
                 ecuacion_completa, 
                 lambda: self._resolver_y_formatear(
                     id_val, "CALCULO_LINEAL_EXACTO", 
-                    "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.", "VERIFICAR_AUTOCALCULO")
+                    "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
             ))
 
         # 5. DEDUPLICACIÓN EN CALIENTE Y LIMPIEZA
@@ -169,7 +171,6 @@ class CalculationBuilder(BaseStrategy):
                 elif c.get("estado_interno") == "INSATISFACTIBLE":
                     print(f"Fase 2: Escenario '{c.get('tipo_escenario', 'Desconocido')}' descartado por ser matemáticamente imposible (Contradicción).")
                 elif "inputs" in c:
-                    # NUEVO: La firma ahora incluye el RUT inyectado además de los inputs
                     firma_unica = (c.get("rut"), tuple(sorted(c["inputs"].items())))
                     
                     if firma_unica not in inputs_vistos:
@@ -189,7 +190,6 @@ class CalculationBuilder(BaseStrategy):
         """
         camino = []
         
-        # 1. Variables asociadas en Cotas
         var_asociada = None
         nodos_cota = self._encontrar_nodos_tipo(ast_tree, 'cota')
         for cota in nodos_cota:
@@ -197,7 +197,6 @@ class CalculationBuilder(BaseStrategy):
                 var_asociada = str(cota.children[0]).strip().upper()
                 break
 
-        # 2. Bloqueo en Condicionales Estándar
         nodos_condicional = self._encontrar_nodos_tipo(ast_tree, 'condicional')
         for cond_node in nodos_condicional:
             if cond_node is nodo_objetivo:
@@ -218,7 +217,6 @@ class CalculationBuilder(BaseStrategy):
             elif en_sino:
                 camino.append(z3.Not(z3_cond_actual))
 
-        # 3. NUEVO: Bloqueo en Casos Trailing (Condiciones Pospuestas)
         nodos_trailing = self._encontrar_nodos_tipo(ast_tree, 'caso_trailing')
         for trail_node in nodos_trailing:
             if trail_node is nodo_objetivo:
@@ -239,7 +237,6 @@ class CalculationBuilder(BaseStrategy):
         return camino
 
     def _contiene_nodo(self, raiz, nodo_buscado):
-        """Búsqueda recursiva sintáctica."""
         if raiz is nodo_buscado:
             return True
         if hasattr(raiz, 'children'):
@@ -249,7 +246,6 @@ class CalculationBuilder(BaseStrategy):
         return False
 
     def _contiene_texto(self, raiz, texto):
-        """Búsqueda recursiva semántica para ubicar dónde se usa una variable."""
         if hasattr(raiz, 'children'):
             for hijo in raiz.children:
                 if self._contiene_texto(hijo, texto):
@@ -260,8 +256,6 @@ class CalculationBuilder(BaseStrategy):
 
     def _desglosar_condicion_verdadera(self, z3_cond):
         variaciones = []
-        
-        # Función recursiva para extraer ORs anidados por el Parser
         def aplanar_or(expr):
             if z3.is_app(expr) and expr.decl().kind() == z3.Z3_OP_OR:
                 res = []
@@ -292,8 +286,6 @@ class CalculationBuilder(BaseStrategy):
 
     def _desglosar_condicion_falsa(self, z3_cond):
         variaciones = []
-        
-        # Función recursiva para extraer ANDs anidados por el Parser
         def aplanar_and(expr):
             if z3.is_app(expr) and expr.decl().kind() == z3.Z3_OP_AND:
                 res = []

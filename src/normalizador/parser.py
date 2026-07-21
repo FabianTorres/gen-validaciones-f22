@@ -32,8 +32,8 @@ cota: expresion RELACIONAL_NUMERICO (condicional | expresion | casos_trailing)
 validacion_libre: condicional
                 | casos_trailing
 
-// Declaración de variables internas auxiliares
-declaracion_variable: (TEXTO | CODIGO) "=" expresion
+// Declaración de variables internas auxiliares (PRIORIDAD 2 PARA EVITAR CONFLICTO CON COTAS)
+declaracion_variable.2: (TEXTO | VARIABLE_CORCHETE) "=" valor_asignado
 
 // --- CONTENEDORES CONDICIONALES ---
 ?valor_asignado: casos_trailing
@@ -85,10 +85,11 @@ funcion_directa: FUNCION elemento
 funcion_rut: FUNCION_RUT SIMBOLO_APERTURA CODIGO SIMBOLO_CIERRE
 lista_argumentos: expresion (SEPARADOR expresion)*
 
-?elemento: CODIGO | PARAMETRO | VECTOR | FORMATO_FECHA | NUMERO | MARCA_CHECK | TEXTO 
+?elemento: CODIGO | PARAMETRO | VECTOR | FORMATO_FECHA | NUMERO | MARCA_CHECK | TEXTO | VARIABLE_CORCHETE
 
 // --- REGLAS LEXICAS (TOKENS) ---
-CODIGO: /\[[^\]]+\]/
+CODIGO: /\[\s*\d+\s*\]/
+VARIABLE_CORCHETE: /\[\s*[a-zA-Z_]+\s*\]/
 PARAMETRO: "P" NUMBER
 VECTOR: "Vx" NUMBER | "Vx01" NUMBER
 NUMERO: NUMBER

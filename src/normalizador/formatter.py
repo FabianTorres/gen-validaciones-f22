@@ -262,16 +262,15 @@ class GeneradorTextoNormalizado(Transformer):
         return " ; ".join(elementos)
 
     # --- TOKENS ---
+    def VARIABLE_CORCHETE(self, token):
+        # Quita corchetes y espacios, y lo pasa a mayúscula (ej. "[ e ]" -> "E")
+        return str(token)[1:-1].strip().upper()
+
     def CODIGO(self, token):
-        # Extrae el interior, quita espacios y pasa a mayúscula
-        interior = str(token)[1:-1].strip().upper()
-        
-        # Si es un número puro (ej. "750"), mantiene los corchetes
-        if interior.isdigit():
-            return f"[{interior}]"
-            
-        # Si contiene letras (ej. "M" o "J"), es variable en memoria y va sin corchetes
-        return f"{interior}"
+        # Como la gramática ahora garantiza que solo entran números, 
+        # solo limpiamos espacios basura que vengan del Excel.
+        interior = str(token)[1:-1].strip()
+        return f"[{interior}]"
 
     def MARCA_CHECK(self, token):
         # Fuerza que cualquier marca de verificación se estandarice visualmente a "X"

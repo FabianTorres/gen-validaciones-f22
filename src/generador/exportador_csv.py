@@ -66,8 +66,15 @@ class ExportadorCSV:
                 lineas_csv.append(f"{id_val};BUENO;")
                 
             elif resultado == "VERIFICAR_AUTOCALCULO":
-                # AQUÍ HAY UN DETALLE PENDIENTE PARA LAS A y B (Ver pregunta abajo)
-                lineas_csv.append(f"{id_val};AUTO;OBJETIVO_PENDIENTE")
+                # --- EXTRACCIÓN DEL OBJETIVO PARA REGLAS A y B ---
+                obj = caso.get("objetivo", {})
+                cod_crudo = obj.get("codigo", "")
+                
+                # Transformamos [1926] en C1926
+                cod_fmt = cod_crudo.replace('[', 'C').replace(']', '') if cod_crudo else "ERROR_COD"
+                val_obj = obj.get("valor", 0)
+                
+                lineas_csv.append(f"{id_val};AUTO;{cod_fmt}={val_obj}")
 
         # Guardar archivo
         with open(self.ruta_salida, 'w', encoding='utf-8') as f:

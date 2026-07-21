@@ -6,37 +6,6 @@ class EvaluadorAST:
     def __init__(self, motor_z3: MotorZ3):
         self.motor = motor_z3
 
-    # def evaluar(self, nodo):
-    #     # Inicializamos el nivel de sangría para que se vea como un árbol en consola
-    #     self.nivel_debug = getattr(self, 'nivel_debug', 0)
-    #     sangria = "  " * self.nivel_debug
-        
-    #     if isinstance(nodo, Token):
-    #         # 1. Ejecutamos la conversión normal
-    #         resultado = self._evaluar_token(nodo)
-            
-    #         # 2. EL ESPÍA: Imprimimos qué entregó Lark y qué devolvió la Fase 2
-    #         print(f"{sangria}LARK [Token: {nodo.type}] '{nodo.value}' ---> FASE 2: {type(resultado)} ({resultado})")
-    #         return resultado
-            
-    #     if isinstance(nodo, Tree):
-    #         print(f"{sangria}ENTRANDO NODO: {nodo.data}")
-    #         self.nivel_debug += 1
-            
-    #         metodo = getattr(self, f"_{nodo.data}", self._evaluar_default)
-    #         try:
-    #             resultado = metodo(nodo)
-    #         except Exception as e:
-    #             # Si explota, sabremos exactamente en qué nodo ocurrió
-    #             print(f"{sangria}💥 EXPLOSIÓN MATEMÁTICA EN EL NODO: {nodo.data} 💥")
-    #             self.nivel_debug -= 1
-    #             raise e
-                
-    #         self.nivel_debug -= 1
-    #         return resultado
-            
-    #     return nodo
-
     def evaluar(self, nodo):
         """Punto de entrada principal. Recorre recursivamente el AST de Lark."""
         if isinstance(nodo, Token):
@@ -73,9 +42,10 @@ class EvaluadorAST:
         elif tipo == 'NUMERO':
             return float(valor) if '.' in valor else int(valor)
             
-        elif tipo == 'TEXTO':
-            # Textos libres que no son X ni BLANCO se vuelven variables (ej: "ALFA")
-            return self.motor.obtener_o_crear_variable(valor_limpio)
+        # NUEVO: Incorporamos VARIABLE_CORCHETE y le limpiamos los corchetes si los trae
+        elif tipo in ('TEXTO', 'VARIABLE_CORCHETE'):
+            nombre_limpio = valor_limpio.replace('[', '').replace(']', '').strip()
+            return self.motor.obtener_o_crear_variable(nombre_limpio)
             
         # 4. OPERADORES (Los únicos que tienen permitido retornar strings puros)
         elif tipo in (
