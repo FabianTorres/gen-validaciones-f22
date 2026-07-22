@@ -35,3 +35,22 @@ El sistema no busca solo "resolver" una ecuación matemática, sino estresar el 
 Debido al fenómeno de "Atracción de Semilla" (donde Z3, al buscar el camino de menor resistencia para alcanzar la semilla de generación, puede superponer un caso de flujo general MCDC con un caso de frontera matemática específica), el orquestador implementa una capa de purificación final.
 
 Antes de exportar el JSON para Selenium, el sistema captura la huella inmutable de los diccionarios de entrada de cada caso (`tuple(sorted(c["inputs"].items()))`). Si la huella de un nuevo escenario es 100% idéntica a una ya procesada en la misma regla de negocio, el caso redundante se bloquea y se elimina silenciosamente. Esto garantiza matrices de QA compactas, eficientes y libres de desgaste en la automatización web.
+
+## Gestión de Inputs e Inyección de Datos
+
+La generación de datos de prueba (payloads) para el bot de Selenium cuenta con mecanismos estrictos de idempotencia y sanitización para asegurar que las pruebas automatizadas sean reproducibles y libres de falsos positivos en la UI.
+
+### 1. Inyección de Datos Deterministas (Idempotencia)
+Para garantizar la reproducibilidad absoluta de los casos de prueba, el generador utiliza un enfoque 100% determinista en la asignación de RUTs, abandonando cualquier método aleatorio.
+* **Catálogo Estático Ordenado:** El proveedor de datos (`RutProvider`) lee un catálogo de pruebas predefinido (`mock_ruts_qa.json`) y lo "inmoviliza" en memoria, ordenándolo por RUT. 
+* **Asignación Condicional Fija:** Al requerir un RUT, el sistema evalúa las restricciones matemáticas impuestas por la regla (TIPO, SUBTIPO, Atributos Prohibidos/Requeridos) y siempre devuelve la *primera coincidencia* del arreglo inmovilizado.
+* **Beneficio QA (Reducción de Clones):** Al ser determinista, dos caminos lógicos que exigen las mismas condiciones recibirán exactamente el mismo RUT. Esto permite que el filtro deduplicador de la Fase 2 intercepte la tupla idéntica `(RUT + Inputs)` y elimine escenarios redundantes, manteniendo el set de pruebas al mínimo estricto necesario.
+
+### 2. El "Doble Candado" para Sanitización de Celdas
+Dado que Z3 genera un modelo matemático complejo que incluye tanto celdas del formulario (ej. `[104]`) como variables internas de estado (ej. `E`, `IS_ATRIBUTO_M14A`), se diseñó un filtro de "doble candado" en la clase `BaseStrategy` para evitar que el bot intente digitar variables abstractas en el formulario del SII.
+
+Para que una variable sea considerada una "celda digitable" y se exporte al bloque `"inputs"` del JSON, debe cumplir simultáneamente dos condiciones inquebrantables:
+1. **Firma Estructural:** Comenzar con `[` y terminar con `]`.
+2. **Firma Numérica:** Contener al menos un dígito numérico en su interior (evaluado mediante `any(c.isdigit() for c in nombre)`).
+
+Cualquier variable abstracta transitoria (como `[ e ]` o variables booleanas autogeneradas) rebota contra este filtro y permanece de forma invisible en el backend matemático, logrando un payload limpio.

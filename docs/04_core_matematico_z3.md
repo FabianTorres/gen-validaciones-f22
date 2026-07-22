@@ -42,3 +42,21 @@ Para evitar que el motor resuelva fronteras matemáticas evadiendo el flujo lóg
 Las pruebas de límites matemáticos (ej. forzar que un `POS` evalúe a negativo) utilizan una brecha dinámica (`gap`). 
 * Si `settings.USAR_DECIMALES` es falso, `gap = 1`. 
 * Esto asegura que Z3 genere valores que superen holgadamente el límite por un número entero (ej. forzando un `-1` real en lugar de un `0`), protegiendo la aserción de QA contra redondeos ocultos o colisiones en la interfaz web del SII.
+
+# Estrategias Avanzadas de Z3
+## Fusión de Variables y Referencias en Memoria
+
+Para que Z3 pueda resolver reglas de negocio complejas, requiere que las variables de estado declaradas (`E = SI(...)`) y sus ejecuciones en fórmulas (`... * E`) apunten exactamente a la misma referencia de memoria. 
+
+El Evaluador de la Fase 2 implementa una política de **Fusión de Variables** estricta. Al procesar los tokens del AST (`TEXTO` o `VARIABLE_CORCHETE`), el evaluador aplica una limpieza profunda: elimina corchetes y espacios en blanco (`[ e ]` se transforma internamente en `"E"`). 
+Al invocar `motor.obtener_o_crear_variable("E")`, Z3 garantiza que ambas instancias del árbol sintáctico se resuelvan como un único puntero. Esto evita que el motor asigne valores "libres" (ej. un millón) para cuadrar la ecuación rápidamente, obligándolo a respetar la lógica condicional que dicta si la variable debe valer 0 o 1.
+
+## Análisis Estático de Rutas y Prevención de Pruebas Fantasma (BVA + MCDC)
+
+Las funciones internas (como `MIN`, `MAX`, `POS`, `NEG`, `ABS`) encapsuladas dentro de reglas tipo Cota presentan un desafío algorítmico: si una de estas funciones se encuentra dentro de un bloque condicional anidado (por ejemplo, en el `SINO` de una regla), aplicar el Análisis de Valores Límite (BVA) de forma global genera **"pruebas fantasma"**. Es decir, Z3 puede forzar matemáticamente los argumentos del `MIN`, pero evaluar el límite contra una ruta que representa código muerto (ej. la rama `ENTONCES`).
+
+Para lograr una cobertura perfecta sin falsos positivos, la estrategia `BoundaryBuilder` implementa un modelo híbrido BVA + MCDC (Modified Condition/Decision Coverage):
+
+1. **Inyección MCDC:** El motor mapea todas las condiciones lógicas del árbol y ejecuta el BVA sobre cada rama lógica posible de manera aislada (Rutas Verdaderas, Falsas y Anidadas).
+2. **Rastreador de Guardias (`_obtener_guardias_nodo`):** Antes de estresar una función interna, un analizador estático recorre el AST desde la raíz hasta encontrar la función objetivo. Si detecta que la función está "encerrada" en un bloque condicional, captura matemáticamente esa condición lógica y la inyecta como un **candado obligatorio** en el solver (Guardias Activas).
+3. **Ejecución Precisa:** Z3 está matemáticamente forzado a navegar por la rama lógica correcta antes de evaluar los argumentos de la función, asegurando que las pruebas de frontera operen exclusivamente sobre código vivo.

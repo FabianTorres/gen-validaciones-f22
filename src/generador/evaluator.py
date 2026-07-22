@@ -127,13 +127,24 @@ class EvaluadorAST:
     def _casos_trailing(self, nodo):
         """
         Maneja estructuras condicionales en cascada.
-        Asume un 'Sino 0' implícito al final si ninguna condición se cumple.
+        Si existe un 'caso_default' (SINO final explícito), lo usa como base.
+        Si no, asume un 'Sino 0' implícito.
         """
-        resultado = 0  # El Sino 0 por defecto
-        # Recorremos en reversa para armar los If anidados desde adentro hacia afuera
-        for hijo in reversed(nodo.children):
+        resultado = 0  # El Sino 0 por defecto (Fallback)
+        hijos_condicionales = []
+        
+        # 1. Separamos los casos condicionales del caso por defecto
+        for hijo in nodo.children:
+            if getattr(hijo, 'data', '') == 'caso_default':
+                resultado = self.evaluar(hijo)
+            elif getattr(hijo, 'data', '') == 'caso_trailing':
+                hijos_condicionales.append(hijo)
+
+        # 2. Recorremos en reversa para armar los If anidados desde adentro hacia afuera
+        for hijo in reversed(hijos_condicionales):
             condicion, valor = self.evaluar(hijo)
             resultado = z3.If(condicion, valor, resultado)
+            
         return resultado
 
     def _caso_trailing(self, nodo):
@@ -144,6 +155,13 @@ class EvaluadorAST:
         valor = self.evaluar(nodo.children[0])
         condicion = self.evaluar(nodo.children[-1])
         return condicion, valor
+
+    def _caso_default(self, nodo):
+        """
+        Evalúa y retorna el valor de la rama por defecto (SINO final).
+        Toma el primer hijo ignorando puntuaciones finales.
+        """
+        return self.evaluar(nodo.children[0])
 
     # --- 4. COMPARACIONES Y MATEMÁTICAS ---
     
@@ -250,35 +268,50 @@ class EvaluadorAST:
         nombre_func = str(nodo.children[0]).upper()
         
         args_node = nodo.children[2]
-        args_limpios = [h for h in args_node.children if str(h) != ';']
+        # ESCUDO: Filtramos tanto ';' como ',' para evitar inyectar basura sintáctica a Z3
+        nodos_utiles = [h for h in args_node.children if str(h) not in (';', ',')]
         
         if nombre_func == 'POS':
-            arg = self.evaluar(args_limpios[0])
+            arg = self.evaluar(nodos_utiles[0])
             return z3.If(arg > 0, arg, 0)
             
         elif nombre_func == 'NEG':
-            arg = self.evaluar(args_limpios[0])
+            arg = self.evaluar(nodos_utiles[0])
             # Si es negativo (< 0), retornamos su valor absoluto (-arg). Si no, 0.
             return z3.If(arg < 0, -arg, 0)
 
         elif nombre_func == 'ABS':
-            arg = self.evaluar(args_limpios[0])
+            arg = self.evaluar(nodos_utiles[0])
             # Si es negativo, retorna -arg (para hacerlo positivo). Si no, retorna el mismo valor.
             return z3.If(arg < 0, -arg, arg)
             
         elif nombre_func == 'MIN':
-            arg1 = self.evaluar(args_limpios[0])
-            arg2 = self.evaluar(args_limpios[1])
+            arg1 = self.evaluar(nodos_utiles[0])
+            arg2 = self.evaluar(nodos_utiles[1])
             return z3.If(arg1 < arg2, arg1, arg2)
             
         elif nombre_func == 'MAX':
-            arg1 = self.evaluar(args_limpios[0])
-            arg2 = self.evaluar(args_limpios[1])
+            arg1 = self.evaluar(nodos_utiles[0])
+            arg2 = self.evaluar(nodos_utiles[1])
             return z3.If(arg1 > arg2, arg1, arg2)
-        
+            
+        # --- NUEVA FUNCIÓN: Traducción matemática de ROUND a Z3 ---
         elif nombre_func == 'ROUND':
-            # Mantenemos tu lógica original adaptada a la nueva estructura
-            return self.evaluar(args_limpios[0])
+            expr = self.evaluar(nodos_utiles[0])
+            
+            # Determinamos cuántos decimales exige la regla
+            dec_val = 0
+            if len(nodos_utiles) > 1:
+                decimales_ast = self.evaluar(nodos_utiles[1])
+                if hasattr(decimales_ast, 'as_long'): dec_val = decimales_ast.as_long()
+                elif hasattr(decimales_ast, 'as_fraction'): dec_val = int(decimales_ast.as_fraction())
+                elif isinstance(decimales_ast, (int, float)): dec_val = int(decimales_ast)
+                
+            factor = 10 ** dec_val
+            
+            # Matemática pura para Z3: floor(expr * factor + 0.5) / factor
+            # ToInt corta los decimales, actuando como floor para números positivos.
+            return z3.ToReal(z3.ToInt((expr * factor) + z3.RealVal("0.5"))) / factor
             
         # Si llega una función que Z3 aún no conoce, avisamos claramente:
         raise ValueError(f"Función matemática no soportada o no implementada en Z3: {nombre_func}")
@@ -308,12 +341,12 @@ class EvaluadorAST:
         return None
         
     def _lista_argumentos(self, nodo):
-        """Evalúa los argumentos de una función omitiendo los separadores (;)"""
+        """Evalúa los argumentos de una función omitiendo los separadores (; y ,)"""
         argumentos_limpios = []
         for hijo in nodo.children:
             val = self.evaluar(hijo)
-            # Ignoramos el separador para que Z3 solo reciba las variables/números
-            if isinstance(val, str) and val == ';':
+            # Ignoramos los separadores para que Z3 solo reciba las variables/números
+            if isinstance(val, str) and val in (';', ','):
                 continue
             argumentos_limpios.append(val)
         return argumentos_limpios

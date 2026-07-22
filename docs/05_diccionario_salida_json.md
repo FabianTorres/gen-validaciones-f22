@@ -87,6 +87,26 @@ Glosas humanas estandarizadas que acompañan a cada `tipo_escenario` para dar co
 
 ---
 
+## Filtrado de Exportación: Variables Visibles vs. Variables de Estado
+
+El diccionario `"inputs"` dentro del JSON exportado **no es un volcado crudo de la memoria de Z3**. Está estrictamente filtrado para garantizar compatibilidad directa con los payloads que consume el bot de automatización en Selenium (interfaz de usuario).
+
+Z3 evalúa decenas de restricciones matemáticas invisibles (ej. booleanos, parámetros de cruce, condiciones de RUT), pero el exportador (`BaseStrategy`) aplica un mecanismo de "Doble Candado" para sanitizar el output.
+
+**Regla de Exclusión:**
+Las siguientes variables son tratadas como *Variables de Estado* en el backend matemático y jamás aparecerán en el bloque `"inputs"` del JSON:
+* Declaraciones condicionales o variables auxiliares (ej. `E`, `ALFA`, `[ e ]`).
+* Compuertas lógicas de atributos de negocio (ej. `IS_ATRIBUTO_M14A`).
+* Funciones vinculadas a la identidad del contribuyente (ej. `TIPO_[03]`, `SUBTIPO_[03]`).
+
+**Regla de Inclusión (Doble Candado):**
+Para que una variable sea considerada una "celda" y exportada a `"inputs"`, debe cumplir de forma simultánea:
+1. **Identidad Estructural:** Su nombre comienza con un corchete de apertura `[` y finaliza con un corchete de cierre `]`.
+2. **Identidad Numérica:** Su interior contiene obligatoriamente al menos un carácter numérico (dígito), descartando falsos positivos originados por variables abstractas. (Excepción: Identificadores de vectores como `Vx`).
+
+Esto asegura que el JSON final contenga únicamente códigos tributarios que existen físicamente en los formularios del portal del SII.
+
+
 ## Excepciones y Casos de Error
 
 Si el Excel del SII contiene una regla que es matemáticamente imposible o contradictoria (ej. `[100] > 5 .Y. [100] < 2`), el motor matemático abortará la generación de inputs y devolverá este objeto especial de diagnóstico:

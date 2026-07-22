@@ -13,7 +13,7 @@ class BaseStrategy(ABC):
     def generar_casos(self, ast_tree, id_val):
         pass
 
-    def _resolver_y_formatear(self, id_val, tipo_escenario, descripcion, error_esperado=None, codigo_objetivo=None):
+    def _resolver_y_formatear(self, id_val, tipo_escenario, descripcion, error_esperado=None, codigo_objetivo=None, condicion_verificadora=None):
         if self.motor.solver.check() == z3.sat:
             modelo = self.motor.solver.model()
             datos_selenium = {}
@@ -25,6 +25,10 @@ class BaseStrategy(ABC):
             subtipo_req = None
             
             for variable_z3 in modelo:
+                # --- PARCHE DE ARQUITECTURA: Ignorar funciones fantasma de Z3 (como /0 o funciones no interpretadas) ---
+                if variable_z3.arity() > 0:
+                    continue
+
                 nombre = variable_z3.name()
                 valor_crudo = modelo[variable_z3]
                 
@@ -36,25 +40,18 @@ class BaseStrategy(ABC):
                     continue
                     
                 if nombre == "TIPO_[03]":
-                    if z3.is_rational_value(valor_crudo):
-                        tipo_req = int(valor_crudo.as_fraction())
-                    elif z3.is_int(valor_crudo):
-                        tipo_req = valor_crudo.as_long()
-                    else:
-                        tipo_req = 1 
+                    if z3.is_rational_value(valor_crudo): tipo_req = int(valor_crudo.as_fraction())
+                    elif z3.is_int(valor_crudo): tipo_req = valor_crudo.as_long()
+                    else: tipo_req = 1 
                     continue
 
                 if nombre == "SUBTIPO_[03]":
-                    if z3.is_rational_value(valor_crudo):
-                        subtipo_req = int(valor_crudo.as_fraction())
-                    elif z3.is_int(valor_crudo):
-                        subtipo_req = valor_crudo.as_long()
-                    else:
-                        subtipo_req = 111 
+                    if z3.is_rational_value(valor_crudo): subtipo_req = int(valor_crudo.as_fraction())
+                    elif z3.is_int(valor_crudo): subtipo_req = valor_crudo.as_long()
+                    else: subtipo_req = 111 
                     continue
 
                 # --- MAGIA 2: FILTRO DE INPUTS PARA SELENIUM ---
-                # EL CANDADO: Empieza con [, termina con ], Y TIENE AL MENOS UN NÚMERO.
                 es_codigo = nombre.startswith('[') and nombre.endswith(']') and any(c.isdigit() for c in nombre)
                 es_vector = nombre.startswith('Vx')
                 
@@ -77,6 +74,35 @@ class BaseStrategy(ABC):
                     valor_objetivo = valor_limpio
                 else:
                     datos_selenium[nombre] = valor_limpio
+
+            # --- MAGIA 3: VERIFICACIÓN POST-REDONDEO (LA DOBLE PASADA) ---
+            if condicion_verificadora is not None and error_esperado is not None:
+                sustituciones = []
+                for variable_z3 in modelo:
+                    # Aplicamos el mismo escudo aquí para la sustitución
+                    if variable_z3.arity() > 0:
+                        continue
+                        
+                    nombre = variable_z3.name()
+                    if nombre in datos_selenium:
+                        sustituciones.append((variable_z3(), z3.RealVal(datos_selenium[nombre])))
+                    elif codigo_objetivo and nombre == codigo_objetivo:
+                        sustituciones.append((variable_z3(), z3.RealVal(valor_objetivo)))
+                    else:
+                        sustituciones.append((variable_z3(), modelo[variable_z3]))
+                        
+                condicion_evaluada = z3.simplify(z3.substitute(condicion_verificadora, *sustituciones))
+                
+                if z3.is_true(condicion_evaluada):
+                    resultado_real_redondeado = "BUENO"
+                elif z3.is_false(condicion_evaluada):
+                    resultado_real_redondeado = "MENSAJE"
+                else:
+                    resultado_real_redondeado = error_esperado
+                    
+                if error_esperado != resultado_real_redondeado:
+                    error_esperado = resultado_real_redondeado
+                    descripcion += f" [Auto-Corregido: El truncamiento decimal altera el resultado en UI a {error_esperado}]"
 
             rut_final = "DEFAULT_RUT"
             if self.rut_provider:

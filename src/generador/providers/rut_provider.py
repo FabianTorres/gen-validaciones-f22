@@ -46,9 +46,8 @@ class RutProvider:
                 continue
                 
             # Si el RUT sobrevive a todos los filtros, es el elegido.
-            # Como la lista está inmovilizada, el primer match siempre será el mismo.
             return mock.get("rut")
             
-        # Fallback determinista extremo: Si la regla de Z3 pide una combinación de tipo/atributo 
-        # que no existe en tu JSON (ej. TIPO 8 con atributo extraterrestre), devolvemos un genérico.
-        return "99.999.999-9"
+        # NUEVO: Si la regla exige una combinación que no existe en el catálogo, 
+        # devolvemos un string explícito de error en lugar de un RUT genérico.
+        return "SIN_RUT_VALIDO"

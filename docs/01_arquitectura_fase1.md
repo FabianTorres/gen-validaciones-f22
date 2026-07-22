@@ -27,3 +27,14 @@ Un `Transformer` de Lark que evalúa el contexto de la regla leyendo su identifi
 
 ## Fase 5: Formateador Visual (Pretty-Printer)
 Toma el AST validado por el Linter y reconstruye la fórmula en un texto estándar, con indentación limpia y estructura jerárquica (`SI / ENTONCES / SINO`), generando el output final destinado a la interfaz de usuario (Frontend).
+
+
+## Actualización Léxica: Token `VARIABLE_CORCHETE` y Fusión en Memoria
+
+Durante la evolución del analizador léxico, se identificó un conflicto semántico: el parser confundía variables abstractas rodeadas por corchetes (ej. `[ e ]`, `[alfa]`) con códigos numéricos del SII (ej. `[104]`) o textos libres. Esto provocaba que Z3 tratara las declaraciones de las variables y su uso en ecuaciones como entidades de memoria distintas.
+
+Para erradicar este problema y unificar la matemática, se implementó una estrategia en dos pasos:
+
+1. **Fase 1 (Parser Lexer):** Se introdujo el token estricto `VARIABLE_CORCHETE`. Este token captura exclusivamente cadenas alfabéticas encapsuladas entre corchetes, aislando el comportamiento de los tokens `CODIGO` (que ahora son estrictamente numéricos) y `TEXTO` (variables regulares).
+2. **Fase 2 (Evaluador Z3):** Se aplica el proceso de "Fusión de Variables". Al recibir un `VARIABLE_CORCHETE`, el motor de Z3 intercepta el valor, le extrae los corchetes y limpia los espacios (`[ e ]` -> `E`). 
+   * **Impacto Arquitectónico:** Esto garantiza que el motor asigne exactamente el mismo puntero de memoria a la evaluación de la ecuación (`... * E`) y a la declaración de la regla (`E = SI(...)`), obligando a Z3 a resolver los condicionales en lugar de asignar valores arbitrarios de variable libre.
