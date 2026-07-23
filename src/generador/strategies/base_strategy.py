@@ -25,7 +25,7 @@ class BaseStrategy(ABC):
             subtipo_req = None
             
             for variable_z3 in modelo:
-                # --- PARCHE DE ARQUITECTURA: Ignorar funciones fantasma de Z3 (como /0 o funciones no interpretadas) ---
+                # --- PARCHE DE ARQUITECTURA: Ignorar funciones fantasma de Z3 ---
                 if variable_z3.arity() > 0:
                     continue
 
@@ -75,11 +75,10 @@ class BaseStrategy(ABC):
                 else:
                     datos_selenium[nombre] = valor_limpio
 
-            # --- MAGIA 3: VERIFICACIÓN POST-REDONDEO (LA DOBLE PASADA) ---
+            # --- MAGIA 3: VERIFICACIÓN POST-REDONDEO ---
             if condicion_verificadora is not None and error_esperado is not None:
                 sustituciones = []
                 for variable_z3 in modelo:
-                    # Aplicamos el mismo escudo aquí para la sustitución
                     if variable_z3.arity() > 0:
                         continue
                         
@@ -139,3 +138,7 @@ class BaseStrategy(ABC):
         resultado = funcion_escenario()
         self.motor.solver.pop() 
         return resultado
+
+
+
+    

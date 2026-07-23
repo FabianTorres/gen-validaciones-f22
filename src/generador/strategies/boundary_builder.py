@@ -13,7 +13,6 @@ class BoundaryBuilder(BaseStrategy):
         operador = str(self.evaluador.evaluar(nodo_cota.children[1])).strip()
         z3_der = self.evaluador.evaluar(nodo_cota.children[2])
 
-        # NUEVO: CONDICIÓN MAESTRA (Para la Doble Pasada Verificadora de Redondeo)
         if operador == '<=': condicion_maestra = (z3_izq <= z3_der)
         elif operador == '<':  condicion_maestra = (z3_izq < z3_der)
         elif operador == '>=': condicion_maestra = (z3_izq >= z3_der)
@@ -22,13 +21,11 @@ class BoundaryBuilder(BaseStrategy):
         elif operador == '!=': condicion_maestra = (z3_izq != z3_der)
         else: condicion_maestra = None
 
-        # RECOLECCIÓN DE VARIABLES (Premisas Universales)
         premisas_universales = []
         nodos_var = self._encontrar_nodos_tipo(ast_tree, 'declaracion_variable')
         for nodo_var in nodos_var:
             premisas_universales.append(self.evaluador.evaluar(nodo_var))
 
-        # MAPA LÓGICO BVA (Boundary Value Analysis)
         mapa_resultados = {
             '<=': ('BUENO', 'MENSAJE', 'BUENO'),
             '<':  ('MENSAJE', 'MENSAJE', 'BUENO'),
@@ -39,7 +36,6 @@ class BoundaryBuilder(BaseStrategy):
         }
         res_exacto, res_sup, res_inf = mapa_resultados.get(operador, ('BUENO', 'BUENO', 'BUENO'))
 
-        # MAPA MATEMÁTICO PURO PARA LAS RESTRICCIONES BASE (Sin depender de los casos generados)
         mapa_restricciones = {
             '<=': (z3_izq == z3_der, z3_izq == z3_der + 1),
             '<':  (z3_izq == z3_der - 1, z3_izq == z3_der),
@@ -50,9 +46,7 @@ class BoundaryBuilder(BaseStrategy):
         }
         restriccion_base_buena, restriccion_base_mala = mapa_restricciones.get(operador, (z3_izq == z3_der, z3_izq == z3_der + 1))
 
-        # FUNCIÓN BVA DINÁMICA: Aplica los 3 límites sobre cualquier ruta impuesta
         def aplicar_bva(restricciones_ruta, sufijo_nombre, desc_ruta):
-            # CASO 1: EXACTO
             casos.append(self._ejecutar_escenario_aislado(
                 [z3_izq == z3_der] + premisas_universales + restricciones_ruta, 
                 lambda: self._resolver_y_formatear(
@@ -61,7 +55,6 @@ class BoundaryBuilder(BaseStrategy):
                     condicion_verificadora=condicion_maestra
                 )
             ))
-            # CASO 2: EXCEDE (+1 PESO)
             casos.append(self._ejecutar_escenario_aislado(
                 [z3_izq == (z3_der + 1)] + premisas_universales + restricciones_ruta, 
                 lambda: self._resolver_y_formatear(
@@ -70,7 +63,6 @@ class BoundaryBuilder(BaseStrategy):
                     condicion_verificadora=condicion_maestra
                 )
             ))
-            # CASO 3: BAJO (-1 PESO)
             casos.append(self._ejecutar_escenario_aislado(
                 [z3_izq == (z3_der - 1)] + premisas_universales + restricciones_ruta, 
                 lambda: self._resolver_y_formatear(
@@ -80,7 +72,6 @@ class BoundaryBuilder(BaseStrategy):
                 )
             ))
 
-        # 1. EVALUAR RAMAS CONDICIONALES (MCDC INYECTADO PARA COTAS)
         nodos_condicional = self._encontrar_nodos_tipo(ast_tree, 'condicional')
         nodos_trailing = self._encontrar_nodos_tipo(ast_tree, 'caso_trailing')
         
@@ -107,11 +98,8 @@ class BoundaryBuilder(BaseStrategy):
         else:
             aplicar_bva([], "LINEAL", "Evaluación sin condicionales ramificados.")
 
-
-        # 2. PRUEBAS CRUZADAS CON RUTAS ESTRICTAS: (MIN, MAX, POS, NEG, ABS, ROUND)
         nodos_func = self._encontrar_nodos_tipo(ast_tree, 'funcion_matematica')
         if nodos_func:
-            # NUEVO: Numeramos cada función que encontremos (1, 2, 3...) para evitar colisiones
             for func_idx, f_node in enumerate(nodos_func, 1):
                 nombre_func_base = str(f_node.children[0]).upper()
                 nombre_func_id = f"{nombre_func_base}_{func_idx}"
@@ -126,7 +114,6 @@ class BoundaryBuilder(BaseStrategy):
                         var_z3 = self.evaluador.evaluar(arg_ast)
                         otras_vars = [self.evaluador.evaluar(a) for i, a in enumerate(args_limpios) if i != idx_arg]
                         
-                        # Fix desigualdad estricta ya incorporado por ti
                         if nombre_func_base == 'MIN': restricciones_limite = [var_z3 < otra for otra in otras_vars]
                         else: restricciones_limite = [var_z3 > otra for otra in otras_vars]
                             
@@ -177,7 +164,6 @@ class BoundaryBuilder(BaseStrategy):
                 elif nombre_func_base == 'ROUND':
                     var_expr = self.evaluador.evaluar(args_limpios[0])
                     
-                    # 1. Calculamos el factor de decimales tal como lo hace el evaluador
                     dec_val = 0
                     if len(args_limpios) > 1:
                         decimales_ast = self.evaluador.evaluar(args_limpios[1])
@@ -186,14 +172,10 @@ class BoundaryBuilder(BaseStrategy):
                         elif isinstance(decimales_ast, (int, float)): dec_val = int(decimales_ast)
                         
                     factor = 10 ** dec_val
-                    
-                    # 2. Obligamos a Z3 a generar un número que provoque redondeo hacia arriba.
-                    # Extraemos la parte decimal restándole la parte entera al valor multiplicado.
                     val_multiplicado = var_expr * factor
                     parte_entera = z3.ToReal(z3.ToInt(val_multiplicado))
                     parte_decimal = val_multiplicado - parte_entera
                     
-                    # Exigimos que el residuo decimal sea >= 0.5
                     restriccion_redondeo = parte_decimal >= z3.RealVal("0.5")
                     
                     casos.append(self._ejecutar_escenario_aislado(
@@ -205,7 +187,6 @@ class BoundaryBuilder(BaseStrategy):
                         )
                     ))
 
-        # 3. FILTRO Y NUMERACIÓN DEDUPLICADA (Firma: RUT + Inputs)
         casos_validos = []
         inputs_vistos = set()
         idx_real = 1
@@ -221,7 +202,6 @@ class BoundaryBuilder(BaseStrategy):
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Contradicción matemática en el cálculo de límites."}]
 
-
     def _obtener_guardias_nodo(self, nodo_actual, nodo_objetivo, guardias_actuales=None):
         if guardias_actuales is None:
             guardias_actuales = []
@@ -236,12 +216,10 @@ class BoundaryBuilder(BaseStrategy):
             cond_ast = nodo_actual.children[0]
             cond_z3 = self.evaluador.evaluar(cond_ast)
             
-            # Revisar si la función está en la ruta ENTONCES
             rama_v = nodo_actual.children[1]
             res_v = self._obtener_guardias_nodo(rama_v, nodo_objetivo, guardias_actuales + [cond_z3])
             if res_v is not None: return res_v
             
-            # Revisar si la función está en la ruta SINO
             if len(nodo_actual.children) > 2:
                 rama_f = nodo_actual.children[2]
                 res_f = self._obtener_guardias_nodo(rama_f, nodo_objetivo, guardias_actuales + [z3.Not(cond_z3)])

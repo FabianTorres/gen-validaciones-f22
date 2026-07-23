@@ -19,14 +19,12 @@ class CalculationBuilder(BaseStrategy):
         if not nodo_principal:
             return [{"id_validacion": id_val, "error": "No se encontró nodo de cálculo."}]
             
-        # NUEVO: Extracción del código objetivo si es un autocalculado
         codigo_objetivo = None
         if nodo_principal[0].data == 'autocalculado':
             codigo_objetivo = str(nodo_principal[0].children[0]).strip()
             
         z3_ecuacion = self.evaluador.evaluar(nodo_principal[0])
         
-        # 1. RECOLECCIÓN DE CONTEXTO BASE
         premisas_universales = []
         if hasattr(ast_tree, 'data') and ast_tree.data == 'validacion':
             for hijo in ast_tree.children:
@@ -37,7 +35,6 @@ class CalculationBuilder(BaseStrategy):
         
         gap = 1 if not settings.USAR_DECIMALES else 0
 
-        # 2. EVALUAR LÍMITES MATEMÁTICOS CON BLOQUEO DE RUTA
         nodos_func = self._encontrar_nodos_tipo(ast_tree, 'funcion_matematica')
         
         func_names = [str(n.children[0]).upper() for n in nodos_func]
@@ -55,7 +52,6 @@ class CalculationBuilder(BaseStrategy):
             camino_base = self._obtener_camino_a_nodo(nodo_func, ast_tree)
             base_cond = ecuacion_completa + camino_base
 
-            # NUEVO: Inyección de codigo_objetivo en todas las lambdas
             if func_name == 'MIN':
                 z3_arg1, z3_arg2 = self.evaluador.evaluar(args_limpios[0]), self.evaluador.evaluar(args_limpios[1])
                 casos.append(self._ejecutar_escenario_aislado(
@@ -111,7 +107,6 @@ class CalculationBuilder(BaseStrategy):
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"ABS{s}_ENTRADA_POSITIVA", f"El valor interno de ABS{d} es positivo, manteniendo su valor.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
-        # 3. EVALUAR RAMAS CONDICIONALES (MCDC RECURSIVO)
         nodos_condicional = self._encontrar_nodos_tipo(ast_tree, 'condicional')
         nodos_trailing = self._encontrar_nodos_tipo(ast_tree, 'caso_trailing')
         
@@ -150,7 +145,6 @@ class CalculationBuilder(BaseStrategy):
                         v["desc"], "VERIFICAR_AUTOCALCULO", codigo_objetivo)
                 ))
 
-        # 4. FALLBACK LINEAL
         if not casos:
             casos.append(self._ejecutar_escenario_aislado(
                 ecuacion_completa, 
@@ -159,7 +153,6 @@ class CalculationBuilder(BaseStrategy):
                     "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.", "VERIFICAR_AUTOCALCULO", codigo_objetivo)
             ))
 
-        # 5. DEDUPLICACIÓN EN CALIENTE Y LIMPIEZA
         casos_validos = []
         inputs_vistos = set()
         idx_real = 1
@@ -184,10 +177,6 @@ class CalculationBuilder(BaseStrategy):
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Inconsistencia matemática en todas las ramas."}]
 
     def _obtener_camino_a_nodo(self, nodo_objetivo, ast_tree):
-        """
-        Analiza el AST para descubrir qué condiciones superiores deben cumplirse 
-        para que el flujo de ejecución alcance el nodo_objetivo.
-        """
         camino = []
         
         var_asociada = None

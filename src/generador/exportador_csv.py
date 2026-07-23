@@ -80,4 +80,4 @@ class ExportadorCSV:
         with open(self.ruta_salida, 'w', encoding='utf-8') as f:
             f.write('\n'.join(lineas_csv))
         
-        print(f"✅ CSV para el Bot de Selenium generado exitosamente en: {self.ruta_salida}")
+        print(f"CSV para el Automatizador generado exitosamente en: {self.ruta_salida}")
