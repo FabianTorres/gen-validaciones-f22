@@ -12,7 +12,12 @@
         "objetivo": {
             "codigo": "[494]",
             "valor": 300000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_MIN_IZQ"
+            ]
+        ]
     },
     {
         "id_validacion": "a.4.2",
@@ -27,7 +32,12 @@
         "objetivo": {
             "codigo": "[494]",
             "valor": 12517560
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_MIN_DER"
+            ]
+        ]
     },
     {
         "id_validacion": "a.4.3",
@@ -42,7 +52,12 @@
         "objetivo": {
             "codigo": "[494]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_1"
+            ]
+        ]
     },
     {
         "id_validacion": "a.4.4",
@@ -57,7 +72,12 @@
         "objetivo": {
             "codigo": "[494]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "a.6.1",
@@ -72,7 +92,12 @@
         "objetivo": {
             "codigo": "[618]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MAYOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "a.6.2",
@@ -87,7 +112,12 @@
         "objetivo": {
             "codigo": "[618]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MENOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.83.1",
@@ -110,7 +140,12 @@
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_1_MAYOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.83.2",
@@ -133,7 +168,12 @@
         "objetivo": {
             "codigo": "[1109]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_1_MENOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.83.3",
@@ -156,7 +196,12 @@
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_2_MAYOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.83.4",
@@ -179,7 +224,12 @@
         "objetivo": {
             "codigo": "[1109]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_2_MENOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.83.5",
@@ -202,7 +252,12 @@
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "b.83.6",
@@ -225,7 +280,12 @@
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "b.83.7",
@@ -248,7 +308,12 @@
         "objetivo": {
             "codigo": "[1109]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.84.1",
@@ -263,7 +328,12 @@
         "objetivo": {
             "codigo": "[1640]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "b.84.2",
@@ -278,7 +348,12 @@
         "objetivo": {
             "codigo": "[1640]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_1"
+            ]
+        ]
     },
     {
         "id_validacion": "b.84.3",
@@ -293,7 +368,12 @@
         "objetivo": {
             "codigo": "[1640]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "b.84.4",
@@ -308,7 +388,12 @@
         "objetivo": {
             "codigo": "[1640]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_3"
+            ]
+        ]
     },
     {
         "id_validacion": "b.88.1",
@@ -337,7 +422,12 @@
         "objetivo": {
             "codigo": "[1111]",
             "valor": 270000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_MIN_IZQ"
+            ]
+        ]
     },
     {
         "id_validacion": "b.88.2",
@@ -366,7 +456,12 @@
         "objetivo": {
             "codigo": "[1111]",
             "valor": 15000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_MIN_DER"
+            ]
+        ]
     },
     {
         "id_validacion": "b.88.3",
@@ -395,7 +490,12 @@
         "objetivo": {
             "codigo": "[1111]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "b.88.4",
@@ -424,7 +524,12 @@
         "objetivo": {
             "codigo": "[1111]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_1"
+            ]
+        ]
     },
     {
         "id_validacion": "b.88.5",
@@ -453,7 +558,12 @@
         "objetivo": {
             "codigo": "[1111]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "b.94.1",
@@ -468,7 +578,12 @@
         "objetivo": {
             "codigo": "[34]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MAYOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.94.2",
@@ -483,7 +598,12 @@
         "objetivo": {
             "codigo": "[34]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MENOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.97.1",
@@ -497,7 +617,12 @@
         "objetivo": {
             "codigo": "[1830]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_LINEAL_EXACTO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.114.1",
@@ -522,7 +647,12 @@
         "objetivo": {
             "codigo": "[1894]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MAYOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.114.2",
@@ -547,7 +677,12 @@
         "objetivo": {
             "codigo": "[1894]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MENOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.114.3",
@@ -572,7 +707,12 @@
         "objetivo": {
             "codigo": "[1894]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "b.114.4",
@@ -597,7 +737,12 @@
         "objetivo": {
             "codigo": "[1894]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_1"
+            ]
+        ]
     },
     {
         "id_validacion": "b.119.1",
@@ -611,7 +756,12 @@
         "objetivo": {
             "codigo": "[1916]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "b.119.2",
@@ -625,7 +775,12 @@
         "objetivo": {
             "codigo": "[1916]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "b.119.3",
@@ -639,7 +794,12 @@
         "objetivo": {
             "codigo": "[1916]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "b.119.4",
@@ -653,7 +813,12 @@
         "objetivo": {
             "codigo": "[1916]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.126.1",
@@ -678,7 +843,12 @@
         "objetivo": {
             "codigo": "[1926]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MAYOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.126.2",
@@ -703,7 +873,12 @@
         "objetivo": {
             "codigo": "[1926]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MENOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.126.3",
@@ -728,7 +903,12 @@
         "objetivo": {
             "codigo": "[1926]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "b.126.4",
@@ -753,7 +933,12 @@
         "objetivo": {
             "codigo": "[1926]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_1"
+            ]
+        ]
     },
     {
         "id_validacion": "b.126.5",
@@ -778,7 +963,12 @@
         "objetivo": {
             "codigo": "[1926]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "b.147.1",
@@ -792,7 +982,12 @@
         "objetivo": {
             "codigo": "[2014]",
             "valor": 1000000
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MAYOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.147.2",
@@ -806,7 +1001,12 @@
         "objetivo": {
             "codigo": "[2014]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_POS_MENOR_CERO"
+            ]
+        ]
     },
     {
         "id_validacion": "b.147.3",
@@ -820,7 +1020,12 @@
         "objetivo": {
             "codigo": "[2014]",
             "valor": 0
-        }
+        },
+        "huellas_cubiertas": [
+            [
+                "CALCULO_FALSO_PRINCIPAL_SINO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.1.1",
@@ -835,7 +1040,12 @@
             "[1593]": 1000000,
             "[111]": 5000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.1.2",
@@ -850,7 +1060,12 @@
             "[104]": 1000000,
             "[111]": 5000001
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.1.3",
@@ -865,7 +1080,12 @@
             "[1593]": 1000000,
             "[111]": 4999999
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.1.4",
@@ -880,7 +1100,12 @@
             "[1025]": 1000000,
             "[111]": 55809838
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.1.5",
@@ -895,7 +1120,12 @@
             "[104]": 1000000,
             "[111]": 55809839
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.7.1",
@@ -905,7 +1135,12 @@
         "inputs": {
             "[822]": 41725200
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.7.2",
@@ -915,7 +1150,12 @@
         "inputs": {
             "[822]": 41725201
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.7.3",
@@ -925,7 +1165,12 @@
         "inputs": {
             "[822]": 41725199
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.1",
@@ -950,7 +1195,12 @@
             "[104]": 0,
             "[169]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.2",
@@ -975,7 +1225,12 @@
             "[104]": 0,
             "[169]": 1
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.3",
@@ -1000,7 +1255,12 @@
             "[161]": 1000000,
             "[105]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.4",
@@ -1025,7 +1285,12 @@
             "[1632]": 1000000,
             "[105]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.5",
@@ -1050,7 +1315,12 @@
             "[1891]": 1000000,
             "[105]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.6",
@@ -1075,7 +1345,12 @@
             "[161]": 0,
             "[104]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.7",
@@ -1100,7 +1375,12 @@
             "[161]": 0,
             "[104]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.5.8",
@@ -1125,7 +1405,12 @@
             "[161]": 0,
             "[104]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.1",
@@ -1150,7 +1435,12 @@
             "[609]": 0,
             "[104]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.2",
@@ -1175,7 +1465,12 @@
             "[609]": 1,
             "[104]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.3",
@@ -1200,7 +1495,12 @@
             "[166]": 1000000,
             "[609]": 973588000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.4",
@@ -1225,7 +1525,12 @@
             "[170]": 1000000,
             "[609]": 973588001
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.5",
@@ -1250,7 +1555,12 @@
             "[1891]": 1000000,
             "[609]": 973587999
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.6",
@@ -1275,7 +1585,12 @@
             "[161]": 0,
             "[104]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.7",
@@ -1300,7 +1615,12 @@
             "[161]": 0,
             "[104]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.8",
@@ -1325,7 +1645,12 @@
             "[161]": 0,
             "[104]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.9",
@@ -1350,7 +1675,12 @@
             "[609]": 200000,
             "[479]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.10",
@@ -1375,7 +1705,12 @@
             "[609]": 1000000,
             "[479]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.11",
@@ -1400,7 +1735,12 @@
             "[609]": 199999,
             "[479]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.12",
@@ -1425,7 +1765,12 @@
             "[609]": 22253440,
             "[479]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.13",
@@ -1450,7 +1795,12 @@
             "[609]": 22253441,
             "[479]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.10.14",
@@ -1475,7 +1825,12 @@
             "[609]": 1000000,
             "[479]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_2_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.1",
@@ -1489,7 +1844,12 @@
             "[134]": 1000000,
             "[106]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.2",
@@ -1503,7 +1863,12 @@
             "[134]": 1000000,
             "[106]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.3",
@@ -1517,7 +1882,12 @@
             "[134]": 4999,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.4",
@@ -1531,7 +1901,12 @@
             "[138]": 1000000,
             "[133]": 3265822
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.5",
@@ -1545,7 +1920,12 @@
             "[134]": 1000000,
             "[158]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.6",
@@ -1559,7 +1939,12 @@
             "[158]": 1000000,
             "[106]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.7",
@@ -1573,7 +1958,12 @@
             "[133]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.8",
@@ -1587,7 +1977,12 @@
             "[133]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.9",
@@ -1601,7 +1996,12 @@
             "[158]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.10",
@@ -1615,7 +2015,12 @@
             "[158]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.11",
@@ -1629,7 +2034,12 @@
             "[133]": 1000000,
             "[138]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.12",
@@ -1643,7 +2053,12 @@
             "[106]": 2010098,
             "[134]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.13",
@@ -1657,7 +2072,12 @@
             "[134]": 1000000,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_ANIDADO_2_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.14",
@@ -1671,7 +2091,12 @@
             "[134]": 0,
             "[133]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_ANIDADO_2_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.15",
@@ -1685,7 +2110,12 @@
             "[134]": 1,
             "[133]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.16",
@@ -1699,7 +2129,12 @@
             "[134]": 0,
             "[158]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_ANIDADO_2_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.17",
@@ -1713,7 +2148,12 @@
             "[134]": 1,
             "[158]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.18",
@@ -1727,7 +2167,12 @@
             "[134]": 5000,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_1_MENOR_A_CERO_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.19",
@@ -1741,7 +2186,12 @@
             "[134]": 5001,
             "[106]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_1_MENOR_A_CERO_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.23.20",
@@ -1755,7 +2205,12 @@
             "[134]": 500000,
             "[158]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.26.1",
@@ -1766,7 +2221,12 @@
             "[701]": 1000000,
             "[702]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.26.2",
@@ -1777,7 +2237,12 @@
             "[702]": 1000001,
             "[701]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.26.3",
@@ -1788,7 +2253,12 @@
             "[702]": 1000000,
             "[701]": 1000001
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.1",
@@ -1802,7 +2272,12 @@
             "[134]": 5000,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.2",
@@ -1816,7 +2291,12 @@
             "[134]": 5001,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.3",
@@ -1830,7 +2310,12 @@
             "[134]": 4999,
             "[106]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.4",
@@ -1844,7 +2329,12 @@
             "[134]": 405000,
             "[133]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.5",
@@ -1858,7 +2348,12 @@
             "[158]": 1000000,
             "[133]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.6",
@@ -1872,7 +2367,12 @@
             "[134]": 1000000,
             "[106]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.7",
@@ -1886,7 +2386,12 @@
             "[133]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.8",
@@ -1900,7 +2405,12 @@
             "[133]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.9",
@@ -1914,7 +2424,12 @@
             "[158]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.10",
@@ -1928,7 +2443,12 @@
             "[158]": 0,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.11",
@@ -1942,7 +2462,12 @@
             "[133]": 5966666,
             "[158]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.12",
@@ -1956,7 +2481,12 @@
             "[106]": 2487497,
             "[138]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.13",
@@ -1970,7 +2500,12 @@
             "[106]": 1000000,
             "[134]": 404999
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_ANIDADO_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.14",
@@ -1984,7 +2519,12 @@
             "[134]": 1000000,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.15",
@@ -1998,7 +2538,12 @@
             "[134]": 0,
             "[133]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_ANIDADO_2_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.16",
@@ -2012,7 +2557,12 @@
             "[134]": 1,
             "[133]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.17",
@@ -2026,7 +2576,12 @@
             "[134]": 0,
             "[158]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_ANIDADO_2_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.18",
@@ -2040,7 +2595,12 @@
             "[134]": 1,
             "[158]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.19",
@@ -2054,7 +2614,12 @@
             "[133]": 13300000,
             "[106]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_1_MAYOR_A_CERO_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.20",
@@ -2068,7 +2633,12 @@
             "[133]": 13300006,
             "[106]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_1_MAYOR_A_CERO_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.28.21",
@@ -2082,7 +2652,12 @@
             "[158]": 1000000,
             "[133]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.76.1",
@@ -2097,7 +2672,12 @@
             "[748]": 1000000,
             "[1026]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.76.2",
@@ -2112,7 +2692,12 @@
             "[1595]": 1000000,
             "[1026]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.76.3",
@@ -2127,7 +2712,12 @@
             "[1594]": 1000000,
             "[1026]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.76.4",
@@ -2142,7 +2732,12 @@
             "[1026]": 1000000,
             "[748]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.76.5",
@@ -2157,7 +2752,12 @@
             "[1026]": 1000000,
             "[748]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.76.6",
@@ -2172,7 +2772,12 @@
             "[1026]": 1000000,
             "[748]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.80.1",
@@ -2184,7 +2789,12 @@
             "[1635]": 1000000,
             "[1031]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.80.2",
@@ -2196,7 +2806,12 @@
             "[1635]": 1000000,
             "[1031]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.80.3",
@@ -2208,7 +2823,12 @@
             "[1635]": 1000000,
             "[1031]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.1",
@@ -2219,7 +2839,12 @@
             "[491]": 1000000,
             "[479]": 2857142
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.2",
@@ -2230,7 +2855,12 @@
             "[491]": 350001,
             "[479]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.3",
@@ -2241,7 +2871,12 @@
             "[491]": 1000000,
             "[479]": 2857145
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.4",
@@ -2252,7 +2887,12 @@
             "[491]": 1000000,
             "[479]": 2857142
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.5",
@@ -2263,7 +2903,12 @@
             "[491]": 350001,
             "[479]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.6",
@@ -2274,7 +2919,12 @@
             "[491]": 349999,
             "[479]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.7",
@@ -2285,7 +2935,12 @@
             "[491]": 1000000,
             "[479]": 2857142
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.8",
@@ -2296,7 +2951,12 @@
             "[491]": 350001,
             "[479]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.9",
@@ -2307,7 +2967,12 @@
             "[491]": 349999,
             "[479]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.10",
@@ -2318,7 +2983,12 @@
             "[491]": 1000000,
             "[479]": 2857142
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_4"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.11",
@@ -2329,7 +2999,12 @@
             "[491]": 350001,
             "[479]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_4"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.12",
@@ -2340,7 +3015,12 @@
             "[491]": 349999,
             "[479]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL_4"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.13",
@@ -2351,7 +3031,12 @@
             "[491]": 1000000,
             "[479]": 5000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.14",
@@ -2362,7 +3047,12 @@
             "[491]": 200001,
             "[479]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.83.15",
@@ -2373,7 +3063,12 @@
             "[491]": 199999,
             "[479]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.1",
@@ -2391,7 +3086,12 @@
             "[1636]": 1000000,
             "[1024]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.2",
@@ -2409,7 +3109,12 @@
             "[1024]": 1000000,
             "[1594]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.3",
@@ -2427,7 +3132,12 @@
             "[105]": 1000000,
             "[1024]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.4",
@@ -2445,7 +3155,12 @@
             "[748]": 1000000,
             "[1636]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.5",
@@ -2463,7 +3178,12 @@
             "[104]": 1000000,
             "[1636]": 1
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.6",
@@ -2481,7 +3201,12 @@
             "[1026]": 0,
             "[1636]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.7",
@@ -2499,7 +3224,12 @@
             "[1594]": 0,
             "[1636]": 1
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.8",
@@ -2517,7 +3247,12 @@
             "[1594]": 1000000,
             "[170]": 278596240
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.9",
@@ -2535,7 +3270,12 @@
             "[1026]": 1000000,
             "[170]": 278596220
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.10",
@@ -2553,7 +3293,12 @@
             "[104]": 1000000,
             "[1594]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_2_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.107.11",
@@ -2571,7 +3316,12 @@
             "[104]": 1000000,
             "[1592]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_2_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.1",
@@ -2584,7 +3334,12 @@
             "[157]": 1000000,
             "[1637]": 1005000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.2",
@@ -2597,7 +3352,12 @@
             "[157]": 1000000,
             "[1637]": 1005001
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.3",
@@ -2610,7 +3370,12 @@
             "[157]": 1000000,
             "[1637]": 1004999
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.4",
@@ -2623,7 +3388,12 @@
             "[1849]": 1000000,
             "[1637]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.5",
@@ -2636,7 +3406,12 @@
             "[157]": 1000000,
             "[1637]": 1
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.6",
@@ -2649,7 +3424,12 @@
             "[1637]": 0,
             "[1849]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.7",
@@ -2662,7 +3442,12 @@
             "[1637]": 1,
             "[1849]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.8",
@@ -2675,7 +3460,12 @@
             "[1637]": 0,
             "[170]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.9",
@@ -2688,7 +3478,12 @@
             "[1637]": 1,
             "[170]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL_3"
+            ]
+        ]
     },
     {
         "id_validacion": "c.126.10",
@@ -2701,7 +3496,12 @@
             "[1849]": 1000000,
             "[1637]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_ROUND_1_HACIA_ARRIBA_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.1",
@@ -2729,7 +3529,12 @@
             "[32]": 0,
             "[1035]": 2395000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.2",
@@ -2757,7 +3562,12 @@
             "[32]": 0,
             "[1035]": 2395001
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.3",
@@ -2785,7 +3595,12 @@
             "[32]": 0,
             "[1035]": 2394999
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.4",
@@ -2813,7 +3628,12 @@
             "[1592]": 1000000,
             "[1035]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.5",
@@ -2841,7 +3661,12 @@
             "[1592]": 1000000,
             "[1035]": 1
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_PRINCIPAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.6",
@@ -2869,7 +3694,12 @@
             "[1024]": 0,
             "[1592]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_ANIDADO_2_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.7",
@@ -2897,7 +3727,12 @@
             "[1024]": 0,
             "[1592]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.8",
@@ -2925,7 +3760,12 @@
             "[1024]": 0,
             "[1592]": 0
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_ANIDADO_2_1"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.9",
@@ -2953,7 +3793,12 @@
             "[1024]": 1000000,
             "[1592]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_FALSO_ANIDADO_2_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.10",
@@ -2981,7 +3826,12 @@
             "[1024]": 1000000,
             "[1592]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_FALSO_ANIDADO_2_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.11",
@@ -3009,7 +3859,12 @@
             "[1024]": 1000000,
             "[1592]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_FALSO_ANIDADO_2_2"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.12",
@@ -3037,7 +3892,12 @@
             "[32]": 0,
             "[1035]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_1_MENOR_A_CERO_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.13",
@@ -3065,7 +3925,12 @@
             "[32]": 0,
             "[1035]": 2795000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_2_ARG_1_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.14",
@@ -3093,7 +3958,12 @@
             "[32]": 0,
             "[1035]": 2794999
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_2_ARG_1_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.15",
@@ -3121,7 +3991,12 @@
             "[32]": 0,
             "[1035]": 2395000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_3_ARG_2_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.132.16",
@@ -3149,7 +4024,12 @@
             "[32]": 0,
             "[1035]": 2394999
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_3_ARG_2_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.1",
@@ -3181,7 +4061,12 @@
             "[104]": 1000000,
             "[1833]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "LIMITE_EXACTO_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.2",
@@ -3213,7 +4098,12 @@
             "[1032]": 1000000,
             "[1833]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "EXCEDE_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.3",
@@ -3245,7 +4135,12 @@
             "[105]": 1000000,
             "[1833]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "BAJO_LIMITE_LINEAL"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.4",
@@ -3277,7 +4172,12 @@
             "[169]": 1000000,
             "[1833]": 695420000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.5",
@@ -3309,7 +4209,12 @@
             "[750]": 1000000,
             "[1833]": 695420001
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.6",
@@ -3341,7 +4246,12 @@
             "[1104]": 1000000,
             "[1833]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_2_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.7",
@@ -3373,7 +4283,12 @@
             "[166]": 1000000,
             "[1833]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_MIN_1_ARG_2_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.8",
@@ -3405,7 +4320,12 @@
             "[169]": 1000000,
             "[1833]": 1000000
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_2_MAYOR_A_CERO_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.9",
@@ -3437,7 +4357,12 @@
             "[955]": 1000000,
             "[1833]": 1000000
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_2_MAYOR_A_CERO_MENSAJE"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.10",
@@ -3469,7 +4394,12 @@
             "[104]": 1000000,
             "[1833]": 0
         },
-        "resultado_esperado": "BUENO"
+        "resultado_esperado": "BUENO",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO"
+            ]
+        ]
     },
     {
         "id_validacion": "c.134.11",
@@ -3501,6 +4431,11 @@
             "[166]": 1000000,
             "[1833]": 1
         },
-        "resultado_esperado": "MENSAJE"
+        "resultado_esperado": "MENSAJE",
+        "huellas_cubiertas": [
+            [
+                "COTA_FUNC_POS_2_MENOR_A_CERO_MENSAJE"
+            ]
+        ]
     }
 ]
