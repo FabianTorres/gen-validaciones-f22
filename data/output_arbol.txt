@@ -1672,3 +1672,102 @@ validacion
       P64
 
 ========================================
+Validacion: d.1
+----------------------------------------
+validacion
+  implicacion
+    comparacion_simple
+      [19]
+      >
+      0
+    =>
+    comparacion_simple
+      agrupacion
+        (
+        expresion
+          [20]
+          +
+          [18]
+        )
+      >
+      0
+
+========================================
+Validacion: d.166
+----------------------------------------
+validacion
+  implicacion
+    comparacion_simple
+      [1908]
+      >
+      0
+    =>
+    condicional
+      condicion_logica
+        comparacion_simple
+          funcion_rut
+            TIPO
+            {
+            [03]
+            }
+          =
+          1
+        .y.
+        comparacion_simple
+          agrupacion
+            (
+            expresion
+              [187]
+              +
+              [1037]
+              +
+              [18]
+              +
+              [1109]
+            )
+          <
+          P01
+      comparacion_simple
+        agrupacion
+          (
+          expresion
+            [189]
+            +
+            [1039]
+            +
+            [20]
+            +
+            [1113]
+          )
+        =
+        0
+      comparacion_simple
+        agrupacion
+          (
+          expresion
+            [187]
+            +
+            [1037]
+            +
+            funcion_matematica
+              ABS
+              {
+              lista_argumentos	[1440]
+              }
+            +
+            funcion_matematica
+              ABS
+              {
+              lista_argumentos	[1690]
+              }
+            +
+            funcion_matematica
+              ABS
+              {
+              lista_argumentos	[1630]
+              }
+          )
+        >
+        0
+
+========================================

@@ -107,6 +107,17 @@ class BaseStrategy(ABC):
             huella_logica = {}
             if ast_tree:
                 huella_logica = self._calcular_huella_logica(modelo, ast_tree)
+                
+            # INYECCIÓN ESTRATÉGICA (Protección exclusiva para reglas lineales)
+            # Como las reglas lineales no tienen IFs ni ANDs, su huella es vacía {}.
+            # Inyectamos el BVA para evitar que la Fase 3 borre la tríada por considerarlos clones.
+            if "LINEAL" in tipo_escenario:
+                if "LIMITE_EXACTO" in tipo_escenario:
+                    huella_logica["BVA_RAIZ"] = "EXACTO"
+                elif "EXCEDE_LIMITE" in tipo_escenario:
+                    huella_logica["BVA_RAIZ"] = "EXCESO"
+                elif "BAJO_LIMITE" in tipo_escenario:
+                    huella_logica["BVA_RAIZ"] = "BAJO"
 
             rut_final = "DEFAULT_RUT"
             if self.rut_provider:
