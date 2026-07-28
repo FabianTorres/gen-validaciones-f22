@@ -1557,3 +1557,118 @@ validacion
       0
 
 ========================================
+Validacion: c.184
+----------------------------------------
+validacion
+  cota
+    expresion
+      [1879]
+      +
+      [1880]
+      +
+      [1881]
+      +
+      [1882]
+    <=
+    casos_trailing
+      caso_trailing
+        expresion
+          P651
+          *
+          [1883]
+          +
+          P390
+        ;
+        comparacion_simple
+          [748]
+          =
+          0
+      caso_default
+        expresion
+          P59
+          *
+          [1883]
+          +
+          P390
+        ;
+
+========================================
+Validacion: c.214
+----------------------------------------
+validacion
+  cota
+    [1959]
+    >=
+    condicional
+      comparacion_simple
+        funcion_matematica
+          ABS
+          {
+          lista_argumentos
+            expresion
+              [1955]
+              +
+              [1956]
+              +
+              [1957]
+              +
+              [1958]
+              +
+              [1959]
+              +
+              [1961]
+              +
+              [1962]
+              +
+              [1963]
+              -
+              [1964]
+              -
+              [1965]
+              -
+              [1966]
+          }
+        >
+        0
+      expresion
+        [938]
+        +
+        [949]
+      0
+
+========================================
+Validacion: c.275
+----------------------------------------
+validacion
+  cota
+    agrupacion
+      (
+      expresion
+        [1475]
+        +
+        [1480]
+      )
+    <=
+    agrupacion
+      (
+      expresion
+        [1463]
+        +
+        [1467]
+        +
+        [1471]
+      )
+
+========================================
+Validacion: c.276
+----------------------------------------
+validacion
+  cota
+    [461]
+    >=
+    expresion
+      [492]
+      /
+      P64
+
+========================================

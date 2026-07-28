@@ -36,7 +36,8 @@ class CalculationBuilder(BaseStrategy):
         # Se fuerza una distancia estricta mínima de 2
         gap = 2
 
-        nodos_func = self._encontrar_nodos_tipo(ast_tree, 'funcion_matematica')
+        # Unificamos ambas estructuras gramaticales de función
+        nodos_func = self._encontrar_nodos_tipo(ast_tree, 'funcion_matematica') + self._encontrar_nodos_tipo(ast_tree, 'funcion_directa')
         
         func_names = [str(n.children[0]).upper() for n in nodos_func]
         func_totals = {name: func_names.count(name) for name in set(func_names)}
@@ -49,7 +50,13 @@ class CalculationBuilder(BaseStrategy):
             sufijo = f"_{func_current[func_name]}" if func_totals[func_name] > 1 else ""
             desc_sufijo = f" (Instancia {func_current[func_name]})" if func_totals[func_name] > 1 else ""
             
-            args_limpios = [h for h in nodo_func.children[2].children if str(h) != ';']
+            if nodo_func.data == 'funcion_matematica':
+                args_limpios = [h for h in nodo_func.children[2].children if str(h) != ';']
+            else:
+                args_limpios = [nodo_func.children[1]]
+
+
+
             camino_base = self._obtener_camino_a_nodo(nodo_func, ast_tree)
             base_cond = ecuacion_completa + camino_base
 
@@ -245,64 +252,82 @@ class CalculationBuilder(BaseStrategy):
         return False
 
     def _desglosar_condicion_verdadera(self, z3_cond):
-        variaciones = []
-        def aplanar_or(expr):
-            if z3.is_app(expr) and expr.decl().kind() == z3.Z3_OP_OR:
-                res = []
-                for c in expr.children():
-                    res.extend(aplanar_or(c))
-                return res
-            return [expr]
-
-        if z3.is_app(z3_cond) and z3_cond.decl().kind() == z3.Z3_OP_OR:
-            hijos = aplanar_or(z3_cond)
-            for i in range(len(hijos)):
-                restricciones = []
-                for j, hijo in enumerate(hijos):
-                    if i == j:
-                        restricciones.append(hijo)
-                    else:
-                        restricciones.append(z3.Not(hijo))
-                variaciones.append({
+        import itertools
+        if not z3.is_app(z3_cond):
+            return [{"restriccion": z3_cond, "desc": "La condición se cumple (Rama alcanzada)."}]
+            
+        kind = z3_cond.decl().kind()
+        
+        if kind == z3.Z3_OP_OR:
+            variaciones = []
+            hijos = z3_cond.children()
+            for i, hijo_actual in enumerate(hijos):
+                vars_hijo = self._desglosar_condicion_verdadera(hijo_actual)
+                for var in vars_hijo:
+                    restricciones = [var["restriccion"]]
+                    for j, otro_hijo in enumerate(hijos):
+                        if i != j:
+                            restricciones.append(z3.Not(otro_hijo))
+                    variaciones.append({
+                        "restriccion": z3.And(*restricciones),
+                        "desc": f"Bloque OR (opción {i+1}): {var['desc']}"
+                    })
+            return variaciones
+            
+        elif kind == z3.Z3_OP_AND:
+            variaciones_hijos = [self._desglosar_condicion_verdadera(h) for h in z3_cond.children()]
+            combinaciones = list(itertools.product(*variaciones_hijos))
+            
+            variaciones_finales = []
+            for idx, combo in enumerate(combinaciones):
+                restricciones = [item["restriccion"] for item in combo]
+                variaciones_finales.append({
                     "restriccion": z3.And(*restricciones),
-                    "desc": f"La sub-condición {i+1} del bloque OR se cumple de forma exclusiva."
+                    "desc": "Todas las sub-condiciones del AND se cumplen."
                 })
+            return variaciones_finales
+            
         else:
-            variaciones.append({
-                "restriccion": z3_cond,
-                "desc": "La condición se cumple (Rama alcanzada)."
-            })
-        return variaciones
+            return [{"restriccion": z3_cond, "desc": "La condición se cumple (Rama alcanzada)."}]
 
     def _desglosar_condicion_falsa(self, z3_cond):
-        variaciones = []
-        def aplanar_and(expr):
-            if z3.is_app(expr) and expr.decl().kind() == z3.Z3_OP_AND:
-                res = []
-                for c in expr.children():
-                    res.extend(aplanar_and(c))
-                return res
-            return [expr]
-
-        if z3.is_app(z3_cond) and z3_cond.decl().kind() == z3.Z3_OP_AND:
-            hijos = aplanar_and(z3_cond)
-            for i in range(len(hijos)):
-                restricciones = []
-                for j, hijo in enumerate(hijos):
-                    if i == j:
-                        restricciones.append(z3.Not(hijo))
-                    else:
-                        restricciones.append(hijo)
-                variaciones.append({
+        import itertools
+        if not z3.is_app(z3_cond):
+            return [{"restriccion": z3.Not(z3_cond), "desc": "La condición no se cumple, forzando la celda a su valor por defecto."}]
+            
+        kind = z3_cond.decl().kind()
+        
+        if kind == z3.Z3_OP_AND:
+            variaciones = []
+            hijos = z3_cond.children()
+            for i, hijo_actual in enumerate(hijos):
+                vars_hijo_falso = self._desglosar_condicion_falsa(hijo_actual)
+                for var in vars_hijo_falso:
+                    restricciones = [var["restriccion"]]
+                    for j, otro_hijo in enumerate(hijos):
+                        if i != j:
+                            restricciones.append(otro_hijo) 
+                    variaciones.append({
+                        "restriccion": z3.And(*restricciones),
+                        "desc": f"Bloque AND falla (sub-condición {i+1}): {var['desc']}"
+                    })
+            return variaciones
+            
+        elif kind == z3.Z3_OP_OR:
+            variaciones_hijos = [self._desglosar_condicion_falsa(h) for h in z3_cond.children()]
+            combinaciones = list(itertools.product(*variaciones_hijos))
+            
+            variaciones_finales = []
+            for idx, combo in enumerate(combinaciones):
+                restricciones = [item["restriccion"] for item in combo]
+                variaciones_finales.append({
                     "restriccion": z3.And(*restricciones),
-                    "desc": f"La sub-condición {i+1} del bloque AND falla de forma exclusiva."
+                    "desc": "Todas las opciones del OR son falsas."
                 })
+            return variaciones_finales
+            
         else:
-            variaciones.append({
-                "restriccion": z3.Not(z3_cond),
-                "desc": "La condición no se cumple, forzando la celda a su valor por defecto."
-            })
-        return variaciones
+            return [{"restriccion": z3.Not(z3_cond), "desc": "La condición no se cumple, forzando la celda a su valor por defecto."}]
 
     def _encontrar_nodos_tipo(self, arbol, tipo_data):
         encontrados = []

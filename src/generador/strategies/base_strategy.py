@@ -152,7 +152,7 @@ class BaseStrategy(ABC):
         aplicando cortocircuitos reales y respetando las ramas de control (SINO).
         """
         huella = {}
-        contadores = {'CONDICION': 0, 'MIN': 0, 'MAX': 0, 'POS': 0, 'NEG': 0, 'IF': 0, 'AND': 0, 'OR': 0}
+        contadores = {'CONDICION': 0, 'MIN': 0, 'MAX': 0, 'POS': 0, 'NEG': 0, 'ABS': 0, 'IF': 0, 'AND': 0, 'OR': 0}
 
         def visitar(nodo, forzar_skip=False):
             if not hasattr(nodo, 'data'):
@@ -249,6 +249,14 @@ class BaseStrategy(ABC):
             elif nodo.data.startswith('comparacion'):
                 contadores['CONDICION'] += 1
                 id_comp = contadores['CONDICION']
+
+                # --- CORRECCIÓN: RECURSIÓN PREVIA ---
+                # Antes de evaluar si la condición es verdadera o falsa, se obliga 
+                # al visitante a revisar los componentes internos por si el desarrollador 
+                # escondió un MIN, MAX, POS, NEG o ABS dentro de la pregunta lógica.
+                if hasattr(nodo, 'children'):
+                    for hijo in nodo.children:
+                        visitar(hijo, forzar_skip)
                 
                 if forzar_skip:
                     huella[f"CONDICION_{id_comp}"] = "SKIPPED"
@@ -264,13 +272,17 @@ class BaseStrategy(ABC):
                     huella[f"CONDICION_{id_comp}"] = "ERR_EVAL"
                     return False
 
-            # 6. FUNCIONES MATEMÁTICAS (MIN, MAX, POS, NEG)
-            elif nodo.data == 'funcion_matematica':
+            # 6. FUNCIONES MATEMÁTICAS Y DIRECTAS (MIN, MAX, POS, NEG, ABS)
+            elif nodo.data in ('funcion_matematica', 'funcion_directa'):
                 try:
                     nombre_func = str(nodo.children[0]).upper()
-                    args_limpios = [h for h in nodo.children[2].children if str(h) != ';']
                     
-                    if nombre_func in ('MIN', 'MAX', 'POS', 'NEG'):
+                    if nodo.data == 'funcion_matematica':
+                        args_limpios = [h for h in nodo.children[2].children if str(h) != ';']
+                    else:
+                        args_limpios = [nodo.children[1]]
+                        
+                    if nombre_func in ('MIN', 'MAX', 'POS', 'NEG', 'ABS'):
                         contadores[nombre_func] += 1
                         id_func = f"{nombre_func}_{contadores[nombre_func]}"
                         
@@ -283,7 +295,7 @@ class BaseStrategy(ABC):
                                 gana = "ARG1" if (val1 <= val2 if nombre_func == 'MIN' else val1 >= val2) else "ARG2"
                                 huella[id_func] = gana
                                 
-                            elif nombre_func == 'POS':
+                            elif nombre_func in ('POS', 'ABS'):
                                 val = self._extraer_valor_real(modelo.evaluate(self.evaluador.evaluar(args_limpios[0]), model_completion=True))
                                 huella[id_func] = ">0" if val > 0 else "<=0"
                                 
@@ -295,8 +307,10 @@ class BaseStrategy(ABC):
                     
                 # Se obliga al visitante a entrar en los argumentos de la función 
                 # para descubrir funciones anidadas (ej. POS dentro de MIN).
-                if len(nodo.children) > 2:
+                if nodo.data == 'funcion_matematica' and len(nodo.children) > 2:
                     visitar(nodo.children[2], forzar_skip)
+                elif nodo.data == 'funcion_directa' and len(nodo.children) > 1:
+                    visitar(nodo.children[1], forzar_skip)
                     
                 return None
 
