@@ -9,15 +9,17 @@
             "[465]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "MIN_1": "ARG1"
+        },
         "objetivo": {
             "codigo": "[494]",
             "valor": 300000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_MIN_IZQ"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "a.4.2",
@@ -25,19 +27,21 @@
         "descripcion_qa": "El límite MIN toma el valor derecho garantizando su ruta.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[547]": 41725203,
+            "[547]": 41725206,
             "[465]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "MIN_1": "ARG2"
+        },
         "objetivo": {
             "codigo": "[494]",
             "valor": 12517560
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_MIN_DER"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "a.4.3",
@@ -49,15 +53,17 @@
             "[465]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[494]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_1"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "a.4.4",
@@ -69,15 +75,17 @@
             "[465]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[494]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_2"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "a.6.1",
@@ -89,15 +97,13 @@
             "[467]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[618]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MAYOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "a.6.2",
@@ -105,19 +111,17 @@
         "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[467]": -1000001,
+            "[467]": -1000002,
             "[479]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "POS_1": "<=0"
+        },
         "objetivo": {
             "codigo": "[618]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MENOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.83.1",
@@ -131,21 +135,43 @@
             "[1690]": 1000000,
             "[1931]": 1000000,
             "[1927]": 1000000,
-            "[1929]": 1000000,
+            "[1895]": 1000000,
             "[1924]": 1000000,
             "[1898]": 1000000,
-            "[1895]": 1000000
+            "[1929]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_8": "FALSE",
+            "OR_5": "EVALUADO",
+            "CONDICION_9": "FALSE",
+            "OR_6": "EVALUADO",
+            "CONDICION_10": "FALSE",
+            "OR_7": "EVALUADO",
+            "CONDICION_11": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_12": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_1_MAYOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.83.2",
@@ -158,22 +184,44 @@
             "[1912]": 1000000,
             "[1901]": 1000000,
             "[1927]": 1000000,
-            "[1895]": 1000000,
             "[1929]": 1000000,
+            "[1895]": 1000000,
             "[1898]": 1000000,
-            "[1690]": -1,
+            "[1690]": -2,
             "[1892]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED",
+            "OR_5": "CORTOCIRCUITO",
+            "CONDICION_9": "SKIPPED",
+            "OR_6": "CORTOCIRCUITO",
+            "CONDICION_10": "SKIPPED",
+            "OR_7": "CORTOCIRCUITO",
+            "CONDICION_11": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_12": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[1109]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_1_MENOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.83.3",
@@ -193,15 +241,37 @@
             "[1898]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_8": "FALSE",
+            "OR_5": "EVALUADO",
+            "CONDICION_9": "FALSE",
+            "OR_6": "EVALUADO",
+            "CONDICION_10": "TRUE",
+            "OR_7": "CORTOCIRCUITO",
+            "CONDICION_11": "SKIPPED",
+            "AND_4": "EVALUADO",
+            "CONDICION_12": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_2_MAYOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.83.4",
@@ -217,19 +287,41 @@
             "[1895]": 1000000,
             "[1929]": 1000000,
             "[1898]": 1000000,
-            "[1690]": -1,
+            "[1690]": -2,
             "[1892]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED",
+            "OR_5": "CORTOCIRCUITO",
+            "CONDICION_9": "SKIPPED",
+            "OR_6": "CORTOCIRCUITO",
+            "CONDICION_10": "SKIPPED",
+            "OR_7": "CORTOCIRCUITO",
+            "CONDICION_11": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_12": "SKIPPED",
+            "IF_1": "TRUE",
+            "POS_1": "<=0"
+        },
         "objetivo": {
             "codigo": "[1109]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_2_MENOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.83.5",
@@ -249,15 +341,37 @@
             "[1924]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED",
+            "OR_5": "CORTOCIRCUITO",
+            "CONDICION_9": "SKIPPED",
+            "OR_6": "CORTOCIRCUITO",
+            "CONDICION_10": "SKIPPED",
+            "OR_7": "CORTOCIRCUITO",
+            "CONDICION_11": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_12": "SKIPPED",
+            "IF_1": "TRUE",
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL_1"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.83.6",
@@ -277,15 +391,37 @@
             "[1898]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED",
+            "OR_5": "CORTOCIRCUITO",
+            "CONDICION_9": "SKIPPED",
+            "OR_6": "CORTOCIRCUITO",
+            "CONDICION_10": "SKIPPED",
+            "OR_7": "CORTOCIRCUITO",
+            "CONDICION_11": "SKIPPED",
+            "AND_4": "EVALUADO",
+            "CONDICION_12": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[1109]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL_2"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.83.7",
@@ -305,15 +441,37 @@
             "[1924]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_8": "FALSE",
+            "OR_5": "EVALUADO",
+            "CONDICION_9": "FALSE",
+            "OR_6": "EVALUADO",
+            "CONDICION_10": "FALSE",
+            "OR_7": "EVALUADO",
+            "CONDICION_11": "FALSE",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_12": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[1109]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.84.1",
@@ -325,15 +483,18 @@
             "[1109]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE"
+        },
         "objetivo": {
             "codigo": "[1640]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.84.2",
@@ -345,15 +506,18 @@
             "[1109]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE"
+        },
         "objetivo": {
             "codigo": "[1640]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_1"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.84.3",
@@ -365,15 +529,18 @@
             "[1109]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE"
+        },
         "objetivo": {
             "codigo": "[1640]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_2"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.84.4",
@@ -385,15 +552,18 @@
             "[1109]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE"
+        },
         "objetivo": {
             "codigo": "[1640]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_3"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.88.1",
@@ -402,32 +572,34 @@
         "rut": "11.111.111-1",
         "inputs": {
             "[390]": 1000000,
-            "[1109]": 1000000,
+            "[382]": 1000000,
             "[839]": 1000000,
-            "[898]": 1000000,
             "[365]": 1000000,
+            "[898]": 1000000,
             "[384]": 1000000,
             "[366]": 1000000,
             "[392]": 1000000,
             "[742]": 1000000,
             "[773]": 1000000,
+            "[373]": 1000000,
             "[984]": 1000000,
             "[841]": 1000000,
-            "[855]": 1000000,
+            "[1109]": 3703701,
             "[761]": 1000000,
-            "[373]": 1000000,
-            "[382]": 1000000
+            "[855]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "MIN_1": "ARG1"
+        },
         "objetivo": {
             "codigo": "[1111]",
-            "valor": 270000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_MIN_IZQ"
-            ]
-        ]
+            "valor": 1000000
+        }
     },
     {
         "id_validacion": "b.88.2",
@@ -435,70 +607,38 @@
         "descripcion_qa": "El límite MIN toma el valor derecho garantizando su ruta.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1109]": 55555557,
-            "[382]": 1000000,
             "[390]": 1000000,
+            "[382]": 1000000,
+            "[365]": 1000000,
             "[839]": 1000000,
             "[855]": 1000000,
             "[898]": 1000000,
             "[761]": 1000000,
-            "[365]": 1000000,
             "[384]": 1000000,
             "[366]": 1000000,
-            "[373]": 1000000,
-            "[841]": 1000000,
             "[773]": 1000000,
+            "[841]": 1000000,
+            "[1109]": 55555561,
             "[392]": 1000000,
             "[984]": 1000000,
-            "[742]": 1000000
+            "[742]": 1000000,
+            "[373]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "MIN_1": "ARG2"
+        },
         "objetivo": {
             "codigo": "[1111]",
             "valor": 15000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_MIN_DER"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.88.3",
-        "tipo_escenario": "CALCULO_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "La condición se cumple (Rama alcanzada).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[390]": 1000000,
-            "[898]": 1000000,
-            "[839]": 1000000,
-            "[365]": 1000000,
-            "[773]": 1000000,
-            "[855]": 1000000,
-            "[841]": 1000000,
-            "[761]": 1000000,
-            "[366]": 1000000,
-            "[384]": 1000000,
-            "[392]": 1000000,
-            "[373]": 1000000,
-            "[742]": 1000000,
-            "[1109]": 3703701,
-            "[382]": 1000000,
-            "[984]": 1000000
-        },
-        "resultado_esperado": "VERIFICAR_AUTOCALCULO",
-        "objetivo": {
-            "codigo": "[1111]",
-            "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "b.88.4",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
         "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.574.826-6",
@@ -521,18 +661,20 @@
             "[382]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[1111]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_1"
-            ]
-        ]
+        }
     },
     {
-        "id_validacion": "b.88.5",
+        "id_validacion": "b.88.4",
         "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_2",
         "descripcion_qa": "La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -555,15 +697,17 @@
             "[382]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[1111]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_2"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.94.1",
@@ -571,19 +715,17 @@
         "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[32]": 5714284,
-            "[76]": 1000000
+            "[76]": 1000000,
+            "[32]": 5714284
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[34]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MAYOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.94.2",
@@ -591,19 +733,17 @@
         "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[32]": 1000000,
-            "[76]": 1000000
+            "[76]": 1000000,
+            "[32]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "POS_1": "<=0"
+        },
         "objetivo": {
             "codigo": "[34]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MENOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.97.1",
@@ -611,18 +751,14 @@
         "descripcion_qa": "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1829]": 9999995
+            "[1829]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {},
         "objetivo": {
             "codigo": "[1830]",
-            "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_LINEAL_EXACTO"
-            ]
-        ]
+            "valor": 100000
+        }
     },
     {
         "id_validacion": "b.114.1",
@@ -630,10 +766,9 @@
         "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
         "rut": "16.208.945-4",
         "inputs": {
-            "[1893]": 1000000,
-            "[1912]": 1000000,
             "[1901]": 1000000,
-            "[1931]": 1000000,
+            "[1912]": 1000000,
+            "[1893]": 1000000,
             "[18]": 1000000,
             "[1109]": 1000000,
             "[1927]": 1000000,
@@ -641,48 +776,53 @@
             "[1929]": 1000000,
             "[1898]": 1000000,
             "[1924]": 1000000,
-            "[1892]": 7999998
+            "[1892]": 7999998,
+            "[1931]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[1894]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MAYOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.114.2",
-        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
-        "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
+        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
+        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1931]": 1000000,
+            "[18]": 0,
             "[1893]": 1000000,
-            "[18]": 1000000,
-            "[1912]": 1000000,
-            "[1109]": 1000000,
-            "[1901]": 1000000,
-            "[1927]": 1000000,
-            "[1895]": 1000000,
-            "[1929]": 1000000,
-            "[1898]": 1000000,
-            "[1892]": 1000000,
-            "[1924]": 1000000
+            "[1912]": 0,
+            "[1931]": 0,
+            "[1927]": 0,
+            "[1895]": 0,
+            "[1109]": 0,
+            "[1898]": 0,
+            "[1929]": 0,
+            "[1892]": 834504,
+            "[1924]": 0,
+            "[1901]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "<=0"
+        },
         "objetivo": {
             "codigo": "[1894]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MENOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.114.3",
@@ -704,45 +844,17 @@
             "[1929]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[1894]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "b.114.4",
-        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
-        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[18]": 0,
-            "[1109]": 0,
-            "[1893]": 1000000,
-            "[1912]": 0,
-            "[1931]": 0,
-            "[1927]": 0,
-            "[1895]": 0,
-            "[1924]": 0,
-            "[1898]": 0,
-            "[1929]": 0,
-            "[1892]": 834504,
-            "[1901]": 0
-        },
-        "resultado_esperado": "VERIFICAR_AUTOCALCULO",
-        "objetivo": {
-            "codigo": "[1894]",
-            "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_1"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.119.1",
@@ -753,15 +865,18 @@
             "[829]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "TRUE"
+        },
         "objetivo": {
             "codigo": "[1916]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL_1"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.119.2",
@@ -772,15 +887,18 @@
             "[829]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "TRUE"
+        },
         "objetivo": {
             "codigo": "[1916]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL_2"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.119.3",
@@ -791,15 +909,18 @@
             "[829]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE"
+        },
         "objetivo": {
             "codigo": "[1916]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL_3"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.119.4",
@@ -810,15 +931,18 @@
             "[829]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE"
+        },
         "objetivo": {
             "codigo": "[1916]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.126.1",
@@ -826,59 +950,63 @@
         "descripcion_qa": "El valor interno de POS es positivo en su ruta correcta.",
         "rut": "16.208.945-4",
         "inputs": {
-            "[1109]": 1000000,
-            "[1924]": 7999998,
+            "[18]": 1000000,
             "[1925]": 1000000,
             "[1901]": 1000000,
             "[1912]": 1000000,
-            "[1931]": 1000000,
-            "[1892]": 1000000,
-            "[1927]": 1000000,
-            "[1895]": 1000000,
-            "[1929]": 1000000,
-            "[18]": 1000000,
-            "[1898]": 1000000
-        },
-        "resultado_esperado": "VERIFICAR_AUTOCALCULO",
-        "objetivo": {
-            "codigo": "[1926]",
-            "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MAYOR_CERO"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "b.126.2",
-        "tipo_escenario": "CALCULO_POS_MENOR_CERO",
-        "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1925]": 1000000,
             "[1109]": 1000000,
-            "[1912]": 1000000,
-            "[1929]": 1000000,
             "[1927]": 1000000,
-            "[18]": 1000000,
+            "[1929]": 1000000,
             "[1895]": 1000000,
-            "[1901]": 1000000,
             "[1931]": 1000000,
             "[1898]": 1000000,
-            "[1924]": 1000000,
+            "[1924]": 7999998,
             "[1892]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": ">0"
+        },
+        "objetivo": {
+            "codigo": "[1926]",
+            "valor": 1000000
+        }
+    },
+    {
+        "id_validacion": "b.126.2",
+        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
+        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1925]": 1000000,
+            "[1912]": 0,
+            "[1924]": 834504,
+            "[1927]": 0,
+            "[18]": 0,
+            "[1109]": 0,
+            "[1895]": 0,
+            "[1929]": 0,
+            "[1898]": 0,
+            "[1892]": 0,
+            "[1901]": 0,
+            "[1931]": 0
+        },
+        "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "<=0"
+        },
         "objetivo": {
             "codigo": "[1926]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MENOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.126.3",
@@ -900,75 +1028,17 @@
             "[18]": 0
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[1926]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_VERDADERO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "b.126.4",
-        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_1",
-        "descripcion_qa": "La sub-condición 1 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1925]": 1000000,
-            "[1912]": 0,
-            "[1924]": 834504,
-            "[1927]": 0,
-            "[18]": 0,
-            "[1109]": 0,
-            "[1895]": 0,
-            "[1929]": 0,
-            "[1898]": 0,
-            "[1892]": 0,
-            "[1901]": 0,
-            "[1931]": 0
-        },
-        "resultado_esperado": "VERIFICAR_AUTOCALCULO",
-        "objetivo": {
-            "codigo": "[1926]",
-            "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "b.126.5",
-        "tipo_escenario": "CALCULO_FALSO_PRINCIPAL_SINO_2",
-        "descripcion_qa": "La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1929]": 1000000,
-            "[1892]": 1000000,
-            "[1925]": 1000000,
-            "[1924]": 7999998,
-            "[1912]": 1000000,
-            "[1931]": 1000000,
-            "[1895]": 1000000,
-            "[1927]": 1000000,
-            "[18]": 1000000,
-            "[1901]": 1000000,
-            "[1898]": 1000000,
-            "[1109]": 1000000
-        },
-        "resultado_esperado": "VERIFICAR_AUTOCALCULO",
-        "objetivo": {
-            "codigo": "[1926]",
-            "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO_2"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.147.1",
@@ -979,15 +1049,15 @@
             "[1630]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0"
+        },
         "objetivo": {
             "codigo": "[2014]",
             "valor": 1000000
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MAYOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.147.2",
@@ -995,18 +1065,18 @@
         "descripcion_qa": "El valor interno de POS es negativo, forzando a 0.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1630]": -1
+            "[1630]": -2
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "<=0"
+        },
         "objetivo": {
             "codigo": "[2014]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_POS_MENOR_CERO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "b.147.3",
@@ -1017,35 +1087,33 @@
             "[1630]": 1000000
         },
         "resultado_esperado": "VERIFICAR_AUTOCALCULO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED"
+        },
         "objetivo": {
             "codigo": "[2014]",
             "valor": 0
-        },
-        "huellas_cubiertas": [
-            [
-                "CALCULO_FALSO_PRINCIPAL_SINO"
-            ]
-        ]
+        }
     },
     {
         "id_validacion": "c.1.1",
-        "tipo_escenario": "LIMITE_EXACTO_LINEAL",
-        "descripcion_qa": "Frontera exacta. Evaluación sin condicionales ramificados.",
+        "tipo_escenario": "BAJO_LIMITE_LINEAL",
+        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1024]": 1000000,
             "[104]": 1000000,
             "[1025]": 1000000,
-            "[1592]": 1000000,
+            "[1024]": 1000000,
             "[1593]": 1000000,
-            "[111]": 5000000
+            "[1592]": 1000000,
+            "[111]": 4999999
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_LINEAL"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG2"
+        }
     },
     {
         "id_validacion": "c.1.2",
@@ -1053,94 +1121,64 @@
         "descripcion_qa": "Supera límite por 1 peso. Evaluación sin condicionales ramificados.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1592]": 1000000,
             "[1593]": 1000000,
+            "[104]": 1000000,
             "[1025]": 1000000,
             "[1024]": 1000000,
-            "[104]": 1000000,
+            "[1592]": 1000000,
             "[111]": 5000001
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_LINEAL"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG2"
+        }
     },
     {
         "id_validacion": "c.1.3",
-        "tipo_escenario": "BAJO_LIMITE_LINEAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1592]": 1000000,
-            "[1025]": 1000000,
-            "[1024]": 1000000,
-            "[104]": 1000000,
-            "[1593]": 1000000,
-            "[111]": 4999999
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_LINEAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.1.4",
         "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_BUENO",
         "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa respetando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[104]": 1000000,
-            "[1593]": 51809839,
+            "[104]": 51809839,
+            "[1593]": 1000000,
             "[1592]": 1000000,
             "[1024]": 1000000,
             "[1025]": 1000000,
             "[111]": 55809838
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG1"
+        }
     },
     {
-        "id_validacion": "c.1.5",
+        "id_validacion": "c.1.4",
         "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_MENSAJE",
         "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa violando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
             "[1593]": 1000000,
-            "[1592]": 51809839,
+            "[1592]": 1000000,
             "[1025]": 1000000,
             "[1024]": 1000000,
-            "[104]": 1000000,
+            "[104]": 51809839,
             "[111]": 55809839
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG1"
+        }
     },
     {
         "id_validacion": "c.7.1",
-        "tipo_escenario": "LIMITE_EXACTO_LINEAL",
-        "descripcion_qa": "Frontera exacta. Evaluación sin condicionales ramificados.",
+        "tipo_escenario": "BAJO_LIMITE_LINEAL",
+        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[822]": 41725200
+            "[822]": 41725199
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_LINEAL"
-            ]
-        ]
+        "huella_logica": {}
     },
     {
         "id_validacion": "c.7.2",
@@ -1151,26 +1189,7 @@
             "[822]": 41725201
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_LINEAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.7.3",
-        "tipo_escenario": "BAJO_LIMITE_LINEAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[822]": 41725199
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_LINEAL"
-            ]
-        ]
+        "huella_logica": {}
     },
     {
         "id_validacion": "c.5.1",
@@ -1196,11 +1215,12 @@
             "[169]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
         "id_validacion": "c.5.2",
@@ -1226,41 +1246,43 @@
             "[169]": 1
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
         "id_validacion": "c.5.3",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_1",
-        "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_1",
+        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[955]": 1000000,
-            "[104]": 1000000,
             "[106]": 1000000,
-            "[1632]": 1000000,
             "[110]": 1000000,
-            "[169]": 8854315,
-            "[748]": 1000000,
             "[108]": 1000000,
-            "[1891]": 1000000,
-            "[166]": 1000000,
+            "[748]": 1000000,
+            "[104]": 1000000,
             "[155]": 1000000,
-            "[1032]": 1000000,
+            "[166]": 1000000,
+            "[955]": 1000000,
+            "[1891]": 1000000,
+            "[1632]": 1000000,
             "[152]": 1000000,
             "[1104]": 1000000,
+            "[1032]": 1000000,
             "[161]": 1000000,
+            "[169]": 8854314,
             "[105]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE"
+        }
     },
     {
         "id_validacion": "c.5.4",
@@ -1286,104 +1308,15 @@
             "[105]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE"
+        }
     },
     {
         "id_validacion": "c.5.5",
-        "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_1",
-        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[161]": 1000000,
-            "[106]": 1000000,
-            "[110]": 1000000,
-            "[108]": 1000000,
-            "[748]": 1000000,
-            "[1032]": 1000000,
-            "[104]": 1000000,
-            "[155]": 1000000,
-            "[169]": 8854314,
-            "[955]": 1000000,
-            "[1632]": 1000000,
-            "[152]": 1000000,
-            "[1104]": 1000000,
-            "[166]": 1000000,
-            "[1891]": 1000000,
-            "[105]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.5.6",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_2",
-        "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[155]": 0,
-            "[1032]": 0,
-            "[106]": 0,
-            "[955]": 0,
-            "[110]": 0,
-            "[108]": 0,
-            "[748]": 1000000,
-            "[1104]": 0,
-            "[169]": 2374863,
-            "[166]": 0,
-            "[1632]": 0,
-            "[152]": 1000000,
-            "[1891]": 0,
-            "[105]": 0,
-            "[161]": 0,
-            "[104]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.5.7",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_2",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1104]": 0,
-            "[955]": 0,
-            "[1891]": 0,
-            "[106]": 0,
-            "[169]": 2374864,
-            "[166]": 0,
-            "[1632]": 0,
-            "[748]": 1000000,
-            "[1032]": 0,
-            "[110]": 0,
-            "[108]": 0,
-            "[155]": 0,
-            "[152]": 1000000,
-            "[105]": 0,
-            "[161]": 0,
-            "[104]": 0
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.5.8",
         "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_2",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -1406,11 +1339,43 @@
             "[104]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "c.5.6",
+        "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_2",
+        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1104]": 0,
+            "[955]": 0,
+            "[1891]": 0,
+            "[106]": 0,
+            "[169]": 2374864,
+            "[166]": 0,
+            "[1632]": 0,
+            "[748]": 1000000,
+            "[1032]": 0,
+            "[110]": 0,
+            "[108]": 0,
+            "[155]": 0,
+            "[152]": 1000000,
+            "[105]": 0,
+            "[161]": 0,
+            "[104]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE"
+        }
     },
     {
         "id_validacion": "c.10.1",
@@ -1436,11 +1401,15 @@
             "[104]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "CONDICION_3": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.10.2",
@@ -1466,41 +1435,49 @@
             "[104]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "CONDICION_3": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.10.3",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_1",
-        "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_1",
+        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1891]": 1000000,
-            "[1032]": 1000000,
-            "[106]": 1000000,
-            "[161]": 1000000,
-            "[110]": 1000000,
-            "[104]": 1000000,
-            "[108]": 1000000,
             "[955]": 1000000,
-            "[170]": 1000000,
-            "[1104]": 1000000,
-            "[155]": 1000000,
             "[105]": 1000000,
+            "[166]": 1000000,
+            "[106]": 1000000,
+            "[155]": 1000000,
+            "[110]": 1000000,
+            "[108]": 1000000,
             "[479]": 1000000,
             "[1632]": 1000000,
-            "[166]": 1000000,
-            "[609]": 973588000
+            "[104]": 1000000,
+            "[161]": 1000000,
+            "[1104]": 1000000,
+            "[1032]": 1000000,
+            "[170]": 1000000,
+            "[1891]": 1000000,
+            "[609]": 973587999
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.10.4",
@@ -1526,104 +1503,18 @@
             "[609]": 973588001
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.10.5",
-        "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_1",
-        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[955]": 1000000,
-            "[105]": 1000000,
-            "[166]": 1000000,
-            "[106]": 1000000,
-            "[155]": 1000000,
-            "[110]": 1000000,
-            "[108]": 1000000,
-            "[479]": 1000000,
-            "[1632]": 1000000,
-            "[104]": 1000000,
-            "[161]": 1000000,
-            "[1104]": 1000000,
-            "[1032]": 1000000,
-            "[170]": 1000000,
-            "[1891]": 1000000,
-            "[609]": 973587999
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.10.6",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_2",
-        "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[105]": 0,
-            "[955]": 0,
-            "[170]": 1000000,
-            "[155]": 0,
-            "[1032]": 0,
-            "[106]": 0,
-            "[110]": 0,
-            "[108]": 0,
-            "[479]": 1000000,
-            "[1104]": 0,
-            "[166]": 0,
-            "[1891]": 0,
-            "[1632]": 0,
-            "[609]": 973588000,
-            "[161]": 0,
-            "[104]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.10.7",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_2",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1032]": 0,
-            "[155]": 0,
-            "[955]": 0,
-            "[166]": 0,
-            "[106]": 0,
-            "[110]": 0,
-            "[108]": 0,
-            "[479]": 1000000,
-            "[1891]": 0,
-            "[1632]": 0,
-            "[1104]": 0,
-            "[105]": 0,
-            "[170]": 1000000,
-            "[609]": 973588001,
-            "[161]": 0,
-            "[104]": 0
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.10.8",
         "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_2",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -1646,20 +1537,57 @@
             "[104]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.10.9",
+        "id_validacion": "c.10.6",
+        "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_2",
+        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1032]": 0,
+            "[155]": 0,
+            "[955]": 0,
+            "[166]": 0,
+            "[106]": 0,
+            "[110]": 0,
+            "[108]": 0,
+            "[479]": 1000000,
+            "[1891]": 0,
+            "[1632]": 0,
+            "[1104]": 0,
+            "[105]": 0,
+            "[170]": 1000000,
+            "[609]": 973588001,
+            "[161]": 0,
+            "[104]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE",
+            "MIN_1": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "c.10.7",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_ANIDADO_2",
         "descripcion_qa": "Frontera exacta. La condición no se cumple.",
         "rut": "11.111.111-1",
         "inputs": {
             "[161]": 1000000,
-            "[1891]": 1000000,
             "[155]": 1000000,
             "[106]": 1000000,
             "[104]": 1000000,
@@ -1670,80 +1598,59 @@
             "[1632]": 1000000,
             "[955]": 1000000,
             "[1104]": 1000000,
-            "[166]": 1000000,
-            "[170]": 1000000,
-            "[609]": 200000,
-            "[479]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_ANIDADO_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.10.10",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2",
-        "descripcion_qa": "Supera límite por 1 peso. La condición no se cumple.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[155]": 1000000,
-            "[955]": 1000000,
-            "[1032]": 1000000,
-            "[106]": 1000000,
-            "[110]": 1000000,
-            "[108]": 1000000,
-            "[161]": 1000000,
-            "[1632]": 1000000,
-            "[105]": 1000000,
-            "[166]": 1000000,
-            "[104]": 1000000,
-            "[1104]": 1000000,
-            "[170]": 4999995,
             "[1891]": 1000000,
+            "[166]": 1000000,
+            "[170]": 5000000,
             "[609]": 1000000,
             "[479]": 0
         },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2"
-            ]
-        ]
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "CONDICION_3": "FALSE",
+            "IF_2": "FALSE",
+            "MIN_1": "ARG2"
+        }
     },
     {
-        "id_validacion": "c.10.11",
-        "tipo_escenario": "BAJO_LIMITE_FALSO_ANIDADO_2",
-        "descripcion_qa": "Bajo el límite por 1 peso. La condición no se cumple.",
+        "id_validacion": "c.10.8",
+        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_2_MENSAJE",
+        "descripcion_qa": "Función MIN_1 evaluada por su argumento 2 en su ruta activa violando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[104]": 1000000,
             "[106]": 1000000,
-            "[155]": 1000000,
-            "[110]": 1000000,
             "[955]": 1000000,
-            "[1032]": 1000000,
+            "[110]": 1000000,
             "[108]": 1000000,
-            "[166]": 1000000,
-            "[105]": 1000000,
-            "[161]": 1000000,
+            "[155]": 1000000,
+            "[104]": 1000000,
             "[1632]": 1000000,
-            "[1891]": 1000000,
+            "[161]": 1000000,
+            "[1032]": 1000000,
+            "[166]": 1000000,
             "[1104]": 1000000,
             "[170]": 1000000,
-            "[609]": 199999,
+            "[1891]": 1000000,
+            "[105]": 1000000,
+            "[609]": 200001,
             "[479]": 0
         },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_ANIDADO_2"
-            ]
-        ]
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "CONDICION_3": "FALSE",
+            "IF_2": "FALSE",
+            "MIN_1": "ARG2"
+        }
     },
     {
-        "id_validacion": "c.10.12",
+        "id_validacion": "c.10.9",
         "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_BUENO",
         "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa respetando el límite legal.",
         "rut": "11.111.111-1",
@@ -1766,14 +1673,18 @@
             "[479]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "CONDICION_3": "FALSE",
+            "IF_2": "FALSE",
+            "MIN_1": "ARG1"
+        }
     },
     {
-        "id_validacion": "c.10.13",
+        "id_validacion": "c.10.10",
         "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_MENSAJE",
         "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa violando el límite legal.",
         "rut": "11.111.111-1",
@@ -1796,158 +1707,168 @@
             "[479]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.10.14",
-        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_2_BUENO",
-        "descripcion_qa": "Función MIN_1 evaluada por su argumento 2 en su ruta activa respetando el límite legal.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[105]": 1000000,
-            "[155]": 1000000,
-            "[170]": 5000000,
-            "[1032]": 1000000,
-            "[106]": 1000000,
-            "[166]": 1000000,
-            "[110]": 1000000,
-            "[108]": 1000000,
-            "[955]": 1000000,
-            "[161]": 1000000,
-            "[1632]": 1000000,
-            "[1104]": 1000000,
-            "[1891]": 1000000,
-            "[104]": 1000000,
-            "[609]": 1000000,
-            "[479]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_2_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "CONDICION_3": "FALSE",
+            "IF_2": "FALSE",
+            "MIN_1": "ARG1"
+        }
     },
     {
         "id_validacion": "c.23.1",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada). [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[158]": 1000000,
-            "[133]": 5050632,
-            "[138]": 1000000,
-            "[134]": 1000000,
-            "[106]": 0
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.23.2",
         "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL",
         "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
             "[138]": 1000000,
-            "[158]": 1000000,
             "[133]": 5050630,
+            "[158]": 1000000,
             "[134]": 1000000,
             "[106]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.3",
+        "id_validacion": "c.23.2",
         "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL",
         "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
             "[138]": 1000000,
             "[158]": 1000000,
-            "[133]": 1000000,
-            "[134]": 4999,
+            "[133]": 5050635,
+            "[134]": 1000000,
             "[106]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "c.23.3",
+        "tipo_escenario": "COTA_FUNC_POS_2_MAYOR_A_CERO_MENSAJE",
+        "descripcion_qa": "Función POS_2 con argumento > 0 en su ruta activa violando el límite.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[138]": 1000000,
+            "[133]": 3265820,
+            "[158]": 1000000,
+            "[134]": 1000000,
+            "[106]": 1000000
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "IF_2": "TRUE",
+            "POS_2": ">0"
+        }
     },
     {
         "id_validacion": "c.23.4",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_1",
-        "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque AND falla de forma exclusiva. [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[106]": 1000000,
-            "[158]": 1000000,
-            "[134]": 1000000,
-            "[138]": 1000000,
-            "[133]": 3265822
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.23.5",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_1",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
             "[106]": 1000000,
             "[138]": 1000000,
-            "[133]": 3265820,
-            "[134]": 1000000,
+            "[133]": 1000000,
+            "[134]": 500001,
             "[158]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "IF_2": "TRUE",
+            "POS_2": "<=0"
+        }
     },
     {
-        "id_validacion": "c.23.6",
+        "id_validacion": "c.23.5",
         "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_1",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
             "[138]": 1000000,
+            "[106]": 2010103,
             "[134]": 1000000,
-            "[133]": 3265825,
-            "[158]": 1000000,
-            "[106]": 1000000
+            "[133]": 1000000,
+            "[158]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "IF_2": "TRUE",
+            "POS_2": "<=0"
+        }
     },
     {
-        "id_validacion": "c.23.7",
+        "id_validacion": "c.23.6",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_2",
         "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -1959,14 +1880,25 @@
             "[106]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "FALSE",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.8",
+        "id_validacion": "c.23.7",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_2",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -1978,14 +1910,25 @@
             "[106]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "FALSE",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.9",
+        "id_validacion": "c.23.8",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_3",
         "descripcion_qa": "Frontera exacta. La sub-condición 3 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -1997,14 +1940,25 @@
             "[106]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "FALSE",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.10",
+        "id_validacion": "c.23.9",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_3",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 3 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2016,71 +1970,85 @@
             "[106]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "FALSE",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "c.23.10",
+        "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_1",
+        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[133]": 1000000,
+            "[138]": 1000000,
+            "[158]": 1000000,
+            "[134]": 5001,
+            "[106]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "<=0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.23.11",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_ANIDADO_2",
-        "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada). [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[106]": 2010101,
-            "[158]": 1000000,
-            "[134]": 1000000,
-            "[133]": 1000000,
-            "[138]": 1000000
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_ANIDADO_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.23.12",
-        "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_ANIDADO_2",
-        "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[158]": 1000000,
-            "[133]": 1000000,
-            "[138]": 1000000,
-            "[106]": 2010098,
-            "[134]": 1000000
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_ANIDADO_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.23.13",
         "tipo_escenario": "BAJO_LIMITE_FALSO_ANIDADO_2_1",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
             "[138]": 1000000,
-            "[133]": 5050635,
+            "[133]": 1000000,
             "[158]": 1000000,
-            "[134]": 1000000,
+            "[134]": 4999,
             "[106]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_ANIDADO_2_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "<=0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.14",
+        "id_validacion": "c.23.12",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_ANIDADO_2_2",
         "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2092,14 +2060,25 @@
             "[133]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_ANIDADO_2_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.15",
+        "id_validacion": "c.23.13",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_2",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2111,14 +2090,25 @@
             "[133]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.16",
+        "id_validacion": "c.23.14",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_ANIDADO_2_3",
         "descripcion_qa": "Frontera exacta. La sub-condición 3 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2130,14 +2120,25 @@
             "[158]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_ANIDADO_2_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.23.17",
+        "id_validacion": "c.23.15",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_3",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 3 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2149,84 +2150,34 @@
             "[158]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2_3"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.23.18",
-        "tipo_escenario": "COTA_FUNC_POS_1_MENOR_A_CERO_BUENO",
-        "descripcion_qa": "Función POS_1 forzada a límite negativo en su ruta activa respetando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[158]": 1000000,
-            "[133]": 1000000,
-            "[138]": 1000000,
-            "[134]": 5000,
-            "[106]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_1_MENOR_A_CERO_BUENO"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.23.19",
-        "tipo_escenario": "COTA_FUNC_POS_1_MENOR_A_CERO_MENSAJE",
-        "descripcion_qa": "Función POS_1 forzada a límite negativo en su ruta activa violando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
-            "[158]": 1000000,
-            "[133]": 1000000,
-            "[134]": 5001,
-            "[106]": 0
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_1_MENOR_A_CERO_MENSAJE"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.23.20",
-        "tipo_escenario": "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO",
-        "descripcion_qa": "Función POS_2 forzada a límite negativo en su ruta activa respetando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
-            "[133]": 1000000,
-            "[106]": 1000000,
-            "[134]": 500000,
-            "[158]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.26.1",
-        "tipo_escenario": "LIMITE_EXACTO_LINEAL",
-        "descripcion_qa": "Frontera exacta. Evaluación sin condicionales ramificados.",
+        "tipo_escenario": "BAJO_LIMITE_LINEAL",
+        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[701]": 1000000,
-            "[702]": 1000000
+            "[702]": 999999,
+            "[701]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_LINEAL"
-            ]
-        ]
+        "huella_logica": {}
     },
     {
         "id_validacion": "c.26.2",
@@ -2238,27 +2189,7 @@
             "[701]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_LINEAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.26.3",
-        "tipo_escenario": "BAJO_LIMITE_LINEAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[702]": 1000000,
-            "[701]": 1000001
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_LINEAL"
-            ]
-        ]
+        "huella_logica": {}
     },
     {
         "id_validacion": "c.28.1",
@@ -2268,35 +2199,57 @@
         "inputs": {
             "[138]": 1000000,
             "[158]": 1000000,
-            "[133]": 1000000,
-            "[134]": 5000,
+            "[133]": 13300000,
+            "[134]": 1000000,
             "[106]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.28.2",
-        "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
+        "tipo_escenario": "COTA_FUNC_POS_1_MENOR_A_CERO_BUENO",
+        "descripcion_qa": "Función POS_1 forzada a límite negativo en su ruta activa respetando el límite.",
         "rut": "11.111.111-1",
         "inputs": {
             "[138]": 1000000,
             "[158]": 1000000,
             "[133]": 1000000,
-            "[134]": 5001,
+            "[134]": 5000,
             "[106]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "<=0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.28.3",
@@ -2304,192 +2257,62 @@
         "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
-            "[133]": 1000000,
-            "[138]": 1000000,
             "[158]": 1000000,
-            "[134]": 4999,
+            "[138]": 1000000,
+            "[133]": 13300006,
+            "[134]": 1000000,
             "[106]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.28.4",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_1",
-        "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[158]": 1000000,
-            "[138]": 1000000,
-            "[106]": 1000000,
-            "[134]": 405000,
-            "[133]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.5",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_1",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[134]": 405001,
-            "[138]": 1000000,
-            "[106]": 1000000,
-            "[158]": 1000000,
-            "[133]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.6",
-        "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL_1",
-        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
-            "[158]": 1000000,
-            "[133]": 5966673,
             "[134]": 1000000,
+            "[158]": 1000000,
+            "[133]": 5966660,
+            "[138]": 1000000,
             "[106]": 1000000
         },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.7",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_2",
-        "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
-            "[158]": 1000000,
-            "[134]": 0,
-            "[133]": 0,
-            "[106]": 0
-        },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "IF_2": "TRUE",
+            "POS_2": ">0"
+        }
     },
     {
-        "id_validacion": "c.28.8",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_2",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[158]": 1000000,
-            "[138]": 1000000,
-            "[134]": 1,
-            "[133]": 0,
-            "[106]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.9",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_3",
-        "descripcion_qa": "Frontera exacta. La sub-condición 3 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[133]": 1000000,
-            "[138]": 1000000,
-            "[134]": 0,
-            "[158]": 0,
-            "[106]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_3"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.10",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_3",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 3 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
-            "[133]": 1000000,
-            "[134]": 1,
-            "[158]": 0,
-            "[106]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_3"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.11",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_ANIDADO_2",
-        "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[106]": 1000000,
-            "[134]": 1000000,
-            "[138]": 1000000,
-            "[133]": 5966666,
-            "[158]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_ANIDADO_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.12",
-        "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_ANIDADO_2",
-        "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[158]": 1000000,
-            "[133]": 1000000,
-            "[134]": 1000000,
-            "[106]": 2487497,
-            "[138]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_ANIDADO_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.13",
+        "id_validacion": "c.28.5",
         "tipo_escenario": "BAJO_LIMITE_VERDADERO_ANIDADO_2",
         "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
@@ -2501,33 +2324,145 @@
             "[134]": 404999
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_ANIDADO_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "IF_2": "TRUE",
+            "POS_2": "<=0"
+        }
     },
     {
-        "id_validacion": "c.28.14",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_1",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "id_validacion": "c.28.6",
+        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_2",
+        "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
             "[138]": 1000000,
             "[158]": 1000000,
-            "[133]": 13299993,
-            "[134]": 1000000,
+            "[134]": 0,
+            "[133]": 0,
             "[106]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "FALSE",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.28.15",
+        "id_validacion": "c.28.7",
+        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_3",
+        "descripcion_qa": "Frontera exacta. La sub-condición 3 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[133]": 1000000,
+            "[138]": 1000000,
+            "[134]": 0,
+            "[158]": 0,
+            "[106]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "FALSE",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "c.28.8",
+        "tipo_escenario": "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO",
+        "descripcion_qa": "Función POS_2 forzada a límite negativo en su ruta activa respetando el límite.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[134]": 405000,
+            "[138]": 1000000,
+            "[158]": 1000000,
+            "[106]": 1000000,
+            "[133]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "IF_2": "TRUE",
+            "POS_2": "<=0"
+        }
+    },
+    {
+        "id_validacion": "c.28.9",
+        "tipo_escenario": "BAJO_LIMITE_FALSO_ANIDADO_2_1",
+        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[158]": 1000000,
+            "[138]": 1000000,
+            "[133]": 1000000,
+            "[134]": 4999,
+            "[106]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "<=0",
+            "CONDICION_4": "SKIPPED",
+            "AND_3": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "SKIPPED",
+            "POS_2": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "c.28.10",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_ANIDADO_2_2",
         "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2539,33 +2474,25 @@
             "[133]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_ANIDADO_2_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "AND_4": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.28.16",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_2",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
-            "[158]": 1000000,
-            "[106]": 1000000,
-            "[134]": 1,
-            "[133]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.17",
+        "id_validacion": "c.28.11",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_ANIDADO_2_3",
         "descripcion_qa": "Frontera exacta. La sub-condición 3 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2577,107 +2504,71 @@
             "[158]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_ANIDADO_2_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "IF_2": "FALSE",
+            "POS_2": "SKIPPED"
+        }
     },
     {
-        "id_validacion": "c.28.18",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_3",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 3 del bloque AND falla de forma exclusiva.",
+        "id_validacion": "c.28.12",
+        "tipo_escenario": "COTA_FUNC_POS_2_MAYOR_A_CERO_MENSAJE",
+        "descripcion_qa": "Función POS_2 con argumento > 0 en su ruta activa violando el límite.",
         "rut": "11.111.111-1",
         "inputs": {
             "[138]": 1000000,
-            "[133]": 1000000,
-            "[106]": 1000000,
-            "[134]": 1,
-            "[158]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2_3"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.19",
-        "tipo_escenario": "COTA_FUNC_POS_1_MAYOR_A_CERO_BUENO",
-        "descripcion_qa": "Función POS_1 con argumento > 0 en su ruta activa respetando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
-            "[158]": 1000000,
+            "[133]": 5966673,
             "[134]": 1000000,
-            "[133]": 13300000,
-            "[106]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_1_MAYOR_A_CERO_BUENO"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.20",
-        "tipo_escenario": "COTA_FUNC_POS_1_MAYOR_A_CERO_MENSAJE",
-        "descripcion_qa": "Función POS_1 con argumento > 0 en su ruta activa violando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[138]": 1000000,
             "[158]": 1000000,
-            "[134]": 1000000,
-            "[133]": 13300006,
-            "[106]": 0
+            "[106]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_1_MAYOR_A_CERO_MENSAJE"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.28.21",
-        "tipo_escenario": "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO",
-        "descripcion_qa": "Función POS_2 forzada a límite negativo en su ruta activa respetando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[134]": 1000000,
-            "[138]": 1000000,
-            "[106]": 2487500,
-            "[158]": 1000000,
-            "[133]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "CONDICION_4": "TRUE",
+            "AND_3": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_4": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "IF_2": "TRUE",
+            "POS_2": ">0"
+        }
     },
     {
         "id_validacion": "c.76.1",
         "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada). [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
+        "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
             "[1594]": 1000000,
             "[1027]": 1000000,
-            "[105]": 8097592,
+            "[105]": 1000000,
             "[1595]": 1000000,
-            "[748]": 1000000,
+            "[748]": 3625137,
             "[1026]": 1000000
         },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
         "id_validacion": "c.76.2",
@@ -2685,62 +2576,21 @@
         "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1594]": 1000000,
+            "[1595]": 1000000,
             "[748]": 3625136,
             "[1027]": 1000000,
             "[105]": 1000000,
-            "[1595]": 1000000,
+            "[1594]": 1000000,
             "[1026]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
         "id_validacion": "c.76.3",
-        "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[105]": 8097595,
-            "[748]": 1000000,
-            "[1027]": 1000000,
-            "[1595]": 1000000,
-            "[1594]": 1000000,
-            "[1026]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.76.4",
-        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL",
-        "descripcion_qa": "Frontera exacta. La condición no se cumple. [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[105]": 10801296,
-            "[1595]": 1000000,
-            "[1594]": 1000000,
-            "[1027]": 1000000,
-            "[1026]": 1000000,
-            "[748]": 0
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.76.5",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL",
         "descripcion_qa": "Supera límite por 1 peso. La condición no se cumple.",
         "rut": "11.111.111-1",
@@ -2753,31 +2603,29 @@
             "[748]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "IF_1": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.76.6",
+        "id_validacion": "c.76.4",
         "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL",
         "descripcion_qa": "Bajo el límite por 1 peso. La condición no se cumple.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1595]": 1000000,
             "[105]": 10801299,
-            "[1027]": 1000000,
+            "[1595]": 1000000,
             "[1594]": 1000000,
+            "[1027]": 1000000,
             "[1026]": 1000000,
             "[748]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "IF_1": "FALSE"
+        }
     },
     {
         "id_validacion": "c.80.1",
@@ -2785,16 +2633,12 @@
         "descripcion_qa": "Frontera exacta. Evaluación sin condicionales ramificados.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1032]": 7999960,
             "[1635]": 1000000,
+            "[1032]": 7999960,
             "[1031]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_LINEAL"
-            ]
-        ]
+        "huella_logica": {}
     },
     {
         "id_validacion": "c.80.2",
@@ -2807,47 +2651,10 @@
             "[1031]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_LINEAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.80.3",
-        "tipo_escenario": "BAJO_LIMITE_LINEAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1032]": 7999964,
-            "[1635]": 1000000,
-            "[1031]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_LINEAL"
-            ]
-        ]
+        "huella_logica": {}
     },
     {
         "id_validacion": "c.83.1",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL_1",
-        "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque OR se cumple de forma exclusiva. [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[491]": 1000000,
-            "[479]": 2857142
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.83.2",
         "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_1",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 1 del bloque OR se cumple de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -2856,94 +2663,82 @@
             "[479]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "IF_1": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.83.3",
+        "id_validacion": "c.83.2",
         "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL_1",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque OR se cumple de forma exclusiva.",
         "rut": "11.111.111-1",
-        "inputs": {
-            "[491]": 1000000,
-            "[479]": 2857145
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.83.4",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL_2",
-        "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque OR se cumple de forma exclusiva. [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
-        "rut": "22.222.222-2",
-        "inputs": {
-            "[491]": 1000000,
-            "[479]": 2857142
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.83.5",
-        "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_2",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque OR se cumple de forma exclusiva.",
-        "rut": "22.222.222-2",
-        "inputs": {
-            "[491]": 350001,
-            "[479]": 1000000
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.83.6",
-        "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL_2",
-        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 2 del bloque OR se cumple de forma exclusiva.",
-        "rut": "22.222.222-2",
         "inputs": {
             "[491]": 349999,
             "[479]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "IF_1": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.83.7",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL_3",
-        "descripcion_qa": "Frontera exacta. La sub-condición 3 del bloque OR se cumple de forma exclusiva. [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
-        "rut": "17.462.918-1",
+        "id_validacion": "c.83.3",
+        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL_2",
+        "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque OR se cumple de forma exclusiva.",
+        "rut": "22.222.222-2",
+        "inputs": {
+            "[491]": 350000,
+            "[479]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "IF_1": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "c.83.4",
+        "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_2",
+        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque OR se cumple de forma exclusiva.",
+        "rut": "22.222.222-2",
         "inputs": {
             "[491]": 1000000,
-            "[479]": 2857142
+            "[479]": 2857140
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "IF_1": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.83.8",
+        "id_validacion": "c.83.5",
         "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_3",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 3 del bloque OR se cumple de forma exclusiva.",
         "rut": "17.462.918-1",
@@ -2952,14 +2747,19 @@
             "[479]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "IF_1": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.83.9",
+        "id_validacion": "c.83.6",
         "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL_3",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 3 del bloque OR se cumple de forma exclusiva.",
         "rut": "17.462.918-1",
@@ -2968,30 +2768,40 @@
             "[479]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "IF_1": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.83.10",
+        "id_validacion": "c.83.7",
         "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL_4",
-        "descripcion_qa": "Frontera exacta. La sub-condición 4 del bloque OR se cumple de forma exclusiva. [Auto-Corregido: El truncamiento decimal altera el resultado en UI a MENSAJE]",
+        "descripcion_qa": "Frontera exacta. La sub-condición 4 del bloque OR se cumple de forma exclusiva.",
         "rut": "11.574.826-6",
         "inputs": {
-            "[491]": 1000000,
-            "[479]": 2857142
+            "[491]": 350000,
+            "[479]": 1000000
         },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL_4"
-            ]
-        ]
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.83.11",
+        "id_validacion": "c.83.8",
         "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_4",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 4 del bloque OR se cumple de forma exclusiva.",
         "rut": "11.574.826-6",
@@ -3000,30 +2810,19 @@
             "[479]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL_4"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.83.12",
-        "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL_4",
-        "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 4 del bloque OR se cumple de forma exclusiva.",
-        "rut": "11.574.826-6",
-        "inputs": {
-            "[491]": 349999,
-            "[479]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL_4"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.83.13",
+        "id_validacion": "c.83.9",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL",
         "descripcion_qa": "Frontera exacta. La condición no se cumple.",
         "rut": "13.695.284-9",
@@ -3032,14 +2831,19 @@
             "[479]": 5000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "IF_1": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.83.14",
+        "id_validacion": "c.83.10",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL",
         "descripcion_qa": "Supera límite por 1 peso. La condición no se cumple.",
         "rut": "13.695.284-9",
@@ -3048,50 +2852,41 @@
             "[479]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.83.15",
-        "tipo_escenario": "BAJO_LIMITE_FALSO_PRINCIPAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. La condición no se cumple.",
-        "rut": "13.695.284-9",
-        "inputs": {
-            "[491]": 199999,
-            "[479]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "IF_1": "FALSE"
+        }
     },
     {
         "id_validacion": "c.107.1",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada).",
+        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_2_MENSAJE",
+        "descripcion_qa": "Función MIN_1 evaluada por su argumento 2 en su ruta activa violando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[104]": 1000000,
-            "[1594]": 1000000,
             "[170]": 278596240,
-            "[1592]": 1000000,
-            "[748]": 17160294,
-            "[105]": 1000000,
-            "[1026]": 1000000,
             "[1636]": 1000000,
-            "[1024]": 1000000
+            "[105]": 12796985,
+            "[748]": 1000000,
+            "[1024]": 1000000,
+            "[1026]": 1000000,
+            "[1594]": 1000000,
+            "[104]": 1000000,
+            "[1592]": 1000000
         },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "MIN_1": "ARG2"
+        }
     },
     {
         "id_validacion": "c.107.2",
@@ -3099,45 +2894,49 @@
         "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1636]": 1000000,
+            "[1636]": 191986,
             "[1026]": 1000000,
             "[1592]": 1000000,
             "[104]": 1000000,
-            "[170]": 278596220,
+            "[170]": 262435946,
             "[105]": 1000000,
-            "[748]": 17160274,
+            "[748]": 1000000,
             "[1024]": 1000000,
             "[1594]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "MIN_1": "ARG1"
+        }
     },
     {
         "id_validacion": "c.107.3",
-        "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
+        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_BUENO",
+        "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa respetando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1594]": 1000000,
-            "[170]": 278596260,
-            "[1592]": 1000000,
-            "[748]": 17160314,
-            "[1026]": 1000000,
-            "[104]": 1000000,
-            "[1636]": 1000000,
             "[105]": 1000000,
-            "[1024]": 1000000
+            "[1636]": 1000000,
+            "[748]": 1000000,
+            "[104]": 12797014,
+            "[1024]": 1000000,
+            "[1026]": 1000000,
+            "[1592]": 1000000,
+            "[1594]": 1000000,
+            "[170]": 278596240
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "IF_1": "TRUE",
+            "MIN_1": "ARG1"
+        }
     },
     {
         "id_validacion": "c.107.4",
@@ -3156,11 +2955,13 @@
             "[1636]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.107.5",
@@ -3179,11 +2980,13 @@
             "[1636]": 1
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.107.6",
@@ -3202,11 +3005,13 @@
             "[1636]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.107.7",
@@ -3225,121 +3030,34 @@
             "[1636]": 1
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.107.8",
-        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_BUENO",
-        "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa respetando el límite legal.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[105]": 1000000,
-            "[1636]": 1000000,
-            "[748]": 1000000,
-            "[104]": 12797014,
-            "[1024]": 1000000,
-            "[1026]": 1000000,
-            "[1592]": 1000000,
-            "[1594]": 1000000,
-            "[170]": 278596240
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_BUENO"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.107.9",
-        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_MENSAJE",
-        "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa violando el límite legal.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[105]": 12797000,
-            "[1594]": 1000000,
-            "[1592]": 1000000,
-            "[1636]": 1000000,
-            "[1024]": 1000000,
-            "[104]": 1000000,
-            "[748]": 1000000,
-            "[1026]": 1000000,
-            "[170]": 278596220
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.107.10",
-        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_2_BUENO",
-        "descripcion_qa": "Función MIN_1 evaluada por su argumento 2 en su ruta activa respetando el límite legal.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1592]": 1000000,
-            "[748]": 1000000,
-            "[170]": 262435986,
-            "[1636]": 191986,
-            "[105]": 1000000,
-            "[1024]": 1000000,
-            "[1026]": 1000000,
-            "[104]": 1000000,
-            "[1594]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_2_BUENO"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.107.11",
-        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_2_MENSAJE",
-        "descripcion_qa": "Función MIN_1 evaluada por su argumento 2 en su ruta activa violando el límite legal.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[170]": 278596240,
-            "[105]": 1000000,
-            "[1636]": 1000000,
-            "[748]": 17160254,
-            "[1024]": 1000000,
-            "[1026]": 1000000,
-            "[1594]": 1000000,
-            "[104]": 1000000,
-            "[1592]": 1000000
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_2_MENSAJE"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "IF_1": "FALSE",
+            "MIN_1": "SKIPPED"
+        }
     },
     {
         "id_validacion": "c.126.1",
-        "tipo_escenario": "LIMITE_EXACTO_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada).",
+        "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL",
+        "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1849]": 1000000,
             "[170]": 1000000,
             "[157]": 1000000,
-            "[1637]": 1005000
+            "[1849]": 1000000,
+            "[1637]": 1004999
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
         "id_validacion": "c.126.2",
@@ -3347,38 +3065,23 @@
         "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1849]": 1000000,
-            "[170]": 1000000,
             "[157]": 1000000,
+            "[170]": 1000000,
+            "[1849]": 1000000,
             "[1637]": 1005001
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE"
+        }
     },
     {
         "id_validacion": "c.126.3",
-        "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[170]": 1000000,
-            "[1849]": 1000000,
-            "[157]": 1000000,
-            "[1637]": 1004999
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.126.4",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_1",
         "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "16.208.945-4",
@@ -3389,14 +3092,17 @@
             "[1637]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.126.5",
+        "id_validacion": "c.126.4",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_1",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "16.208.945-4",
@@ -3407,14 +3113,17 @@
             "[1637]": 1
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.126.6",
+        "id_validacion": "c.126.5",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_2",
         "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -3425,14 +3134,17 @@
             "[1849]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.126.7",
+        "id_validacion": "c.126.6",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_2",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -3443,14 +3155,17 @@
             "[1849]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.126.8",
+        "id_validacion": "c.126.7",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_3",
         "descripcion_qa": "Frontera exacta. La sub-condición 3 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -3461,14 +3176,17 @@
             "[170]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL_3"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.126.9",
+        "id_validacion": "c.126.8",
         "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL_3",
         "descripcion_qa": "Supera límite por 1 peso. La sub-condición 3 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
@@ -3479,29 +3197,14 @@
             "[170]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL_3"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.126.10",
-        "tipo_escenario": "COTA_FUNC_ROUND_1_HACIA_ARRIBA_BUENO",
-        "descripcion_qa": "Función ROUND_1 forzada a redondear hacia arriba (residuo >= 0.5) en su ruta activa.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[170]": 1004524,
-            "[157]": 1000000,
-            "[1849]": 1000000,
-            "[1637]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_ROUND_1_HACIA_ARRIBA_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE"
+        }
     },
     {
         "id_validacion": "c.132.1",
@@ -3509,482 +3212,410 @@
         "descripcion_qa": "Frontera exacta. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1594]": 1000000,
-            "[1105]": 1000000,
-            "[170]": 1000000,
-            "[201]": 1000000,
             "[1598]": 1000000,
-            "[1017]": 1000000,
-            "[1026]": 1000000,
-            "[910]": 1000000,
-            "[1633]": 1000000,
-            "[1597]": 1000000,
-            "[1721]": 1000000,
-            "[608]": 1000000,
-            "[1033]": 1000000,
+            "[170]": 1000000,
             "[157]": 1000000,
+            "[1105]": 1000000,
+            "[1017]": 1000000,
+            "[1594]": 1000000,
+            "[1633]": 1000000,
+            "[1721]": 1000000,
+            "[201]": 1000000,
+            "[1033]": 1000000,
+            "[1026]": 1000000,
+            "[608]": 1000000,
             "[1722]": 1000000,
+            "[1597]": 1000000,
+            "[910]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
             "[32]": 0,
             "[1035]": 2395000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG2",
+            "MIN_2": "ARG1",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
         "id_validacion": "c.132.2",
-        "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL",
-        "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1597]": 1000000,
-            "[1017]": 1000000,
-            "[608]": 1000000,
-            "[170]": 1000000,
-            "[1598]": 1000000,
-            "[1594]": 1000000,
-            "[157]": 1000000,
-            "[1026]": 1000000,
-            "[1722]": 1000000,
-            "[1105]": 1000000,
-            "[201]": 1000000,
-            "[910]": 1000000,
-            "[1633]": 1000000,
-            "[1721]": 1000000,
-            "[1033]": 1000000,
-            "[1024]": 1000000,
-            "[1592]": 1000000,
-            "[32]": 0,
-            "[1035]": 2395001
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.132.3",
         "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL",
         "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
         "rut": "11.111.111-1",
         "inputs": {
-            "[608]": 1000000,
-            "[201]": 1000000,
             "[1721]": 1000000,
-            "[1017]": 1000000,
             "[1598]": 1000000,
-            "[1026]": 1000000,
-            "[170]": 1000000,
+            "[201]": 1000000,
             "[1633]": 1000000,
-            "[1105]": 1000000,
+            "[1026]": 1000000,
             "[1594]": 1000000,
+            "[157]": 1000000,
+            "[1017]": 1000000,
+            "[1105]": 1000000,
+            "[1033]": 1000000,
+            "[1722]": 1000000,
             "[1597]": 1000000,
             "[910]": 1000000,
-            "[157]": 1000000,
-            "[1722]": 1000000,
-            "[1033]": 1000000,
+            "[170]": 1000000,
+            "[608]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
             "[32]": 0,
             "[1035]": 2394999
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_VERDADERO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG2",
+            "MIN_2": "ARG1",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.132.4",
+        "id_validacion": "c.132.3",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL",
         "descripcion_qa": "Frontera exacta. La condición no se cumple.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[32]": 1000000,
-            "[1633]": 1000000,
-            "[1033]": 1000000,
             "[1598]": 1000000,
-            "[1594]": 1000000,
             "[201]": 1000000,
-            "[1017]": 1000000,
-            "[1721]": 1000000,
-            "[170]": 1000000,
-            "[1105]": 1000000,
-            "[1026]": 1000000,
-            "[157]": 1000000,
+            "[32]": 1000000,
             "[608]": 1000000,
+            "[1017]": 1000000,
+            "[1594]": 1000000,
+            "[1633]": 1000000,
+            "[1105]": 1000000,
+            "[157]": 1000000,
             "[1722]": 1000000,
             "[1597]": 1000000,
             "[910]": 1000000,
+            "[1026]": 1000000,
+            "[1033]": 1000000,
+            "[1721]": 1000000,
+            "[170]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
             "[1035]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_PRINCIPAL"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "MIN_1": "SKIPPED",
+            "MIN_2": "SKIPPED",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.132.5",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_PRINCIPAL",
-        "descripcion_qa": "Supera límite por 1 peso. La condición no se cumple.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[910]": 1000000,
-            "[1026]": 1000000,
-            "[1721]": 1000000,
-            "[1598]": 1000000,
-            "[608]": 1000000,
-            "[201]": 1000000,
-            "[1033]": 1000000,
-            "[32]": 1000000,
-            "[170]": 1000000,
-            "[1105]": 1000000,
-            "[1017]": 1000000,
-            "[157]": 1000000,
-            "[1597]": 1000000,
-            "[1594]": 1000000,
-            "[1722]": 1000000,
-            "[1633]": 1000000,
-            "[1024]": 1000000,
-            "[1592]": 1000000,
-            "[1035]": 1
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_PRINCIPAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.132.6",
+        "id_validacion": "c.132.4",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_ANIDADO_2_1",
         "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1721]": 1000000,
+            "[1026]": 1000000,
+            "[32]": 1000000,
+            "[157]": 1000000,
+            "[201]": 1000000,
+            "[170]": 1000000,
+            "[1017]": 1000000,
             "[910]": 1000000,
-            "[1594]": 1000000,
+            "[608]": 1000000,
+            "[1105]": 1000000,
             "[1633]": 1000000,
+            "[1594]": 1000000,
+            "[1598]": 1000000,
             "[1035]": 0,
-            "[1017]": 1000000,
-            "[1105]": 1000000,
-            "[157]": 1000000,
-            "[32]": 1000000,
-            "[608]": 1000000,
-            "[170]": 1000000,
             "[1722]": 1000000,
             "[1597]": 1000000,
-            "[1598]": 1000000,
-            "[1026]": 1000000,
-            "[1033]": 1000000,
-            "[201]": 1000000,
-            "[1024]": 0,
-            "[1592]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_ANIDADO_2_1"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.132.7",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_1",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[201]": 1000000,
-            "[157]": 1000000,
-            "[1035]": 1,
-            "[608]": 1000000,
-            "[1105]": 1000000,
-            "[1026]": 1000000,
-            "[1633]": 1000000,
-            "[1594]": 1000000,
-            "[1017]": 1000000,
             "[1721]": 1000000,
-            "[32]": 1000000,
-            "[1598]": 1000000,
-            "[1722]": 1000000,
-            "[1597]": 1000000,
-            "[170]": 1000000,
             "[1033]": 1000000,
-            "[910]": 1000000,
             "[1024]": 0,
             "[1592]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "MIN_1": "SKIPPED",
+            "MIN_2": "SKIPPED",
+            "CONDICION_2": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_2": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.132.8",
+        "id_validacion": "c.132.5",
         "tipo_escenario": "BAJO_LIMITE_FALSO_ANIDADO_2_1",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 1 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
+            "[1035]": 2394999,
+            "[1722]": 1000000,
             "[1017]": 1000000,
             "[1597]": 1000000,
-            "[608]": 1000000,
-            "[1035]": 2394999,
-            "[201]": 1000000,
+            "[1721]": 1000000,
             "[910]": 1000000,
-            "[1722]": 1000000,
             "[1033]": 1000000,
-            "[157]": 1000000,
             "[170]": 1000000,
+            "[1598]": 1000000,
             "[1026]": 1000000,
             "[1594]": 1000000,
-            "[1598]": 1000000,
             "[1105]": 1000000,
-            "[1721]": 1000000,
+            "[608]": 1000000,
+            "[201]": 1000000,
+            "[157]": 1000000,
             "[1633]": 1000000,
             "[32]": 0,
             "[1024]": 0,
             "[1592]": 0
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_ANIDADO_2_1"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG2",
+            "MIN_2": "ARG1",
+            "CONDICION_2": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_2": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.132.9",
+        "id_validacion": "c.132.6",
         "tipo_escenario": "LIMITE_EXACTO_FALSO_ANIDADO_2_2",
         "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1594]": 1000000,
-            "[170]": 41725200,
-            "[201]": 1000000,
-            "[1017]": 1000000,
-            "[157]": 1000000,
-            "[1026]": 1000000,
-            "[1598]": 1000000,
             "[1105]": 1000000,
+            "[1598]": 1000000,
+            "[608]": 1000000,
+            "[32]": 1000000,
+            "[1594]": 1000000,
+            "[157]": 1000000,
+            "[1033]": 1000000,
+            "[1017]": 1000000,
             "[1035]": 0,
-            "[608]": 1000000,
-            "[1722]": 1000000,
-            "[1597]": 1000000,
-            "[1633]": 1000000,
-            "[910]": 1000000,
-            "[1033]": 1000000,
-            "[32]": 1000000,
-            "[1721]": 1000000,
-            "[1024]": 1000000,
-            "[1592]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_FALSO_ANIDADO_2_2"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.132.10",
-        "tipo_escenario": "EXCEDE_LIMITE_FALSO_ANIDADO_2_2",
-        "descripcion_qa": "Supera límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1033]": 1000000,
-            "[1633]": 1000000,
-            "[157]": 1000000,
             "[1026]": 1000000,
-            "[608]": 1000000,
-            "[1035]": 1,
-            "[32]": 1000000,
-            "[201]": 1000000,
-            "[1017]": 1000000,
-            "[1721]": 1000000,
-            "[170]": 41725200,
-            "[1598]": 1000000,
-            "[1597]": 1000000,
             "[1722]": 1000000,
+            "[1597]": 1000000,
             "[910]": 1000000,
-            "[1594]": 1000000,
-            "[1105]": 1000000,
+            "[1633]": 1000000,
+            "[201]": 1000000,
+            "[170]": 41725200,
+            "[1721]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_FALSO_ANIDADO_2_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "IF_1": "FALSE",
+            "POS_1": "SKIPPED",
+            "MIN_1": "SKIPPED",
+            "MIN_2": "SKIPPED",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_2": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.132.11",
+        "id_validacion": "c.132.7",
         "tipo_escenario": "BAJO_LIMITE_FALSO_ANIDADO_2_2",
         "descripcion_qa": "Bajo el límite por 1 peso. La sub-condición 2 del bloque AND falla de forma exclusiva.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[608]": 1000000,
-            "[157]": 1000000,
-            "[1597]": 1000000,
-            "[1035]": 2744999,
-            "[1017]": 1000000,
-            "[1033]": 1000000,
             "[201]": 1000000,
-            "[1721]": 1000000,
-            "[910]": 1000000,
-            "[1598]": 1000000,
+            "[1033]": 1000000,
             "[1722]": 1000000,
+            "[1597]": 1000000,
+            "[1598]": 1000000,
+            "[608]": 1000000,
+            "[1105]": 1000000,
+            "[1017]": 1000000,
+            "[157]": 1000000,
+            "[1721]": 1000000,
+            "[1035]": 2744999,
+            "[910]": 1000000,
+            "[1594]": 1000000,
             "[1633]": 1000000,
             "[170]": 41725200,
-            "[1105]": 1000000,
-            "[1594]": 1000000,
             "[1026]": 1000000,
             "[32]": 0,
             "[1024]": 1000000,
             "[1592]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_FALSO_ANIDADO_2_2"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG2",
+            "MIN_2": "ARG1",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "IF_2": "FALSE"
+        }
     },
     {
-        "id_validacion": "c.132.12",
+        "id_validacion": "c.132.8",
         "tipo_escenario": "COTA_FUNC_POS_1_MENOR_A_CERO_BUENO",
         "descripcion_qa": "Función POS_1 forzada a límite negativo en su ruta activa respetando el límite.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1026]": 0,
-            "[910]": 1000000,
             "[170]": 1000000,
-            "[1721]": 1000000,
-            "[608]": 0,
+            "[157]": 1000000,
             "[201]": 1000000,
-            "[1033]": 1000000,
-            "[1597]": 1000000,
+            "[1594]": 1000000,
+            "[608]": 0,
+            "[1105]": 0,
             "[1017]": 1000000,
             "[1633]": 1000000,
-            "[1594]": 1000000,
-            "[157]": 1000000,
-            "[1722]": 0,
-            "[1105]": 0,
+            "[1026]": 0,
+            "[1721]": 1000000,
+            "[910]": 1000000,
             "[1598]": 0,
+            "[1597]": 1000000,
+            "[1722]": 0,
+            "[1033]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
             "[32]": 0,
             "[1035]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_1_MENOR_A_CERO_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": "<=0",
+            "MIN_1": "ARG2",
+            "MIN_2": "ARG1",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.132.13",
+        "id_validacion": "c.132.9",
         "tipo_escenario": "COTA_FUNC_MIN_2_ARG_1_BUENO",
         "descripcion_qa": "Función MIN_2 evaluada por su argumento 1 en su ruta activa respetando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1722]": 1000000,
-            "[201]": 1000000,
-            "[1598]": 1000000,
-            "[1597]": 1000000,
-            "[1105]": 1000000,
-            "[1017]": 1000000,
-            "[608]": 3087307,
-            "[910]": 1000000,
-            "[170]": 1000000,
-            "[1633]": 1000000,
-            "[157]": 1000000,
             "[1721]": 1000000,
+            "[1597]": 1000000,
             "[1026]": 1000000,
-            "[1033]": 1000000,
+            "[157]": 1000000,
+            "[201]": 1000000,
+            "[1633]": 1000000,
+            "[1598]": 1000000,
             "[1594]": 1000000,
+            "[1105]": 1000000,
+            "[1722]": 1000000,
+            "[910]": 1000000,
+            "[1033]": 1000000,
+            "[170]": 1000000,
+            "[608]": 1400001,
+            "[1017]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
             "[32]": 0,
             "[1035]": 2795000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_2_ARG_1_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG1",
+            "MIN_2": "ARG1",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.132.14",
+        "id_validacion": "c.132.10",
         "tipo_escenario": "COTA_FUNC_MIN_2_ARG_1_MENSAJE",
         "descripcion_qa": "Función MIN_2 evaluada por su argumento 1 en su ruta activa violando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
+            "[1033]": 1000000,
             "[1722]": 1000000,
-            "[1594]": 1000000,
-            "[1017]": 1000000,
+            "[1105]": 1000000,
             "[1721]": 1000000,
             "[608]": 1400001,
-            "[1633]": 1000000,
-            "[157]": 1000000,
-            "[1105]": 1000000,
             "[910]": 1000000,
-            "[1597]": 1000000,
-            "[201]": 1000000,
-            "[170]": 1000000,
-            "[1033]": 1000000,
             "[1026]": 1000000,
             "[1598]": 1000000,
+            "[1594]": 1000000,
+            "[170]": 1000000,
+            "[1597]": 1000000,
+            "[201]": 1000000,
+            "[1633]": 1000000,
+            "[1017]": 1000000,
+            "[157]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
             "[32]": 0,
             "[1035]": 2794999
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_2_ARG_1_MENSAJE"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG1",
+            "MIN_2": "ARG1",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.132.15",
+        "id_validacion": "c.132.11",
         "tipo_escenario": "COTA_FUNC_MIN_3_ARG_2_BUENO",
         "descripcion_qa": "Función MIN_3 evaluada por su argumento 2 en su ruta activa respetando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1017]": 1000000,
-            "[157]": 1000000,
             "[1594]": 1000000,
-            "[1633]": 6846146,
-            "[1105]": 1000000,
-            "[1598]": 1000000,
-            "[608]": 1000000,
             "[1597]": 1000000,
+            "[1633]": 1000000,
+            "[1033]": 1000000,
+            "[157]": 1000000,
+            "[608]": 1000000,
+            "[1722]": 1000000,
+            "[1598]": 1000000,
+            "[1105]": 1000000,
             "[1026]": 1000000,
             "[201]": 1000000,
-            "[1722]": 1000000,
-            "[1721]": 1000000,
-            "[1033]": 1000000,
+            "[1721]": 6846146,
             "[910]": 1000000,
+            "[1017]": 1000000,
             "[170]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
@@ -3992,32 +3623,38 @@
             "[1035]": 2395000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_3_ARG_2_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG2",
+            "MIN_2": "ARG2",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
-        "id_validacion": "c.132.16",
+        "id_validacion": "c.132.12",
         "tipo_escenario": "COTA_FUNC_MIN_3_ARG_2_MENSAJE",
         "descripcion_qa": "Función MIN_3 evaluada por su argumento 2 en su ruta activa violando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1722]": 1000000,
-            "[1026]": 1000000,
-            "[201]": 1000000,
-            "[1633]": 1000000,
-            "[1105]": 1000000,
-            "[1598]": 1000000,
-            "[1597]": 1000000,
             "[608]": 1000000,
+            "[1598]": 1000000,
+            "[1633]": 1000000,
+            "[201]": 1000000,
+            "[1594]": 6846146,
+            "[1105]": 1000000,
+            "[1597]": 1000000,
             "[910]": 1000000,
-            "[1594]": 1000000,
-            "[157]": 1000000,
-            "[1721]": 6846146,
-            "[170]": 1000000,
+            "[1721]": 1000000,
             "[1017]": 1000000,
+            "[1722]": 1000000,
+            "[157]": 1000000,
+            "[170]": 1000000,
+            "[1026]": 1000000,
             "[1033]": 1000000,
             "[1024]": 1000000,
             "[1592]": 1000000,
@@ -4025,11 +3662,17 @@
             "[1035]": 2394999
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_3_ARG_2_MENSAJE"
-            ]
-        ]
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "IF_1": "TRUE",
+            "POS_1": ">0",
+            "MIN_1": "ARG2",
+            "MIN_2": "ARG2",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_2": "TRUE"
+        }
     },
     {
         "id_validacion": "c.134.1",
@@ -4037,36 +3680,35 @@
         "descripcion_qa": "Frontera exacta. Evaluación sin condicionales ramificados.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[955]": 1000000,
-            "[105]": 1000000,
             "[765]": 1000000,
-            "[169]": 1000000,
-            "[161]": 1000000,
-            "[750]": 1000000,
-            "[106]": 1000000,
-            "[1891]": 15000000,
-            "[110]": 1000000,
-            "[1032]": 1000000,
-            "[108]": 1000000,
-            "[907]": 1000000,
-            "[749]": 1000000,
-            "[111]": 1000000,
             "[822]": 1000000,
-            "[155]": 1000000,
+            "[105]": 1000000,
+            "[1891]": 1000000,
+            "[169]": 1000000,
+            "[1032]": 1000000,
+            "[106]": 15000000,
+            "[104]": 1000000,
+            "[110]": 1000000,
             "[740]": 1000000,
+            "[955]": 1000000,
             "[166]": 1000000,
+            "[907]": 1000000,
+            "[108]": 1000000,
+            "[749]": 1000000,
+            "[161]": 1000000,
             "[1632]": 1000000,
             "[152]": 1000000,
+            "[750]": 1000000,
             "[1104]": 1000000,
-            "[104]": 1000000,
+            "[111]": 1000000,
+            "[155]": 1000000,
             "[1833]": 1000000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "LIMITE_EXACTO_LINEAL"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG2",
+            "POS_1": ">0"
+        }
     },
     {
         "id_validacion": "c.134.2",
@@ -4074,368 +3716,294 @@
         "descripcion_qa": "Supera límite por 1 peso. Evaluación sin condicionales ramificados.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[765]": 1000000,
-            "[108]": 1000000,
-            "[161]": 14999980,
-            "[740]": 1000000,
-            "[166]": 1000000,
-            "[955]": 1000000,
-            "[822]": 1000000,
-            "[106]": 1000000,
-            "[907]": 1000000,
-            "[110]": 1000000,
-            "[749]": 1000000,
-            "[1632]": 1000000,
             "[155]": 1000000,
-            "[152]": 1000000,
-            "[1104]": 1000000,
-            "[1891]": 1000000,
-            "[750]": 1000000,
-            "[105]": 1000000,
-            "[169]": 1000000,
-            "[111]": 1000000,
             "[104]": 1000000,
+            "[161]": 1000000,
+            "[166]": 1000000,
+            "[105]": 1000000,
+            "[106]": 1000000,
+            "[110]": 1000000,
+            "[907]": 1000000,
+            "[111]": 1000000,
+            "[822]": 1000000,
+            "[749]": 1000000,
+            "[1891]": 1000000,
+            "[765]": 1000000,
+            "[169]": 1000000,
+            "[955]": 1000000,
+            "[108]": 1000000,
             "[1032]": 1000000,
+            "[1104]": 1000000,
+            "[750]": 1000000,
+            "[740]": 1000000,
+            "[1632]": 14999980,
+            "[152]": 1000000,
             "[1833]": 1000000
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "EXCEDE_LIMITE_LINEAL"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG2",
+            "POS_1": ">0"
+        }
     },
     {
         "id_validacion": "c.134.3",
-        "tipo_escenario": "BAJO_LIMITE_LINEAL",
-        "descripcion_qa": "Bajo el límite por 1 peso. Evaluación sin condicionales ramificados.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[765]": 1000000,
-            "[955]": 1000000,
-            "[111]": 1000000,
-            "[106]": 1000000,
-            "[108]": 1000000,
-            "[166]": 1000000,
-            "[907]": 1000000,
-            "[110]": 1000000,
-            "[740]": 1000000,
-            "[749]": 1000000,
-            "[161]": 1000000,
-            "[1632]": 15000020,
-            "[152]": 1000000,
-            "[1104]": 1000000,
-            "[822]": 1000000,
-            "[155]": 1000000,
-            "[1032]": 1000000,
-            "[750]": 1000000,
-            "[169]": 1000000,
-            "[1891]": 1000000,
-            "[104]": 1000000,
-            "[105]": 1000000,
-            "[1833]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "BAJO_LIMITE_LINEAL"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.134.4",
         "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_BUENO",
         "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa respetando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[111]": 1000000,
-            "[161]": 13903400020,
-            "[822]": 1000000,
-            "[1032]": 1000000,
-            "[740]": 1000000,
-            "[765]": 1000000,
-            "[108]": 1000000,
             "[155]": 1000000,
-            "[106]": 1000000,
-            "[110]": 1000000,
-            "[166]": 1000000,
-            "[907]": 1000000,
-            "[104]": 1000000,
+            "[822]": 1000000,
+            "[740]": 1000000,
             "[1891]": 1000000,
+            "[108]": 1000000,
+            "[106]": 1000000,
+            "[111]": 1000000,
+            "[110]": 13903400020,
+            "[907]": 1000000,
             "[749]": 1000000,
+            "[104]": 1000000,
+            "[161]": 1000000,
             "[1632]": 1000000,
-            "[152]": 1000000,
             "[955]": 1000000,
+            "[152]": 1000000,
             "[1104]": 1000000,
-            "[750]": 1000000,
+            "[166]": 1000000,
+            "[1032]": 1000000,
+            "[765]": 1000000,
             "[105]": 1000000,
+            "[750]": 1000000,
             "[169]": 1000000,
             "[1833]": 695420000
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG1",
+            "POS_1": ">0"
+        }
     },
     {
-        "id_validacion": "c.134.5",
+        "id_validacion": "c.134.4",
         "tipo_escenario": "COTA_FUNC_MIN_1_ARG_1_MENSAJE",
         "descripcion_qa": "Función MIN_1 evaluada por su argumento 1 en su ruta activa violando el límite legal.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[765]": 1000000,
-            "[822]": 1000000,
             "[105]": 1000000,
-            "[111]": 1000000,
+            "[104]": 1000000,
+            "[1032]": 1000000,
+            "[822]": 1000000,
+            "[166]": 1000000,
+            "[106]": 1000000,
             "[169]": 1000000,
-            "[106]": 13903400020,
             "[110]": 1000000,
             "[907]": 1000000,
-            "[740]": 1000000,
             "[749]": 1000000,
-            "[1891]": 1000000,
+            "[765]": 1000000,
             "[155]": 1000000,
-            "[1032]": 1000000,
-            "[166]": 1000000,
-            "[108]": 1000000,
+            "[740]": 1000000,
             "[1632]": 1000000,
+            "[955]": 1000000,
             "[152]": 1000000,
             "[1104]": 1000000,
-            "[104]": 1000000,
-            "[955]": 1000000,
-            "[161]": 1000000,
+            "[111]": 1000000,
+            "[108]": 1000000,
             "[750]": 1000000,
+            "[161]": 13903400020,
+            "[1891]": 1000000,
             "[1833]": 695420001
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_1_MENSAJE"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG1",
+            "POS_1": ">0"
+        }
     },
     {
-        "id_validacion": "c.134.6",
-        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_2_BUENO",
-        "descripcion_qa": "Función MIN_1 evaluada por su argumento 2 en su ruta activa respetando el límite legal.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[111]": 1000000,
-            "[105]": 15000000,
-            "[740]": 1000000,
-            "[822]": 1000000,
-            "[955]": 1000000,
-            "[1032]": 1000000,
-            "[106]": 1000000,
-            "[110]": 1000000,
-            "[907]": 1000000,
-            "[104]": 1000000,
-            "[749]": 1000000,
-            "[169]": 1000000,
-            "[155]": 1000000,
-            "[1632]": 1000000,
-            "[1891]": 1000000,
-            "[765]": 1000000,
-            "[166]": 1000000,
-            "[161]": 1000000,
-            "[108]": 1000000,
-            "[152]": 1000000,
-            "[750]": 1000000,
-            "[1104]": 1000000,
-            "[1833]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_2_BUENO"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.134.7",
-        "tipo_escenario": "COTA_FUNC_MIN_1_ARG_2_MENSAJE",
-        "descripcion_qa": "Función MIN_1 evaluada por su argumento 2 en su ruta activa violando el límite legal.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[822]": 1000000,
-            "[1891]": 1000000,
-            "[106]": 1000000,
-            "[1032]": 1000000,
-            "[740]": 1000000,
-            "[110]": 1000000,
-            "[104]": 14999980,
-            "[108]": 1000000,
-            "[955]": 1000000,
-            "[907]": 1000000,
-            "[749]": 1000000,
-            "[105]": 1000000,
-            "[111]": 1000000,
-            "[1632]": 1000000,
-            "[765]": 1000000,
-            "[152]": 1000000,
-            "[1104]": 1000000,
-            "[155]": 1000000,
-            "[750]": 1000000,
-            "[169]": 1000000,
-            "[161]": 1000000,
-            "[166]": 1000000,
-            "[1833]": 1000000
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_MIN_1_ARG_2_MENSAJE"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.134.8",
-        "tipo_escenario": "COTA_FUNC_POS_2_MAYOR_A_CERO_BUENO",
-        "descripcion_qa": "Función POS_2 con argumento > 0 en su ruta activa respetando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[104]": 15000000,
-            "[155]": 1000000,
-            "[955]": 1000000,
-            "[1891]": 1000000,
-            "[106]": 1000000,
-            "[822]": 1000000,
-            "[110]": 1000000,
-            "[1032]": 1000000,
-            "[907]": 1000000,
-            "[166]": 1000000,
-            "[749]": 1000000,
-            "[111]": 1000000,
-            "[1632]": 1000000,
-            "[152]": 1000000,
-            "[161]": 1000000,
-            "[105]": 1000000,
-            "[1104]": 1000000,
-            "[108]": 1000000,
-            "[740]": 1000000,
-            "[750]": 1000000,
-            "[765]": 1000000,
-            "[169]": 1000000,
-            "[1833]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_2_MAYOR_A_CERO_BUENO"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.134.9",
-        "tipo_escenario": "COTA_FUNC_POS_2_MAYOR_A_CERO_MENSAJE",
-        "descripcion_qa": "Función POS_2 con argumento > 0 en su ruta activa violando el límite.",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[155]": 1000000,
-            "[161]": 1000000,
-            "[106]": 1000000,
-            "[169]": 1000000,
-            "[1891]": 1000000,
-            "[110]": 1000000,
-            "[907]": 1000000,
-            "[111]": 1000000,
-            "[749]": 1000000,
-            "[740]": 1000000,
-            "[166]": 1000000,
-            "[1632]": 1000000,
-            "[152]": 1000000,
-            "[765]": 1000000,
-            "[108]": 14999980,
-            "[1104]": 1000000,
-            "[822]": 1000000,
-            "[104]": 1000000,
-            "[1032]": 1000000,
-            "[105]": 1000000,
-            "[750]": 1000000,
-            "[955]": 1000000,
-            "[1833]": 1000000
-        },
-        "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_2_MAYOR_A_CERO_MENSAJE"
-            ]
-        ]
-    },
-    {
-        "id_validacion": "c.134.10",
+        "id_validacion": "c.134.5",
         "tipo_escenario": "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO",
         "descripcion_qa": "Función POS_2 forzada a límite negativo en su ruta activa respetando el límite.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[105]": 1000000,
-            "[822]": 1000000,
-            "[111]": 1000000,
-            "[169]": 1000000,
-            "[155]": 1000000,
+            "[740]": 1000000,
             "[166]": 1000000,
-            "[750]": 1000000,
-            "[1032]": 1000000,
-            "[106]": 1000000,
-            "[110]": 1000000,
-            "[765]": 1000000,
-            "[955]": 1000000,
-            "[161]": 1000000,
-            "[907]": 1000000,
+            "[169]": 7000020,
+            "[111]": 1000000,
             "[108]": 1000000,
-            "[749]": 1000000,
-            "[1632]": 1000000,
             "[1891]": 1000000,
-            "[740]": 7000020,
-            "[152]": 1000000,
+            "[155]": 1000000,
             "[1104]": 1000000,
+            "[110]": 1000000,
+            "[106]": 1000000,
+            "[1032]": 1000000,
+            "[161]": 1000000,
+            "[765]": 1000000,
+            "[105]": 1000000,
+            "[955]": 1000000,
+            "[749]": 1000000,
+            "[907]": 1000000,
+            "[1632]": 1000000,
+            "[822]": 1000000,
+            "[152]": 1000000,
+            "[750]": 1000000,
             "[104]": 1000000,
             "[1833]": 0
         },
         "resultado_esperado": "BUENO",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_2_MENOR_A_CERO_BUENO"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG2",
+            "POS_1": "<=0"
+        }
     },
     {
-        "id_validacion": "c.134.11",
+        "id_validacion": "c.134.6",
         "tipo_escenario": "COTA_FUNC_POS_2_MENOR_A_CERO_MENSAJE",
         "descripcion_qa": "Función POS_2 forzada a límite negativo en su ruta activa violando el límite.",
         "rut": "11.111.111-1",
         "inputs": {
-            "[765]": 1000000,
-            "[955]": 1000000,
-            "[1891]": 1000000,
-            "[822]": 7000040,
-            "[105]": 1000000,
-            "[106]": 1000000,
-            "[110]": 1000000,
-            "[907]": 1000000,
-            "[749]": 1000000,
-            "[161]": 1000000,
             "[111]": 1000000,
-            "[104]": 1000000,
-            "[1632]": 1000000,
-            "[152]": 1000000,
-            "[1104]": 1000000,
-            "[108]": 1000000,
             "[1032]": 1000000,
             "[740]": 1000000,
-            "[750]": 1000000,
+            "[955]": 1000000,
             "[155]": 1000000,
+            "[105]": 1000000,
+            "[822]": 1000000,
             "[169]": 1000000,
+            "[106]": 1000000,
+            "[110]": 1000000,
+            "[104]": 1000000,
+            "[907]": 7000040,
+            "[749]": 1000000,
+            "[161]": 1000000,
             "[166]": 1000000,
+            "[1632]": 1000000,
+            "[152]": 1000000,
+            "[750]": 1000000,
+            "[1104]": 1000000,
+            "[1891]": 1000000,
+            "[765]": 1000000,
+            "[108]": 1000000,
             "[1833]": 1
         },
         "resultado_esperado": "MENSAJE",
-        "huellas_cubiertas": [
-            [
-                "COTA_FUNC_POS_2_MENOR_A_CERO_MENSAJE"
-            ]
-        ]
+        "huella_logica": {
+            "MIN_1": "ARG2",
+            "POS_1": "<=0"
+        }
+    },
+    {
+        "id_validacion": "c.168.1",
+        "tipo_escenario": "EXCEDE_LIMITE_VERDADERO_PRINCIPAL",
+        "descripcion_qa": "Supera límite por 1 peso. La condición se cumple (Rama alcanzada).",
+        "rut": "20.915.367-3",
+        "inputs": {
+            "[1814]": 1000000,
+            "[1190]": 1
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_5": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_6": "EVALUADO",
+            "CONDICION_7": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_8": "TRUE",
+            "IF_1": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "c.168.2",
+        "tipo_escenario": "BAJO_LIMITE_VERDADERO_PRINCIPAL",
+        "descripcion_qa": "Bajo el límite por 1 peso. La condición se cumple (Rama alcanzada).",
+        "rut": "20.915.367-3",
+        "inputs": {
+            "[1814]": -1000001,
+            "[1190]": 1000000
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_5": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_6": "EVALUADO",
+            "CONDICION_7": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_8": "TRUE",
+            "IF_1": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "c.168.3",
+        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_1",
+        "descripcion_qa": "Frontera exacta. La sub-condición 1 del bloque AND falla de forma exclusiva.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1814]": 1000000,
+            "[1190]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_5": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_6": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED",
+            "IF_1": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "c.168.4",
+        "tipo_escenario": "LIMITE_EXACTO_FALSO_PRINCIPAL_2",
+        "descripcion_qa": "Frontera exacta. La sub-condición 2 del bloque AND falla de forma exclusiva.",
+        "rut": "18.742.531-9",
+        "inputs": {
+            "[1814]": 1000000,
+            "[1190]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "OR_5": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_6": "EVALUADO",
+            "CONDICION_7": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_8": "FALSE",
+            "IF_1": "FALSE"
+        }
     }
 ]

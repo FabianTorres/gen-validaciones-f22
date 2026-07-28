@@ -1,48 +1,52 @@
-class ReductorSetCover:
-    """
-    Aplica la regla estricta de Subconjuntos y Fusión Física.
-    Si dos casos tienen la misma huella estructural y el mismo resultado de negocio, uno sobra.
-    """
-    def optimizar(self, casos_con_huellas):
-        casos_sobrevivientes = {}
-        idx_real = 1
+class ReductorCasos:
+    def __init__(self):
+        self.casos_optimizados = {}
+        self.orden_reglas = [] # <--- NUEVO: Memoria para mantener tu orden original
 
-        for caso in casos_con_huellas:
-            if caso.get("estado_interno") == "INSATISFACTIBLE" or "error" in caso:
-                continue
+    def procesar_casos(self, lista_casos: list) -> list:
+        for caso in lista_casos:
+            id_val_original = caso.get("id_validacion", "")
+            id_val_base = id_val_original.rsplit(".", 1)[0] if "." in id_val_original else id_val_original
+            
+            # Guardamos el orden en que van apareciendo las reglas
+            if id_val_base not in self.orden_reglas:
+                self.orden_reglas.append(id_val_base)
+            
+            res_esperado = caso.get("resultado_esperado", "DEFAULT")
+            huella_dict = caso.get("huella_logica", {})
+            huella_str = str(tuple(sorted(huella_dict.items())))
+            
+            firma_unica = f"{id_val_base}|{res_esperado}|{huella_str}"
 
-            huella = caso["huella_real"]
-            rut = caso.get("rut", "")
-            resultado = caso.get("resultado_esperado", "")
-            objetivo_val = caso.get("objetivo", {}).get("valor", "")
-
-            # Firma Lógica Absoluta (Agnóstica al nombre 'tipo_escenario' del generador)
-            firma = (huella, rut, resultado, objetivo_val)
-
-            if firma not in casos_sobrevivientes:
-                # Este caso probó una ruta nueva que nadie más había probado
-                caso_limpio = caso.copy()
-                
-                # Actualizamos su metadata para reflejar la realidad del nodo
-                caso_limpio["huellas_cubiertas"] = [huella]
-                del caso_limpio["huella_real"]  # Limpiamos el temporal
-                
-                casos_sobrevivientes[firma] = caso_limpio
+            if firma_unica not in self.casos_optimizados:
+                self.casos_optimizados[firma_unica] = caso
             else:
-                # REDUNDANCIA DETECTADA: Alguien más ya probó esta misma ruta matemática
-                caso_existente = casos_sobrevivientes[firma]
-                
-                # Fusionamos la descripción para no perder el contexto de lo que el generador intentó hacer
-                if caso['tipo_escenario'] not in caso_existente['tipo_escenario']:
-                    caso_existente["tipo_escenario"] += f" | {caso['tipo_escenario']}"
-                if caso['descripcion_qa'] not in caso_existente['descripcion_qa']:
-                    caso_existente["descripcion_qa"] += f" || {caso['descripcion_qa']}"
+                caso_existente = self.casos_optimizados[firma_unica]
+                # Competencia: Elige al mejor candidato
+                if self._calcular_peso(caso) < self._calcular_peso(caso_existente):
+                    self.casos_optimizados[firma_unica] = caso
 
-        # Renumerar de forma limpia
-        casos_finales = list(casos_sobrevivientes.values())
-        id_base = ".".join(casos_finales[0]["id_validacion"].split(".")[:-1]) if casos_finales else "val"
+        resultados_finales = []
+        conteo_por_regla = {}
         
-        for i, c in enumerate(casos_finales, 1):
-            c["id_validacion"] = f"{id_base}.{i}"
+        for firma, caso_ganador in self.casos_optimizados.items():
+            id_val_base = firma.split("|")[0]
+            conteo_por_regla[id_val_base] = conteo_por_regla.get(id_val_base, 0) + 1
+            
+            caso_final = caso_ganador.copy()
+            caso_final["id_validacion"] = f"{id_val_base}.{conteo_por_regla[id_val_base]}"
+            resultados_finales.append(caso_final)
 
-        return casos_finales
+        # <--- NUEVO: Ordena usando la memoria original y luego por número de caso
+        resultados_finales.sort(key=lambda x: (
+            self.orden_reglas.index(x["id_validacion"].rsplit(".", 1)[0]),
+            int(x["id_validacion"].rsplit(".", 1)[1])
+        ))
+        
+        return resultados_finales
+
+    def _calcular_peso(self, caso: dict) -> float:
+        inputs = caso.get("inputs", {})
+        variables_activas = sum(1 for v in inputs.values() if isinstance(v, (int, float)) and v != 0)
+        suma_absoluta = sum(abs(v) for v in inputs.values() if isinstance(v, (int, float)))
+        return (variables_activas * 1_000_000_000) + suma_absoluta

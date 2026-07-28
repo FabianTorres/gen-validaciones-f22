@@ -52,7 +52,7 @@ class BoundaryBuilder(BaseStrategy):
                 lambda: self._resolver_y_formatear(
                     id_val, f"LIMITE_EXACTO_{sufijo_nombre}", 
                     f"Frontera exacta. {desc_ruta}", res_exacto,
-                    condicion_verificadora=condicion_maestra
+                    condicion_verificadora=condicion_maestra,  ast_tree=ast_tree
                 )
             ))
             casos.append(self._ejecutar_escenario_aislado(
@@ -60,7 +60,7 @@ class BoundaryBuilder(BaseStrategy):
                 lambda: self._resolver_y_formatear(
                     id_val, f"EXCEDE_LIMITE_{sufijo_nombre}", 
                     f"Supera límite por 1 peso. {desc_ruta}", res_sup,
-                    condicion_verificadora=condicion_maestra
+                    condicion_verificadora=condicion_maestra,  ast_tree=ast_tree
                 )
             ))
             casos.append(self._ejecutar_escenario_aislado(
@@ -68,7 +68,7 @@ class BoundaryBuilder(BaseStrategy):
                 lambda: self._resolver_y_formatear(
                     id_val, f"BAJO_LIMITE_{sufijo_nombre}", 
                     f"Bajo el límite por 1 peso. {desc_ruta}", res_inf,
-                    condicion_verificadora=condicion_maestra
+                    condicion_verificadora=condicion_maestra, ast_tree=ast_tree
                 )
             ))
 
@@ -122,7 +122,7 @@ class BoundaryBuilder(BaseStrategy):
                             lambda n=nombre_func_id, i=idx_arg+1: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_ARG_{i}_BUENO", 
                                 f"Función {n} evaluada por su argumento {i} en su ruta activa respetando el límite legal.", "BUENO",
-                                condicion_verificadora=condicion_maestra
+                                condicion_verificadora=condicion_maestra, ast_tree=ast_tree
                             )
                         ))
 
@@ -131,7 +131,7 @@ class BoundaryBuilder(BaseStrategy):
                             lambda n=nombre_func_id, i=idx_arg+1: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_ARG_{i}_MENSAJE", 
                                 f"Función {n} evaluada por su argumento {i} en su ruta activa violando el límite legal.", "MENSAJE",
-                                condicion_verificadora=condicion_maestra
+                                condicion_verificadora=condicion_maestra, ast_tree=ast_tree
                             )
                         ))
 
@@ -148,7 +148,7 @@ class BoundaryBuilder(BaseStrategy):
                             lambda n=nombre_func_id, e=estado, d=desc: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_{e}_BUENO", 
                                 f"Función {n} {d} en su ruta activa respetando el límite.", "BUENO",
-                                condicion_verificadora=condicion_maestra
+                                condicion_verificadora=condicion_maestra, ast_tree=ast_tree
                             )
                         ))
                         
@@ -157,7 +157,7 @@ class BoundaryBuilder(BaseStrategy):
                             lambda n=nombre_func_id, e=estado, d=desc: self._resolver_y_formatear(
                                 id_val, f"COTA_FUNC_{n}_{e}_MENSAJE", 
                                 f"Función {n} {d} en su ruta activa violando el límite.", "MENSAJE",
-                                condicion_verificadora=condicion_maestra
+                                condicion_verificadora=condicion_maestra, ast_tree=ast_tree
                             )
                         ))
 
@@ -183,7 +183,7 @@ class BoundaryBuilder(BaseStrategy):
                         lambda n=nombre_func_id: self._resolver_y_formatear(
                             id_val, f"COTA_FUNC_{n}_HACIA_ARRIBA_BUENO", 
                             f"Función {n} forzada a redondear hacia arriba (residuo >= 0.5) en su ruta activa.", "BUENO",
-                            condicion_verificadora=condicion_maestra
+                            condicion_verificadora=condicion_maestra, ast_tree=ast_tree
                         )
                     ))
 

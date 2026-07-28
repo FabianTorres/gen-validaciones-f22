@@ -1,104 +1,54 @@
 import json
-import sys
+import logging
 import os
+import sys
 
-# Inyección de ruta para evitar ModuleNotFoundError
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+# Parche de ruta para ejecutar standalone
+ruta_raiz = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+if ruta_raiz not in sys.path:
+    sys.path.insert(0, ruta_raiz)
 
-# Importación correcta de la función que expone tu parser
-from src.normalizador.parser import obtener_parser 
-from src.optimizador.trazador import TrazadorLogico
-from src.optimizador.reductor import ReductorSetCover
+from src.optimizador.reductor import ReductorCasos
 
-class OptimizadorOrquestador:
-    def __init__(self, ruta_json="data/output_matrices_qa.json", ruta_excel="data/input_excel.txt"):
-        self.ruta_json = ruta_json
-        self.ruta_excel = ruta_excel
-        self.ruta_salida = ruta_json.replace(".json", "_optimizado.json")
-        
-        # Instanciamos el parser puro de Lark
-        self.parser = obtener_parser()
-        self.trazador = TrazadorLogico()
-        self.reductor = ReductorSetCover()
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
+class OrquestadorFase3:
+    def __init__(self, ruta_matrices_in: str, ruta_matrices_out: str):
+        self.ruta_matrices_in = ruta_matrices_in
+        self.ruta_matrices_out = ruta_matrices_out
+        self.reductor = ReductorCasos()
 
     def ejecutar(self):
-        if not os.path.exists(self.ruta_json):
-            print(f"⚠️ Sin entrada JSON en {self.ruta_json}")
+        logging.info("Iniciando Fase 3: Deduplicación por Firma Lógica Estricta...")
+        
+        if not os.path.exists(self.ruta_matrices_in):
+            logging.error(f"No se encontró el archivo de matrices: {self.ruta_matrices_in}")
             return
 
-        print("🔍 Fase 3: Leyendo matriz de casos generados...")
-        with open(self.ruta_json, 'r', encoding='utf-8') as f:
-            casos = json.load(f)
+        with open(self.ruta_matrices_in, 'r', encoding='utf-8') as f:
+            casos_generados = json.load(f)
 
-        print("🌳 Fase 3: Reconstruyendo Árboles AST en memoria...")
-        mapa_ast = {}
-        with open(self.ruta_excel, 'r', encoding='utf-8') as f:
-            for linea in f:
-                linea = linea.strip()
-                if not linea: continue
-                
-                # Detectamos separadores comunes en archivos txt (Tab o Pipe)
-                if '\t' in linea:
-                    id_val, regla_txt = linea.split('\t', 1)
-                elif '|' in linea:
-                    id_val, regla_txt = linea.split('|', 1)
-                else:
-                    # Asume que el primer espacio separa el ID de la regla
-                    partes = linea.split(" ", 1)
-                    if len(partes) == 2:
-                        id_val, regla_txt = partes
-                    else:
-                        continue
-                        
-                try:
-                    mapa_ast[id_val.strip()] = self.parser.parse(regla_txt.strip())
-                except Exception as e:
-                    pass # Silenciamos errores de reglas inválidas para no ensuciar la consola
+        total_inicial = len(casos_generados)
+        logging.info(f"Casos crudos recibidos (Fase 2): {total_inicial}")
 
-        grupos_validacion = {}
-        for caso in casos:
-            id_base = ".".join(caso["id_validacion"].split(".")[:-1])
-            if not id_base: id_base = caso["id_validacion"]
-            if id_base not in grupos_validacion: grupos_validacion[id_base] = []
-            grupos_validacion[id_base].append(caso)
-
-        casos_totales_optimizados = []
-
-        print("⚙️ Fase 3: Simulando rutas y aplicando Set Cover...")
-        for id_base, lista_casos in grupos_validacion.items():
-            ast_tree = mapa_ast.get(id_base)
-            
-            # Paso 1: Trazar la huella real de cada caso
-            if ast_tree:
-                for caso in lista_casos:
-                    if "inputs" in caso:
-                        caso["huella_real"] = self.trazador.obtener_huella(ast_tree, caso["inputs"])
-                    else:
-                        caso["huella_real"] = ("ERROR_NO_INPUTS",)
-            else:
-                # Fallback de emergencia si la regla no estaba en el txt
-                for caso in lista_casos:
-                    caso["huella_real"] = (caso.get("tipo_escenario", "SIN_AST"),)
-            
-            # Paso 2: Reducir duplicados lógicos
-            optimizados = self.reductor.optimizar(lista_casos)
-            casos_totales_optimizados.extend(optimizados)
-
-        with open(self.ruta_salida, 'w', encoding='utf-8') as f:
-            json.dump(casos_totales_optimizados, f, indent=4, ensure_ascii=False)
-
-        ahorro = len(casos) - len(casos_totales_optimizados)
-        porcentaje = (ahorro / len(casos) * 100) if len(casos) > 0 else 0
+        # Ejecutar deduplicación real
+        casos_optimizados = self.reductor.procesar_casos(casos_generados)
         
-        print("\n" + "="*50)
-        print("🚀 REPORTE DE OPTIMIZACIÓN ESTRUCTURAL (FASE 3) 🚀")
-        print("="*50)
-        print(f"📊 Casos entrantes (Fase 2): {len(casos)}")
-        print(f"🎯 Casos efectivos (Fase 3): {len(casos_totales_optimizados)}")
-        print(f"🗑️ Casos redundantes eliminados: {ahorro} ({porcentaje:.1f}%)")
-        print(f"💾 Guardado en: {self.ruta_salida}")
-        print("="*50 + "\n")
+        total_final = len(casos_optimizados)
+        reduccion_porcentaje = ((total_inicial - total_final) / total_inicial) * 100 if total_inicial > 0 else 0
 
+        with open(self.ruta_matrices_out, 'w', encoding='utf-8') as f:
+            json.dump(casos_optimizados, f, indent=4, ensure_ascii=False)
+
+        logging.info(f"Optimización completada. Casos finales conservados: {total_final}")
+        logging.info(f"Redundancia eliminada (Clones lógicos estocásticos): {reduccion_porcentaje:.2f}%")
+        logging.info(f"Archivo exportado a: {self.ruta_matrices_out}")
+
+# ==========================================
 if __name__ == "__main__":
-    app = OptimizadorOrquestador()
-    app.ejecutar()
+    ruta_base = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    in_file = os.path.join(ruta_base, "data", "output_matrices_qa.json")
+    out_file = os.path.join(ruta_base, "data", "output_matrices_qa_optimizado.json")
+    
+    orquestador = OrquestadorFase3(in_file, out_file)
+    orquestador.ejecutar()
