@@ -306,13 +306,14 @@ class BaseStrategy(ABC):
                                 gana = "ARG1" if (val1 <= val2 if nombre_func == 'MIN' else val1 >= val2) else "ARG2"
                                 huella[id_func] = gana
                                 
-                            elif nombre_func in ('POS', 'ABS'):
+                            elif nombre_func in ('POS', 'NEG', 'ABS'):
                                 val = self._extraer_valor_real(modelo.evaluate(self.evaluador.evaluar(args_limpios[0]), model_completion=True))
-                                huella[id_func] = ">0" if val > 0 else "<=0"
-                                
-                            elif nombre_func == 'NEG':
-                                val = self._extraer_valor_real(modelo.evaluate(self.evaluador.evaluar(args_limpios[0]), model_completion=True))
-                                huella[id_func] = "<0" if val < 0 else ">=0"
+                                if val > 0:
+                                    huella[id_func] = ">0"
+                                elif val < 0:
+                                    huella[id_func] = "<0"
+                                else:
+                                    huella[id_func] = "=0"
                 except Exception:
                     pass
                     
