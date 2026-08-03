@@ -15,39 +15,55 @@ class RutProvider:
                 {"rut": "22.222.222-2", "tipo": 2, "subtipo": 211, "atributos": ["M14B"]}
             ]
             
-        # MAGIA DETERMINISTA: Ordenamos la lista por RUT para "congelar" el orden en memoria.
-        # Esto asegura que la búsqueda siempre itere en el mismo orden exacto.
+        # Orden determinista invariable
         self.ruts = sorted(self.ruts, key=lambda x: x.get("rut", ""))
 
     def obtener_rut(self, atributos_req, atributos_prohibidos, tipo_req, subtipo_req):
         """
-        Retorna el primer RUT del catálogo que cumpla todas las condiciones.
-        Al no usar random y tener la lista ordenada, el resultado es 100% determinista.
+        Retorna el primer RUT del catálogo que cumpla las condiciones.
+        Aplica una cascada de búsqueda priorizada para garantizar compatibilidad hacia atrás
+        y evitar falsos "SIN_RUT_VALIDO" cuando Z3 asigna valores a variables no restrictivas.
         """
+        def coincide_atributos(mock):
+            atributos_mock = set(mock.get("atributos", []))
+            
+            # Filtro de Atributos Prohibidos
+            if atributos_prohibidos and any(atr in atributos_mock for atr in atributos_prohibidos):
+                return False
+                
+            # Filtro de Atributos Requeridos
+            if atributos_req and not all(atr in atributos_mock for atr in atributos_req):
+                return False
+                
+            return True
+
+        # --- NIVEL 1: BÚSQUEDA ESTRICTA (COMPORTAMIENTO ORIGINAL) ---
+        # Si un caso de A, B o C funcionaba antes, se resuelve exactamente aquí sin cambios.
         for mock in self.ruts:
             tipo_mock = mock.get("tipo")
             subtipo_mock = mock.get("subtipo")
-            atributos_mock = set(mock.get("atributos", []))
             
-            # 1. Filtro de Tipo (Reglas TIPO([03]) = X)
             if tipo_req is not None and tipo_mock != tipo_req:
                 continue
-                
-            # 2. Filtro de Subtipo (Reglas SUBTIPO([03]) = X)
             if subtipo_req is not None and subtipo_mock != subtipo_req:
                 continue
-                
-            # 3. Filtro de Atributos Prohibidos
-            if atributos_prohibidos and any(atr in atributos_mock for atr in atributos_prohibidos):
-                continue
-                
-            # 4. Filtro de Atributos Requeridos
-            if atributos_req and not all(atr in atributos_mock for atr in atributos_req):
-                continue
-                
-            # Si el RUT sobrevive a todos los filtros, es el elegido.
-            return mock.get("rut")
+            if coincide_atributos(mock):
+                return mock.get("rut")
+
+        # --- NIVEL 2: RELAJAR TIPO ---
+        # Si Z3 asignó un Tipo que la regla no exigía estrictamente, buscamos por (Subtipo + Atributos).
+        for mock in self.ruts:
+            subtipo_mock = mock.get("subtipo")
             
-        # NUEVO: Si la regla exige una combinación que no existe en el catálogo, 
-        # devolvemos un string explícito de error en lugar de un RUT genérico.
+            if subtipo_req is not None and subtipo_mock != subtipo_req:
+                continue
+            if coincide_atributos(mock):
+                return mock.get("rut")
+
+        # --- NIVEL 3: RELAJAR SUBTIPO ---
+        # Si la regla sólo evaluaba Atributos (ej. violación de Atributo), buscamos por Atributos puros.
+        for mock in self.ruts:
+            if coincide_atributos(mock):
+                return mock.get("rut")
+
         return "SIN_RUT_VALIDO"

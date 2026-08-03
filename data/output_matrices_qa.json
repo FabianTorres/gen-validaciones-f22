@@ -1,485 +1,238 @@
 [
     {
-        "id_validacion": "d.1.1",
-        "tipo_escenario": "CUMPLE_CONDICION",
-        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (La sub-condición se cumple en su frontera exacta.)",
-        "rut": "11.111.111-1",
+        "id_validacion": "m.1.1",
+        "tipo_escenario": "CUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Gatillo activo (Todas las sub-condiciones del AND se cumplen.) Y Requisito cumplido (La sub-condición se cumple en su frontera exacta.)",
+        "rut": "SIN_RUT_VALIDO",
         "inputs": {
-            "[18]": 1000000,
-            "[19]": 1000000,
-            "[20]": 1000000
+            "[1194]": 1000000,
+            "[1219]": 1000000,
+            "[1193]": 1000000,
+            "[1218]": 1000000,
+            "[1209]": 1000000,
+            "[1208]": 1000000
+        },
+        "vectores": {
+            "VX014107": 1000000,
+            "VX014106": 1000000,
+            "VX014105": 3000000,
+            "VX014108": 1000000,
+            "VX011264": 0
         },
         "resultado_esperado": "BUENO",
         "huella_logica": {
             "CONDICION_1": "TRUE",
-            "CONDICION_2": "TRUE"
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "TRUE"
+        },
+        "perfil_rut_requerido": {
+            "tipo": "CUALQUIERA",
+            "subtipo": "CUALQUIERA",
+            "atributos_requeridos": [
+                "M14A",
+                "ME22"
+            ],
+            "atributos_prohibidos": []
         }
     },
     {
-        "id_validacion": "d.1.2",
-        "tipo_escenario": "INCUMPLE_CONDICION",
-        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (La sub-condición falla en su frontera exacta.)",
+        "id_validacion": "m.1.2",
+        "tipo_escenario": "CUMPLE_CONDICION_2_1_1",
+        "descripcion_qa": "Gatillo activo (Todas las sub-condiciones del AND se cumplen.) Y Requisito cumplido (La sub-condición se cumple en su frontera exacta.)",
         "rut": "11.111.111-1",
         "inputs": {
-            "[19]": 1000000,
-            "[18]": 0,
-            "[20]": 0
+            "[1193]": 1000000,
+            "[1209]": 1000000,
+            "[1218]": 1000000,
+            "[1194]": 1000000,
+            "[1219]": 1000000,
+            "[1208]": 1000000
+        },
+        "vectores": {
+            "VX014107": 1000000,
+            "VX011264": 1000000,
+            "VX014108": 1000000,
+            "VX014106": 3000000,
+            "VX014105": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE"
+        },
+        "perfil_rut_requerido": {
+            "tipo": "CUALQUIERA",
+            "subtipo": "CUALQUIERA",
+            "atributos_requeridos": [
+                "M14A"
+            ],
+            "atributos_prohibidos": [
+                "ME22"
+            ]
+        }
+    },
+    {
+        "id_validacion": "m.1.3",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (Todas las sub-condiciones del AND se cumplen.) PERO Requisito falla (La sub-condición falla en su frontera exacta.)",
+        "rut": "SIN_RUT_VALIDO",
+        "inputs": {
+            "[1193]": 1000000,
+            "[1194]": 1000000,
+            "[1209]": 1000000,
+            "[1218]": 1000000,
+            "[1219]": 1000000,
+            "[1208]": 1000000
+        },
+        "vectores": {
+            "VX014107": 1000000,
+            "VX014108": 1000000,
+            "VX014106": 1000000,
+            "VX011264": 0,
+            "VX014105": 1000000
         },
         "resultado_esperado": "MENSAJE",
         "huella_logica": {
             "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE"
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "IF_1": "TRUE"
+        },
+        "perfil_rut_requerido": {
+            "tipo": "CUALQUIERA",
+            "subtipo": "CUALQUIERA",
+            "atributos_requeridos": [
+                "ME22",
+                "M14A"
+            ],
+            "atributos_prohibidos": []
         }
     },
     {
-        "id_validacion": "d.1.3",
-        "tipo_escenario": "NO_APLICA",
-        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
+        "id_validacion": "m.1.4",
+        "tipo_escenario": "INCUMPLE_CONDICION_2_1_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (Todas las sub-condiciones del AND se cumplen.) PERO Requisito falla (La sub-condición falla en su frontera exacta.)",
         "rut": "11.111.111-1",
         "inputs": {
-            "[18]": 1000000,
-            "[20]": 1000000,
-            "[19]": 0
+            "[1193]": 1000000,
+            "[1218]": 1000000,
+            "[1209]": 1000000,
+            "[1219]": 1000000,
+            "[1194]": 1000000,
+            "[1208]": 1000000
+        },
+        "vectores": {
+            "VX014108": -2000000,
+            "VX011264": 1000000,
+            "VX014107": 1000000,
+            "VX014106": 1000000,
+            "VX014105": 1000000
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE"
+        },
+        "perfil_rut_requerido": {
+            "tipo": "CUALQUIERA",
+            "subtipo": "CUALQUIERA",
+            "atributos_requeridos": [
+                "M14A"
+            ],
+            "atributos_prohibidos": [
+                "ME22"
+            ]
+        }
+    },
+    {
+        "id_validacion": "m.1.5",
+        "tipo_escenario": "NO_APLICA_1",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (Bloque AND falla (sub-condición 1): La condición no se cumple.)",
+        "rut": "11.574.826-6",
+        "inputs": {
+            "[1193]": 1000000,
+            "[1209]": 1000000,
+            "[1218]": 1000000,
+            "[1194]": 1000000,
+            "[1219]": 1000000,
+            "[1208]": 1000000
+        },
+        "vectores": {
+            "VX014106": 1000000,
+            "VX014108": 1000000,
+            "VX014107": 1000000,
+            "VX011264": 1000000,
+            "VX014105": 1000000
         },
         "resultado_esperado": "BUENO",
         "huella_logica": {
             "CONDICION_1": "FALSE",
-            "CONDICION_2": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.1",
-        "tipo_escenario": "CUMPLE_CONDICION_1_1",
-        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (IF cumple [Todas las sub-condiciones del AND se cumplen.] -> ENTONCES [La sub-condición se cumple en su frontera exacta.])",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[20]": 0,
-            "[1630]": 1000000,
-            "[187]": 0,
-            "[1440]": 1000000,
-            "[18]": 0,
-            "[1113]": 0,
-            "[1908]": 1000000,
-            "[1690]": 1000000,
-            "[1037]": 0,
-            "[1109]": 0,
-            "[1039]": 0,
-            "[189]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "TRUE",
-            "AND_1": "EVALUADO",
-            "CONDICION_3": "TRUE",
-            "IF_1": "TRUE",
-            "CONDICION_4": "TRUE",
-            "ABS_1": "SKIPPED",
-            "ABS_2": "SKIPPED",
-            "ABS_3": "SKIPPED",
-            "CONDICION_5": "SKIPPED"
-        }
-    },
-    {
-        "id_validacion": "d.166.2",
-        "tipo_escenario": "CUMPLE_CONDICION_1_2",
-        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (IF falla [Bloque AND falla (sub-condición 1): La sub-condición falla en su frontera exacta.] -> SINO [La sub-condición se cumple en su frontera exacta.])",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[18]": 0,
-            "[1109]": 0,
-            "[1440]": 1000000,
-            "[1039]": 1000000,
-            "[189]": 1000000,
-            "[20]": 1000000,
-            "[1630]": 1000000,
-            "[1037]": 834503,
-            "[187]": 0,
-            "[1113]": 1000000,
-            "[1690]": 1000000,
-            "[1908]": 1000000
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
             "AND_1": "CORTOCIRCUITO",
+            "CONDICION_2": "SKIPPED",
+            "OR_1": "CORTOCIRCUITO",
             "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": ">0",
-            "ABS_2": ">0",
-            "ABS_3": ">0",
-            "CONDICION_5": "TRUE"
+            "IF_1": "FALSE"
+        },
+        "perfil_rut_requerido": {
+            "tipo": "CUALQUIERA",
+            "subtipo": "CUALQUIERA",
+            "atributos_requeridos": [],
+            "atributos_prohibidos": [
+                "ME22",
+                "M14A"
+            ]
         }
     },
     {
-        "id_validacion": "d.166.3",
-        "tipo_escenario": "CUMPLE_CONDICION_1_3",
-        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (IF falla [Bloque AND falla (sub-condición 2): La sub-condición falla en su frontera exacta.] -> SINO [La sub-condición se cumple en su frontera exacta.])",
-        "rut": "11.111.111-1",
+        "id_validacion": "m.1.6",
+        "tipo_escenario": "NO_APLICA_2",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (Bloque AND falla (sub-condición 2): Todas las opciones del OR son falsas.)",
+        "rut": "SIN_RUT_VALIDO",
         "inputs": {
-            "[18]": 0,
-            "[1109]": 0,
-            "[1440]": 1000000,
-            "[1037]": 0,
-            "[189]": 1000000,
-            "[20]": 1000000,
-            "[1908]": 1000000,
-            "[1630]": 1000000,
-            "[1113]": 1000000,
-            "[1690]": 1000000,
-            "[187]": 834504,
-            "[1039]": 1000000
+            "[1218]": 1000000,
+            "[1209]": 1000000,
+            "[1194]": 1000000,
+            "[1193]": 1000000,
+            "[1219]": 1000000,
+            "[1208]": 1000000
+        },
+        "vectores": {
+            "VX014108": 1000000,
+            "VX011264": 1000000,
+            "VX014106": 1000000,
+            "VX014107": -2000000,
+            "VX014105": 1000000
         },
         "resultado_esperado": "BUENO",
         "huella_logica": {
             "CONDICION_1": "TRUE",
-            "CONDICION_2": "TRUE",
             "AND_1": "EVALUADO",
+            "CONDICION_2": "FALSE",
+            "OR_1": "EVALUADO",
             "CONDICION_3": "FALSE",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": ">0",
-            "ABS_2": ">0",
-            "ABS_3": ">0",
-            "CONDICION_5": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.4",
-        "tipo_escenario": "INCUMPLE_CONDICION_1_1",
-        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (IF cumple [Todas las sub-condiciones del AND se cumplen.] -> ENTONCES FALLA [La sub-condición falla en su frontera exacta.])",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1109]": 0,
-            "[1690]": 1000000,
-            "[1630]": 1000000,
-            "[1039]": 0,
-            "[1908]": 1000000,
-            "[18]": 0,
-            "[20]": 0,
-            "[1037]": 0,
-            "[187]": 0,
-            "[1440]": 1000000,
-            "[1113]": 0,
-            "[189]": 1
+            "IF_1": "FALSE"
         },
-        "resultado_esperado": "MENSAJE",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "TRUE",
-            "AND_1": "EVALUADO",
-            "CONDICION_3": "TRUE",
-            "IF_1": "TRUE",
-            "CONDICION_4": "FALSE",
-            "ABS_1": "SKIPPED",
-            "ABS_2": "SKIPPED",
-            "ABS_3": "SKIPPED",
-            "CONDICION_5": "SKIPPED"
-        }
-    },
-    {
-        "id_validacion": "d.166.5",
-        "tipo_escenario": "INCUMPLE_CONDICION_1_2",
-        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (IF falla [Bloque AND falla (sub-condición 1): La sub-condición falla en su frontera exacta.] -> SINO FALLA [La sub-condición falla en su frontera exacta.])",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[187]": 0,
-            "[1039]": 1000000,
-            "[1440]": 0,
-            "[1109]": 0,
-            "[189]": 1000000,
-            "[20]": 1000000,
-            "[18]": 0,
-            "[1630]": 0,
-            "[1113]": 1000000,
-            "[1690]": 0,
-            "[1037]": 0,
-            "[1908]": 1000000
-        },
-        "resultado_esperado": "MENSAJE",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
-            "AND_1": "CORTOCIRCUITO",
-            "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": "=0",
-            "ABS_2": "=0",
-            "ABS_3": "=0",
-            "CONDICION_5": "FALSE"
-        }
-    },
-    {
-        "id_validacion": "d.166.6",
-        "tipo_escenario": "INCUMPLE_CONDICION_1_3",
-        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (IF falla [Bloque AND falla (sub-condición 2): La sub-condición falla en su frontera exacta.] -> SINO FALLA [La sub-condición falla en su frontera exacta.])",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[1908]": 1000000,
-            "[1039]": 1000000,
-            "[1037]": 0,
-            "[189]": 1000000,
-            "[20]": 1000000,
-            "[187]": 0,
-            "[1630]": 0,
-            "[1113]": 1000000,
-            "[1690]": 0,
-            "[1440]": 0,
-            "[18]": 834504,
-            "[1109]": 0
-        },
-        "resultado_esperado": "MENSAJE",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "TRUE",
-            "AND_1": "EVALUADO",
-            "CONDICION_3": "FALSE",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": "=0",
-            "ABS_2": "=0",
-            "ABS_3": "=0",
-            "CONDICION_5": "FALSE"
-        }
-    },
-    {
-        "id_validacion": "d.166.7",
-        "tipo_escenario": "NO_APLICA",
-        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
-        "rut": "11.111.111-1",
-        "inputs": {
-            "[189]": 1000000,
-            "[1109]": 1000000,
-            "[18]": 1000000,
-            "[1690]": 1000000,
-            "[20]": 1000000,
-            "[1630]": 1000000,
-            "[1039]": 1000000,
-            "[1440]": 1000000,
-            "[1037]": 1000000,
-            "[1113]": 1000000,
-            "[187]": 1000000,
-            "[1908]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "FALSE",
-            "CONDICION_2": "TRUE",
-            "AND_1": "EVALUADO",
-            "CONDICION_3": "FALSE",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": ">0",
-            "ABS_2": ">0",
-            "ABS_3": ">0",
-            "CONDICION_5": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.8",
-        "tipo_escenario": "FUNC_ABS_1_ENTRADA_NEGATIVA",
-        "descripcion_qa": "El valor interno de ABS es negativo, aislando y forzando conversión.",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[1440]": -2,
-            "[1908]": 1000000,
-            "[1630]": 0,
-            "[1690]": 0,
-            "[1113]": 0,
-            "[20]": 0,
-            "[1037]": 0,
-            "[187]": 0,
-            "[03]": 0,
-            "[18]": 0,
-            "[1039]": 0,
-            "[1109]": 0,
-            "[189]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
-            "AND_1": "CORTOCIRCUITO",
-            "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": "<0",
-            "ABS_2": "=0",
-            "ABS_3": "=0",
-            "CONDICION_5": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.9",
-        "tipo_escenario": "FUNC_ABS_1_ENTRADA_POSITIVA",
-        "descripcion_qa": "El valor interno de ABS es positivo, manteniendo su valor.",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[1908]": 1000000,
-            "[1440]": 1000000,
-            "[1630]": 0,
-            "[1690]": 0,
-            "[1113]": 0,
-            "[20]": 0,
-            "[1037]": 0,
-            "[187]": 0,
-            "[03]": 0,
-            "[18]": 0,
-            "[1039]": 0,
-            "[1109]": 0,
-            "[189]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
-            "AND_1": "CORTOCIRCUITO",
-            "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": ">0",
-            "ABS_2": "=0",
-            "ABS_3": "=0",
-            "CONDICION_5": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.10",
-        "tipo_escenario": "FUNC_ABS_2_ENTRADA_NEGATIVA",
-        "descripcion_qa": "El valor interno de ABS es negativo, aislando y forzando conversión.",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[1690]": -2,
-            "[1908]": 1000000,
-            "[1630]": 0,
-            "[1440]": 0,
-            "[1113]": 0,
-            "[20]": 0,
-            "[1037]": 0,
-            "[187]": 0,
-            "[03]": 0,
-            "[18]": 0,
-            "[1039]": 0,
-            "[1109]": 0,
-            "[189]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
-            "AND_1": "CORTOCIRCUITO",
-            "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": "=0",
-            "ABS_2": "<0",
-            "ABS_3": "=0",
-            "CONDICION_5": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.11",
-        "tipo_escenario": "FUNC_ABS_2_ENTRADA_POSITIVA",
-        "descripcion_qa": "El valor interno de ABS es positivo, manteniendo su valor.",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[1690]": 1000000,
-            "[1908]": 1000000,
-            "[1630]": 0,
-            "[1440]": 0,
-            "[1113]": 0,
-            "[20]": 0,
-            "[1037]": 0,
-            "[187]": 0,
-            "[03]": 0,
-            "[18]": 0,
-            "[1039]": 0,
-            "[1109]": 0,
-            "[189]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
-            "AND_1": "CORTOCIRCUITO",
-            "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": "=0",
-            "ABS_2": ">0",
-            "ABS_3": "=0",
-            "CONDICION_5": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.12",
-        "tipo_escenario": "FUNC_ABS_3_ENTRADA_NEGATIVA",
-        "descripcion_qa": "El valor interno de ABS es negativo, aislando y forzando conversión.",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[1908]": 1000000,
-            "[1630]": -2,
-            "[1690]": 0,
-            "[1440]": 0,
-            "[1113]": 0,
-            "[20]": 0,
-            "[1037]": 0,
-            "[187]": 0,
-            "[03]": 0,
-            "[18]": 0,
-            "[1039]": 0,
-            "[1109]": 0,
-            "[189]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
-            "AND_1": "CORTOCIRCUITO",
-            "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": "=0",
-            "ABS_2": "=0",
-            "ABS_3": "<0",
-            "CONDICION_5": "TRUE"
-        }
-    },
-    {
-        "id_validacion": "d.166.13",
-        "tipo_escenario": "FUNC_ABS_3_ENTRADA_POSITIVA",
-        "descripcion_qa": "El valor interno de ABS es positivo, manteniendo su valor.",
-        "rut": "16.208.945-4",
-        "inputs": {
-            "[1908]": 1000000,
-            "[1630]": 1000000,
-            "[1690]": 0,
-            "[1440]": 0,
-            "[1113]": 0,
-            "[20]": 0,
-            "[1037]": 0,
-            "[187]": 0,
-            "[03]": 0,
-            "[18]": 0,
-            "[1039]": 0,
-            "[1109]": 0,
-            "[189]": 0
-        },
-        "resultado_esperado": "BUENO",
-        "huella_logica": {
-            "CONDICION_1": "TRUE",
-            "CONDICION_2": "FALSE",
-            "AND_1": "CORTOCIRCUITO",
-            "CONDICION_3": "SKIPPED",
-            "IF_1": "FALSE",
-            "CONDICION_4": "SKIPPED",
-            "ABS_1": "=0",
-            "ABS_2": "=0",
-            "ABS_3": ">0",
-            "CONDICION_5": "TRUE"
+        "perfil_rut_requerido": {
+            "tipo": "CUALQUIERA",
+            "subtipo": "CUALQUIERA",
+            "atributos_requeridos": [
+                "M14A",
+                "ME22"
+            ],
+            "atributos_prohibidos": []
         }
     }
 ]

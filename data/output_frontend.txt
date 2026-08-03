@@ -1,18 +1,9 @@
 === RESULTADOS NORMALIZADOS (VISTA FRONTEND) ===
 
-Validacion: d.1 [ESTADO: OK]
+Validacion: m.1 [ESTADO: OK]
 ----------------------------------------
-SI SE CUMPLE CONDICION:
-  [19] > 0
-=> ENTONCES ES REQUISITO OBLIGATORIO:
-  ( [20] + [18] ) > 0
-========================================
-Validacion: d.166 [ESTADO: OK]
-----------------------------------------
-SI SE CUMPLE CONDICION:
-  [1908] > 0
-=> ENTONCES ES REQUISITO OBLIGATORIO:
-  SI TIPO( [03] ) = 1 .Y. ( [187] + [1037] + [18] + [1109] ) < P01
-  ENTONCES ( [189] + [1039] + [20] + [1113] ) = 0
-  SINO ( [187] + [1037] + ABS( [1440] ) + ABS( [1690] ) + ABS( [1630] ) ) > 0
+SI ATRIBUTO = M14A .Y. ( Vx011264 = 0 .O. ATRIBUTO != ME22 )
+ENTONCES SUMA = ALFA
+DONDE SUMA = [1208] + [1218] + [1209] + [1219] + [1193] + [1194]
+DONDE ALFA = Vx014105 + Vx014106 + Vx014107 + Vx014108
 ========================================

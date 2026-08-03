@@ -13,23 +13,30 @@ class ImplicationBuilder(BaseStrategy):
     def generar_casos(self, ast_tree, id_val):
         casos = []
         
+        # --- NUEVO: Soporte dual para Validaciones D/E (Implicación) y M (Condicional) ---
         nodo_impl = self._encontrar_nodos_tipo(ast_tree, 'implicacion')
-        if not nodo_impl:
-            return [{"id_validacion": id_val, "error": "No se encontró nodo de implicacion en el AST."}]
-            
-        # Tomamos el primer nodo de implicación (normalmente único en la raíz de reglas d/e)
-        nodo_impl = nodo_impl[0]
-
-        gatillo_ast = nodo_impl.children[0]
-        requisito_ast = nodo_impl.children[2] # Índice 2 para saltar el token '=>'
+        if nodo_impl:
+            gatillo_ast = nodo_impl[0].children[0]
+            requisito_ast = nodo_impl[0].children[2] # Índice 2 para saltar el token '=>'
+        else:
+            nodo_cond = self._encontrar_nodos_tipo(ast_tree, 'condicional')
+            if nodo_cond:
+                # En un condicional, el hijo[0] es el SI, y el hijo[1] es el ENTONCES
+                gatillo_ast = nodo_cond[0].children[0]
+                requisito_ast = nodo_cond[0].children[1]
+            else:
+                return [{"id_validacion": id_val, "error": "No se encontró nodo de implicación ni condicional en el AST."}]
 
         z3_gatillo = self.evaluador.evaluar(gatillo_ast)
         z3_requisito = self.evaluador.evaluar(requisito_ast)
 
         premisas_universales = []
+        z3_declaraciones = []
         nodos_var = self._encontrar_nodos_tipo(ast_tree, 'declaracion_variable')
         for nodo_var in nodos_var:
-            premisas_universales.append(self.evaluador.evaluar(nodo_var))
+            z3_var = self.evaluador.evaluar(nodo_var)
+            premisas_universales.append(z3_var)
+            z3_declaraciones.append(z3_var)
 
         # Generamos los universos MCDC aislando la izquierda (gatillo) y derecha (requisito)
         gatillo_verdadero = self._desglosar_condicion_verdadera(z3_gatillo)
@@ -38,48 +45,49 @@ class ImplicationBuilder(BaseStrategy):
         requisito_verdadero = self._desglosar_condicion_verdadera(z3_requisito)
         requisito_falso = self._desglosar_condicion_falsa(z3_requisito)
 
+        # --- EXPANSIÓN MCDC DE VARIABLES (ITE LOCKING) ---
+        # Buscamos todas las ramas condicionales anidadas dentro de las variables (ej: [m] = SI... ENTONCES...)
+        rutas_internas_totales = [[]] 
+        for z3_dec in z3_declaraciones:
+            rutas_ite = self._extraer_rutas_ite(z3_dec)
+            if len(rutas_ite) > 1: # Si hay más de una ruta, hubo al menos un IF
+                # Producto cartesiano de las rutas (si hay múltiples variables condicionales)
+                rutas_internas_totales = [r_base + r_nueva for r_base in rutas_internas_totales for r_nueva in rutas_ite]
+
         # --- CASO 1: FLUJO IDEAL (CUMPLE Y CUMPLE) ---
-        # Cruzamos todas las formas de encender el gatillo con todas las formas de cumplir el requisito
         for i, var_g in enumerate(gatillo_verdadero, 1):
             for j, var_r in enumerate(requisito_verdadero, 1):
-                sufijo = f"_{i}_{j}" if len(gatillo_verdadero) > 1 or len(requisito_verdadero) > 1 else ""
-                desc = f"Gatillo activo ({var_g['desc']}) Y Requisito cumplido ({var_r['desc']})"
-                
-                casos.append(
-                    self._ejecutar_escenario_aislado(
-                        premisas_universales + [var_g["restriccion"], var_r["restriccion"]], 
-                        lambda d=desc, s=sufijo: self._resolver_y_formatear(
-                            id_val, 
-                            f"CUMPLE_CONDICION{s}", 
-                            d, 
-                            "BUENO",
-                            ast_tree=ast_tree
+                # Cruzamos contra TODAS las ramas condicionales internas descubiertas
+                for idx_ruta, ruta_ite in enumerate(rutas_internas_totales, 1):
+                    sufijo = f"_{i}_{j}_{idx_ruta}" if len(gatillo_verdadero) > 1 or len(requisito_verdadero) > 1 or len(rutas_internas_totales) > 1 else ""
+                    desc = f"Gatillo activo ({var_g['desc']}) Y Requisito cumplido ({var_r['desc']})"
+                    if len(ruta_ite) > 0: desc += f" [Forzando Rama Interna {idx_ruta}]"
+                    
+                    casos.append(
+                        self._ejecutar_escenario_aislado(
+                            premisas_universales + ruta_ite + [var_g["restriccion"], var_r["restriccion"]], 
+                            lambda d=desc, s=sufijo: self._resolver_y_formatear(
+                                id_val, f"CUMPLE_CONDICION{s}", d, "BUENO", ast_tree=ast_tree)
                         )
                     )
-                )
 
         # --- CASO 2: QUIEBRE DE REGLA (FALLA ESPERADA) ---
-        # Cruzamos gatillo encendido contra todas las violaciones posibles del requisito
         for i, var_g in enumerate(gatillo_verdadero, 1):
             for j, var_r in enumerate(requisito_falso, 1):
-                sufijo = f"_{i}_{j}" if len(gatillo_verdadero) > 1 or len(requisito_falso) > 1 else ""
-                desc = f"Se fuerza error: Gatillo activo ({var_g['desc']}) PERO Requisito falla ({var_r['desc']})"
-                
-                casos.append(
-                    self._ejecutar_escenario_aislado(
-                        premisas_universales + [var_g["restriccion"], var_r["restriccion"]], 
-                        lambda d=desc, s=sufijo: self._resolver_y_formatear(
-                            id_val, 
-                            f"INCUMPLE_CONDICION{s}", 
-                            d, 
-                            "MENSAJE",
-                            ast_tree=ast_tree
+                for idx_ruta, ruta_ite in enumerate(rutas_internas_totales, 1):
+                    sufijo = f"_{i}_{j}_{idx_ruta}" if len(gatillo_verdadero) > 1 or len(requisito_falso) > 1 or len(rutas_internas_totales) > 1 else ""
+                    desc = f"Se fuerza error: Gatillo activo ({var_g['desc']}) PERO Requisito falla ({var_r['desc']})"
+                    if len(ruta_ite) > 0: desc += f" [Forzando Rama Interna {idx_ruta}]"
+                    
+                    casos.append(
+                        self._ejecutar_escenario_aislado(
+                            premisas_universales + ruta_ite + [var_g["restriccion"], var_r["restriccion"]], 
+                            lambda d=desc, s=sufijo: self._resolver_y_formatear(
+                                id_val, f"INCUMPLE_CONDICION{s}", d, "MENSAJE", ast_tree=ast_tree)
                         )
                     )
-                )
 
         # --- CASO 3: OMISIÓN (NO APLICA LA REGLA) ---
-        # Exploramos todas las formas de evitar que la regla se gatille
         for i, var_g in enumerate(gatillo_falso, 1):
             sufijo = f"_{i}" if len(gatillo_falso) > 1 else ""
             desc = f"La regla no aplica: Gatillo inactivo ({var_g['desc']})"
@@ -88,12 +96,7 @@ class ImplicationBuilder(BaseStrategy):
                 self._ejecutar_escenario_aislado(
                     premisas_universales + [var_g["restriccion"]], 
                     lambda d=desc, s=sufijo: self._resolver_y_formatear(
-                        id_val, 
-                        f"NO_APLICA{s}", 
-                        d, 
-                        "BUENO",
-                        ast_tree=ast_tree
-                    )
+                        id_val, f"NO_APLICA{s}", d, "BUENO", ast_tree=ast_tree)
                 )
             )
 
@@ -121,11 +124,11 @@ class ImplicationBuilder(BaseStrategy):
                 else:
                     args_limpios = [nodo_func.children[1]]
 
-                # PATH EXECUTION LOCKING: Extraemos el camino exacto para forzar a Z3 a llegar a la función
+                # PATH EXECUTION LOCKING
                 guardias_activas = self._obtener_guardias_nodo(requisito_ast, nodo_func) or []
                 base_cond = premisas_universales + [restriccion_gatillo, z3_requisito_eval] + guardias_activas
 
-                # TÉCNICA DE AISLAMIENTO ANTI-ENMASCARAMIENTO
+                # AISLAMIENTO ANTI-ENMASCARAMIENTO
                 vars_func_actual = self._extraer_vars_z3(nodo_func)
                 restricciones_aislamiento = []
                 for nombre, var_z3 in vars_req_totales.items():
@@ -133,9 +136,7 @@ class ImplicationBuilder(BaseStrategy):
                         restricciones_aislamiento.append(var_z3 == 0)
 
                 def ejecutar_con_aislamiento(restriccion_frontera, lambda_formateador):
-                    # 1. Intentamos probar aislando el ruido con 0s
                     res = self._ejecutar_escenario_aislado(base_cond + restricciones_aislamiento + [restriccion_frontera], lambda_formateador)
-                    # 2. Fallback por si aislar con 0 contradice la propia regla
                     if res and res.get("estado_interno") == "INSATISFACTIBLE":
                         res = self._ejecutar_escenario_aislado(base_cond + [restriccion_frontera], lambda_formateador)
                     return res
@@ -171,7 +172,12 @@ class ImplicationBuilder(BaseStrategy):
         
         for caso in casos:
             if caso and caso.get("estado_interno") != "INSATISFACTIBLE":
-                firma_unica = (caso.get("rut"), tuple(sorted(caso.get("inputs", {}).items())))
+                # ---> CORRECCIÓN: Incluimos los vectores en la firma de unicidad <---
+                firma_unica = (
+                    caso.get("rut"), 
+                    tuple(sorted(caso.get("inputs", {}).items())),
+                    tuple(sorted(caso.get("vectores", {}).items())) # <-- El eslabón perdido
+                )
                 if firma_unica not in inputs_vistos:
                     inputs_vistos.add(firma_unica)
                     caso["id_validacion"] = f"{id_val}.{idx_real}"
@@ -201,13 +207,13 @@ class ImplicationBuilder(BaseStrategy):
             
         kind = z3_cond.decl().kind()
         
-        # BVA PARA COMPARACIONES ATÓMICAS EN REQUISITOS
+        # BVA PARA COMPARACIONES ATÓMICAS EN REQUISITOS (VERDADERAS)
         if kind in (z3.Z3_OP_LT, z3.Z3_OP_LE, z3.Z3_OP_GT, z3.Z3_OP_GE, z3.Z3_OP_EQ):
             izq, der = z3_cond.children()[0], z3_cond.children()[1]
             if kind == z3.Z3_OP_LT:   restr_bva = (izq == der - 1)
             elif kind == z3.Z3_OP_LE: restr_bva = (izq == der)
             elif kind == z3.Z3_OP_GT: 
-                # Si la expresión contiene celdas sumadas, garantizamos que al menos una celda real tome un valor >= 1
+                # Garantizamos que la celda real tome un valor >= 1
                 restr_bva = z3.And(izq > der, izq >= 1)
             elif kind == z3.Z3_OP_GE: restr_bva = (izq == der)
             else:                     restr_bva = (izq == der)
@@ -288,7 +294,8 @@ class ImplicationBuilder(BaseStrategy):
             elif kind == z3.Z3_OP_LE: restr_bva = (izq == der + 1)
             elif kind == z3.Z3_OP_GT: restr_bva = (izq == der)
             elif kind == z3.Z3_OP_GE: restr_bva = (izq == der - 1)
-            else:                     restr_bva = (izq == der + 1)
+            elif kind == z3.Z3_OP_EQ: restr_bva = (izq != der) # <-- ESTA ES LA MAGIA PARA LOS SUBTIPOS
+            else:                     restr_bva = (izq != der) # <-- IGUAL AQUÍ
             return [{"restriccion": restr_bva, "desc": "La sub-condición falla en su frontera exacta."}]
 
         elif kind == z3.Z3_OP_AND:
@@ -399,3 +406,41 @@ class ImplicationBuilder(BaseStrategy):
         for hijo in getattr(nodo, 'children', []):
             vars_z3.update(self._extraer_vars_z3(hijo))
         return vars_z3
+    
+    def _extraer_rutas_ite(self, z3_expr, ruta_actual=None):
+        """
+        Escanea una expresión Z3 en busca de condicionales (If-Then-Else).
+        Retorna una lista de listas con todas las restricciones necesarias para alcanzar cada hoja.
+        """
+        if ruta_actual is None: ruta_actual = []
+        if not z3.is_app(z3_expr): return [ruta_actual]
+        
+        kind = z3_expr.decl().kind()
+        
+        if kind == z3.Z3_OP_ITE:
+            cond = z3_expr.children()[0]
+            then_expr = z3_expr.children()[1]
+            else_expr = z3_expr.children()[2]
+            
+            rutas_then = self._extraer_rutas_ite(then_expr, ruta_actual + [cond])
+            rutas_else = self._extraer_rutas_ite(else_expr, ruta_actual + [z3.Not(cond)])
+            return rutas_then + rutas_else
+            
+        rutas = [ruta_actual]
+        for hijo in z3_expr.children():
+            nuevas_rutas = []
+            for r in rutas:
+                nuevas_rutas.extend(self._extraer_rutas_ite(hijo, r))
+            rutas = nuevas_rutas
+        
+        # Eliminar duplicados (si no hubieron ITEs, devolver solo una ruta)
+        # Usamos string representation para comparar sin invocar Z3 eq
+        rutas_unicas = []
+        rutas_str = set()
+        for r in rutas:
+            r_str = str(r)
+            if r_str not in rutas_str:
+                rutas_str.add(r_str)
+                rutas_unicas.append(r)
+                
+        return rutas_unicas

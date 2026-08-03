@@ -17,6 +17,7 @@ class BaseStrategy(ABC):
         if self.motor.solver.check() == z3.sat:
             modelo = self.motor.solver.model()
             datos_selenium = {}
+            datos_vectores = {} 
             valor_objetivo = 0 
 
             atributos_req = []
@@ -25,14 +26,10 @@ class BaseStrategy(ABC):
             subtipo_req = None
             
             for variable_z3 in modelo:
-                # Ignoro funciones fantasma de la arquitectura interna de Z3
-                if variable_z3.arity() > 0:
-                    continue
-
+                if variable_z3.arity() > 0: continue
                 nombre = variable_z3.name()
                 valor_crudo = modelo[variable_z3]
                 
-                # Proceso las banderas lógicas de identidad del contribuyente
                 if nombre.startswith("IS_ATRIBUTO_"):
                     atr = nombre.replace("IS_ATRIBUTO_", "")
                     if z3.is_true(valor_crudo): atributos_req.append(atr)
@@ -51,14 +48,12 @@ class BaseStrategy(ABC):
                     else: subtipo_req = 111 
                     continue
 
-                # Filtro variables transaccionales que simulan inputs del frontend
                 es_codigo = nombre.startswith('[') and nombre.endswith(']') and any(c.isdigit() for c in nombre)
-                es_vector = nombre.startswith('Vx')
+                es_vector = nombre.startswith('VX') # <-- Ya corregido en mayúscula
                 
                 if not (es_codigo or es_vector):
                     continue 
                 
-                # Extraigo el valor de forma segura truncando o convirtiendo a flotante según configuración
                 if z3.is_rational_value(valor_crudo):
                     fraccion_py = valor_crudo.as_fraction()
                     valor_limpio = int(fraccion_py) if not getattr(settings, 'USAR_DECIMALES', False) else float(fraccion_py)
@@ -72,19 +67,46 @@ class BaseStrategy(ABC):
                     
                 if codigo_objetivo and nombre == codigo_objetivo:
                     valor_objetivo = valor_limpio
-                else:
+                elif es_vector:
+                    datos_vectores[nombre] = valor_limpio
+                elif es_codigo:
                     datos_selenium[nombre] = valor_limpio
 
-            # Aplico la doble pasada para asegurar que el truncamiento decimal en Python no altera la premisa lógica original
+            # Análisis de requerimientos reales de RUT basados en el AST ---
+            usa_tipo = False
+            usa_subtipo = False
+            if ast_tree:
+                nodos_rut = self._encontrar_nodos_tipo(ast_tree, 'funcion_rut')
+                for n in nodos_rut:
+                    if hasattr(n, 'children') and len(n.children) > 0:
+                        func_name = str(n.children[0]).upper()
+                        if func_name == 'TIPO': usa_tipo = True
+                        if func_name == 'SUBTIPO': usa_subtipo = True
+
+            # Construimos el perfil filtrando las invenciones de Z3
+            perfil_rut = {
+                "tipo": tipo_req if usa_tipo and tipo_req is not None else "CUALQUIERA",
+                "subtipo": subtipo_req if usa_subtipo and subtipo_req is not None else "CUALQUIERA",
+                "atributos_requeridos": atributos_req,
+                "atributos_prohibidos": atributos_prohibidos
+            }
+            
+            # Si el perfil no exige absolutamente nada, lo simplificamos
+            if not usa_tipo and not usa_subtipo and not atributos_req and not atributos_prohibidos:
+                perfil_rut = "CUALQUIER_RUT"
+
+            # -------------------------------------------------------------------------
+
             if condicion_verificadora is not None and error_esperado is not None:
                 sustituciones = []
                 for variable_z3 in modelo:
-                    if variable_z3.arity() > 0:
-                        continue
-                        
+                    if variable_z3.arity() > 0: continue
                     nombre = variable_z3.name()
+                    
                     if nombre in datos_selenium:
                         sustituciones.append((variable_z3(), z3.RealVal(datos_selenium[nombre])))
+                    elif nombre in datos_vectores:
+                        sustituciones.append((variable_z3(), z3.RealVal(datos_vectores[nombre])))
                     elif codigo_objetivo and nombre == codigo_objetivo:
                         sustituciones.append((variable_z3(), z3.RealVal(valor_objetivo)))
                     else:
@@ -92,32 +114,22 @@ class BaseStrategy(ABC):
                         
                 condicion_evaluada = z3.simplify(z3.substitute(condicion_verificadora, *sustituciones))
                 
-                if z3.is_true(condicion_evaluada):
-                    resultado_real_redondeado = "BUENO"
-                elif z3.is_false(condicion_evaluada):
-                    resultado_real_redondeado = "MENSAJE"
-                else:
-                    resultado_real_redondeado = error_esperado
+                if z3.is_true(condicion_evaluada): resultado_real_redondeado = "BUENO"
+                elif z3.is_false(condicion_evaluada): resultado_real_redondeado = "MENSAJE"
+                else: resultado_real_redondeado = error_esperado
                     
                 if error_esperado != resultado_real_redondeado:
                     error_esperado = resultado_real_redondeado
                     descripcion += f" [Auto-Corregido: El truncamiento decimal altera el resultado en UI a {error_esperado}]"
 
-            # Genero la huella lógica en base al modelo resuelto sin alterar la estructura del caso
             huella_logica = {}
             if ast_tree:
                 huella_logica = self._calcular_huella_logica(modelo, ast_tree)
                 
-            # INYECCIÓN ESTRATÉGICA (Protección exclusiva para reglas lineales)
-            # Como las reglas lineales no tienen IFs ni ANDs, su huella es vacía {}.
-            # Inyectamos el BVA para evitar que la Fase 3 borre la tríada por considerarlos clones.
             if "LINEAL" in tipo_escenario:
-                if "LIMITE_EXACTO" in tipo_escenario:
-                    huella_logica["BVA_RAIZ"] = "EXACTO"
-                elif "EXCEDE_LIMITE" in tipo_escenario:
-                    huella_logica["BVA_RAIZ"] = "EXCESO"
-                elif "BAJO_LIMITE" in tipo_escenario:
-                    huella_logica["BVA_RAIZ"] = "BAJO"
+                if "LIMITE_EXACTO" in tipo_escenario: huella_logica["BVA_RAIZ"] = "EXACTO"
+                elif "EXCEDE_LIMITE" in tipo_escenario: huella_logica["BVA_RAIZ"] = "EXCESO"
+                elif "BAJO_LIMITE" in tipo_escenario: huella_logica["BVA_RAIZ"] = "BAJO"
 
             rut_final = "DEFAULT_RUT"
             if self.rut_provider:
@@ -129,24 +141,21 @@ class BaseStrategy(ABC):
                 "descripcion_qa": descripcion,
                 "rut": rut_final,
                 "inputs": datos_selenium,
+                "vectores": datos_vectores,
                 "resultado_esperado": error_esperado,
                 "huella_logica": huella_logica
             }
 
+            # Restricción solicitada: Solo inyectar en las validaciones N y M
+            if id_val.lower().startswith(('n.', 'm.')):
+                resultado_json["perfil_rut_requerido"] = perfil_rut
+
             if codigo_objetivo:
-                resultado_json["objetivo"] = {
-                    "codigo": codigo_objetivo,
-                    "valor": valor_objetivo
-                }
+                resultado_json["objetivo"] = {"codigo": codigo_objetivo, "valor": valor_objetivo}
 
             return resultado_json
         else:
-            return {
-                "id_validacion": id_val,
-                "tipo_escenario": tipo_escenario,
-                "descripcion_qa": descripcion,
-                "estado_interno": "INSATISFACTIBLE"
-            }
+            return {"id_validacion": id_val, "tipo_escenario": tipo_escenario, "descripcion_qa": descripcion, "estado_interno": "INSATISFACTIBLE"}
 
     def _ejecutar_escenario_aislado(self, restricciones_extra, funcion_escenario):
         self.motor.solver.push() 

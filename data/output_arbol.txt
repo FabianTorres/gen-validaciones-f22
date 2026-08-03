@@ -1,101 +1,55 @@
 === ÁRBOLES DE SINTAXIS ABSTRACTA (AST) - DEPURACIÓN ===
 
-Validacion: d.1
+Validacion: m.1
 ----------------------------------------
 validacion
-  implicacion
-    comparacion_simple
-      [19]
-      >
-      0
-    =>
-    comparacion_simple
-      agrupacion
-        (
-        expresion
-          [20]
-          +
-          [18]
-        )
-      >
-      0
-
-========================================
-Validacion: d.166
-----------------------------------------
-validacion
-  implicacion
-    comparacion_simple
-      [1908]
-      >
-      0
-    =>
+  declaracion_variable
+    Suma
+    expresion
+      [1208]
+      +
+      [1218]
+      +
+      [1209]
+      +
+      [1219]
+      +
+      [1193]
+      +
+      [1194]
+  declaracion_variable
+    Alfa
+    expresion
+      Vx014105
+      +
+      Vx014106
+      +
+      Vx014107
+      +
+      Vx014108
+  validacion_libre
     condicional
       condicion_logica
-        comparacion_simple
-          funcion_rut
-            TIPO
-            {
-            [03]
-            }
+        comparacion_atributo
           =
-          1
+          rango_valores
+            serie_numeros	M14A
         .y.
-        comparacion_simple
-          agrupacion
-            (
-            expresion
-              [187]
-              +
-              [1037]
-              +
-              [18]
-              +
-              [1109]
-            )
-          <
-          P01
-      comparacion_simple
-        agrupacion
+        sub_condicion
           (
-          expresion
-            [189]
-            +
-            [1039]
-            +
-            [20]
-            +
-            [1113]
+          condicion_logica
+            comparacion_simple
+              Vx011264
+              =
+              0
+            .o.
+            comparacion_atributo
+              !=
+              rango_valores
+                serie_numeros	ME22
           )
-        =
-        0
-      comparacion_simple
-        agrupacion
-          (
-          expresion
-            [187]
-            +
-            [1037]
-            +
-            funcion_matematica
-              ABS
-              {
-              lista_argumentos	[1440]
-              }
-            +
-            funcion_matematica
-              ABS
-              {
-              lista_argumentos	[1690]
-              }
-            +
-            funcion_matematica
-              ABS
-              {
-              lista_argumentos	[1630]
-              }
-          )
-        >
-        0
+      asignacion_en_condicional
+        suma
+        alfa
 
 ========================================

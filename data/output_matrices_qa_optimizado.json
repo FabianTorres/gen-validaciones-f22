@@ -49,7 +49,7 @@
     },
     {
         "id_validacion": "d.166.1",
-        "tipo_escenario": "CUMPLE_CONDICION_1_1",
+        "tipo_escenario": "CUMPLE_CONDICION_1_1_1",
         "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (IF cumple [Todas las sub-condiciones del AND se cumplen.] -> ENTONCES [La sub-condición se cumple en su frontera exacta.])",
         "rut": "11.111.111-1",
         "inputs": {
@@ -82,22 +82,22 @@
     },
     {
         "id_validacion": "d.166.2",
-        "tipo_escenario": "CUMPLE_CONDICION_1_2",
+        "tipo_escenario": "CUMPLE_CONDICION_1_2_1",
         "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (IF falla [Bloque AND falla (sub-condición 1): La sub-condición falla en su frontera exacta.] -> SINO [La sub-condición se cumple en su frontera exacta.])",
         "rut": "16.208.945-4",
         "inputs": {
-            "[18]": 0,
             "[1109]": 0,
+            "[18]": 0,
             "[1440]": 1000000,
             "[1039]": 1000000,
+            "[1908]": 1000000,
             "[189]": 1000000,
             "[20]": 1000000,
+            "[187]": 0,
             "[1630]": 1000000,
             "[1037]": 834503,
-            "[187]": 0,
             "[1113]": 1000000,
-            "[1690]": 1000000,
-            "[1908]": 1000000
+            "[1690]": 1000000
         },
         "resultado_esperado": "BUENO",
         "huella_logica": {
@@ -115,22 +115,22 @@
     },
     {
         "id_validacion": "d.166.3",
-        "tipo_escenario": "CUMPLE_CONDICION_1_3",
+        "tipo_escenario": "CUMPLE_CONDICION_1_3_1",
         "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (IF falla [Bloque AND falla (sub-condición 2): La sub-condición falla en su frontera exacta.] -> SINO [La sub-condición se cumple en su frontera exacta.])",
         "rut": "11.111.111-1",
         "inputs": {
+            "[1039]": 1000000,
+            "[187]": 834504,
             "[18]": 0,
-            "[1109]": 0,
-            "[1440]": 1000000,
             "[1037]": 0,
+            "[1109]": 0,
             "[189]": 1000000,
             "[20]": 1000000,
             "[1908]": 1000000,
             "[1630]": 1000000,
             "[1113]": 1000000,
             "[1690]": 1000000,
-            "[187]": 834504,
-            "[1039]": 1000000
+            "[1440]": 1000000
         },
         "resultado_esperado": "BUENO",
         "huella_logica": {
@@ -148,22 +148,22 @@
     },
     {
         "id_validacion": "d.166.4",
-        "tipo_escenario": "INCUMPLE_CONDICION_1_1",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_1_1",
         "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (IF cumple [Todas las sub-condiciones del AND se cumplen.] -> ENTONCES FALLA [La sub-condición falla en su frontera exacta.])",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1109]": 0,
+            "[1113]": 1000000,
+            "[189]": 1000000,
+            "[20]": 1000000,
             "[1690]": 1000000,
             "[1630]": 1000000,
-            "[1039]": 0,
-            "[1908]": 1000000,
-            "[18]": 0,
-            "[20]": 0,
-            "[1037]": 0,
+            "[1039]": 1000000,
             "[187]": 0,
+            "[18]": 0,
+            "[1908]": 1000000,
+            "[1037]": 0,
             "[1440]": 1000000,
-            "[1113]": 0,
-            "[189]": 1
+            "[1109]": 0
         },
         "resultado_esperado": "MENSAJE",
         "huella_logica": {
@@ -181,22 +181,22 @@
     },
     {
         "id_validacion": "d.166.5",
-        "tipo_escenario": "INCUMPLE_CONDICION_1_2",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_2_1",
         "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (IF falla [Bloque AND falla (sub-condición 1): La sub-condición falla en su frontera exacta.] -> SINO FALLA [La sub-condición falla en su frontera exacta.])",
         "rut": "16.208.945-4",
         "inputs": {
             "[187]": 0,
-            "[1039]": 1000000,
-            "[1440]": 0,
             "[1109]": 0,
-            "[189]": 1000000,
-            "[20]": 1000000,
             "[18]": 0,
+            "[1440]": 0,
+            "[1039]": 1000000,
+            "[1037]": 0,
+            "[189]": 1000000,
+            "[1908]": 1000000,
+            "[20]": 1000000,
             "[1630]": 0,
             "[1113]": 1000000,
-            "[1690]": 0,
-            "[1037]": 0,
-            "[1908]": 1000000
+            "[1690]": 0
         },
         "resultado_esperado": "MENSAJE",
         "huella_logica": {
@@ -214,22 +214,22 @@
     },
     {
         "id_validacion": "d.166.6",
-        "tipo_escenario": "INCUMPLE_CONDICION_1_3",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_3_1",
         "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (IF falla [Bloque AND falla (sub-condición 2): La sub-condición falla en su frontera exacta.] -> SINO FALLA [La sub-condición falla en su frontera exacta.])",
         "rut": "11.111.111-1",
         "inputs": {
-            "[1908]": 1000000,
-            "[1039]": 1000000,
+            "[18]": 834504,
             "[1037]": 0,
+            "[1908]": 1000000,
+            "[187]": 0,
             "[189]": 1000000,
             "[20]": 1000000,
-            "[187]": 0,
+            "[1109]": 0,
             "[1630]": 0,
-            "[1113]": 1000000,
-            "[1690]": 0,
             "[1440]": 0,
-            "[18]": 834504,
-            "[1109]": 0
+            "[1039]": 1000000,
+            "[1113]": 1000000,
+            "[1690]": 0
         },
         "resultado_esperado": "MENSAJE",
         "huella_logica": {
@@ -251,16 +251,16 @@
         "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
         "rut": "11.111.111-1",
         "inputs": {
-            "[189]": 1000000,
-            "[1109]": 1000000,
-            "[18]": 1000000,
-            "[1690]": 1000000,
-            "[20]": 1000000,
             "[1630]": 1000000,
+            "[1690]": 1000000,
             "[1039]": 1000000,
+            "[18]": 1000000,
             "[1440]": 1000000,
-            "[1037]": 1000000,
             "[1113]": 1000000,
+            "[1037]": 1000000,
+            "[20]": 1000000,
+            "[1109]": 1000000,
+            "[189]": 1000000,
             "[187]": 1000000,
             "[1908]": 0
         },
@@ -352,8 +352,8 @@
         "descripcion_qa": "El valor interno de ABS es negativo, aislando y forzando conversión.",
         "rut": "16.208.945-4",
         "inputs": {
-            "[1690]": -2,
             "[1908]": 1000000,
+            "[1690]": -2,
             "[1630]": 0,
             "[1440]": 0,
             "[1113]": 0,
@@ -386,8 +386,8 @@
         "descripcion_qa": "El valor interno de ABS es positivo, manteniendo su valor.",
         "rut": "16.208.945-4",
         "inputs": {
-            "[1690]": 1000000,
             "[1908]": 1000000,
+            "[1690]": 1000000,
             "[1630]": 0,
             "[1440]": 0,
             "[1113]": 0,
@@ -480,6 +480,850 @@
             "ABS_2": "=0",
             "ABS_3": ">0",
             "CONDICION_5": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.141.1",
+        "tipo_escenario": "CUMPLE_CONDICION",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1033]": 1000000,
+            "[1083]": 1000000,
+            "[1131]": 1000000,
+            "[1074]": 6345041
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.141.2",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (Bloque AND falla (sub-condición 1): La sub-condición falla en su frontera exacta.)",
+        "rut": "16.208.945-4",
+        "inputs": {
+            "[1033]": 1000000,
+            "[1131]": 6345041,
+            "[1074]": 1000000,
+            "[1083]": 1000000
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.141.3",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_2_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (Bloque AND falla (sub-condición 2): La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1083]": 1000000,
+            "[1074]": 1000000,
+            "[1131]": 6345041,
+            "[1033]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "d.141.4",
+        "tipo_escenario": "NO_APLICA",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1083]": 1000000,
+            "[1033]": 1000000,
+            "[1131]": 1000000,
+            "[1074]": 6345040
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.142.1",
+        "tipo_escenario": "CUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[138]": 1000000,
+            "[830]": 1000000,
+            "[828]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.2",
+        "tipo_escenario": "CUMPLE_CONDICION_1_2_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "8.734.192-0",
+        "inputs": {
+            "[828]": 1000000,
+            "[830]": 1000000,
+            "[138]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "TRUE",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.3",
+        "tipo_escenario": "CUMPLE_CONDICION_1_3_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "14.827.563-8",
+        "inputs": {
+            "[828]": 1000000,
+            "[830]": 1000000,
+            "[138]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_8": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.142.4",
+        "tipo_escenario": "CUMPLE_CONDICION_1_4_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "19.384.271-9",
+        "inputs": {
+            "[830]": 1000000,
+            "[828]": 1000000,
+            "[138]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.5",
+        "tipo_escenario": "CUMPLE_CONDICION_1_5_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "23.716.845-5",
+        "inputs": {
+            "[830]": 1000000,
+            "[828]": 1000000,
+            "[138]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "TRUE",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.6",
+        "tipo_escenario": "CUMPLE_CONDICION_1_6_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "27.508.164-6",
+        "inputs": {
+            "[830]": 1000000,
+            "[828]": 1000000,
+            "[138]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "TRUE",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_8": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.142.7",
+        "tipo_escenario": "CUMPLE_CONDICION_1_7_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "31.942.857-4",
+        "inputs": {
+            "[830]": 1000000,
+            "[828]": 1000000,
+            "[138]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "TRUE",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.8",
+        "tipo_escenario": "CUMPLE_CONDICION_1_8_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "36.185.429-8",
+        "inputs": {
+            "[828]": 1000000,
+            "[138]": 1000000,
+            "[830]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "TRUE",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.9",
+        "tipo_escenario": "CUMPLE_CONDICION_1_9_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "42.673.518-K",
+        "inputs": {
+            "[828]": 1000000,
+            "[830]": 1000000,
+            "[138]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_5": "TRUE",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_8": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.142.10",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (Bloque AND falla (sub-condición 1): Bloque AND falla (sub-condición 1): La sub-condición falla en su frontera exacta.)",
+        "rut": "27.508.164-6",
+        "inputs": {
+            "[830]": 1000000,
+            "[138]": 0,
+            "[828]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.11",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_2_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (Bloque AND falla (sub-condición 1): Bloque AND falla (sub-condición 2): Todas las opciones del OR son falsas.)",
+        "rut": "11.574.826-6",
+        "inputs": {
+            "[828]": 1000000,
+            "[138]": 1000000,
+            "[830]": 1000000
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.142.12",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_3_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (Bloque AND falla (sub-condición 2): Todas las opciones del OR son falsas.)",
+        "rut": "14.983.215-7",
+        "inputs": {
+            "[828]": 1000000,
+            "[138]": 1000000,
+            "[830]": 1000000
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE",
+            "OR_1": "CORTOCIRCUITO",
+            "CONDICION_4": "SKIPPED",
+            "OR_2": "CORTOCIRCUITO",
+            "CONDICION_5": "SKIPPED",
+            "AND_2": "EVALUADO",
+            "CONDICION_6": "FALSE",
+            "OR_3": "EVALUADO",
+            "CONDICION_7": "FALSE",
+            "OR_4": "EVALUADO",
+            "CONDICION_8": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "d.142.13",
+        "tipo_escenario": "NO_APLICA",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
+        "rut": "13.695.284-9",
+        "inputs": {
+            "[828]": 1000000,
+            "[138]": 1000000,
+            "[830]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE",
+            "OR_1": "EVALUADO",
+            "CONDICION_4": "FALSE",
+            "OR_2": "EVALUADO",
+            "CONDICION_5": "FALSE",
+            "AND_2": "CORTOCIRCUITO",
+            "CONDICION_6": "SKIPPED",
+            "OR_3": "CORTOCIRCUITO",
+            "CONDICION_7": "SKIPPED",
+            "OR_4": "CORTOCIRCUITO",
+            "CONDICION_8": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.154.1",
+        "tipo_escenario": "CUMPLE_CONDICION",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (La sub-condición se cumple en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1690]": 1000000,
+            "[1440]": 1000000,
+            "[741]": 1000000,
+            "[742]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "ABS_1": ">0",
+            "ABS_2": ">0",
+            "CONDICION_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.154.2",
+        "tipo_escenario": "INCUMPLE_CONDICION",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1690]": 0,
+            "[742]": 1000000,
+            "[741]": 1000000,
+            "[1440]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "ABS_1": "=0",
+            "ABS_2": "=0",
+            "CONDICION_2": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "d.154.3",
+        "tipo_escenario": "NO_APLICA",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1440]": 1000000,
+            "[1690]": 1000000,
+            "[742]": 0,
+            "[741]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "ABS_1": ">0",
+            "ABS_2": ">0",
+            "CONDICION_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.154.4",
+        "tipo_escenario": "FUNC_ABS_1_ENTRADA_NEGATIVA",
+        "descripcion_qa": "El valor interno de ABS es negativo, aislando y forzando conversión.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1440]": -2,
+            "[742]": 1000000,
+            "[741]": 1000000,
+            "[1690]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "ABS_1": "<0",
+            "ABS_2": "=0",
+            "CONDICION_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.154.5",
+        "tipo_escenario": "FUNC_ABS_1_ENTRADA_POSITIVA",
+        "descripcion_qa": "El valor interno de ABS es positivo, manteniendo su valor.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1440]": 1000000,
+            "[741]": 1000000,
+            "[742]": 1000000,
+            "[1690]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "ABS_1": ">0",
+            "ABS_2": "=0",
+            "CONDICION_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.154.6",
+        "tipo_escenario": "FUNC_ABS_2_ENTRADA_NEGATIVA",
+        "descripcion_qa": "El valor interno de ABS es negativo, aislando y forzando conversión.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[1690]": -2,
+            "[742]": 1000000,
+            "[741]": 1000000,
+            "[1440]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "ABS_1": "=0",
+            "ABS_2": "<0",
+            "CONDICION_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.154.7",
+        "tipo_escenario": "FUNC_ABS_2_ENTRADA_POSITIVA",
+        "descripcion_qa": "El valor interno de ABS es positivo, manteniendo su valor.",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[742]": 1000000,
+            "[1690]": 1000000,
+            "[741]": 1000000,
+            "[1440]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "ABS_1": "=0",
+            "ABS_2": ">0",
+            "CONDICION_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.174.1",
+        "tipo_escenario": "CUMPLE_CONDICION",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (Todas las sub-condiciones del AND se cumplen.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[647]": 1000000,
+            "[940]": 1000000,
+            "[949]": 1000000,
+            "[938]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.174.2",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (Bloque AND falla (sub-condición 1): La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[647]": 1000000,
+            "[949]": 1000000,
+            "[938]": 1000000,
+            "[940]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "FALSE",
+            "AND_1": "CORTOCIRCUITO",
+            "CONDICION_3": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "d.174.3",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_2_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (Bloque AND falla (sub-condición 2): La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[949]": 1000000,
+            "[940]": 1000000,
+            "[938]": 1000000,
+            "[647]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "d.174.4",
+        "tipo_escenario": "NO_APLICA",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[940]": 1000000,
+            "[647]": 1000000,
+            "[949]": 0,
+            "[938]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "CONDICION_2": "TRUE",
+            "AND_1": "EVALUADO",
+            "CONDICION_3": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.227.1",
+        "tipo_escenario": "CUMPLE_CONDICION",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (La sub-condición se cumple en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[392]": 1000000,
+            "[73]": 1
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "d.227.2",
+        "tipo_escenario": "INCUMPLE_CONDICION",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[392]": 1000000,
+            "[73]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "d.227.3",
+        "tipo_escenario": "NO_APLICA",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[73]": 0,
+            "[392]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "CONDICION_2": "FALSE"
+        }
+    },
+    {
+        "id_validacion": "e.40.1",
+        "tipo_escenario": "CUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (La sub-condición se cumple en su frontera exacta.) [Forzando Rama Interna 1]",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[159]": 1000000,
+            "[765]": 1000000,
+            "[152]": 1000000,
+            "[105]": 0,
+            "[106]": 0,
+            "[748]": 0,
+            "[110]": 0,
+            "[155]": 0,
+            "[108]": 0,
+            "[955]": 0,
+            "[161]": 126175601,
+            "[104]": 0,
+            "[750]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "CONDICION_4": "SKIPPED",
+            "IF_2": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "e.40.2",
+        "tipo_escenario": "CUMPLE_CONDICION_1_1_2",
+        "descripcion_qa": "Gatillo activo (La sub-condición se cumple en su frontera exacta.) Y Requisito cumplido (La sub-condición se cumple en su frontera exacta.) [Forzando Rama Interna 2]",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[748]": 1000000,
+            "[155]": 1000000,
+            "[161]": 1000000,
+            "[106]": 1000000,
+            "[159]": 1000000,
+            "[110]": 1000000,
+            "[152]": 1000000,
+            "[108]": 1000000,
+            "[955]": 1000000,
+            "[105]": 116175601,
+            "[765]": 1000000,
+            "[104]": 1000000,
+            "[750]": 0
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "TRUE",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE",
+            "CONDICION_4": "TRUE",
+            "IF_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "e.40.3",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_1_1",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (La sub-condición falla en su frontera exacta.) [Forzando Rama Interna 1]",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[105]": 0,
+            "[955]": 0,
+            "[159]": 1000000,
+            "[152]": 1000000,
+            "[765]": 1000000,
+            "[748]": 0,
+            "[108]": 0,
+            "[155]": 0,
+            "[110]": 0,
+            "[106]": 0,
+            "[161]": 126175600,
+            "[104]": 0,
+            "[750]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "FALSE",
+            "CONDICION_3": "TRUE",
+            "IF_1": "TRUE",
+            "CONDICION_4": "SKIPPED",
+            "IF_2": "SKIPPED"
+        }
+    },
+    {
+        "id_validacion": "e.40.4",
+        "tipo_escenario": "INCUMPLE_CONDICION_1_1_2",
+        "descripcion_qa": "Se fuerza error: Gatillo activo (La sub-condición se cumple en su frontera exacta.) PERO Requisito falla (La sub-condición falla en su frontera exacta.) [Forzando Rama Interna 2]",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[155]": 1000000,
+            "[152]": 1000000,
+            "[105]": 1000000,
+            "[159]": 1000000,
+            "[108]": 1000000,
+            "[161]": 1000000,
+            "[955]": 1000000,
+            "[106]": 1000000,
+            "[765]": 1000000,
+            "[110]": 1000000,
+            "[748]": 1000000,
+            "[104]": 116175600,
+            "[750]": 0
+        },
+        "resultado_esperado": "MENSAJE",
+        "huella_logica": {
+            "CONDICION_1": "TRUE",
+            "CONDICION_2": "FALSE",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE",
+            "CONDICION_4": "TRUE",
+            "IF_2": "TRUE"
+        }
+    },
+    {
+        "id_validacion": "e.40.5",
+        "tipo_escenario": "NO_APLICA",
+        "descripcion_qa": "La regla no aplica: Gatillo inactivo (La sub-condición falla en su frontera exacta.)",
+        "rut": "11.111.111-1",
+        "inputs": {
+            "[765]": 10000000,
+            "[152]": 1000000,
+            "[750]": 1000000,
+            "[161]": 1000000,
+            "[955]": 1000000,
+            "[104]": 1000000,
+            "[155]": 1000000,
+            "[159]": 1000000,
+            "[105]": 1000000,
+            "[106]": 1000000,
+            "[110]": 1000000,
+            "[108]": 1000000,
+            "[748]": 1000000
+        },
+        "resultado_esperado": "BUENO",
+        "huella_logica": {
+            "CONDICION_1": "FALSE",
+            "CONDICION_2": "FALSE",
+            "CONDICION_3": "FALSE",
+            "IF_1": "FALSE",
+            "CONDICION_4": "TRUE",
+            "IF_2": "TRUE"
         }
     }
 ]

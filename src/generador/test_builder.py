@@ -41,9 +41,13 @@ class TestMatrixBuilder:
     def _seleccionar_estrategia(self, tipo_regla):
         if tipo_regla == 'cota':
             return BoundaryBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
-        elif tipo_regla == 'implicacion':
+            
+        # Agrupamos las Implicaciones (D, E) y las Validaciones de Lógica Libre (M)
+        elif tipo_regla in ['implicacion', 'validacion_libre']:
             return ImplicationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
-        elif tipo_regla in ['autocalculado', 'validacion_libre']:
+            
+        # Dejamos solo los autocalculados (A, B) para el CalculationBuilder
+        elif tipo_regla == 'autocalculado':
             return CalculationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
             
         return None

@@ -135,7 +135,9 @@
     },
     {
         "rut": "19.356.842-2",
-        "atributos": [],
+        "atributos": [
+            "14TT"
+        ],
         "tipo": 5,
         "subtipo": 111
     },
@@ -156,5 +158,77 @@
         "atributos": [],
         "tipo": 8,
         "subtipo": 111
+    },
+    {
+        "rut": "5.221.331-4",
+        "atributos": [
+            "M14A"
+        ],
+        "tipo": 1,
+        "subtipo": 112
+    },
+    {
+        "rut": "8.734.192-0",
+        "atributos": [
+            "14D1"
+        ],
+        "tipo": 1,
+        "subtipo": 112
+    },
+    {
+        "rut": "14.827.563-8",
+        "atributos": [
+            "M14G"
+        ],
+        "tipo": 1,
+        "subtipo": 112
+    },
+    {
+        "rut": "19.384.271-9",
+        "atributos": [
+            "M14A"
+        ],
+        "tipo": 1,
+        "subtipo": 113
+    },
+    {
+        "rut": "23.716.845-5",
+        "atributos": [
+            "14D1"
+        ],
+        "tipo": 1,
+        "subtipo": 113
+    },
+    {
+        "rut": "27.508.164-6",
+        "atributos": [
+            "M14G"
+        ],
+        "tipo": 1,
+        "subtipo": 113
+    },
+    {
+        "rut": "31.942.857-4",
+        "atributos": [
+            "M14A"
+        ],
+        "tipo": 1,
+        "subtipo": 411
+    },
+    {
+        "rut": "36.185.429-8",
+        "atributos": [
+            "14D1"
+        ],
+        "tipo": 1,
+        "subtipo": 411
+    },
+    {
+        "rut": "42.673.518-K",
+        "atributos": [
+            "M14G"
+        ],
+        "tipo": 1,
+        "subtipo": 411
     }
 ]
