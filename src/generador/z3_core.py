@@ -1,47 +1,26 @@
 import z3
-import os
-from src.config import settings
 
 class MotorZ3:
-    def __init__(self):
+    def __init__(self, cache_codigos: dict, config_motor: dict = None):
+        """
+        Recibe el catálogo de signos directamente desde la memoria RAM.
+        """
         self.solver = z3.Optimize()
         self.variables_memoria = {}
+        self.config_motor = config_motor or {}
         self._configurar_semilla_base()
         
-        # Cargamos el catálogo en memoria apenas arranca el motor
-        self.catalogo_signos = self._cargar_catalogo()
+        # Guardamos el catálogo inyectado desde la RAM
+        self.catalogo_signos = cache_codigos
 
     def _configurar_semilla_base(self):
         """
         Convertimos la semilla a float para mantener la 
         compatibilidad absoluta con el dominio Real.
         """
-        self.semilla_objetivo = float(settings.SEMILLA_GENERACION)
-
-    def _cargar_catalogo(self):
-        """
-        Lee el catálogo TXT para saber qué dominio matemático aplicar a cada código.
-        """
-        ruta_catalogo = "data/catalogo_codigos.txt"
-        catalogo = {}
-        
-        if os.path.exists(ruta_catalogo):
-            with open(ruta_catalogo, 'r', encoding='utf-8') as f:
-                for linea in f:
-                    linea_limpia = linea.strip()
-                    # Ignorar líneas vacías o la cabecera
-                    if not linea_limpia or linea_limpia.startswith("CODIGO") or "|" not in linea_limpia:
-                        continue
-                    
-                    partes = linea_limpia.split("|")
-                    if len(partes) >= 2:
-                        codigo = partes[0].strip()
-                        signo = partes[1].strip()
-                        catalogo[codigo] = signo
-        else:
-            print(f"⚠️ MotorZ3 no encontró {ruta_catalogo}. Se asumirá signo positivo por defecto.")
-            
-        return catalogo
+        # Extraemos la semilla dinámicamente con un valor de 1,000,000 por defecto
+        semilla = self.config_motor.get("semilla_generacion", 1000000)
+        self.semilla_objetivo = float(semilla)
 
     def obtener_o_crear_variable(self, nombre_var):
         """
@@ -56,8 +35,9 @@ class MotorZ3:
             codigo_limpio = nombre_var.replace("[", "").replace("]", "")
             
             if codigo_limpio.isdigit():
-                # Obtenemos la regla del diccionario. Si no existe, asumimos "+" (Opción B)
-                regla_signo = self.catalogo_signos.get(codigo_limpio, "+") 
+                # Obtenemos el objeto del código. Si no existe, asumimos un dict vacío
+                info_codigo = self.catalogo_signos.get(codigo_limpio, {})
+                regla_signo = info_codigo.get("signo_permitido", "+")
                 
                 if regla_signo == "+":
                     self.solver.add(var_z3 >= 0)
@@ -69,7 +49,6 @@ class MotorZ3:
                 # Si la regla es "+/-", no agregamos restricción matemática
 
                 # 2. Le pedimos al motor que se acerque a la semilla
-                # Evitamos aplicar semilla a las marcas para no estresar a SMT forzando 0/1 hacia 1000000
                 if regla_signo != "X":
                     self.solver.add_soft(var_z3 == self.semilla_objetivo)
             else:

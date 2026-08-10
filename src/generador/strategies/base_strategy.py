@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 import z3
-from src.config import settings
 
 class BaseStrategy(ABC):
-    def __init__(self, evaluador, motor_z3, param_provider, rut_provider):
+    def __init__(self, evaluador, motor_z3, param_provider, rut_provider, config_motor=None):
         self.evaluador = evaluador
         self.motor = motor_z3
         self.param_provider = param_provider
         self.rut_provider = rut_provider
+        self.config_motor = config_motor or {}
 
     @abstractmethod
     def generar_casos(self, ast_tree, id_val):
@@ -16,30 +16,38 @@ class BaseStrategy(ABC):
     def _resolver_y_formatear(self, id_val, tipo_escenario, descripcion, error_esperado=None, codigo_objetivo=None, condicion_verificadora=None, ast_tree=None):
         if self.motor.solver.check() == z3.sat:
             modelo = self.motor.solver.model()
+
             datos_selenium = {}
             datos_vectores = {} 
+            datos_parametros = {}
             valor_objetivo = 0 
 
             atributos_req = []
             atributos_prohibidos = []
             tipo_req = None
             subtipo_req = None
+
+            # --- Invocamos la configuración de decimales ---
+            usar_decimales = self.config_motor.get("usar_decimales", False)
+
+            # Convertimos el AST a string para filtrar solo los parámetros usados
+            ast_string = str(ast_tree).upper() if ast_tree else ""
             
-            for variable_z3 in modelo:
-                if variable_z3.arity() > 0: continue
-                nombre = variable_z3.name()
-                valor_crudo = modelo[variable_z3]
+            # SOLUCIÓN: Iteramos sobre variables_memoria en lugar de 'modelo'.
+            # Z3 a veces oculta variables constantes del 'modelo', pero nuestra memoria no.
+            for nombre, var_z3 in self.motor.variables_memoria.items():
+                
+                # Forzamos a Z3 a darnos el valor final de esta variable
+                valor_crudo = modelo.evaluate(var_z3, model_completion=True)
                 
                 if nombre.startswith("IS_ATRIBUTO_"):
                     atr = nombre.replace("IS_ATRIBUTO_", "")
-                    if z3.is_true(valor_crudo): atributos_req.append(atr)
-                    elif z3.is_false(valor_crudo): atributos_prohibidos.append(atr)
-                    continue
                     
-                if nombre == "TIPO_[03]":
-                    if z3.is_rational_value(valor_crudo): tipo_req = int(valor_crudo.as_fraction())
-                    elif z3.is_int(valor_crudo): tipo_req = valor_crudo.as_long()
-                    else: tipo_req = 1 
+                    # Como ahora sí es un Booleano nativo de Z3, usamos las funciones lógicas
+                    if z3.is_true(valor_crudo): 
+                        atributos_req.append(atr)
+                    elif z3.is_false(valor_crudo): 
+                        atributos_prohibidos.append(atr)
                     continue
 
                 if nombre == "SUBTIPO_[03]":
@@ -49,26 +57,39 @@ class BaseStrategy(ABC):
                     continue
 
                 es_codigo = nombre.startswith('[') and nombre.endswith(']') and any(c.isdigit() for c in nombre)
-                es_vector = nombre.startswith('VX') # <-- Ya corregido en mayúscula
+                es_vector = nombre.startswith('VX') 
+                es_parametro = nombre.startswith('P') and nombre[1:].isdigit() 
                 
-                if not (es_codigo or es_vector):
+                if not (es_codigo or es_vector or es_parametro):
                     continue 
                 
+                # 1. Extraemos el valor matemático exacto 
                 if z3.is_rational_value(valor_crudo):
-                    fraccion_py = valor_crudo.as_fraction()
-                    valor_limpio = int(fraccion_py) if not getattr(settings, 'USAR_DECIMALES', False) else float(fraccion_py)
+                    val_exacto = float(valor_crudo.as_fraction())
                 elif z3.is_real(valor_crudo) or z3.is_algebraic_value(valor_crudo):
-                    val_flotante = float(valor_crudo.as_decimal(4).rstrip('?'))
-                    valor_limpio = int(val_flotante) if not getattr(settings, 'USAR_DECIMALES', False) else val_flotante
+                    val_exacto = float(valor_crudo.as_decimal(6).rstrip('?'))
                 elif z3.is_int(valor_crudo):
-                    valor_limpio = valor_crudo.as_long()
+                    val_exacto = float(valor_crudo.as_long())
                 else:
-                    valor_limpio = 0
+                    val_exacto = 0.0
+                    
+                # 2. Aplicamos la regla de negocio de redondeo
+                if es_parametro:
+                    # BLINDAJE: Los parámetros conservan siempre su naturaleza original.
+                    # Si es 30000.0 lo deja como 30000, si es 0.1 lo deja como 0.1
+                    valor_limpio = int(val_exacto) if val_exacto.is_integer() else val_exacto
+                else:
+                    # Los códigos y vectores sí respetan la configuración estricta de la UI
+                    valor_limpio = val_exacto if usar_decimales else int(val_exacto)
                     
                 if codigo_objetivo and nombre == codigo_objetivo:
                     valor_objetivo = valor_limpio
                 elif es_vector:
                     datos_vectores[nombre] = valor_limpio
+                elif es_parametro:
+                    # Validamos en mayúsculas por seguridad contra el AST
+                    if nombre.upper() in ast_string:
+                        datos_parametros[nombre] = valor_limpio
                 elif es_codigo:
                     datos_selenium[nombre] = valor_limpio
 
@@ -134,6 +155,16 @@ class BaseStrategy(ABC):
             rut_final = "DEFAULT_RUT"
             if self.rut_provider:
                 rut_final = self.rut_provider.obtener_rut(atributos_req, atributos_prohibidos, tipo_req, subtipo_req)
+                
+                # --- NUEVO BLOQUEO DE SEGURIDAD ---
+                if rut_final == "SIN_RUT_VALIDO":
+                    mensaje_error = (
+                        f"❌ BLOQUEO: No hay RUTs disponibles.\n"
+                        f"Detalle: La validación requiere un contribuyente con Tipo: {tipo_req or 'Cualquiera'}, "
+                        f"Subtipo: {subtipo_req or 'Cualquiera'}, Atributos Requeridos: {atributos_req}, Prohibidos: {atributos_prohibidos}.\n"
+                        f"Sugerencia: Agrega un RUT que cumpla estas condiciones en el Catálogo."
+                    )
+                    return {"id_validacion": id_val, "error": mensaje_error}
 
             resultado_json = {
                 "id_validacion": id_val,
@@ -142,6 +173,7 @@ class BaseStrategy(ABC):
                 "rut": rut_final,
                 "inputs": datos_selenium,
                 "vectores": datos_vectores,
+                "parametros": datos_parametros,
                 "resultado_esperado": error_esperado,
                 "huella_logica": huella_logica
             }

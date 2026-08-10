@@ -168,7 +168,14 @@ class CalculationBuilder(BaseStrategy):
         for c in casos:
             if c is not None:
                 if "error" in c:
-                    print(f"⚠️ Aviso en {id_val}: Escenario descartado internamente. Motivo: {c['error']}")
+                    # 🛑 BLOQUEO ESTRICTO SOLO PARA RUT
+                    if "No hay RUTs disponibles" in c["error"]:
+                        print(f"🛑 Abortando generación en {id_val}. Motivo: {c['error']}")
+                        return [c]
+                    # Si es otro error menor, lo ignoramos y seguimos
+                    else:
+                        print(f"⚠️ Aviso en {id_val}: Escenario descartado internamente. Motivo: {c['error']}")
+                
                 elif c.get("estado_interno") == "INSATISFACTIBLE":
                     print(f"Fase 2: Escenario '{c.get('tipo_escenario', 'Desconocido')}' descartado por ser matemáticamente imposible (Contradicción).")
                 elif "inputs" in c:

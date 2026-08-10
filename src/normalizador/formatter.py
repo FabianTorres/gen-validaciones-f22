@@ -1,36 +1,10 @@
 from lark import exceptions, Transformer, Tree, Token
-from pathlib import Path
 import re
 try:
     from .parser import obtener_parser
 except ImportError:
     from parser import obtener_parser
 
-# --- NUEVAS FUNCIONES DE CATÁLOGO ---
-def cargar_catalogo_codigos():
-    """
-    Lee dinámicamente el catálogo oficial de códigos desde el archivo de texto.
-    Retorna un set() con los códigos numéricos para búsquedas rápidas.
-    """
-    ruta_raiz = Path(__file__).parent.parent.parent
-    ruta_archivo = ruta_raiz / "data" / "catalogo_codigos.txt"
-    
-    # El [03] (RUT) es estructural y siempre debe estar permitido
-    codigos_validos = {"03"} 
-    
-    if ruta_archivo.exists():
-        with open(ruta_archivo, "r", encoding="utf-8") as f:
-            for linea in f:
-                linea = linea.strip()
-                if not linea or linea.startswith("CODIGO"):
-                    continue
-                
-                partes = linea.split("|")
-                if len(partes) > 0:
-                    codigo_limpio = partes[0].strip()
-                    if codigo_limpio:
-                        codigos_validos.add(codigo_limpio)
-    return codigos_validos
 
 def validar_existencia_codigos(arbol, catalogo):
     """
@@ -55,25 +29,6 @@ def validar_existencia_codigos(arbol, catalogo):
     if codigos_faltantes:
         raise ValueError(f"CODIGOS_DESCONOCIDOS|{', '.join(codigos_faltantes)}")
 
-def cargar_catalogo_parametros():
-    """Lee dinámicamente el catálogo oficial de parámetros permitidos."""
-    ruta_raiz = Path(__file__).parent.parent.parent
-    ruta_archivo = ruta_raiz / "data" / "catalogo_parametros.txt"
-    
-    parametros_validos = set()
-    if ruta_archivo.exists():
-        with open(ruta_archivo, "r", encoding="utf-8") as f:
-            for linea in f:
-                linea = linea.strip()
-                if not linea or linea.startswith("PARAMETRO"):
-                    continue
-                
-                partes = linea.split("|")
-                if len(partes) > 0:
-                    param_limpio = partes[0].strip().upper()
-                    if param_limpio:
-                        parametros_validos.add(param_limpio)
-    return parametros_validos
 
 def validar_existencia_parametros(arbol, catalogo):
     """
@@ -423,7 +378,7 @@ class LinterSemantico(Transformer):
         # Retorna el árbol intacto para no dañar la estructura
         return Tree('condicional', args)    
 
-def normalizar_y_validar(texto_crudo, id_val=""):
+def normalizar_y_validar(texto_crudo, id_val="", cache_codigos=None, cache_parametros=None):
     """
     API READY: Ahora retorna un diccionario con estructura estándar para el Frontend.
     """
@@ -436,6 +391,7 @@ def normalizar_y_validar(texto_crudo, id_val=""):
     texto_limpio = texto_limpio.replace('≥', '>=').replace('≤', '<=')
     texto_limpio = texto_limpio.replace('³', '>=').replace('£', '<=')
     texto_limpio = re.sub(r'_{2,}', ' ', texto_limpio)
+    texto_limpio = re.sub(r'-{3,}', ' ', texto_limpio)
     texto_limpio = texto_limpio.replace('.y,', '.y.').replace('.Y,', '.y.')
     texto_limpio = texto_limpio.replace('.o,', '.o.').replace('.O,', '.o.')
     texto_limpio = texto_limpio.replace(',y.', '.y.').replace(',Y.', '.y.')
@@ -471,12 +427,16 @@ def normalizar_y_validar(texto_crudo, id_val=""):
                     arbol.children[i] = Token('TEXTO', 'BLANCO')
         sanitizar_ast(arbol_desenrollado)
         
-        # ---> NUEVA BARRERA: Validar contra el Catálogo <---
-        catalogo_vigente = cargar_catalogo_codigos()
-        validar_existencia_codigos(arbol_desenrollado, catalogo_vigente)
+        # BARRERA: Validar contra el Catálogo (In-Memory)
+        if cache_codigos is not None:
+            # Extraemos las llaves del diccionario de la RAM y aseguramos que "03" (RUT) siempre exista
+            codigos_permitidos = set(cache_codigos.keys())
+            codigos_permitidos.add("03")
+            validar_existencia_codigos(arbol_desenrollado, codigos_permitidos)
 
-        catalogo_params = cargar_catalogo_parametros()
-        validar_existencia_parametros(arbol_desenrollado, catalogo_params)
+        if cache_parametros is not None:
+            # Pasamos las llaves del diccionario de parámetros en memoria
+            validar_existencia_parametros(arbol_desenrollado, cache_parametros.keys())
         
         # FASE 4: Linter Semántico (El Juez levanta error si falta un SINO obligatorio)
         LinterSemantico(id_val).transform(arbol_desenrollado)

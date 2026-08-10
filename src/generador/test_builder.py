@@ -7,19 +7,23 @@ from src.generador.strategies.implication_builder import ImplicationBuilder
 from src.generador.strategies.calculation_builder import CalculationBuilder
 
 class TestMatrixBuilder:
-    def __init__(self):
-        # El proveedor de parámetros se carga una sola vez (lee el disco una vez)
-        self.param_provider = ParamProvider()
-        self.rut_provider = RutProvider()
+    def __init__(self, cache_parametros: dict, cache_ruts: list, cache_codigos: dict, config_motor: dict = None):
+        """
+        Recibe los catálogos directamente de la RAM y la configuración de sesión (inyectados por FastAPI).
+        """
+        self.param_provider = ParamProvider(cache_parametros)
+        self.rut_provider = RutProvider(cache_ruts)
+        self.cache_codigos = cache_codigos
+        self.config_motor = config_motor or {}
 
     def generar_matriz_pruebas(self, ast_tree, id_val):
         tipo_regla = self._identificar_familia_logica(ast_tree)
         
-        # 1. BARRIDO DE MEMORIA: Instanciamos un motor matemático 100% nuevo por cada regla
-        self.motor = MotorZ3()
+        # 1. BARRIDO DE MEMORIA: Instanciamos un motor matemático pasándole los códigos en RAM y la configuración SMT
+        self.motor = MotorZ3(self.cache_codigos, self.config_motor)
         self.evaluador = EvaluadorAST(self.motor)
         
-        # 2. Instanciamos la estrategia pasándole el motor limpio
+        # 2. Instanciamos la estrategia pasándole el motor limpio y la configuración
         estrategia = self._seleccionar_estrategia(tipo_regla)
         
         if not estrategia:
@@ -40,14 +44,14 @@ class TestMatrixBuilder:
 
     def _seleccionar_estrategia(self, tipo_regla):
         if tipo_regla == 'cota':
-            return BoundaryBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
+            return BoundaryBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider, self.config_motor)
             
         # Agrupamos las Implicaciones (D, E) y las Validaciones de Lógica Libre (M)
         elif tipo_regla in ['implicacion', 'validacion_libre']:
-            return ImplicationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
+            return ImplicationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider, self.config_motor)
             
         # Dejamos solo los autocalculados (A, B) para el CalculationBuilder
         elif tipo_regla == 'autocalculado':
-            return CalculationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider)
+            return CalculationBuilder(self.evaluador, self.motor, self.param_provider, self.rut_provider, self.config_motor)
             
         return None

@@ -171,18 +171,27 @@ class ImplicationBuilder(BaseStrategy):
         idx_real = 1
         
         for caso in casos:
-            if caso and caso.get("estado_interno") != "INSATISFACTIBLE":
-                # ---> CORRECCIÓN: Incluimos los vectores en la firma de unicidad <---
-                firma_unica = (
-                    caso.get("rut"), 
-                    tuple(sorted(caso.get("inputs", {}).items())),
-                    tuple(sorted(caso.get("vectores", {}).items())) # <-- El eslabón perdido
-                )
-                if firma_unica not in inputs_vistos:
-                    inputs_vistos.add(firma_unica)
-                    caso["id_validacion"] = f"{id_val}.{idx_real}"
-                    idx_real += 1
-                    casos_validos.append(caso)
+            if caso:
+                if "error" in caso:
+                    # 🛑 BLOQUEO ESTRICTO SOLO PARA RUT
+                    if "No hay RUTs disponibles" in caso["error"]:
+                        return [caso]
+                    else:
+                        print(f"⚠️ Aviso en {id_val}: Escenario descartado internamente. Motivo: {caso['error']}")
+                        continue
+                    
+                if caso.get("estado_interno") != "INSATISFACTIBLE":
+                    # ---> CORRECCIÓN: Incluimos los vectores en la firma de unicidad <---
+                    firma_unica = (
+                        caso.get("rut"), 
+                        tuple(sorted(caso.get("inputs", {}).items())),
+                        tuple(sorted(caso.get("vectores", {}).items())) 
+                    )
+                    if firma_unica not in inputs_vistos:
+                        inputs_vistos.add(firma_unica)
+                        caso["id_validacion"] = f"{id_val}.{idx_real}"
+                        idx_real += 1
+                        casos_validos.append(caso)
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Contradicción matemática. Revisar si la implicación es posible."}]
 

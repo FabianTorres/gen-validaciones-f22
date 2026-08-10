@@ -1,4 +1,1 @@
-m.1|Suma= [1208] + [1218] + [1209] + [1219] + [1193] + [1194]
-Alfa= Vx014105 + Vx014106 + Vx014107 + Vx014108
-Si atributo = M14A .y. (Vx011264 = 0 .o. atributo ≠ ME22);
-entonces suma = alfa		
+a.4|[494] = MIN{ P08 * [547] ; P42 } ; si [465] = 0 .y. TIPO{[03]}=1

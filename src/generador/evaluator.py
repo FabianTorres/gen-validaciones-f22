@@ -198,8 +198,12 @@ class EvaluadorAST:
             
         valor_der = obtener_texto(nodo.children[1])
         
-        # Creamos una compuerta lógica (True/False), NO una variable numérica.
-        var_identidad = z3.Bool(f"IS_ATRIBUTO_{valor_der}")
+        # SOLUCIÓN: Registramos la compuerta lógica en la memoria principal del motor
+        nombre_var = f"IS_ATRIBUTO_{valor_der}"
+        if nombre_var not in self.motor.variables_memoria:
+            self.motor.variables_memoria[nombre_var] = z3.Bool(nombre_var)
+            
+        var_identidad = self.motor.variables_memoria[nombre_var]
         
         if operador == '=': return var_identidad
         if operador == '!=': return z3.Not(var_identidad)
