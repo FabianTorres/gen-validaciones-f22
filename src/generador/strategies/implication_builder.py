@@ -165,9 +165,8 @@ class ImplicationBuilder(BaseStrategy):
                         casos.append(ejecutar_con_aislamiento(z3_arg1 >= (z3_arg2 + gap), lambda n=func_name, s=sufijo: self._resolver_y_formatear(id_val, f"FUNC_{n}{s}_IZQ", f"El límite {n} toma el valor izquierdo.", "BUENO", ast_tree=ast_tree)))
                         casos.append(ejecutar_con_aislamiento(z3_arg1 <= (z3_arg2 - gap), lambda n=func_name, s=sufijo: self._resolver_y_formatear(id_val, f"FUNC_{n}{s}_DER", f"El límite {n} toma el valor derecho.", "BUENO", ast_tree=ast_tree)))
 
-        # Limpieza, Filtrado de Contradicciones y Deduplicación
+        # Limpieza y Filtrado de Contradicciones (Sin Deduplicación)
         casos_validos = []
-        inputs_vistos = set()
         idx_real = 1
         
         for caso in casos:
@@ -181,17 +180,10 @@ class ImplicationBuilder(BaseStrategy):
                         continue
                     
                 if caso.get("estado_interno") != "INSATISFACTIBLE":
-                    # ---> CORRECCIÓN: Incluimos los vectores en la firma de unicidad <---
-                    firma_unica = (
-                        caso.get("rut"), 
-                        tuple(sorted(caso.get("inputs", {}).items())),
-                        tuple(sorted(caso.get("vectores", {}).items())) 
-                    )
-                    if firma_unica not in inputs_vistos:
-                        inputs_vistos.add(firma_unica)
-                        caso["id_validacion"] = f"{id_val}.{idx_real}"
-                        idx_real += 1
-                        casos_validos.append(caso)
+                    # SIN DEDUPLICACIÓN: Pasamos todo crudo a la Fase 3
+                    caso["id_validacion"] = f"{id_val}.{idx_real}"
+                    idx_real += 1
+                    casos_validos.append(caso)
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Contradicción matemática. Revisar si la implicación es posible."}]
 

@@ -120,11 +120,13 @@ class CalculationBuilder(BaseStrategy):
         
         condiciones_a_evaluar = []
         for c in nodos_condicional:
-            condiciones_a_evaluar.append((c, c.children[0]))
+            # Guardamos: nodo, condicion_logica, expresion_entonces
+            condiciones_a_evaluar.append((c, c.children[0], c.children[1]))
         for t in nodos_trailing:
-            condiciones_a_evaluar.append((t, t.children[-1]))
+            # Guardamos: nodo, condicion_logica, expresion_entonces
+            condiciones_a_evaluar.append((t, t.children[-1], t.children[0]))
             
-        for idx, (cond_node, cond_ast) in enumerate(condiciones_a_evaluar, 1):
+        for idx, (cond_node, cond_ast, expr_ast) in enumerate(condiciones_a_evaluar, 1):
             z3_cond_actual = self.evaluador.evaluar(cond_ast)
             if not z3.is_bool(z3_cond_actual):
                 continue
@@ -135,22 +137,52 @@ class CalculationBuilder(BaseStrategy):
             
             variaciones_verdaderas = self._desglosar_condicion_verdadera(z3_cond_actual)
             for i, var_verdadera in enumerate(variaciones_verdaderas, 1):
+                # CORRECCIÓN: Usamos 'tag_limite' en lugar de 'bva_tag'
+                tag_limite = f"_{var_verdadera['tag_limite']}" if "tag_limite" in var_verdadera else ""
                 sufijo = f"_{i}" if len(variaciones_verdaderas) > 1 else ""
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [var_verdadera["restriccion"]], 
-                    lambda v=var_verdadera, s=sufijo, n=nivel: self._resolver_y_formatear(
-                        id_val, f"CALCULO_VERDADERO_{n}{s}", 
+                    lambda v=var_verdadera, s=sufijo, n=nivel, t=tag_limite: self._resolver_y_formatear(
+                        id_val, f"CALCULO_VERDADERO_{n}{s}{t}", 
                         v["desc"], "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
             
             variaciones_falsas = self._desglosar_condicion_falsa(z3_cond_actual)
             for i, var_falsa in enumerate(variaciones_falsas, 1):
+                # CORRECCIÓN: Usamos 'tag_limite' en lugar de 'bva_tag'
+                tag_limite = f"_{var_falsa['tag_limite']}" if "tag_limite" in var_falsa else ""
                 sufijo = f"_{i}" if len(variaciones_falsas) > 1 else ""
+                
+                # ---> ANTI-MASKING: Intentamos inflar la rama muerta <---
+                def generar_falso_anti_masking(v=var_falsa, s=sufijo, n=nivel, t=tag_limite, expr=expr_ast):
+                    try:
+                        # Evaluamos matemáticamente la rama ENTONCES (la que quedó muerta)
+                        z3_expr_muerta = self.evaluador.evaluar(expr)
+                        
+                        # Guardamos el estado del solver y forzamos a que esa rama tenga valor
+                        self.motor.solver.push()
+                        self.motor.solver.add(z3_expr_muerta >= gap)
+                        
+                        res = self._resolver_y_formatear(
+                            id_val, f"CALCULO_FALSO_{n}_SINO{s}{t}",
+                            v["desc"] + " [Anti-Masking Inyectado]", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree
+                        )
+                        self.motor.solver.pop()
+                        
+                        if res and res.get("estado_interno") != "INSATISFACTIBLE":
+                            return res
+                    except Exception:
+                        pass
+                    
+                    # Fallback: Si el Anti-Masking causa contradicción, retornamos el falso normal
+                    return self._resolver_y_formatear(
+                        id_val, f"CALCULO_FALSO_{n}_SINO{s}{t}",
+                        v["desc"], "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree
+                    )
+                
                 casos.append(self._ejecutar_escenario_aislado(
                     base_cond + [var_falsa["restriccion"]], 
-                    lambda v=var_falsa, s=sufijo, n=nivel: self._resolver_y_formatear(
-                        id_val, f"CALCULO_FALSO_{n}_SINO{s}", 
-                        v["desc"], "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
+                    generar_falso_anti_masking
                 ))
 
         if not casos:
@@ -161,8 +193,33 @@ class CalculationBuilder(BaseStrategy):
                     "Se resuelve la ecuación matemática lineal de forma exacta sin ramificaciones.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
             ))
 
+        # =================================================================
+        # ---> NUEVO BLOQUE: ESCENARIO NEGATIVO (Validación de Catálogo) <---
+        # =================================================================
+        if codigo_objetivo:
+            # 1. Limpiamos el código objetivo (ej. "[1066]" -> "1066") para buscarlo en RAM
+            cod_limpio = codigo_objetivo.replace('[', '').replace(']', '').strip()
+            
+            # 2. Consultamos el catálogo inyectado en el motor Z3
+            info_codigo = self.motor.catalogo_signos.get(cod_limpio, {})
+            signo_permitido = info_codigo.get("signo_permitido", "+")
+            
+            # 3. Si el negocio tributario permite negativos, atacamos la frontera
+            if signo_permitido in ("+/-", "-"):
+                var_objetivo_z3 = self.motor.obtener_o_crear_variable(codigo_objetivo)
+                
+                # 4. Inyectamos la restricción dura (Hard Constraint): Obligamos a que el resultado sea negativo.
+                # Usamos '-gap' (ej. <= -2) para asegurar un negativo claro y no un 0.
+                casos.append(self._ejecutar_escenario_aislado(
+                    ecuacion_completa + [var_objetivo_z3 <= -gap], 
+                    lambda: self._resolver_y_formatear(
+                        id_val, "CALCULO_RESULTADO_NEGATIVO", 
+                        f"Se fuerza la ecuación a generar un resultado negativo para {codigo_objetivo}, permitido por el catálogo.", 
+                        "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
+                ))
+        # =================================================================
+
         casos_validos = []
-        inputs_vistos = set()
         idx_real = 1
         
         for c in casos:
@@ -178,16 +235,12 @@ class CalculationBuilder(BaseStrategy):
                 
                 elif c.get("estado_interno") == "INSATISFACTIBLE":
                     print(f"Fase 2: Escenario '{c.get('tipo_escenario', 'Desconocido')}' descartado por ser matemáticamente imposible (Contradicción).")
+                
                 elif "inputs" in c:
-                    firma_unica = (c.get("rut"), tuple(sorted(c["inputs"].items())))
-                    
-                    if firma_unica not in inputs_vistos:
-                        inputs_vistos.add(firma_unica)
-                        c["id_validacion"] = f"{id_val}.{idx_real}"
-                        idx_real += 1
-                        casos_validos.append(c)
-                    else:
-                        print(f"Fase 2: Deduplicación en {id_val}: Caso '{c['tipo_escenario']}' ignorado por redundancia total (RUT + Inputs).")
+                    # SIN DEDUPLICACIÓN: Solo asignamos el ID y dejamos que la Fase 3 decida
+                    c["id_validacion"] = f"{id_val}.{idx_real}"
+                    idx_real += 1
+                    casos_validos.append(c)
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Inconsistencia matemática en todas las ramas."}]
 
@@ -295,6 +348,29 @@ class CalculationBuilder(BaseStrategy):
             return variaciones_finales
             
         else:
+            # =====================================================================
+            # [INTERRUPTOR BVA] LISTO PARA VOLVER
+            # Cambiar a False si mañana el negocio no soporta la cantidad de casos adicionales
+            # =====================================================================
+            ACTIVAR_LIMITES_CALCULOS = True
+            
+            # En _desglosar_condicion_verdadera:
+            if ACTIVAR_LIMITES_CALCULOS and kind in (z3.Z3_OP_LT, z3.Z3_OP_LE, z3.Z3_OP_GT, z3.Z3_OP_GE):
+                izq, der = z3_cond.children()[0], z3_cond.children()[1]
+                variaciones = []
+                if kind == z3.Z3_OP_LE:
+                    variaciones.append({"restriccion": izq == der, "desc": "Evaluación en el límite exacto (<=).", "tag_limite": "EN_EL_LIMITE"})
+                    variaciones.append({"restriccion": izq == der - 1, "desc": "Evaluación bajo el límite (<=).", "tag_limite": "BAJO_EL_LIMITE"})
+                elif kind == z3.Z3_OP_GE:
+                    variaciones.append({"restriccion": izq == der, "desc": "Evaluación en el límite exacto (>=).", "tag_limite": "EN_EL_LIMITE"})
+                    variaciones.append({"restriccion": izq == der + 1, "desc": "Evaluación sobre el límite (>=).", "tag_limite": "SOBRE_EL_LIMITE"})
+                elif kind == z3.Z3_OP_LT:
+                    variaciones.append({"restriccion": izq == der - 1, "desc": "Evaluación bajo el límite (<).", "tag_limite": "BAJO_EL_LIMITE"})
+                elif kind == z3.Z3_OP_GT:
+                    variaciones.append({"restriccion": izq == der + 1, "desc": "Evaluación sobre el límite (>).", "tag_limite": "SOBRE_EL_LIMITE"})
+                return variaciones
+            # =====================================================================
+            
             return [{"restriccion": z3_cond, "desc": "La condición se cumple (Rama alcanzada)."}]
 
     def _desglosar_condicion_falsa(self, z3_cond):
@@ -334,6 +410,28 @@ class CalculationBuilder(BaseStrategy):
             return variaciones_finales
             
         else:
+            # =====================================================================
+            # [INTERRUPTOR BVA] LISTO PARA VOLVER
+            # Cambiar a False si mañana el negocio no soporta la cantidad de casos
+            # =====================================================================
+            ACTIVAR_LIMITES_CALCULOS = True
+            
+            if ACTIVAR_LIMITES_CALCULOS and kind in (z3.Z3_OP_LT, z3.Z3_OP_LE, z3.Z3_OP_GT, z3.Z3_OP_GE):
+                izq, der = z3_cond.children()[0], z3_cond.children()[1]
+                variaciones = []
+                if kind == z3.Z3_OP_LE: # Falso de <= es >
+                    variaciones.append({"restriccion": izq == der + 1, "desc": "Condición falla sobre el límite (<=).", "tag_limite": "SOBRE_EL_LIMITE"})
+                elif kind == z3.Z3_OP_GE: # Falso de >= es <
+                    variaciones.append({"restriccion": izq == der - 1, "desc": "Condición falla bajo el límite (>=).", "tag_limite": "BAJO_EL_LIMITE"})
+                elif kind == z3.Z3_OP_LT: # Falso de < es >=
+                    variaciones.append({"restriccion": izq == der, "desc": "Condición falla en el límite exacto (<).", "tag_limite": "EN_EL_LIMITE"})
+                    variaciones.append({"restriccion": izq == der + 1, "desc": "Condición falla sobre el límite (<).", "tag_limite": "SOBRE_EL_LIMITE"})
+                elif kind == z3.Z3_OP_GT: # Falso de > es <=
+                    variaciones.append({"restriccion": izq == der, "desc": "Condición falla en el límite exacto (>).", "tag_limite": "EN_EL_LIMITE"})
+                    variaciones.append({"restriccion": izq == der - 1, "desc": "Condición falla bajo el límite (>).", "tag_limite": "BAJO_EL_LIMITE"})
+                return variaciones
+            # =====================================================================
+            
             return [{"restriccion": z3.Not(z3_cond), "desc": "La condición no se cumple, forzando la celda a su valor por defecto."}]
 
     def _encontrar_nodos_tipo(self, arbol, tipo_data):

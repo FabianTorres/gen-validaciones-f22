@@ -15,7 +15,6 @@ class FormulaRequest(BaseModel):
     id_validacion: str = Field(..., description="ID de la validación, ej: m.1.1")
     formula_cruda: str = Field(..., description="Texto extraído directamente del Excel del SII")
     version_documento: str = Field("1.0", description="Versión del documento de origen (ej. 1.1)") 
-    # Inyectamos la configuración como opcional (para que no rompa llamadas antiguas, asumiendo valores por defecto)
     config_motor: Optional[ConfigMotor] = Field(default_factory=ConfigMotor, description="Configuración dinámica de Z3")
 
 # --- Esquemas Individuales ---
@@ -44,7 +43,8 @@ class RutItem(BaseModel):
     rut: str = Field(..., description="El RUT del contribuyente")
     tipo_contribuyente: Union[int, str] = Field(..., description="Tipo principal del contribuyente")
     subtipo: Optional[Union[int, str]] = None
-    atributos: List[str] = []
+    es_formulario_universal: bool = Field(False, description="True si el RUT despliega el formulario universal F22.14 completo")
+    atributos: List[str] = Field(default_factory=list)
 
 # --- Esquemas de Carga Masiva (Batch) ---
 
@@ -67,6 +67,7 @@ class BatchRuts(BaseModel):
 class PerfilRut(BaseModel):
     tipo: Union[int, str] = "CUALQUIERA"
     subtipo: Union[int, str] = "CUALQUIERA"
+    requiere_formulario_universal: bool = True # Actualizado
     atributos_requeridos: List[str] = []
     atributos_prohibidos: List[str] = []
 
@@ -74,18 +75,25 @@ class ObjetivoCalculo(BaseModel):
     codigo: str
     valor: Any
 
+class DetalleInputs(BaseModel):
+    editables_originales: Dict[str, Any] = Field(default_factory=dict)
+    autocalculados_originales: Dict[str, Any] = Field(default_factory=dict)
+    editables_inyectados: Dict[str, Any] = Field(default_factory=dict)
+
 # ==========================================
 # 3. ESQUEMA DEL CASO DE PRUEBA (Salida de Fase 2 y 3)
 # ==========================================
-
 class CasoQA(BaseModel):
     id_validacion: str
     tipo_escenario: Optional[str] = None
     descripcion_qa: Optional[str] = None
     rut: Optional[str] = None
-    inputs: Optional[Dict[str, Any]] = None
+    inputs_matematicos: Optional[Dict[str, Any]] = None # <--- 1. Bóveda de auditoría
+    inputs: Optional[Dict[str, Any]] = None             # <--- 2. Plano para Selenium
+    detalle_inputs: Optional[DetalleInputs] = None      # <--- 3. Desglose para el Frontend
     vectores: Optional[Dict[str, Any]] = None
     parametros: Optional[Dict[str, Any]] = None
+    parametros_anteriores: dict = Field(default_factory=dict)
     resultado_esperado: Optional[str] = None
     huella_logica: Optional[Dict[str, str]] = None
     perfil_rut_requerido: Optional[Union[PerfilRut, str]] = None
@@ -113,8 +121,8 @@ class GeneracionResponse(BaseModel):
     total_casos_generados: int
     total_casos_optimizados: int
     porcentaje_reduccion: float
-    casos_brutos: List[CasoQA] = Field(..., description="Matriz original completa generada por Z3 (Fase 2)") # <--- NUEVA LÍNEA
-    casos: List[CasoQA]
+    casos_completos: List[CasoQA] = Field(..., description="Matriz original completa enriquecida") # <--- NUEVO NOMBRE
+    casos_optimizados: List[CasoQA] 
 
 class HistorialItem(BaseModel):
     id_validacion: str

@@ -5,14 +5,14 @@ from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from lark import Tree, Token
 
-# Importamos lógica de negocio y capa de datos
+# Se importa lógica de negocio y capa de datos
 from src.generador.exportador_csv import ExportadorCSV
 from src.db.cosmos_client import CatalogoCache, RepositorioHistorial
 from src.normalizador.formatter import normalizar_y_validar
 from src.generador.test_builder import TestMatrixBuilder
 from src.optimizador.reductor import ReductorCasos
 
-# Importamos todos los esquemas Pydantic
+# Se importa todos los esquemas Pydantic
 from src.api.schemas import (
     FormulaRequest, NormalizacionResponse, GeneracionResponse, 
     ParametroItem, CodigoItem, MensajeItem, RutItem,
@@ -64,7 +64,6 @@ cache = CatalogoCache()
 repo_historial = RepositorioHistorial()
 
 # Configuración de CORS para permitir solicitudes desde el Frontend local
-#origenes_permitidos = ["http://localhost:5173", "http://127.0.0.1:5173"]
 origenes_permitidos = ["*"]
 app.add_middleware(
     CORSMiddleware,
@@ -89,7 +88,6 @@ async def endpoint_normalizar(req: FormulaRequest):
     codigos_at = cache.codigos.get(req.at, {})
     parametros_at = cache.parametros.get(req.at, {})
 
-    # run_in_threadpool: Evita que el análisis pesado del parser bloquee las demás peticiones concurrentes de FastAPI
     resultado = await run_in_threadpool(
         normalizar_y_validar, 
         req.formula_cruda, 
@@ -104,11 +102,13 @@ async def endpoint_normalizar(req: FormulaRequest):
     return NormalizacionResponse(estado="EXITO", texto_formateado=resultado["texto_formateado"])
 
 
+# src/api/main_api.py
+
 @app.post("/api/v1/generar-casos", response_model=GeneracionResponse)
 async def endpoint_generar_casos(req: FormulaRequest):
     """
-    PIPELINE COMPLETO: Ejecuta la validación, resuelve las ecuaciones mediante el SMT Solver (Z3),
-    y optimiza el resultado usando el algoritmo Set Cover.
+    PIPELINE COMPLETO REORDENADO: 
+    Fase 1 (Parseo) -> Fase 2 (Generación y Clasificación Shift-Left) -> Fase 3 (Optimización).
     """
     codigos_at = cache.codigos.get(req.at, {})
     parametros_at = cache.parametros.get(req.at, {})
@@ -120,32 +120,42 @@ async def endpoint_generar_casos(req: FormulaRequest):
         raise HTTPException(status_code=400, detail=res_norm["mensaje"])
         
     ast_tree = res_norm["arbol"]
-    
-    # Extraemos la configuración como diccionario
     config_dict = req.config_motor.model_dump() if req.config_motor else {}
     
-    # 2. Fase 2: Z3 SMT Solver (Inyectamos config_dict aquí)
-    builder = TestMatrixBuilder(parametros_at, ruts_at, codigos_at, config_dict)
+    # ==========================================
+    # 2. Fase 2: Z3 SMT Solver (Generación Shift-Left Completa)
+    # ==========================================
+    asts_at = cache.asts_latest.get(req.at, {}) 
     
-    casos_brutos = await run_in_threadpool(builder.generar_matriz_pruebas, ast_tree, req.id_validacion)
-    if not casos_brutos or "error" in casos_brutos[0]:
-        raise HTTPException(status_code=400, detail=casos_brutos[0].get("error", "Error de contradicción lógica en SMT Solver"))
-        
-    # 3. Fase 3: Optimización
+    builder = TestMatrixBuilder(parametros_at, ruts_at, codigos_at, asts_at, config_dict)
+    
+    casos_generados = await run_in_threadpool(builder.generar_matriz_pruebas, ast_tree, req.id_validacion)
+    if not casos_generados or "error" in casos_generados[0]:
+        raise HTTPException(status_code=400, detail=casos_generados[0].get("error", "Error de contradicción lógica en SMT Solver"))
+
+    # 3. Fase 3: Optimización (Sobre los casos ya estructurados por Fase 2)
     reductor = ReductorCasos()
-    casos_optimizados, estadisticas = await run_in_threadpool(reductor.procesar_casos, casos_brutos)
+    casos_optimizados, estadisticas = await run_in_threadpool(reductor.procesar_casos, casos_generados)
     
-    # Cálculo de métricas
-    stats_regla = estadisticas.get(req.id_validacion.split(".")[0], {"originales": len(casos_brutos), "optimizados": len(casos_optimizados)})
+    # ==========================================
+
+    stats_regla = estadisticas.get(req.id_validacion.split(".")[0], {"originales": len(casos_generados), "optimizados": len(casos_optimizados)})
     reduccion = ((stats_regla["originales"] - stats_regla["optimizados"]) / stats_regla["originales"] * 100) if stats_regla["originales"] > 0 else 0.0
 
-    # Ingeniería Inversa: Extraemos el código objetivo afectado desde el primer caso exitoso
     ast_diccionario = serializar_ast(ast_tree)
     codigo_obj_detectado = None
     for caso in casos_optimizados:
         if isinstance(caso, dict) and "objetivo" in caso and caso["objetivo"]:
             codigo_obj_detectado = caso["objetivo"].get("codigo")
             break
+        elif hasattr(caso, "objetivo") and caso.objetivo:
+            codigo_obj_detectado = caso.objetivo.codigo
+            break
+
+    # Seguro estricto
+    for caso in casos_generados:
+        if caso.get("error") and "Falta el AST" in caso.get("error", ""):
+            raise HTTPException(status_code=400, detail=f"Generación bloqueada: {caso.get('error')}")
 
     return GeneracionResponse(
         estado="EXITO",
@@ -157,10 +167,9 @@ async def endpoint_generar_casos(req: FormulaRequest):
         total_casos_generados=stats_regla["originales"],
         total_casos_optimizados=stats_regla["optimizados"],
         porcentaje_reduccion=reduccion,
-        casos_brutos=casos_brutos,
-        casos=casos_optimizados
+        casos_completos=casos_generados,
+        casos_optimizados=casos_optimizados
     )
-
 
 # ==========================================
 # LECTURA DE CATÁLOGOS
@@ -193,6 +202,7 @@ async def agregar_parametro(req: ParametroItem):
 
 @app.post("/api/v1/catalogos/codigos/individual")
 async def agregar_codigo(req: CodigoItem):
+    req.id = req.id.replace("[", "").replace("]", "").strip()
     item_dict = {**req.model_dump(exclude_none=True), "tipo": "codigo"}
     await cache.carga_masiva_catalogos([item_dict])
     return {"estado": "EXITO", "mensaje": f"Código {req.id} guardado/actualizado en AT {req.at}"}
@@ -222,6 +232,8 @@ async def batch_parametros(req: BatchParametros):
 
 @app.post("/api/v1/catalogos/codigos/batch")
 async def batch_codigos(req: BatchCodigos):
+    for item in req.items:
+        item.id = item.id.replace("[", "").replace("]", "").strip()
     items_dict = [ {**item.model_dump(exclude_none=True), "tipo": "codigo"} for item in req.items ]
     await cache.carga_masiva_catalogos(items_dict)
     return {"estado": "EXITO", "mensaje": f"Se procesaron {len(items_dict)} códigos."}
@@ -280,12 +292,20 @@ async def guardar_regla_aprobada(req: GuardarReglaRequest):
             codigo_objetivo=req.codigo_objetivo,
             ast_json=req.ast_json
         )
-        return GuardarReglaResponse(
+
+        # Actualización en caliente de la RAM para evitar desincronización en Fase 4
+        if req.codigo_objetivo and req.ast_json:
+            if req.at not in cache.asts_latest:
+                cache.asts_latest[req.at] = {}
+            cache.asts_latest[req.at][req.codigo_objetivo] = req.ast_json
+            
+            return GuardarReglaResponse(
             estado="EXITO", 
             mensaje=f"Fórmula y matriz guardadas (Versión {version_guardada}).", 
             version=version_guardada
         )
     except Exception as e:
+        print(f"\n❌ ERROR CRÍTICO AL GUARDAR EN COSMOS DB: {str(e)}\n") 
         raise HTTPException(status_code=500, detail=f"Error al guardar en Cosmos DB: {str(e)}")
 
 
@@ -335,20 +355,16 @@ async def exportar_lote_csv(
     Endpoint para Selenium. Genera un CSV masivo con la última versión de todas las reglas de un prefijo.
     """
     try:
-        # 1. Obtenemos la lista gigante de casos crudos desde Cosmos DB
         casos_totales = await repo_historial.obtener_lote_casos(at, prefijo)
         
         if not casos_totales:
             raise HTTPException(status_code=404, detail=f"No se encontraron casos para el prefijo '{prefijo}' en el AT {at}.")
         
-        # 2. Reutilizamos tu ExportadorCSV existente
         mensajes_at = cache.mensajes.get(at, {})
         exportador = ExportadorCSV(mensajes_at)
         
-        # 3. Generamos el CSV en un hilo separado para no bloquear FastAPI
         csv_str = await run_in_threadpool(exportador.generar_csv, casos_totales)
         
-        # Limpiamos el nombre del archivo (ej. de 'a.' a 'lote_a_AT2026.csv')
         nombre_seguro = prefijo.replace('.', '_')
         if nombre_seguro.endswith('_'): nombre_seguro = nombre_seguro[:-1]
         
@@ -373,7 +389,6 @@ async def exportar_matriz_individual(
     Endpoint para la UI. Genera y descarga un CSV de una versión histórica específica.
     """
     try:
-        # 1. Buscamos la matriz exacta en Cosmos DB
         casos = await repo_historial.obtener_matriz_especifica(id_validacion, version, at)
         
         if casos is None:
@@ -382,14 +397,11 @@ async def exportar_matriz_individual(
                 detail=f"No se encontró la matriz para la regla '{id_validacion}' (v{version}) en el AT {at}."
             )
         
-        # 2. Reutilizamos tu ExportadorCSV existente
         mensajes_at = cache.mensajes.get(at, {})
         exportador = ExportadorCSV(mensajes_at)
         
-        # 3. Generamos el CSV en un hilo separado
         csv_str = await run_in_threadpool(exportador.generar_csv, casos)
         
-        # 4. Formateamos el nombre del archivo (Ej: casos_a_4_v2_AT2026.csv)
         nombre_seguro = id_validacion.replace('.', '_')
         nombre_archivo = f"casos_{nombre_seguro}_v{version}_AT{at}.csv"
         

@@ -2,12 +2,13 @@ from abc import ABC, abstractmethod
 import z3
 
 class BaseStrategy(ABC):
-    def __init__(self, evaluador, motor_z3, param_provider, rut_provider, config_motor=None):
+    def __init__(self, evaluador, motor_z3, param_provider, rut_provider, config_motor=None, asts_dependencias=None):
         self.evaluador = evaluador
         self.motor = motor_z3
         self.param_provider = param_provider
         self.rut_provider = rut_provider
         self.config_motor = config_motor or {}
+        self.asts_dependencias = asts_dependencias or []
 
     @abstractmethod
     def generar_casos(self, ast_tree, id_val):
@@ -20,6 +21,7 @@ class BaseStrategy(ABC):
             datos_selenium = {}
             datos_vectores = {} 
             datos_parametros = {}
+            datos_parametros_anteriores = {}
             valor_objetivo = 0 
 
             atributos_req = []
@@ -32,6 +34,8 @@ class BaseStrategy(ABC):
 
             # Convertimos el AST a string para filtrar solo los parámetros usados
             ast_string = str(ast_tree).upper() if ast_tree else ""
+
+            ast_string_principal = str(ast_tree).upper() if ast_tree else ""
             
             # SOLUCIÓN: Iteramos sobre variables_memoria en lugar de 'modelo'.
             # Z3 a veces oculta variables constantes del 'modelo', pero nuestra memoria no.
@@ -48,6 +52,12 @@ class BaseStrategy(ABC):
                         atributos_req.append(atr)
                     elif z3.is_false(valor_crudo): 
                         atributos_prohibidos.append(atr)
+                    continue
+
+                if nombre == "TIPO_[03]":
+                    if z3.is_rational_value(valor_crudo): tipo_req = int(valor_crudo.as_fraction())
+                    elif z3.is_int(valor_crudo): tipo_req = valor_crudo.as_long()
+                    else: tipo_req = 1 
                     continue
 
                 if nombre == "SUBTIPO_[03]":
@@ -76,33 +86,119 @@ class BaseStrategy(ABC):
                 # 2. Aplicamos la regla de negocio de redondeo
                 if es_parametro:
                     # BLINDAJE: Los parámetros conservan siempre su naturaleza original.
-                    # Si es 30000.0 lo deja como 30000, si es 0.1 lo deja como 0.1
                     valor_limpio = int(val_exacto) if val_exacto.is_integer() else val_exacto
                 else:
-                    # Los códigos y vectores sí respetan la configuración estricta de la UI
-                    valor_limpio = val_exacto if usar_decimales else int(val_exacto)
+                    # ---> FIX REDONDEO TRIBUTARIO <---
+                    # Z3 calcula libremente en Reales (ej. 12517561.8).
+                    # Si no usamos decimales, aplicamos Round Half Up en lugar de truncar ciegamente con int()
+                    if usar_decimales:
+                        valor_limpio = val_exacto
+                    else:
+                        valor_limpio = int(val_exacto + 0.5) if val_exacto >= 0 else int(val_exacto - 0.5)
                     
                 if codigo_objetivo and nombre == codigo_objetivo:
                     valor_objetivo = valor_limpio
                 elif es_vector:
                     datos_vectores[nombre] = valor_limpio
                 elif es_parametro:
-                    # Validamos en mayúsculas por seguridad contra el AST
-                    if nombre.upper() in ast_string:
+                    if nombre.upper() in ast_string_principal:
                         datos_parametros[nombre] = valor_limpio
+                    else:
+                        # Todo parámetro que venga inyectado de a.2, a.3, etc., se va al debug
+                        datos_parametros_anteriores[nombre] = valor_limpio
                 elif es_codigo:
+                    # ---> FIX SPARSITY VISUAL: Limpieza inteligente del JSON <---
+                    es_principal = nombre in getattr(self.motor, 'vars_principales', set())
+                    
+                    # Ocultamos los ceros absolutos SOLO si provienen de dependencias inyectadas.
+                    # Mantenemos los ceros de las variables principales (ej. [465]=0) para que QA vea el contexto.
+                    if valor_limpio == 0 and not es_principal:
+                        continue
+                        
                     datos_selenium[nombre] = valor_limpio
 
-            # Análisis de requerimientos reales de RUT basados en el AST ---
+            # Consolidamos el AST principal y sus dependencias en una sola lista
+            todos_los_asts = [ast_tree] + self.asts_dependencias
+
+            # ---> INICIO BLOQUE SHIFT-LEFT: CLASIFICACIÓN Y LIMPIEZA QUIRÚRGICA <---
+            editables_originales = {}
+            autocalculados_originales = {}
+            editables_inyectados = {}
+            inputs_selenium = {}
+            
+            # Solo analizaremos los ASTs que sobrevivieron al filtro cascada para el RUT
+            asts_activos = []
+            
+            if ast_tree:
+                asts_activos.append(ast_tree)
+                # 1. Variables de la regla principal
+                vars_principal = self._obtener_variables_activas(modelo, ast_tree)
+                if codigo_objetivo:
+                    vars_principal.add(codigo_objetivo)
+                    
+                # 2. Variables de las dependencias inyectadas (Filtro en Cascada)
+                vars_totales = set(vars_principal)
+                hubo_cambios = True
+                while hubo_cambios:
+                    hubo_cambios = False
+                    for ast_dep in self.asts_dependencias:
+                        if not ast_dep: continue
+                        
+                        # Identificamos a quién le pertenece este árbol de dependencia
+                        cod_target = None
+                        # FIX: El nodo raíz es 'validacion', usamos el buscador para hallar 'autocalculado'
+                        nodos_auto = self._encontrar_nodos_tipo(ast_dep, 'autocalculado')
+                        if nodos_auto:
+                            cod_bruto = str(nodos_auto[0].children[0]).replace('[', '').replace(']', '').strip()
+                            cod_target = f"[{cod_bruto}]"
+                            
+                        # Solo activamos la rama de la dependencia si la celda objetivo realmente sobrevivió
+                        if cod_target and cod_target in vars_totales:
+                            if ast_dep not in asts_activos:
+                                asts_activos.append(ast_dep)
+                                
+                            nuevas_vars = self._obtener_variables_activas(modelo, ast_dep)
+                            if not nuevas_vars.issubset(vars_totales):
+                                vars_totales.update(nuevas_vars)
+                                hubo_cambios = True
+                
+                vars_inyectadas = vars_totales - vars_principal
+                variables_activas = vars_totales
+                
+                datos_selenium = {k: v for k, v in datos_selenium.items() if k in variables_activas}
+                datos_vectores = {k: v for k, v in datos_vectores.items() if k in variables_activas}
+                datos_parametros = {k: v for k, v in datos_parametros.items() if k in variables_activas}
+
+                # 4. Clasificamos los datos_selenium según el requerimiento de QA
+                for clave, valor in datos_selenium.items():
+                    cod_limpio = clave.replace('[', '').replace(']', '')
+                    es_auto = self.motor.catalogo_signos.get(cod_limpio, {}).get("autocalculado", False)
+                    
+                    if clave in vars_principal:
+                        if es_auto:
+                            autocalculados_originales[clave] = valor
+                        else:
+                            editables_originales[clave] = valor
+                            inputs_selenium[clave] = valor # Selenium solo digita editables
+                    elif clave in vars_inyectadas:
+                        if es_auto:
+                            # Prevenimos "fantasmas" agrupando dependencias autocalculadas aquí
+                            autocalculados_originales[clave] = valor
+                        else:
+                            editables_inyectados[clave] = valor
+                            inputs_selenium[clave] = valor # Selenium también digita inyecciones
+                            
+            # Análisis de requerimientos reales de RUT basados SOLO en los ASTs que sobrevivieron ---
             usa_tipo = False
             usa_subtipo = False
-            if ast_tree:
-                nodos_rut = self._encontrar_nodos_tipo(ast_tree, 'funcion_rut')
-                for n in nodos_rut:
-                    if hasattr(n, 'children') and len(n.children) > 0:
-                        func_name = str(n.children[0]).upper()
-                        if func_name == 'TIPO': usa_tipo = True
-                        if func_name == 'SUBTIPO': usa_subtipo = True
+            for ast_actual in asts_activos:
+                if ast_actual:
+                    nodos_rut = self._encontrar_nodos_tipo(ast_actual, 'funcion_rut')
+                    for n in nodos_rut:
+                        if hasattr(n, 'children') and len(n.children) > 0:
+                            func_name = str(n.children[0]).upper()
+                            if func_name == 'TIPO': usa_tipo = True
+                            if func_name == 'SUBTIPO': usa_subtipo = True
 
             # Construimos el perfil filtrando las invenciones de Z3
             perfil_rut = {
@@ -115,8 +211,7 @@ class BaseStrategy(ABC):
             # Si el perfil no exige absolutamente nada, lo simplificamos
             if not usa_tipo and not usa_subtipo and not atributos_req and not atributos_prohibidos:
                 perfil_rut = "CUALQUIER_RUT"
-
-            # -------------------------------------------------------------------------
+            # ---> FIN BLOQUE SHIFT-LEFT <---
 
             if condicion_verificadora is not None and error_esperado is not None:
                 sustituciones = []
@@ -147,10 +242,24 @@ class BaseStrategy(ABC):
             if ast_tree:
                 huella_logica = self._calcular_huella_logica(modelo, ast_tree)
                 
+            # Sello artificial para Cotas (BVA) y Cálculos Exactos
             if "LINEAL" in tipo_escenario:
                 if "LIMITE_EXACTO" in tipo_escenario: huella_logica["BVA_RAIZ"] = "EXACTO"
                 elif "EXCEDE_LIMITE" in tipo_escenario: huella_logica["BVA_RAIZ"] = "EXCESO"
                 elif "BAJO_LIMITE" in tipo_escenario: huella_logica["BVA_RAIZ"] = "BAJO"
+                elif tipo_escenario == "CALCULO_LINEAL_EXACTO": huella_logica["CALCULO_RAIZ"] = "POSITIVO"
+                
+            # Sello artificial para nuestro nuevo ataque matemático
+            if tipo_escenario == "CALCULO_RESULTADO_NEGATIVO":
+                huella_logica["CALCULO_RAIZ"] = "NEGATIVO"
+
+            # Huella lógica para escenarios de cálculo en límites
+            if "EN_EL_LIMITE" in tipo_escenario: 
+                huella_logica["ZONA_LIMITE"] = "EXACTO"
+            elif "BAJO_EL_LIMITE" in tipo_escenario: 
+                huella_logica["ZONA_LIMITE"] = "INFERIOR"
+            elif "SOBRE_EL_LIMITE" in tipo_escenario: 
+                huella_logica["ZONA_LIMITE"] = "SUPERIOR"
 
             rut_final = "DEFAULT_RUT"
             if self.rut_provider:
@@ -171,11 +280,19 @@ class BaseStrategy(ABC):
                 "tipo_escenario": tipo_escenario,
                 "descripcion_qa": descripcion,
                 "rut": rut_final,
-                "inputs": datos_selenium,
+                "inputs_matematicos": datos_selenium,
+                "inputs": inputs_selenium,
+                "detalle_inputs": {
+                    "editables_originales": editables_originales,
+                    "autocalculados_originales": autocalculados_originales,
+                    "editables_inyectados": editables_inyectados
+                },
                 "vectores": datos_vectores,
                 "parametros": datos_parametros,
+                "parametros_anteriores": datos_parametros_anteriores,
                 "resultado_esperado": error_esperado,
-                "huella_logica": huella_logica
+                "huella_logica": huella_logica,
+                "estado_interno": "ENRIQUECIDO"
             }
 
             # Restricción solicitada: Solo inyectar en las validaciones N y M
@@ -406,3 +523,136 @@ class BaseStrategy(ABC):
                 if hasattr(hijo, 'data') or hasattr(hijo, 'value'):
                     encontrados.extend(self._encontrar_nodos_tipo(hijo, tipo_data))
         return encontrados
+
+    # =================================================================
+    # COMENTADO POR SEGURIDAD HASTA VALIDAR EL ANTI-MASKING
+    # =================================================================
+    """
+    def _obtener_variables_activas(self, modelo, ast_tree):
+        """"""
+        Intérprete perezoso especializado en recolección de variables activas.
+        Ignora las ramas de condicionales que evalúan como falso en el modelo de Z3.
+        """"""
+        variables = set()
+
+        def procesar_token_como_variable(token_str):
+            limpio = token_str.strip().upper().replace('"', '')
+            if limpio:
+                if limpio.isdigit(): 
+                    variables.add(f"[{limpio}]")
+                elif limpio.startswith('[') and limpio.endswith(']'):
+                    variables.add(limpio)
+                elif limpio.startswith('P') and limpio[1:].isdigit(): 
+                    variables.add(limpio)
+                elif limpio.startswith('VX'): 
+                    variables.add(limpio)
+
+        def visitar(nodo, forzar_skip=False):
+            if not hasattr(nodo, 'data'):
+                if not forzar_skip: 
+                    procesar_token_como_variable(str(nodo))
+                return None
+
+            if nodo.data == 'condicional':
+                res_cond = self._evaluar_condicion_z3(nodo.children[0], modelo)
+                visitar(nodo.children[0], forzar_skip)
+                skip_entonces = forzar_skip or not res_cond
+                skip_sino = forzar_skip or res_cond
+                
+                if len(nodo.children) > 1: visitar(nodo.children[1], skip_entonces)
+                if len(nodo.children) > 2: visitar(nodo.children[2], skip_sino)
+                return
+
+            elif nodo.data == 'caso_trailing':
+                res_cond = self._evaluar_condicion_z3(nodo.children[-1], modelo)
+                visitar(nodo.children[-1], forzar_skip)
+                skip_expr = forzar_skip or not res_cond
+                visitar(nodo.children[0], skip_expr)
+                return
+
+            elif nodo.data == 'casos_trailing':
+                skip_restantes = forzar_skip
+                for hijo in nodo.children:
+                    if getattr(hijo, 'data', '') == 'caso_trailing':
+                        res_cond = self._evaluar_condicion_z3(hijo.children[-1], modelo)
+                        visitar(hijo, skip_restantes)
+                        if res_cond and not skip_restantes: skip_restantes = True
+                    elif getattr(hijo, 'data', '') == 'caso_default':
+                        visitar(hijo.children[-1], skip_restantes)
+                return
+
+            elif nodo.data == 'condicion_logica':
+                resultado_compuesto = None
+                skip = forzar_skip
+                op = None
+                for hijo in nodo.children:
+                    if not hasattr(hijo, 'data'):
+                        t = str(hijo).strip().lower()
+                        if t in ('.y.', 'y'): 
+                            op = 'AND'
+                            skip = skip or (resultado_compuesto is False)
+                        elif t in ('.o.', 'o'): 
+                            op = 'OR'
+                            skip = skip or (resultado_compuesto is True)
+                        continue
+                        
+                    res_hijo = self._evaluar_condicion_z3(hijo, modelo)
+                    visitar(hijo, skip)
+                    
+                    if resultado_compuesto is None: 
+                        resultado_compuesto = res_hijo
+                    elif not skip:
+                        if op == 'AND': resultado_compuesto = resultado_compuesto and res_hijo
+                        elif op == 'OR': resultado_compuesto = resultado_compuesto or res_hijo
+                return
+
+            # Propagación genérica si no es un nodo de control
+            for hijo in getattr(nodo, 'children', []): 
+                visitar(hijo, forzar_skip)
+
+        visitar(ast_tree)
+        return variables
+
+    def _evaluar_condicion_z3(self, nodo, modelo):
+        """"""
+        Evalúa un nodo lógico directamente contra el modelo actual para decidir
+        si el recolector de variables debe entrar a la rama o ignorarla.
+        """"""
+        try:
+            expr = self.evaluador.evaluar(nodo)
+            res = modelo.evaluate(expr, model_completion=True)
+            return z3.is_true(res)
+        except Exception:
+            return False
+    """
+
+    def _obtener_variables_activas(self, modelo, ast_tree):
+        """
+        Recolector Incondicional (Anti-Masking).
+        Extrae TODAS las variables presentes en el AST, sin importar si su
+        rama fue activada o no por Z3. Esto garantiza que Selenium reciba 
+        los inputs necesarios para probar las ramas muertas (Falsos Positivos).
+        """
+        variables = set()
+
+        def procesar_token_como_variable(token_str):
+            limpio = token_str.strip().upper().replace('"', '')
+            if limpio:
+                if limpio.isdigit(): 
+                    variables.add(f"[{limpio}]")
+                elif limpio.startswith('[') and limpio.endswith(']'):
+                    variables.add(limpio)
+                elif limpio.startswith('P') and limpio[1:].isdigit(): 
+                    variables.add(limpio)
+                elif limpio.startswith('VX'): 
+                    variables.add(limpio)
+
+        def visitar(nodo):
+            if not hasattr(nodo, 'data'):
+                procesar_token_como_variable(str(nodo))
+                return
+            for hijo in getattr(nodo, 'children', []): 
+                visitar(hijo)
+
+        visitar(ast_tree)
+        return variables

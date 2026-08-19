@@ -192,7 +192,6 @@ class BoundaryBuilder(BaseStrategy):
                     ))
 
         casos_validos = []
-        inputs_vistos = set()
         idx_real = 1
         
         for caso in casos:
@@ -206,12 +205,10 @@ class BoundaryBuilder(BaseStrategy):
                         continue
                 
                 if caso.get("estado_interno") != "INSATISFACTIBLE":
-                    firma_unica = (caso.get("rut"), tuple(sorted(caso.get("inputs", {}).items())))
-                    if firma_unica not in inputs_vistos:
-                        inputs_vistos.add(firma_unica)
-                        caso["id_validacion"] = f"{id_val}.{idx_real}"
-                        idx_real += 1
-                        casos_validos.append(caso)
+                    # SIN DEDUPLICACIÓN
+                    caso["id_validacion"] = f"{id_val}.{idx_real}"
+                    idx_real += 1
+                    casos_validos.append(caso)
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Contradicción matemática en el cálculo de límites."}]
 

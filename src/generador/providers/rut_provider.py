@@ -6,15 +6,13 @@ class RutProvider:
         """
         self.ruts = []
         if cache_ruts:
-            # Mantenemos tu lógica de orden determinista invariable
-            self.ruts = sorted(cache_ruts, key=lambda x: x.get("rut", ""))
-        # else:
-        #     print("⚠️ Aviso: Caché de RUTs vacío. Se usarán RUTs de contingencia.")
-        #     self.ruts = [
-        #         {"rut": "99.999.999-9", "tipo_contribuyente": 1, "subtipo": 111, "atributos": []},
-        #         {"rut": "11.111.111-1", "tipo_contribuyente": 1, "subtipo": 112, "atributos": ["M14A"]},
-        #         {"rut": "22.222.222-2", "tipo_contribuyente": 2, "subtipo": 211, "atributos": ["M14B"]}
-        #     ]
+            # MAGIA HEURÍSTICA: Ordenamos priorizando los RUTs universales, 
+            # y luego por número de RUT para mantener el determinismo.
+            # El signo negativo (-) hace un orden descendente (True va antes que False).
+            self.ruts = sorted(
+                cache_ruts, 
+                key=lambda x: (-x.get("es_formulario_universal", False), x.get("rut", ""))
+            )
 
     def obtener_rut(self, atributos_req, atributos_prohibidos, tipo_req, subtipo_req):
         """

@@ -54,7 +54,8 @@ class CatalogoCache:
                 elif tipo == 'codigo':
                     self.codigos[at][item["id"]] = {
                         "signo_permitido": item.get("signo_permitido", "+"),
-                        "autocalculado": item.get("autocalculado", False)
+                        "autocalculado": item.get("autocalculado", False),
+                        "descripcion": item.get("descripcion", "")
                     }
                 elif tipo == 'rut':
                     self.ruts[at].append(item)
@@ -162,8 +163,17 @@ class RepositorioHistorial:
             cont_reglas = db.get_container_client("Reglas")
             cont_matrices = db.get_container_client("MatricesQA")
 
-            query = f"SELECT * FROM c WHERE c.id_validacion = '{id_val}' AND c.at = {at}"
-            items = [item async for item in cont_reglas.query_items(query=query, partition_key=[id_val, at])]
+            # Consulta parametrizada limpia
+            query = "SELECT * FROM c WHERE c.id_validacion = @id_val AND c.at = @at"
+            parametros = [
+                {"name": "@id_val", "value": id_val},
+                {"name": "@at", "value": at}
+            ]
+            
+            items = [item async for item in cont_reglas.query_items(
+                query=query, 
+                parameters=parametros
+            )]
             
             nueva_version = 1
             nuevo_hash = self._generar_hash(f"{texto_fmt}_{version_documento}")
