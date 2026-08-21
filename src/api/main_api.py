@@ -130,8 +130,14 @@ async def endpoint_generar_casos(req: FormulaRequest):
     builder = TestMatrixBuilder(parametros_at, ruts_at, codigos_at, asts_at, config_dict)
     
     casos_generados = await run_in_threadpool(builder.generar_matriz_pruebas, ast_tree, req.id_validacion)
-    if not casos_generados or "error" in casos_generados[0]:
-        raise HTTPException(status_code=400, detail=casos_generados[0].get("error", "Error de contradicción lógica en SMT Solver"))
+    
+    if not casos_generados:
+        raise HTTPException(status_code=400, detail="Error de contradicción lógica en SMT Solver.")
+
+    # Filtro estricto: Solo levantamos error HTTP si el builder devolvió un fallo FATAL 
+    # (es decir, devolvió un error crudo sin generar la estructura tripartita de "inputs")
+    if "error" in casos_generados[0] and "inputs" not in casos_generados[0]:
+        raise HTTPException(status_code=400, detail=casos_generados[0].get("error", "Error fatal en el generador."))
 
     # 3. Fase 3: Optimización (Sobre los casos ya estructurados por Fase 2)
     reductor = ReductorCasos()

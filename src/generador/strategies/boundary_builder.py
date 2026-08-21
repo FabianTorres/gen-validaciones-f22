@@ -25,6 +25,22 @@ class BoundaryBuilder(BaseStrategy):
         nodos_var = self._encontrar_nodos_tipo(ast_tree, 'declaracion_variable')
         for nodo_var in nodos_var:
             premisas_universales.append(self.evaluador.evaluar(nodo_var))
+            
+        # ---> NUEVO: ESCUDO DECIMAL Y JAULA DE RUT <---
+        for nombre, var_z3 in self.motor.variables_memoria.items():
+            # 1. Escudo Anti-Polvo Decimal (Solo para códigos tributarios)
+            if not self.config_motor.get("usar_decimales", False) and nombre.startswith('[') and nombre.endswith(']'):
+                premisas_universales.append(var_z3 == z3.ToReal(z3.ToInt(var_z3)))
+                
+            # 2. Jaula de Dominio (Obligamos a Z3 a usar Tipos reales Y ENTEROS)
+            if nombre == "TIPO_[03]":
+                premisas_universales.append(var_z3 == z3.ToReal(z3.ToInt(var_z3))) 
+                premisas_universales.append(var_z3 >= 1)
+                premisas_universales.append(var_z3 <= 8)
+                
+            # 3. Blindaje para Subtipos
+            if nombre == "SUBTIPO_[03]":
+                premisas_universales.append(var_z3 == z3.ToReal(z3.ToInt(var_z3)))
 
         mapa_resultados = {
             '<=': ('BUENO', 'MENSAJE', 'BUENO'),
@@ -194,21 +210,27 @@ class BoundaryBuilder(BaseStrategy):
         casos_validos = []
         idx_real = 1
         
-        for caso in casos:
-            if caso:
-                if "error" in caso:
-                    # 🛑 BLOQUEO ESTRICTO SOLO PARA RUT
-                    if "No hay RUTs disponibles" in caso["error"]:
-                        return [caso]
-                    else:
-                        print(f"⚠️ Aviso en {id_val}: Escenario descartado internamente. Motivo: {caso['error']}")
-                        continue
-                
-                if caso.get("estado_interno") != "INSATISFACTIBLE":
-                    # SIN DEDUPLICACIÓN
-                    caso["id_validacion"] = f"{id_val}.{idx_real}"
+        for c in casos:
+            if c is not None:
+                # 1. Si es un caso con falta de RUT, lo DEJAMOS PASAR para el Frontend
+                if c.get("estado_interno") == "ERROR_RUT":
+                    c["id_validacion"] = f"{id_val}.{idx_real}"
                     idx_real += 1
-                    casos_validos.append(caso)
+                    casos_validos.append(c)
+                    
+                # 2. Otros errores estructurales (ej. falta de AST) sí se bloquean o descartan
+                elif "error" in c:
+                    print(f"⚠️ Aviso en {id_val}: Escenario descartado internamente. Motivo: {c['error']}")
+                
+                # 3. Contradicciones matemáticas de Z3 se ignoran
+                elif c.get("estado_interno") == "INSATISFACTIBLE":
+                    pass
+                
+                # 4. Casos perfectos y enriquecidos
+                elif "inputs" in c:
+                    c["id_validacion"] = f"{id_val}.{idx_real}"
+                    idx_real += 1
+                    casos_validos.append(c)
 
         return casos_validos if casos_validos else [{"id_validacion": id_val, "error": "Contradicción matemática en el cálculo de límites."}]
 

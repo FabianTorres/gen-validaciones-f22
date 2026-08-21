@@ -55,15 +55,13 @@ class BaseStrategy(ABC):
                     continue
 
                 if nombre == "TIPO_[03]":
-                    if z3.is_rational_value(valor_crudo): tipo_req = int(valor_crudo.as_fraction())
-                    elif z3.is_int(valor_crudo): tipo_req = valor_crudo.as_long()
-                    else: tipo_req = 1 
+                    val_extraido = self._extraer_valor_real(valor_crudo)
+                    tipo_req = int(val_extraido)  # Tolerancia Cero con Z3
                     continue
 
                 if nombre == "SUBTIPO_[03]":
-                    if z3.is_rational_value(valor_crudo): subtipo_req = int(valor_crudo.as_fraction())
-                    elif z3.is_int(valor_crudo): subtipo_req = valor_crudo.as_long()
-                    else: subtipo_req = 111 
+                    val_extraido = self._extraer_valor_real(valor_crudo)
+                    subtipo_req = int(val_extraido)  # Tolerancia Cero con Z3
                     continue
 
                 es_codigo = nombre.startswith('[') and nombre.endswith(']') and any(c.isdigit() for c in nombre)
@@ -262,18 +260,22 @@ class BaseStrategy(ABC):
                 huella_logica["ZONA_LIMITE"] = "SUPERIOR"
 
             rut_final = "DEFAULT_RUT"
+            mensaje_error_rut = None
+            estado_final = "ENRIQUECIDO"
+
             if self.rut_provider:
                 rut_final = self.rut_provider.obtener_rut(atributos_req, atributos_prohibidos, tipo_req, subtipo_req)
                 
-                # --- NUEVO BLOQUEO DE SEGURIDAD ---
+                # --- NUEVO ENFOQUE FAIL-SOFT ---
                 if rut_final == "SIN_RUT_VALIDO":
-                    mensaje_error = (
+                    rut_final = "FALTA_RUT"
+                    estado_final = "ERROR_RUT"
+                    mensaje_error_rut = (
                         f"❌ BLOQUEO: No hay RUTs disponibles.\n"
                         f"Detalle: La validación requiere un contribuyente con Tipo: {tipo_req or 'Cualquiera'}, "
                         f"Subtipo: {subtipo_req or 'Cualquiera'}, Atributos Requeridos: {atributos_req}, Prohibidos: {atributos_prohibidos}.\n"
                         f"Sugerencia: Agrega un RUT que cumpla estas condiciones en el Catálogo."
                     )
-                    return {"id_validacion": id_val, "error": mensaje_error}
 
             resultado_json = {
                 "id_validacion": id_val,
@@ -292,8 +294,12 @@ class BaseStrategy(ABC):
                 "parametros_anteriores": datos_parametros_anteriores,
                 "resultado_esperado": error_esperado,
                 "huella_logica": huella_logica,
-                "estado_interno": "ENRIQUECIDO"
+                "estado_interno": estado_final # <--- AHORA USA EL ESTADO DINÁMICO
             }
+
+            # Inyectamos el error solo si existe, para que el Frontend lo pinte de rojo
+            if mensaje_error_rut:
+                resultado_json["error"] = mensaje_error_rut
 
             # Restricción solicitada: Solo inyectar en las validaciones N y M
             if id_val.lower().startswith(('n.', 'm.')):

@@ -64,8 +64,16 @@ class TestMatrixBuilder:
         if not estrategia:
             return [{"id_validacion": id_val, "error": f"Aún no hay estrategia para: {tipo_regla}"}]
             
-        # 3. Inyectamos las constantes (P84, P736) al motor
-        self.param_provider.inyectar_en_motor(self.motor)
+        # 3. Inyectamos las constantes al motor (Con Radar Pre-emptivo)
+        # Convertimos el AST principal a texto
+        ast_completo_str = str(ast_tree).upper() if ast_tree else ""
+        
+        # Sumamos los ASTs de las dependencias si es que existen en esta clase
+        if hasattr(self, 'asts_dependencias') and self.asts_dependencias:
+            ast_completo_str += " " + " ".join([str(a).upper() for a in self.asts_dependencias if a])
+            
+        # Enviamos el motor Y el radar de texto al proveedor
+        self.param_provider.inyectar_en_motor(self.motor, ast_completo_str)
         
         # 4. Delegamos al experto
         return estrategia.generar_casos(ast_tree, id_val)
