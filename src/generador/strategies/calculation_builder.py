@@ -71,63 +71,92 @@ class CalculationBuilder(BaseStrategy):
             else:
                 args_limpios = [nodo_func.children[1]]
 
-
-
             camino_base = self._obtener_camino_a_nodo(nodo_func, ast_tree)
             base_cond = ecuacion_completa + camino_base
 
+            # ---> INICIO: ANTI-MASKING SEMÁNTICO (HAPPY PATH FORZADO) <---
+            condicion_principal_z3 = None
+            # Si la función está suelta en la raíz (camino_base vacío), buscamos la condición principal
+            if not camino_base:
+                nodos_cond = self._encontrar_nodos_tipo(ast_tree, 'condicional')
+                if nodos_cond:
+                    condicion_principal_z3 = self.evaluador.evaluar(nodos_cond[0].children[0])
+                else:
+                    nodos_trail = self._encontrar_nodos_tipo(ast_tree, 'caso_trailing')
+                    if nodos_trail:
+                        condicion_principal_z3 = self.evaluador.evaluar(nodos_trail[0].children[-1])
+
+            def aislar_y_ejecutar(restriccion_frontera, formateador_lambda):
+                # 1. Intentamos forzar que la validación completa se cumpla (Happy Path)
+                if condicion_principal_z3 is not None:
+                    res = self._ejecutar_escenario_aislado(
+                        base_cond + [condicion_principal_z3, restriccion_frontera], 
+                        formateador_lambda
+                    )
+                    # Si Z3 logra resolverlo sin contradecirse, lo usamos
+                    if res and res.get("estado_interno") != "INSATISFACTIBLE":
+                        return res
+                
+                # 2. Fallback Seguro: Si forzar el Happy Path causa una contradicción matemática,
+                # evaluamos la frontera de forma libre (comportamiento original)
+                return self._ejecutar_escenario_aislado(
+                    base_cond + [restriccion_frontera], 
+                    formateador_lambda
+                )
+            # ---> FIN: ANTI-MASKING SEMÁNTICO <---
+
             if func_name == 'MIN':
                 z3_arg1, z3_arg2 = self.evaluador.evaluar(args_limpios[0]), self.evaluador.evaluar(args_limpios[1])
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg1 <= (z3_arg2 - gap)], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg1 <= (z3_arg2 - gap), 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MIN{s}_IZQ", f"El límite MIN{d} toma el valor izquierdo garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg1 >= (z3_arg2 + gap)], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg1 >= (z3_arg2 + gap), 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MIN{s}_DER", f"El límite MIN{d} toma el valor derecho garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
 
             elif func_name == 'MAX':
                 z3_arg1, z3_arg2 = self.evaluador.evaluar(args_limpios[0]), self.evaluador.evaluar(args_limpios[1])
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg1 >= (z3_arg2 + gap)], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg1 >= (z3_arg2 + gap), 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MAX{s}_IZQ", f"El límite MAX{d} toma el valor izquierdo garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg1 <= (z3_arg2 - gap)], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg1 <= (z3_arg2 - gap), 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_MAX{s}_DER", f"El límite MAX{d} toma el valor derecho garantizando su ruta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
 
             elif func_name == 'POS':
                 z3_arg = self.evaluador.evaluar(args_limpios[0])
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg >= gap], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg >= gap, 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_POS{s}_MAYOR_CERO", f"El valor interno de POS{d} es positivo en su ruta correcta.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg <= -gap], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg <= -gap, 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_POS{s}_MENOR_CERO", f"El valor interno de POS{d} es negativo, forzando a 0.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
 
             elif func_name == 'NEG':
                 z3_arg = self.evaluador.evaluar(args_limpios[0])
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg <= -gap], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg <= -gap, 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_NEG{s}_MENOR_CERO", f"El valor interno de NEG{d} es negativo, retornando valor absoluto.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg >= gap], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg >= gap, 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"CALCULO_NEG{s}_MAYOR_CERO", f"El valor interno de NEG{d} es positivo, forzando a 0.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
 
             elif func_name == 'ABS':
                 z3_arg = self.evaluador.evaluar(args_limpios[0])
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg <= -gap], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg <= -gap, 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"ABS{s}_ENTRADA_NEGATIVA", f"El valor interno de ABS{d} es negativo, forzando conversión a positivo.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
-                casos.append(self._ejecutar_escenario_aislado(
-                    base_cond + [z3_arg >= gap], 
+                casos.append(aislar_y_ejecutar(
+                    z3_arg >= gap, 
                     lambda s=sufijo, d=desc_sufijo: self._resolver_y_formatear(id_val, f"ABS{s}_ENTRADA_POSITIVA", f"El valor interno de ABS{d} es positivo, manteniendo su valor.", "VERIFICAR_AUTOCALCULO", codigo_objetivo, ast_tree=ast_tree)
                 ))
 
