@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import FastAPI, HTTPException, Response, Query
 from typing import List
 from fastapi.concurrency import run_in_threadpool
@@ -37,6 +38,9 @@ from src.api.schemas import (
 # ==========================================
 # UTILIDADES CORE
 # ==========================================
+
+# Mutex global para el motor Z3
+lock_solver_z3 = asyncio.Lock()
 
 
 def serializar_ast(nodo):
@@ -163,9 +167,15 @@ async def endpoint_generar_casos(req: FormulaRequest):
         parametros_at, ruts_at, codigos_at, asts_at, config_dict
     )
 
-    casos_generados = await run_in_threadpool(
-        builder.generar_matriz_pruebas, ast_tree, req.id_validacion
-    )
+    # Bloque protegido: una sola resolución matemática concurrente
+    async with lock_solver_z3:
+        casos_generados = await run_in_threadpool(
+            builder.generar_matriz_pruebas, ast_tree, req.id_validacion
+        )
+
+    # casos_generados = await run_in_threadpool(
+    #     builder.generar_matriz_pruebas, ast_tree, req.id_validacion
+    # )
 
     if not casos_generados:
         raise HTTPException(

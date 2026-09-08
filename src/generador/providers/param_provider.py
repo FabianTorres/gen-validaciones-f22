@@ -1,5 +1,6 @@
 import z3
 
+
 class ParamProvider:
     def __init__(self, cache_parametros: dict):
         """
@@ -18,4 +19,4 @@ class ParamProvider:
                 # 1. Lo forzamos a crearse anticipadamente en la memoria de Z3
                 var_simbolica = motor_z3.obtener_o_crear_variable(nombre)
                 # 2. Le ponemos el candado absoluto
-                motor_z3.solver.add(var_simbolica == valor_real)
+                motor_z3.agregar_restriccion_base(var_simbolica == valor_real)
