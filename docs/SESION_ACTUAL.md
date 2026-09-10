@@ -2,16 +2,19 @@
 
 > Actualizar al cerrar cada sesión: qué se hizo, qué queda, cola QA.
 
-## Estado al 2026-09-08
+## Estado al 2026-09-09
 - Proyecto funcional; en fase de estabilización con analista QA.
-- Resueltos hoy (ver `docs/07_troubleshooting.md`):
+- Resueltos (ver `docs/07_troubleshooting.md`):
   1. `b.82` `FALTA_RUT` (Tipo 8 + 14D1) → fix en `src/generador/providers/rut_provider.py` (normalización `str`/`int` + atributos). Usuario tenía commit de respaldo previo.
   2. `b.82` `Falta el AST [1440]` → causa operativa: `cargar-asts` ejecutado con `at=2016` en vez de `2026`; recargado con AT correcto.
-- Archivos de contexto creados: `AGENTS.md`, `docs/07_troubleshooting.md`, este archivo.
-- `debug_rut_b82.py` (script temporal de repro) fue eliminado; el único cambio en código es `rut_provider.py`.
+  3. `a.221` `FALTA_RUT` masivo → repair de RUT (opción B) en `src/generador/strategies/base_strategy.py`, acotado a familias felices + tope 6 perfiles. **Validado en matriz real:** `a.221.3` (principal, RUT `61.968.400-1`) y `a.221.9` (ROUND, RUT `1.439.068-5`, objetivo 546782 > 0). Mínimo QA cumplido.
+- Inconsistencia de negocio detectada y a reportar: `14D1+M14A` simultáneos (0/133 RUTs); `[1512]` demostrado generable (caso `a.221.9`) para futuro uso como dependencia.
+- Archivos de contexto creados: `AGENTS.md`, `docs/07_troubleshooting.md`, este archivo. Scripts `debug_*` temporales eliminados.
 
 ## Cola QA (pendiente del analista)
-- A la espera de nuevos errores. Al llegar uno nuevo:
+- Inconsistencia abierta (diagnóstico, sin acción): `IF_1=FALSE + IF_2=TRUE` es SAT colateral (`a.221.1`) pero UNSAT en el escenario dedicado `VERDADERO_ANIDADO_2` con semilla 546872. Se deja así por ahora.
+- Vigilar: validaciones que usen `[1512]` como dependencia (es generable, ver nota en troubleshooting).
+- Al llegar un error nuevo:
   1. Agregar entrada en `docs/07_troubleshooting.md` (plantilla al final).
   2. Actualizar esta sección (resuelto/pendiente).
 

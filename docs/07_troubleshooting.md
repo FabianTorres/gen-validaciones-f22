@@ -36,6 +36,37 @@ Formato por entrada: síntoma → causa → fix → verificación. Agregar nueva
 
 ---
 
+## 2026-09-09 · a.221 `FALTA_RUT` masivo + caso feliz sin RUT (fix implementado)
+
+**Síntoma:** 7/8 casos de `a.221` con `FALTA_RUT` (`Tipo 2/3/8 + [14D1, M14A]`); ningún RUT tiene ambos atributos (0/133 en catálogo). La rama ROUND (`CALCULO_VERDADERO_ANIDADO_2`) se genera en Fase 2 pero cae por RUT o UNSAT según semilla → QA sin cobertura usable del ROUND.
+
+**Causa:** doble arbitrariedad del modelo único de Z3-Optimize: (1) fija `TIPO`/atributos en valores que pueden no existir en catálogo aunque el path admita otro modelo compatible; (2) los pesos soft hacen que el óptimo prefiera `M14A=True` aunque `M14A=False` también sea SAT. El lookup post-hoc falla aunque exista solución (probado: mismo path `a.221.7` admite `M14A=False` + RUT `1.439.068-5`).
+
+**Fix:** reintento acotado solo en escenarios `ERROR_RUT`, en `src/generador/strategies/base_strategy.py` (`_reparar_rut_con_catalogo`, + kwargs `_modelo_override/_rut_override/_permitir_repair` en `_resolver_y_formatear`). Fase 1: negar cada atributo requerido (lo forzado por el path da UNSAT y se salta). Fase 2: iterar ≤12 perfiles distintos del catálogo (orden determinista, universales primero). Primer (SAT + match) reconstruye el caso `ENRIQUECIDO`; si no, se conserva el `FALTA_RUT`. Los casos que pasaban no se tocan.
+
+**Verificación:** test focalizado con el método real sobre path `a.221.7`+boundary → `rut=17.858.818-4` (Tipo 2 con `14D1` sin `M14A`), `ENRIQUECIDO`. Matriz completa antes/después pendiente de QA vía API.
+
+**Ajuste 2026-09-09 (lentitud):** el repair agregaba hasta ~14 `check` por escenario fallido (cada uno con timeout 15s). Se acotó: (1) gate por familia feliz — repair solo si `tipo_escenario` empieza con `CALCULO_VERDADERO`, `CALCULO_LINEAL_EXACTO`, `LIMITE_EXACTO` o `CUMPLE_CONDICION` (`_TIPOS_REPAIR_ELEGIBLES`); el resto conserva el `FALTA_RUT` sin costo extra. (2) Tope de perfiles `_MAX_PERFILES_REPAIR` 12 → 6. Gate verificado 9/9 + repair intacto en re-test.
+
+---
+
+## 2026-09-09 · a.221 validado en producción con repair (mínimo QA cumplido)
+
+**Contexto:** matriz real `a.221` (semilla 546782), 10 casos: 3 buenos, 7 `FALTA_RUT`.
+
+**Lo que funcionó:**
+- `a.221.3` (`CALCULO_VERDADERO_PRINCIPAL`): reparado → RUT `61.968.400-1` (Tipo 5, `[14D1, 201B]`), `ENRIQUECIDO`. Rama principal con RUT válido.
+- `a.221.9` (`CALCULO_VERDADERO_ANIDADO_4_2`, rama ROUND `IF_2=TRUE`): reparado → RUT `1.439.068-5` (Tipo 1, `[14D1, PSEI]`), objetivo **546782** = ROUND(4374252 × 0.125). **Caso feliz `[1512] > 0` con RUT válido: mínimo QA cumplido.**
+- `a.221.6` (RUT `M14A`, `SINO 0`, objetivo 0): inútil para validar 14D1 (la regla ni aplica, `CONDICION_1=FALSE`), pero es comportamiento **preexistente**, no causado por el repair.
+
+**FALTA_RUT restantes:** todos de familias no felices (`POS_*`, `FALSO_*`), fuera del repair por el gate a propósito, y varios con combinación genuinamente imposible (`14D1+M14A`, 0/133 RUTs en catálogo) → diagnóstico correcto, no bug.
+
+**Inconsistencia de negocio (a reportar):** la validación exige en la práctica un contribuyente `14D1` que además satisfaga dependencias `M14A` (`b.88`/`b.83`); esa combinación no existe en la realidad ni en el catálogo.
+
+**Nota hacia futuro (importante):** `a.221.9` demuestra que `[1512]` **sí es generable** con valor concreto (546782) y RUT 14D1 válido. Si otra validación usa `[1512]` directa o como dependencia y falla, no asumir falta de datos: revisar la identidad exigida por el path (ver entrada anterior y `test` de `M14A=False`).
+
+---
+
 ## Plantilla para el próximo incidente
 
 ```md

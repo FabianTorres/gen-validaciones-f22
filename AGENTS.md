@@ -18,6 +18,8 @@ Flujo: `Excel SII (algoritmo crudo) → Frontend (pegar) → API → Cosmos DB �
 - **`tipo_contribuyente`/`subtipo` son `Union[int,str]`** (`src/api/schemas.py:44-45`). Z3 siempre pide `int` (`base_strategy.py:92,97`). `rut_provider.py` normaliza ambos lados; no reintroducir comparación estricta.
 - **Doble candado de exportación** (`base_strategy.py`): a `inputs` solo llega `[NNN]` con dígito o `Vx...`. Variables `E/ALFA/IS_ATRIBUTO_*` nunca salen. Checkboxes como `1/0`.
 - **RUTs deterministas:** `RutProvider` devuelve el primer match priorizando `es_formulario_universal`. Mismo requisito → mismo RUT (permite dedup).
+- **Repair de RUT (solo familias felices):** si un escenario `CALCULO_VERDADERO*` / `CALCULO_LINEAL_EXACTO` / `LIMITE_EXACTO` / `CUMPLE_CONDICION` termina en `FALTA_RUT`, `base_strategy.py:_reparar_rut_con_catalogo` reintenta con identidades reales del catálogo (tope 6 perfiles). Los casos reparados llevan el sufijo `[RUT reparado...]` en `descripcion_qa`. El resto conserva el `FALTA_RUT`.
+- **Solver flaky cerca del timeout:** `MotorZ3` usa timeout 15s; `unknown` se trata como `INSATISFACTIBLE` y los resultados pueden variar entre corridas (visto en `a.221`). Ante un `UNSAT` sorpresivo, reintentar antes de asumir imposibilidad.
 - **`perfil_rut_requerido` solo en `n.*`/`m.*`** (`base_strategy.py:399`). En `b.*` es `null` por diseño, no es bug.
 - **Settings:** `src/config/settings.py` (`USAR_DECIMALES=False`, `SEMILLA_GENERACION=1000000`).
 

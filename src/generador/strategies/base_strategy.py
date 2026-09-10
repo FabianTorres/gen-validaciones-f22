@@ -34,6 +34,9 @@ class BaseStrategy(ABC):
         codigo_objetivo=None,
         condicion_verificadora=None,
         ast_tree=None,
+        _modelo_override=None,
+        _rut_override=None,
+        _permitir_repair=True,
     ):
         t_solver = time.perf_counter()
         hora = datetime.now().strftime("%H:%M:%S.%f")[:-3]
@@ -50,7 +53,11 @@ class BaseStrategy(ABC):
 
         if is_sat:
             t_formateo = time.perf_counter()
-            modelo = self.motor.solver.model()
+            modelo = (
+                _modelo_override
+                if _modelo_override is not None
+                else self.motor.solver.model()
+            )
 
             datos_selenium = {}
             datos_vectores = {}
@@ -355,13 +362,38 @@ class BaseStrategy(ABC):
             mensaje_error_rut = None
             estado_final = "ENRIQUECIDO"
 
-            if self.rut_provider:
+            if _rut_override is not None:
+                # Reintento de reparacion: el RUT ya viene validado contra el catalogo.
+                rut_final = _rut_override
+            elif self.rut_provider:
                 rut_final = self.rut_provider.obtener_rut(
                     atributos_req, atributos_prohibidos, tipo_req, subtipo_req
                 )
 
                 # --- NUEVO ENFOQUE FAIL-SOFT ---
                 if rut_final == "SIN_RUT_VALIDO":
+                    # REPARACION (solo escenarios con problema de RUT y de la
+                    # familia feliz): el modelo arbitrario de Z3 puede no
+                    # matchear ningun RUT aunque el path admita otro modelo
+                    # compatible. Se reintenta con perfiles reales del
+                    # catalogo; si no hay, se conserva el FALTA_RUT.
+                    # Los FALSO_*/SINO_*/fronteras no felices no pagan el costo.
+                    if _permitir_repair and str(tipo_escenario or "").startswith(
+                        self._TIPOS_REPAIR_ELEGIBLES
+                    ):
+                        reparado = self._reparar_rut_con_catalogo(
+                            id_val,
+                            tipo_escenario,
+                            descripcion,
+                            error_esperado,
+                            codigo_objetivo,
+                            condicion_verificadora,
+                            ast_tree,
+                            atributos_req,
+                            atributos_prohibidos,
+                        )
+                        if reparado is not None:
+                            return reparado
                     rut_final = "FALTA_RUT"
                     estado_final = "ERROR_RUT"
                     mensaje_error_rut = (
@@ -420,6 +452,168 @@ class BaseStrategy(ABC):
                 "descripcion_qa": descripcion,
                 "estado_interno": "INSATISFACTIBLE",
             }
+
+    # Tope de perfiles de catalogo a probar en la reparacion (acota tiempo).
+    _MAX_PERFILES_REPAIR = 6
+
+    # Familias felices elegibles para repair (el minimo QA: caso feliz con RUT).
+    # El resto de escenarios con FALTA_RUT conserva el comportamiento anterior.
+    _TIPOS_REPAIR_ELEGIBLES = (
+        "CALCULO_VERDADERO",
+        "CALCULO_LINEAL_EXACTO",
+        "LIMITE_EXACTO",
+        "CUMPLE_CONDICION",
+    )
+
+    def _reparar_rut_con_catalogo(
+        self,
+        id_val,
+        tipo_escenario,
+        descripcion,
+        error_esperado=None,
+        codigo_objetivo=None,
+        condicion_verificadora=None,
+        ast_tree=None,
+        atributos_req=None,
+        atributos_prohibidos=None,
+    ):
+        """
+        Reintento acotado solo para escenarios que terminaron en FALTA_RUT.
+
+        El modelo de Z3-Optimize es arbitrario: con igual optimalidad elige un
+        modelo cuya identidad (TIPO/atributos) puede no existir en el catalogo
+        aunque el path admita otro modelo compatible (ej. a.221.7 admite
+        M14A=False con RUT 14D1 real). Dos fases:
+        1. Negacion: por cada atributo requerido se prueba forzarlo en False.
+           Si el path lo exige de verdad dara UNSAT y se salta; si era un
+           optimo arbitrario, aparece el modelo compatible.
+        2. Perfiles: se itera sobre perfiles distintos del catalogo (orden
+           determinista del provider, universales primero) afirmandolos en una
+           copia del solver del escenario.
+        El primer (SAT + match de RUT) reconstruye el caso; si ninguno sirve se
+        retorna None y se conserva el FALTA_RUT original. Nunca altera los casos
+        que ya pasaban.
+        """
+        if not self.rut_provider or not getattr(self.rut_provider, "ruts", None):
+            return None
+
+        vars_mem = self.motor.variables_memoria
+        var_tipo = vars_mem.get("TIPO_[03]")
+        var_sub = vars_mem.get("SUBTIPO_[03]")
+        vars_attr = sorted(n for n in vars_mem if n.startswith("IS_ATRIBUTO_"))
+        if var_tipo is None and var_sub is None and not vars_attr:
+            return None  # sin variables de identidad: nada que reintentar
+
+        try:
+            asserts_escenario = list(self.motor.solver.assertions())
+        except Exception:
+            return None
+
+        def _identidad_de(modelo2):
+            req2, prohib2 = [], []
+            for n in vars_attr:
+                v = modelo2.evaluate(vars_mem[n], model_completion=True)
+                if z3.is_true(v):
+                    req2.append(n.replace("IS_ATRIBUTO_", ""))
+                elif z3.is_false(v):
+                    prohib2.append(n.replace("IS_ATRIBUTO_", ""))
+            t2 = s2 = None
+            try:
+                if var_tipo is not None:
+                    t2 = int(
+                        self._extraer_valor_real(
+                            modelo2.evaluate(var_tipo, model_completion=True)
+                        )
+                    )
+                if var_sub is not None:
+                    s2 = int(
+                        self._extraer_valor_real(
+                            modelo2.evaluate(var_sub, model_completion=True)
+                        )
+                    )
+            except Exception:
+                return None, None, None, None
+            return req2, prohib2, t2, s2
+
+        def _intentar(extra_igualdades):
+            """Solver copia del escenario + igualdades extra. Retorna caso o None."""
+            rep = self.motor.crear_solver_aislado()
+            try:
+                for a in asserts_escenario:
+                    rep.add(a)
+                for e in extra_igualdades:
+                    rep.add(e)
+                if rep.check() != z3.sat:
+                    return None
+                modelo2 = rep.model()
+            except Exception:
+                return None
+            req2, prohib2, t2, s2 = _identidad_de(modelo2)
+            if req2 is None:
+                return None
+            rut2 = self.rut_provider.obtener_rut(req2, prohib2, t2, s2)
+            if rut2 and rut2 != "SIN_RUT_VALIDO":
+                return self._resolver_y_formatear(
+                    id_val,
+                    tipo_escenario,
+                    descripcion + " [RUT reparado: identidad re-resuelta contra catalogo]",
+                    error_esperado,
+                    codigo_objetivo,
+                    condicion_verificadora,
+                    ast_tree,
+                    _modelo_override=modelo2,
+                    _rut_override=rut2,
+                    _permitir_repair=False,
+                )
+            return None
+
+        # Fase 1: negar cada atributo requerido (uno a la vez).
+        for atr in atributos_req or []:
+            v = vars_mem.get(f"IS_ATRIBUTO_{str(atr).strip().upper()}")
+            if v is None:
+                continue
+            caso = _intentar([v == False])
+            if caso is not None:
+                return caso
+
+        # Fase 2: perfiles distintos del catalogo en orden determinista.
+        perfiles = []
+        vistos = set()
+        for mock in self.rut_provider.ruts:
+            try:
+                tn = int(str(mock.get("tipo_contribuyente")).strip())
+            except (ValueError, TypeError, AttributeError):
+                continue
+            sn_raw = mock.get("subtipo")
+            try:
+                sn = int(str(sn_raw).strip()) if sn_raw is not None else None
+            except (ValueError, TypeError, AttributeError):
+                continue
+            attrs = tuple(
+                sorted(str(a).strip().upper() for a in mock.get("atributos", []))
+            )
+            llave = (tn, sn, attrs)
+            if llave in vistos:
+                continue
+            vistos.add(llave)
+            perfiles.append((tn, sn, attrs))
+            if len(perfiles) >= self._MAX_PERFILES_REPAIR:
+                break
+
+        for tn, sn, attrs in perfiles:
+            igualdades = []
+            if var_tipo is not None:
+                igualdades.append(var_tipo == tn)
+            if var_sub is not None and sn is not None:
+                igualdades.append(var_sub == sn)
+            for a in attrs:
+                v = vars_mem.get(f"IS_ATRIBUTO_{a}")
+                if v is not None:
+                    igualdades.append(v)
+            caso = _intentar(igualdades)
+            if caso is not None:
+                return caso
+        return None
 
     def _ejecutar_escenario_aislado(self, restricciones_extra, funcion_escenario):
         solver_anterior = self.motor.solver
