@@ -398,6 +398,10 @@ def normalizar_y_validar(texto_crudo, id_val="", cache_codigos=None, cache_param
     texto_limpio = texto_limpio.replace(',o.', '.o.').replace(',O.', '.o.')
     texto_limpio = texto_limpio.replace('""', '"')
     texto_limpio = re.sub(r'\.\s*([yYoO])\s*\.', r' .\1. ', texto_limpio)
+    # Canonicalizacion de corchetes: "[ 491 ]" -> "[491]", "[ e ]" -> "[e]".
+    # Evita variables fantasma en Fase 2 (ej. "[ 491]" distinto de "[491]").
+    texto_limpio = re.sub(r'\[\s*(\d+)\s*\]', r'[\1]', texto_limpio)
+    texto_limpio = re.sub(r'\[\s*([a-zA-Z_]+)\s*\]', r'[\1]', texto_limpio)
     
     # 1. Validación de Balance con posición exacta
     balanceado, indice_error, msg_desbalance = chequear_balance(texto_limpio)

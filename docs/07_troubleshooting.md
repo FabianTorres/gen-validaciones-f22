@@ -67,6 +67,18 @@ Formato por entrada: síntoma → causa → fix → verificación. Agregar nueva
 
 ---
 
+## 2026-09-09 · Espacios dentro de corchetes `[ 491]` crean código fantasma (resuelto)
+
+**Síntoma:** validación tipo `[850] = [861] + [ 862]` (verificado con `a.7`: `[703] = [492] + [ 491]`) fallaba en generación de casos aunque el código existe en el catálogo.
+
+**Causa:** la gramática acepta `[ 862]` como `CODIGO` (`parser.py:91`) y el formateador lo muestra normalizado (`[862]`), pero el token crudo con espacio llegaba a Fase 2, donde `evaluator.py:39` creaba la variable fantasma `[ 862]` (distinta de `[862]`), `z3_core.py:36` la dejaba sin restricción de signo (`" 862".isdigit()` es False), `test_builder.py:154` la saltaba en el scan de dependencias y `base_strategy.py:240` fallaba su lookup al catálogo.
+
+**Fix:** (1) canonicalización en la sanitización previa al parse (`formatter.py`): `[\s*(\d+)\s*] → [\1]` y lo mismo para alfabéticos; un choke point la elimina para todos los consumers. (2) `.strip()` agregado en los 3 puntos sin normalizar (`test_builder.py:154`, `z3_core.py:36`, `base_strategy.py:240`). No se tocó `main.py` (paso 3 descartado por el usuario).
+
+**Verificación:** regresión `a.7` 4/4: Fase 1 `EXITO` con texto `[703] = [492] + [491]`, AST sin `CODIGO` con espacios, variables Z3 `['[491]','[492]','[703]']` sin fantasmas, y sin `491` en catálogo → fail-fast `CODIGO_NO_CATALOGADO` (ese camino ya funcionaba por API).
+
+---
+
 ## Plantilla para el próximo incidente
 
 ```md

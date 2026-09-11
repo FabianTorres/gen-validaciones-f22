@@ -237,7 +237,7 @@ class BaseStrategy(ABC):
 
                 # 4. Clasificamos los datos_selenium según el requerimiento de QA
                 for clave, valor in datos_selenium.items():
-                    cod_limpio = clave.replace("[", "").replace("]", "")
+                    cod_limpio = clave.replace("[", "").replace("]", "").strip()
                     es_auto = self.motor.catalogo_signos.get(cod_limpio, {}).get(
                         "autocalculado", False
                     )

@@ -33,7 +33,7 @@ class MotorZ3:
             var_z3 = z3.Real(nombre_var)
             self.variables_memoria[nombre_var] = var_z3
 
-            codigo_limpio = nombre_var.replace("[", "").replace("]", "")
+            codigo_limpio = nombre_var.replace("[", "").replace("]", "").strip()
 
             if codigo_limpio.isdigit():
                 info_codigo = self.catalogo_signos.get(codigo_limpio, {})

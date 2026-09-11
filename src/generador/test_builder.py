@@ -151,7 +151,7 @@ class TestMatrixBuilder:
                 tipo = getattr(n, "type", "")
                 if tipo in ("CODIGO", "VARIABLE_CORCHETE"):
                     val_str = str(n).replace('"', "").strip().upper()
-                    cod_limpio = val_str.replace("[", "").replace("]", "")
+                    cod_limpio = val_str.replace("[", "").replace("]", "").strip()
 
                     if cod_limpio.isdigit() and cod_limpio not in visitados:
                         visitados.add(cod_limpio)
