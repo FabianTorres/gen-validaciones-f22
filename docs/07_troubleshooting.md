@@ -4,6 +4,36 @@ Formato por entrada: síntoma → causa → fix → verificación. Agregar nueva
 
 ---
 
+## 2026-09-23 · a.222.6 `FALTA_RUT` por `M14A` espurio (sin acción — inconsistencia de negocio del SII)
+
+**Síntoma:** `a.222.6` (`CALCULO_FALSO_ANIDADO_2_SINO_2`) queda en `ERROR_RUT` exigiendo `Tipo 2 + Atributos ['14D1','M14A']`, aunque la regla `a.222` (`[1513]`) y sus dependencias directas (`a.221`,`b.89`,`b.82`,`b.12`,`a.100`,`a.99`,`a.97`) solo piden `ATRIBUTO = 14D1`.
+
+**Diagnóstico (verificado por API):**
+- **No existe** RUT con `14D1`+`M14A` (0/133). **Sí existen** Tipo 2 + `14D1`: `77.176.750-8`, `69.500.400-1`, `78.001.550-0`, `50.002.170-5`, `79.988.860-2`, etc.
+- El `M14A` entra por **dependencia transitiva**: `[1512]` (`a.221`) referencia `[1111]` en las ramas SINO de `ALFA`/`BETA`; `[1111]` lo define `b.88`, cuya condición es `ATRIBUTO = M14A`. El resolvedor evalúa el AST completo (incluidas ramas muertas), crea el gate `IS_ATRIBUTO_M14A` y Z3 lo fija en `True` de forma **arbitraria**.
+- `a.222.3` y `a.222.6` tienen **huella lógica y objetivo idénticos** (misma ruta): `.3` se enriqueció con `1.439.068-5` (Tipo 1, `14D1`, sin `M14A`) y `.6` cayó en `FALTA_RUT`. Experimento local: ampliar `_TIPOS_REPAIR_ELEGIBLES` a `CALCULO_FALSO` **repara** el caso con un RUT Tipo 2 `14D1` real → el path **es SAT sin `M14A`**.
+
+**Decisión:** es una **inconsistencia de la documentación del SII** (la regla exige `14D1`, pero su ecosistema de dependencias presupone `M14A`, combinación inexistente en la realidad ni en catálogo). **No se modifica código**; el `FALTA_RUT` de esta familia se considera diagnóstico correcto. Si el SII corrige la regla, reevaluar.
+
+---
+
+## 2026-09-22 · a.220 autocalculados dependientes con valores invencionados (resuelto)
+
+**Síntoma:** `a.220.3`/`a.220.4` exportan `[1111]=1.093.564`, `[1292]=[1113]=546.782`, `[1305]=1.093.564`, pero los valores de las validaciones dependientes no coinciden con lo que el portal calcularía (`[1111]` lo define `b.88`, `[1292]`→`a.219`, `[1113]`→`b.74`, `[1109]`→`b.83`).
+
+**Causa:** el radar de parámetros en `src/generador/test_builder.py:122` se construía con `self.asts_dependencias`, atributo que **nunca se asigna** en `TestMatrixBuilder`; el listado real de ASTs de dependencia es la variable local `asts_dep`. Por eso `ParamProvider` no inyectaba parámetros que aparecen SOLO en fórmulas de dependencia (`P647` en `b.88`/`a.219`/`b.74`, `P720` en `b.83`). Sin la igualdad dura, Z3 trataba `P647` como variable libre y lo resolvía (~546.782) para cuadrar el sistema, en vez de usar el valor de catálogo `0.27`.
+
+**Fix:** (1) `test_builder.py` usa `asts_dep` en el radar (única línea). (2) Guard pasivo en `src/generador/providers/param_provider.py`: tras inyectar, detecta variables con forma de parámetro (`P\d+`) en `variables_memoria` sin candado de catálogo, las guarda en `self.no_pinneados` y loguea `⚠️ [PARAM GUARD] Parámetros usados pero NO pineados: [...]`. No bloquea.
+
+**Verificación:**
+- API `POST /generar-casos` de `a.220` (semilla 546782, tras `cargar-asts`): `[1109]=6.075.354 → [1111]=1.093.564 → [1113]=546.782 → [1292]=546.782` y `obj=[1305]=546.782/1.093.564` consistentes con `P647=0.27`. Antes: `[1109]=3` con `P647≈546.782` (parámetro inventado).
+- Hard constraint `P647 == 27/100` presente; `guard=[]`.
+- Regresión local sin excepciones y `guard=[]` en `a.219, b.83, b.88, b.74, a.221, b.82, a.7, b.89`.
+- Unit guard: `P999` no catalogado → reportado; `P647` catalogado → no.
+- Pendiente QA: validar `AUTO C1305` de `a.220` en el portal real.
+
+---
+
 ## 2026-09-08 · b.82 `FALTA_RUT` con Tipo 8 + 14D1 (resuelto)
 
 **Síntoma:** caso `b.82.12` devuelve `rut: FALTA_RUT`, `estado_interno: ERROR_RUT`:

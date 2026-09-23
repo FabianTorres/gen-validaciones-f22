@@ -2,6 +2,14 @@
 
 > Actualizar al cerrar cada sesión: qué se hizo, qué queda, cola QA.
 
+## Nota 2026-09-23
+- `a.222.6` `FALTA_RUT` (exige `14D1`+`M14A`) analizado: no hay RUT con ambos, pero sí Tipo 2 + `14D1`; el `M14A` es espurio (viene de `[1111]`/`b.88` por ramas muertas de `[1512]`/`a.221` y decisión arbitraria de Z3). **Inconsistencia de la documentación del SII → no se modifica código.** Detalle en `docs/07_troubleshooting.md`.
+
+## Estado al 2026-09-22
+- **Resuelto `a.220` (parámetros inventados en dependencias).** El radar de parámetros de `TestMatrixBuilder` usaba `self.asts_dependencias` (atributo nunca asignado) en vez de la variable local `asts_dep`, así que parámetros usados solo en fórmulas de dependencia (`P647`, `P720`) quedaban como variables libres y Z3 los "inventaba". Fix en `src/generador/test_builder.py:119-128` + guard pasivo en `src/generador/providers/param_provider.py` (`[PARAM GUARD]`, solo log). Detalle en `docs/07_troubleshooting.md`.
+- **Verificación:** `a.220` vía API con semilla 546782 → `P647 == 27/100`, `guard=[]`, cadena SAC consistente (`[1109]=6.075.354 → [1111]=1.093.564`). Regresión local sin excepciones en `a.219, b.83, b.88, b.74, a.221, b.82, a.7, b.89`.
+- **Pendiente:** regenerar y re-guardar `a.220` (la versión guardada v1 es inválida); validar en portal `AUTO C1305`; QA del resto de la cadena SAC 14A.
+
 ## Estado al 2026-09-09
 - Proyecto funcional; en fase de estabilización con analista QA.
 - Resueltos (ver `docs/07_troubleshooting.md`):

@@ -118,10 +118,13 @@ class TestMatrixBuilder:
         # Convertimos el AST principal a texto
         ast_completo_str = str(ast_tree).upper() if ast_tree else ""
 
-        # Sumamos los ASTs de las dependencias si es que existen en esta clase
-        if hasattr(self, "asts_dependencias") and self.asts_dependencias:
+        # Sumamos los ASTs de las dependencias resueltas. Los parametros que
+        # aparecen SOLO en formulas de dependencia (ej. P647) tambien deben
+        # quedar pineados a su valor de catalogo; si no, Z3 los trata como
+        # variables libres y "inventa" su valor.
+        if asts_dep:
             ast_completo_str += " " + " ".join(
-                [str(a).upper() for a in self.asts_dependencias if a]
+                [str(a).upper() for a in asts_dep if a]
             )
 
         # Enviamos el motor Y el radar de texto al proveedor
